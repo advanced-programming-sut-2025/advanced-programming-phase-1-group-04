@@ -1,0 +1,35 @@
+package Controller;
+
+import Model.Map.Coordinate;
+import Model.Products.Seed;
+
+public class FarmingController {
+    public void plow (Coordinate coordinate) {
+
+    }
+
+    public void plant (Coordinate coordinate, Seed seed) {
+
+    }
+
+    public void showPlant (Coordinate coordinate) {
+
+    }
+
+    public void fertilize (Coordinate coordinate) {
+
+    }
+
+    public void howMuchWater () {
+
+    }
+
+    public void watering (Coordinate coordinate) {
+
+    }
+
+    public void harvest (Coordinate coordinate) {
+
+    }
+
+}

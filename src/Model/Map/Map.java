@@ -1,10 +1,12 @@
 package Model.Map;
 
+import Model.Item;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Map {
-    public final ArrayList<Building> buildings = new ArrayList<>();
-    public final HashMap<Coordinate, Obj> objects = new HashMap<>();
-
+    ArrayList<Farm> farms = new ArrayList<>();
+    HashMap<Coordinate, Place> places = new HashMap<>();
+    HashMap<Coordinate, Item> objects = new HashMap<>();
 }

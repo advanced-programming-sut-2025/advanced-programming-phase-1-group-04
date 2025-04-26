@@ -5,6 +5,6 @@
 | Student Number | Name                   |
 |----------------|------------------------|
 | 403105974      | Aynaz Rahmani          |
-| 403106024      | Nafise Zarei           |
+| 403106024      | Nafiseh Zarei           |
 | 403172312      | S. Parsa Banihashemi   |
 

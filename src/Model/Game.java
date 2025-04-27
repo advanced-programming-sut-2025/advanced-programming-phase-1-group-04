@@ -1,11 +1,14 @@
 package Model;
 
+import Model.Enum.Season;
+import Model.Enum.WeekDay;
+
 import java.util.ArrayList;
 
 public class Game {
-    public static DateAndTime currentTime;
     public static ArrayList<User> users;
     public static User mainUser;
+    private static DateAndTime currentTime = new DateAndTime (9, 1, WeekDay.Monday, Season.Spring);
 
     public Game(ArrayList<User> users, User mainUser) {
         this.users = users;

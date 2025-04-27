@@ -1,4 +1,4 @@
-package Model.Enum;
+package Model.Command;
 
 import View.*;
 import java.util.Scanner;

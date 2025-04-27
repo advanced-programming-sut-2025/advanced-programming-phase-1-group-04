@@ -1,11 +1,12 @@
-package Controller;
+package Controller.SirkBozorg;
 
 import Model.Crafting.Craft;
 import Model.Map.Coordinate;
 
 public class CraftingController {
-    public String showRecipe (){
+    public String showRecipe () {
 
+        return "";
     }
 
     public void makeCraft (Craft craft) {

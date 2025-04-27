@@ -1,4 +1,4 @@
-package Controller;
+package Controller.SirkBozorg;
 
 import Model.Map.Coordinate;
 import Model.Products.Seed;

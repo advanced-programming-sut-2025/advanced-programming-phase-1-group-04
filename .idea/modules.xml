@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/advanced-programming-phase-1-group-04.iml" filepath="$PROJECT_DIR$/advanced-programming-phase-1-group-04.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project.iml" filepath="$PROJECT_DIR$/project.iml" />
     </modules>
   </component>
 </project>

@@ -4,14 +4,12 @@
 
 # Gradle files
 .gradle/
-build/
 gradle/
 !gradle/wrapper/gradle-wrapper.jar
 
 # Build outputs
-/build/
-/out/
-/target/
+build/
+out/
 
 # IDE specific files (IntelliJ IDEA)
 *.iml

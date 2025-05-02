@@ -14,4 +14,8 @@ public class Game {
         this.users = users;
         this.mainUser = mainUser;
     }
+
+    public static DateAndTime getCurrentTime() {
+        return currentTime;
+    }
 }

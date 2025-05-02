@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b86a3e00-c2bc-4431-b219-d4bc5b0002c7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/main/java/Model/Products/Crop.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/Model/Products/Crop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Model/Products/CropType.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/Model/Products/CropType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Model/Products/Seed.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/Model/Products/Seed.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2wVnZGFVCsTAY39FK3esZjPoiTx" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "fix-models",
+    "last_opened_file_path": "/home/aynaz/Desktop/project/advanced-programming-phase-1-group-04",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b86a3e00-c2bc-4431-b219-d4bc5b0002c7" name="Changes" comment="" />
+      <created>1746135662982</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746135662982</updated>
+    </task>
+    <servers />
+  </component>
+</project>

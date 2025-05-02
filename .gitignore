@@ -3,17 +3,17 @@
 # ==============================
 
 # Gradle files
-.gradle/
-gradle/
+/.gradle/
+/gradle/
 !gradle/wrapper/gradle-wrapper.jar
 
 # Build outputs
-build/
-out/
+/build/
+/out/
 
 # IDE specific files (IntelliJ IDEA)
 *.iml
-.idea/
+/.idea/
 
 # Compiled class files
 *.class

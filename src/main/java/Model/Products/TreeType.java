@@ -6,121 +6,83 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum TreeType {
-    Apricot (new Tree.TreeBuilder()
-            .setName("Apricot Tree")
-            .setSource(SaplingType.ApricotSapling)
-            .setFruit(FruitType.Apricot)
-            .setFruitHarvestCycle(1)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .build()),
+    Apricot ("Apricot Tree", SaplingType.ApricotSapling, new int[] {7, 7, 7, 7}, 28,
+            FruitType.Apricot, 1, new ArrayList<>(List.of(Season.Spring))),
 
-    Cherry (new Tree.TreeBuilder()
-            .setName("Cherry Tree")
-            .setSource(SaplingType.CherrySapling)
-            .setFruit(FruitType.Cherry)
-            .setFruitHarvestCycle(1)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .build()),
+    Cherry("Cherry Tree", SaplingType.CherrySapling, new int[] {7, 7, 7, 7}, 28,
+            FruitType.Cherry, 1, new ArrayList<>(List.of(Season.Spring))),
+    Banana("Banana Tree", SaplingType.BananaSapling, new int[] {7, 7, 7, 7}, 28,
+            FruitType.Banana, 1, new ArrayList<>(List.of(Season.Summer))),
+    Mango("Mango Tree", SaplingType.MangoSapling, new int[] {7, 7, 7, 7}, 28,
+            FruitType.Mango, 1, new ArrayList<>(List.of(Season.Summer))),
+    Orange("Orange Tree", SaplingType.OrangeSapling, new int[] {7, 7, 7, 7}, 28,
+            FruitType.Orange, 1, new ArrayList<>(List.of(Season.Summer))),
+    Peach("Peach Tree", SaplingType.PeachSapling, new int[] {7, 7, 7, 7}, 28,
+            FruitType.Peach, 1, new ArrayList<>(List.of(Season.Summer))),
+    Apple("Apple Tree", SaplingType.AppleSapling, new int[] {7, 7, 7, 7}, 28,
+            FruitType.Apple, 1, new ArrayList<>(List.of(Season.Fall))),
+    Pomegranate("Pomegranate Tree", SaplingType.PomegranateSapling, new int[] {7, 7, 7, 7}, 28,
+            FruitType.Pomegranate, 1, new ArrayList<>(List.of(Season.Fall))),
+    Oak("Oak Tree", SaplingType.Acorns, new int[] {7, 7, 7, 7}, 28,
+            FruitType.OakResin, 7, new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter))),
+    Maple("Maple Tree", SaplingType.MapleSeeds, new int[] {7, 7, 7, 7}, 28,
+            FruitType.MapleSyrup, 9, new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter))),
+    Pine("Pine Tree", SaplingType.PineCones, new int[] {7, 7, 7, 7}, 28,
+            FruitType.PineTar, 5, new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter))),
+    Mahogany("Mahogany Tree", SaplingType.MahoganySeeds, new int[] {7, 7, 7, 7}, 28,
+            FruitType.Sap, 1, new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter))),
+    Mushroom("Mushroom Tree", SaplingType.MushroomTreeSeeds, new int[] {7, 7, 7, 7}, 28,
+            FruitType.CommonMushroom, 1, new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter))),
+    Mystic("Mystic Tree", SaplingType.MysticTreeSeeds, new int[] {7, 7, 7, 7}, 28,
+            FruitType.MysticSyrup, 7, new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)));
 
-    Banana (new Tree.TreeBuilder()
-            .setName("Banana Tree")
-            .setSource(SaplingType.BananaSapling)
-            .setFruit(FruitType.Banana)
-            .setFruitHarvestCycle(1)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .build()),
 
-    Mango (new Tree.TreeBuilder()
-            .setName("Mango Tree")
-            .setSource(SaplingType.MangoSapling)
-            .setFruit(FruitType.Mango)
-            .setFruitHarvestCycle(1)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .build()),
+    private final String name;
+    private final SaplingType source;
+    private final int[] stages;
+    private final int totalHarvestTime;
+    private final FruitType fruitType;
+    private final int fruitHarvestCycle;
+    private final ArrayList<Season> seasons;
 
-    Orange (new Tree.TreeBuilder()
-            .setName("Orange Tree")
-            .setSource(SaplingType.OrangeSapling)
-            .setFruit(FruitType.Orange)
-            .setFruitHarvestCycle(1)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .build()),
 
-    Peach (new Tree.TreeBuilder()
-            .setName("Peach Tree")
-            .setSource(SaplingType.PeachSapling)
-            .setFruit(FruitType.Peach)
-            .setFruitHarvestCycle(1)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .build()),
+    TreeType (String name, SaplingType source, int[] stages, int totalHarvestTime,
+              FruitType fruitType, int fruitHarvestCycle, ArrayList<Season> seasons) {
+        this.name = name;
+        this.source = source;
+        this.stages = stages;
+        this.totalHarvestTime = totalHarvestTime;
+        this.fruitType = fruitType;
+        this.fruitHarvestCycle = fruitHarvestCycle;
+        this.seasons = seasons;
 
-    Apple (new Tree.TreeBuilder()
-            .setName("Apple Tree")
-            .setSource(SaplingType.AppleSapling)
-            .setFruit(FruitType.Apple)
-            .setFruitHarvestCycle(1)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .build()),
+    }
 
-    Pomegranate (new Tree.TreeBuilder()
-            .setName("Pomegranate Tree")
-            .setSource(SaplingType.PomegranateSapling)
-            .setFruit(FruitType.Pomegranate)
-            .setFruitHarvestCycle(1)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .build()),
+    public String getName() {
+        return name;
+    }
 
-    Oak (new Tree.TreeBuilder()
-            .setName("Oak Tree")
-            .setSource(SaplingType.Acorns)
-            .setFruit(FruitType.OakResin)
-            .setFruitHarvestCycle(7)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)))
-            .build()),
+    public SaplingType getSource() {
+        return source;
+    }
 
-    Maple (new Tree.TreeBuilder()
-            .setName("Maple Tree")
-            .setSource(SaplingType.MapleSeeds)
-            .setFruit(FruitType.MapleSyrup)
-            .setFruitHarvestCycle(9)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)))
-            .build()),
+    public int[] getStages() {
+        return stages;
+    }
 
-    Pine (new Tree.TreeBuilder()
-            .setName("Pine Tree")
-            .setSource(SaplingType.PineCones)
-            .setFruit(FruitType.PineTar)
-            .setFruitHarvestCycle(5)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)))
-            .build()),
+    public int getTotalHarvestTime() {
+        return totalHarvestTime;
+    }
 
-    Mahogany (new Tree.TreeBuilder()
-            .setName("Mahogany Tree")
-            .setSource(SaplingType.MahoganySeeds)
-            .setFruit(FruitType.Sap)
-            .setFruitHarvestCycle(1)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)))
-            .build()),
+    public FruitType getFruitType() {
+        return fruitType;
+    }
 
-    Mushroom (new Tree.TreeBuilder()
-            .setName("Mushroom Tree")
-            .setSource(SaplingType.MushroomTreeSeeds)
-            .setFruit(FruitType.CommonMushroom)
-            .setFruitHarvestCycle(1)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)))
-            .build()),
+    public int getFruitHarvestCycle() {
+        return fruitHarvestCycle;
+    }
 
-    Mystic (new Tree.TreeBuilder()
-            .setName("Mystic Tree")
-            .setSource(SaplingType.MysticTreeSeeds)
-            .setFruit(FruitType.MysticSyrup)
-            .setFruitHarvestCycle(7)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)))
-            .build());
-
-    private final Tree tree;
-
-    TreeType (Tree tree) {
-        this.tree = tree;
+    public ArrayList<Season> getSeasons() {
+        return seasons;
     }
 }

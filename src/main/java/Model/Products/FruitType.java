@@ -1,125 +1,56 @@
 package Model.Products;
 
 public enum FruitType {
-    Apricot (new Fruit.FruitBuilder()
-            .setName("Apricot")
-            .setBaseSellPrice(59)
-            .setEdible(true)
-            .setEnergy(38)
-            .setTree(TreeType.Apricot)
-            .build()),
 
-    Cherry(new Fruit.FruitBuilder()
-            .setName("Cherry")
-            .setBaseSellPrice(80)
-            .setEdible(true)
-            .setEnergy(38)
-            .setTree(TreeType.Cherry)
-            .build()),
+    Apricot ("Apricot", 59, true, 38, TreeType.Apricot),
+    Cherry("Cherry", 80, true, 38, TreeType.Cherry),
+    Banana("Banana", 150, true, 75, TreeType.Banana),
+    Mango("Mango", 130, true, 100, TreeType.Mango),
+    Orange("Orange", 100, true, 38, TreeType.Orange),
+    Peach("Peach", 140, true, 38, TreeType.Peach),
+    Apple("Apple", 100, true, 38, TreeType.Apple),
+    Pomegranate("Pomegranate", 140, true, 38, TreeType.Pomegranate),
+    OakResin("Oak Resin ", 150, false, 0, TreeType.Oak),
+    MapleSyrup("Maple Syrup", 200, false, 0, TreeType.Maple),
+    PineTar("Pine Tar", 100, false, 0, TreeType.Pine),
+    Sap("Sap", 2, true, -2, TreeType.Mahogany),
+    CommonMushroom("Common Mushroom", 40, true, 38, TreeType.Mushroom),
+    MysticSyrup("Mystic Syrup", 1000, true, 500, TreeType.Mystic);
 
-    Banana(new Fruit.FruitBuilder()
-            .setName("Banana")
-            .setBaseSellPrice(150)
-            .setEdible(true)
-            .setEnergy(75)
-            .setTree(TreeType.Banana)
-            .build()),
 
-    Mango(new Fruit.FruitBuilder()
-            .setName("Mango")
-            .setBaseSellPrice(130)
-            .setEdible(true)
-            .setEnergy(100)
-            .setTree(TreeType.Mango)
-            .build()),
 
-    Orange(new Fruit.FruitBuilder()
-            .setName("Orange")
-            .setBaseSellPrice(100)
-            .setEdible(true)
-            .setEnergy(38)
-            .setTree(TreeType.Orange)
-            .build()),
+    private final String name;
+    private final int baseSellPrice;
+    private final boolean isEdible;
+    private final int energy;
+    private final TreeType treeType;
 
-    Peach(new Fruit.FruitBuilder()
-            .setName("Peach")
-            .setBaseSellPrice(140)
-            .setEdible(true)
-            .setEnergy(38)
-            .setTree(TreeType.Peach)
-            .build()),
 
-    Apple(new Fruit.FruitBuilder()
-            .setName("Apple")
-            .setBaseSellPrice(100)
-            .setEdible(true)
-            .setEnergy(38)
-            .setTree(TreeType.Apple)
-            .build()),
-
-    Pomegranate(new Fruit.FruitBuilder()
-            .setName("Pomegranate")
-            .setBaseSellPrice(140)
-            .setEdible(true)
-            .setEnergy(38)
-            .setTree(TreeType.Pomegranate)
-            .build()),
-
-    OakResin (new Fruit.FruitBuilder()
-            .setName("Oak Resin ")
-            .setBaseSellPrice(150)
-            .setEdible(false)
-            .setEnergy(0)
-            .setTree(TreeType.Oak)
-            .build()),
-
-    MapleSyrup(new Fruit.FruitBuilder()
-            .setName("Maple Syrup")
-            .setBaseSellPrice(200)
-            .setEdible(false)
-            .setEnergy(0)
-            .setTree(TreeType.Maple)
-            .build()),
-
-    PineTar(new Fruit.FruitBuilder()
-            .setName("Pine Tar")
-            .setBaseSellPrice(100)
-            .setEdible(false)
-            .setEnergy(0)
-            .setTree(TreeType.Pine)
-            .build()),
-
-    Sap(new Fruit.FruitBuilder()
-            .setName("Sap")
-            .setBaseSellPrice(2)
-            .setEdible(true)
-            .setEnergy(-2)
-            .setTree(TreeType.Mahogany)
-            .build()),
-
-    CommonMushroom(new Fruit.FruitBuilder()
-            .setName("Common Mushroom")
-            .setBaseSellPrice(40)
-            .setEdible(true)
-            .setEnergy(38)
-            .setTree(TreeType.Mushroom)
-            .build()),
-
-    MysticSyrup(new Fruit.FruitBuilder()
-            .setName("Mystic Syrup")
-            .setBaseSellPrice(1000)
-            .setEdible(true)
-            .setEnergy(500)
-            .setTree(TreeType.Mystic)
-            .build());
-
-    private final Fruit fruit;
-
-    FruitType(Fruit fruit) {
-        this.fruit = fruit;
+    FruitType(String name, int baseSellPrice, boolean isEdible, int energy, TreeType treeType) {
+        this.name = name;
+        this.baseSellPrice = baseSellPrice;
+        this.isEdible = isEdible;
+        this.energy = energy;
+        this.treeType = treeType;
     }
 
-    public Fruit getFruit() {
-        return fruit;
+    public String getName() {
+        return name;
+    }
+
+    public int getBaseSellPrice() {
+        return baseSellPrice;
+    }
+
+    public boolean isEdible() {
+        return isEdible;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public TreeType getTreeType() {
+        return treeType;
     }
 }

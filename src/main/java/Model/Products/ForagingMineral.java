@@ -6,22 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ForagingMineral implements Forageable{
-    private final String name;
-    private final int sellPrice;
+    private final ForagingMineralType type;
 
     //constructor:
-    ForagingMineral (String name, int sellPrice) {
-        this.name = name;
-        this.sellPrice = sellPrice;
+    ForagingMineral (ForagingMineralType type) {
+        this.type = type;
     }
 
     //getters:
     public String getName() {
-        return name;
+        return type.getName();
     }
 
     public int getSellPrice() {
-        return sellPrice;
+        return type.getSellPrice();
     }
 
     @Override

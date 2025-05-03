@@ -5,33 +5,27 @@ import Model.Enum.Season;
 import java.util.ArrayList;
 
 public class Sapling implements Forageable{
-    private final String name;
-    private final ArrayList<Season> seasons;
-    private final TreeType tree;
-    private final boolean isForageable;
+    private final SaplingType saplingType;
 
-    public Sapling (String name, ArrayList<Season> season, TreeType tree, boolean isForageable) {
-        this.name = name;
-        this.seasons = season;
-        this.tree = tree;
-        this.isForageable = isForageable;
+    public Sapling (SaplingType saplingType) {
+        this.saplingType =saplingType;
     }
 
     public String getName() {
-        return name;
+        return saplingType.getName();
     }
 
     @Override
     public ArrayList<Season> getSeasons() {
-        return seasons;
+        return saplingType.getSeasons();
     }
 
-    public TreeType getTree() {
-        return tree;
+    public TreeType getTreeType() {
+        return saplingType.getTreeType();
     }
 
     @Override
     public boolean isForageable() {
-        return isForageable;
+        return saplingType.isForageable();
     }
 }

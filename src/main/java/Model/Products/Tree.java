@@ -7,58 +7,51 @@ import Model.Game;
 import java.util.ArrayList;
 
 public class Tree {
-    private final String name;
-    private final SaplingType source;
-    private final int[] stages;
-    private final int totalHarvestTime;
-    private final FruitType fruit;
-    private final int fruitHarvestCycle;
-    private final ArrayList<Season> seasons;
+
+    private final TreeType type;
     private boolean isBurned;
     private DateAndTime plantingDate;
     private DateAndTime lastTimeHarvested;
 
     //constructor:
-    public Tree (TreeBuilder builder) {
-        this.name = builder.name;
-        this.source = builder.source;
-        this.stages = new int[] {7, 7, 7, 7};
-        this.totalHarvestTime = 28;
-        this.fruit = builder.fruit;
-        this.fruitHarvestCycle = builder.fruitHarvestCycle;
-        this.seasons = builder.seasons;
+    public Tree (TreeType type, DateAndTime plantingDate) {
+        this.type = type;
+        this.plantingDate = plantingDate;
         isBurned = false;
         lastTimeHarvested = null;
     }
 
-
     //getters:
+    public TreeType getType() {
+        return type;
+    }
+
     public String getName() {
-        return name;
+        return type.getName();
     }
 
     public SaplingType getSource() {
-        return source;
+        return type.getSource();
     }
 
     public int[] getStages() {
-        return stages;
+        return type.getStages();
     }
 
     public int getTotalHarvestTime() {
-        return totalHarvestTime;
+        return type.getTotalHarvestTime();
     }
 
-    public FruitType getFruit() {
-        return fruit;
+    public FruitType getFruitType() {
+        return type.getFruitType();
     }
 
     public int getFruitHarvestCycle() {
-        return fruitHarvestCycle;
+        return type.getFruitHarvestCycle();
     }
 
     public ArrayList<Season> getSeasons() {
-        return seasons;
+        return type.getSeasons();
     }
 
     public boolean isBurned() {
@@ -92,7 +85,7 @@ public class Tree {
 
     public boolean hasFruit () {
         if (lastTimeHarvested != null) {
-            if (Game.getCurrentTime().getDay() - lastTimeHarvested.getDay() >= fruitHarvestCycle) {
+            if (Game.getCurrentTime().getDay() - lastTimeHarvested.getDay() >= getFruitHarvestCycle()) {
                 return true;
             }
         }
@@ -109,50 +102,9 @@ public class Tree {
 
     public void setPlantingDate(DateAndTime plantingDate) {
         this.plantingDate = plantingDate;
-    }
+    } //TODO: in bashe? ya final konim?
 
     public void setLastTimeHarvested(DateAndTime lastTimeHarvested) {
         this.lastTimeHarvested = lastTimeHarvested;
-    }
-
-
-    //builder:
-    public static class TreeBuilder {
-        private String name;
-        private SaplingType source;
-        private ArrayList<Season> seasons;
-        private FruitType fruit;
-        private int fruitHarvestCycle;
-
-        public Tree.TreeBuilder setName (String name) {
-            this.name = name;
-            return this;
-        }
-
-
-        public Tree.TreeBuilder setSource(SaplingType source) {
-            this.source = source;
-            return this;
-        }
-
-
-        public Tree.TreeBuilder setSeasons(ArrayList<Season> seasons) {
-            this.seasons = seasons;
-            return this;
-        }
-
-        public Tree.TreeBuilder setFruit (FruitType fruit) {
-            this.fruit = fruit;
-            return this;
-        }
-
-        public Tree.TreeBuilder setFruitHarvestCycle (int fruitHarvestCycle) {
-            this.fruitHarvestCycle = fruitHarvestCycle;
-            return this;
-        }
-
-        public Tree build () {
-            return new Tree(this);
-        }
     }
 }

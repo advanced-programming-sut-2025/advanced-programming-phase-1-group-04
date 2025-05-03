@@ -6,152 +6,80 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum ForagingCropType {
-    CommonMushroom (new ForagingCrop.ForagingCropBuilder()
-            .setName("Common Mushroom")
-            .setSeasons(new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)))
-            .setBaseSellPrice(40)
-            .setEnergy(38)
-            .build()),
-    Daffodil(new ForagingCrop.ForagingCropBuilder()
-            .setName("Daffodil")
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setBaseSellPrice(30)
-            .setEnergy(0)
-            .build()),
-    Dandelion(new ForagingCrop.ForagingCropBuilder()
-            .setName("Dandelion")
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setBaseSellPrice(40)
-            .setEnergy(25)
-            .build()),
-    Leek(new ForagingCrop.ForagingCropBuilder()
-            .setName("Leek")
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setBaseSellPrice(60)
-            .setEnergy(40)
-            .build()),
-    Morel(new ForagingCrop.ForagingCropBuilder()
-            .setName("Morel")
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setBaseSellPrice(150)
-            .setEnergy(20)
-            .build()),
-    Salmonberry(new ForagingCrop.ForagingCropBuilder()
-            .setName("Salmonberry")
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setBaseSellPrice(5)
-            .setEnergy(25)
-            .build()),
-    SpringOnion(new ForagingCrop.ForagingCropBuilder()
-            .setName("Spring Onion")
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setBaseSellPrice(8)
-            .setEnergy(13)
-            .build()),
-    WildHorseradish(new ForagingCrop.ForagingCropBuilder()
-            .setName("Wild Horseradish")
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setBaseSellPrice(50)
-            .setEnergy(13)
-            .build()),
-    FiddleheadFern(new ForagingCrop.ForagingCropBuilder()
-            .setName("Fiddlehead Fern")
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setBaseSellPrice(90)
-            .setEnergy(25)
-            .build()),
-    Grape(new ForagingCrop.ForagingCropBuilder()
-            .setName("Grape")
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setBaseSellPrice(80)
-            .setEnergy(38)
-            .build()),
-    RedMushroom(new ForagingCrop.ForagingCropBuilder()
-            .setName("Red Mushroom")
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setBaseSellPrice(75)
-            .setEnergy(-50)
-            .build()),
-    SpiceBerry(new ForagingCrop.ForagingCropBuilder()
-            .setName("Spice Berry")
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setBaseSellPrice(80)
-            .setEnergy(25)
-            .build()),
-    SweetPea(new ForagingCrop.ForagingCropBuilder()
-            .setName("Sweet Pea")
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setBaseSellPrice(50)
-            .setEnergy(0)
-            .build()),
-    Blackberry(new ForagingCrop.ForagingCropBuilder()
-            .setName("Blackberry")
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setBaseSellPrice(25)
-            .setEnergy(25)
-            .build()),
-    Chanterelle(new ForagingCrop.ForagingCropBuilder()
-            .setName("Chanterelle")
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setBaseSellPrice(160)
-            .setEnergy(75)
-            .build()),
-    Hazelnut(new ForagingCrop.ForagingCropBuilder()
-            .setName("Hazelnut")
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setBaseSellPrice(40)
-            .setEnergy(38)
-            .build()),
-    PurpleMushroom(new ForagingCrop.ForagingCropBuilder()
-            .setName("Purple Mushroom")
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setBaseSellPrice(90)
-            .setEnergy(30)
-            .build()),
-    WildPlum(new ForagingCrop.ForagingCropBuilder()
-            .setName("Wild Plum")
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setBaseSellPrice(80)
-            .setEnergy(25)
-            .build()),
-    Crocus(new ForagingCrop.ForagingCropBuilder()
-            .setName("Crocus")
-            .setSeasons(new ArrayList<>(List.of(Season.Winter)))
-            .setBaseSellPrice(60)
-            .setEnergy(0)
-            .build()),
-    CrystalFruit(new ForagingCrop.ForagingCropBuilder()
-            .setName("Crystal Fruit")
-            .setSeasons(new ArrayList<>(List.of(Season.Winter)))
-            .setBaseSellPrice(150)
-            .setEnergy(63)
-            .build()),
-    Holly(new ForagingCrop.ForagingCropBuilder()
-            .setName("Holly")
-            .setSeasons(new ArrayList<>(List.of(Season.Winter)))
-            .setBaseSellPrice(80)
-            .setEnergy(-37)
-            .build()),
-    SnowYam(new ForagingCrop.ForagingCropBuilder()
-            .setName("Snow Yam")
-            .setSeasons(new ArrayList<>(List.of(Season.Winter)))
-            .setBaseSellPrice(100)
-            .setEnergy(30)
-            .build()),
-    WinterRoot(new ForagingCrop.ForagingCropBuilder()
-            .setName("Winter Root")
-            .setSeasons(new ArrayList<>(List.of(Season.Winter)))
-            .setBaseSellPrice(70)
-            .setEnergy(25)
-            .build());
+    CommonMushroom ("Common Mushroom", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), 40, 38),
 
-    private final ForagingCrop crop;
+    Daffodil("Daffodil", new ArrayList<>(List.of(Season.Spring)), 30, 0),
 
-    ForagingCropType (ForagingCrop crop) {
-        this.crop = crop;
+    Dandelion("Dandelion", new ArrayList<>(List.of(Season.Spring)), 40, 25),
+
+    Leek("Leek", new ArrayList<>(List.of(Season.Spring)), 60, 40),
+
+    Morel("Morel", new ArrayList<>(List.of(Season.Spring)), 150, 20),
+
+    Salmonberry("Salmonberry", new ArrayList<>(List.of(Season.Spring)), 5, 25),
+
+    SpringOnion("Spring Onion", new ArrayList<>(List.of(Season.Spring)), 8, 13),
+
+    WildHorseradish("Wild Horseradish", new ArrayList<>(List.of(Season.Spring)), 50, 13),
+
+    FiddleheadFern("Fiddlehead Fern", new ArrayList<>(List.of(Season.Summer)), 90, 25),
+
+    Grape("Grape", new ArrayList<>(List.of(Season.Summer)), 80, 38),
+
+    RedMushroom("Red Mushroom", new ArrayList<>(List.of(Season.Summer)), 75, -50),
+
+    SpiceBerry("Spice Berry", new ArrayList<>(List.of(Season.Summer)), 80, 25),
+
+    SweetPea("Sweet Pea", new ArrayList<>(List.of(Season.Summer)), 50, 0),
+
+    Blackberry("Blackberry", new ArrayList<>(List.of(Season.Fall)), 25, 25),
+
+    Chanterelle("Chanterelle", new ArrayList<>(List.of(Season.Fall)), 160, 75),
+
+    Hazelnut("Hazelnut", new ArrayList<>(List.of(Season.Fall)), 40, 38),
+
+    PurpleMushroom("Purple Mushroom", new ArrayList<>(List.of(Season.Fall)), 90, 30),
+
+    WildPlum("Wild Plum", new ArrayList<>(List.of(Season.Fall)), 80, 25),
+
+    Crocus("Crocus", new ArrayList<>(List.of(Season.Winter)), 60, 0),
+
+    CrystalFruit("Crystal Fruit", new ArrayList<>(List.of(Season.Winter)), 150, 63),
+
+    Holly("Holly", new ArrayList<>(List.of(Season.Winter)), 80, -37),
+
+    SnowYam("Snow Yam", new ArrayList<>(List.of(Season.Winter)), 100, 30),
+
+    WinterRoot("Winter Root", new ArrayList<>(List.of(Season.Winter)), 70, 25);
+
+
+    private final String name;
+    private final ArrayList<Season> seasons;
+    private final int baseSellPrice;
+    private final int energy;
+
+
+    ForagingCropType (String name, ArrayList<Season> seasons, int baseSellPrice, int energy) {
+        this.name = name;
+        this.seasons = seasons;
+        this.baseSellPrice = baseSellPrice;
+        this.energy = energy;
     }
 
-    public ForagingCrop getCrop() {
-        return crop;
+
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<Season> getSeasons() {
+        return seasons;
+    }
+
+    public int getBaseSellPrice() {
+        return baseSellPrice;
+    }
+
+    public int getEnergy() {
+        return energy;
     }
 }

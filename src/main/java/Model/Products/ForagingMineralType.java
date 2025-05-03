@@ -1,31 +1,38 @@
 package Model.Products;
 
 public enum ForagingMineralType {
-    Quartz (new ForagingMineral("Quartz", 25)),
-    EarthCrystal (new ForagingMineral("Earth Crystal", 50)),
-    FrozenTear (new ForagingMineral("Frozen Tear", 75)),
-    FireQuartz (new ForagingMineral("Fire Quartz", 100)),
-    Emerald (new ForagingMineral("Emerald", 250)),
-    Aquamarine (new ForagingMineral("Aquamarine", 180)),
-    Ruby (new ForagingMineral("Ruby", 250)),
-    Amethyst (new ForagingMineral("Amethyst", 100)),
-    Topaz (new ForagingMineral("Topaz", 80)),
-    Jade (new ForagingMineral("Jade", 200)),
-    Diamond (new ForagingMineral("Diamond", 750)),
-    PrismaticShard (new ForagingMineral("Prismatic Shard", 2000)),
-    Copper (new ForagingMineral("Copper", 5)),
-    Iron (new ForagingMineral("Iron", 10)),
-    Gold (new ForagingMineral("Gold", 25)),
-    Iriduim (new ForagingMineral("Iriduim", 100)),
-    Coal (new ForagingMineral("Coal", 15));
+    Quartz ("Quartz", 25),
+    EarthCrystal ("Earth Crystal", 50),
+    FrozenTear ("Frozen Tear", 75),
+    FireQuartz ("Fire Quartz", 100),
+    Emerald ("Emerald", 250),
+    Aquamarine ("Aquamarine", 180),
+    Ruby ("Ruby", 250),
+    Amethyst ("Amethyst", 100),
+    Topaz ("Topaz", 80),
+    Jade ("Jade", 200),
+    Diamond ("Diamond", 750),
+    PrismaticShard ("Prismatic Shard", 2000),
+    Copper ("Copper", 5),
+    Iron ("Iron", 10),
+    Gold ("Gold", 25),
+    Iriduim ("Iriduim", 100),
+    Coal ("Coal", 15);
 
-    private final ForagingMineral mineral;
 
-    ForagingMineralType(ForagingMineral mineral) {
-        this.mineral = mineral;
+    private final String name;
+    private final int sellPrice;
+
+    ForagingMineralType(String name, int sellPrice) {
+        this.name = name;
+        this.sellPrice = sellPrice;
     }
 
-    public ForagingMineral getMineral() {
-        return mineral;
+    public String getName() {
+        return name;
+    }
+
+    public int getSellPrice() {
+        return sellPrice;
     }
 }

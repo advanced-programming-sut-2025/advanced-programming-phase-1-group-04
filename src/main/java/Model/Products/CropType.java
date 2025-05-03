@@ -6,550 +6,251 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum CropType {
-    BlueJazz (new Crop.CropBuilder()
-            .setName("Blue Jazz")
-            .setSource(SeedType.JazzSeeds)
-            .setStages(new int[] {1, 2, 2, 2})
-            .setHarvestTime(7)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(50)
-            .setEdible(true)
-            .setEnergy(45)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Carrot (new Crop.CropBuilder()
-            .setName("Carrot")
-            .setSource(SeedType.CarrotSeeds)
-            .setStages(new int[] {1, 1, 1})
-            .setHarvestTime(3)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(35)
-            .setEdible(true)
-            .setEnergy(75)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Cauliflower (new Crop.CropBuilder()
-            .setName("Cauliflower")
-            .setSource(SeedType.CauliflowerSeeds)
-            .setStages(new int[] {1, 2, 4, 4, 1})
-            .setHarvestTime(12)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(175)
-            .setEdible(true)
-            .setEnergy(75)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setCanBecomeGiant(true)
-            .build()),
-    CoffeeBean (new Crop.CropBuilder()
-            .setName("Coffee Bean")
-            .setSource(SeedType.CoffeeBean)
-            .setStages(new int[] {1, 2, 2, 3, 2})
-            .setHarvestTime(10)
-            .setOneTime(false)
-            .setRegrowthTime(2)
-            .setBaseSellPrice(15)
-            .setEdible(false)
-            .setEnergy(0)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring, Season.Summer)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Garlic (new Crop.CropBuilder()
-            .setName("Garlic")
-            .setSource(SeedType.GarlicSeeds)
-            .setStages(new int[] {1, 1, 1, 1})
-            .setHarvestTime(4)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(60)
-            .setEdible(true)
-            .setEnergy(20)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setCanBecomeGiant(false)
-            .build()),
-    GreenBean (new Crop.CropBuilder()
-            .setName("Green Bean")
-            .setSource(SeedType.BeanStarter)
-            .setStages(new int[] {1, 1, 1, 3, 4})
-            .setHarvestTime(10)
-            .setOneTime(false)
-            .setRegrowthTime(3)
-            .setBaseSellPrice(40)
-            .setEdible(true)
-            .setEnergy(25)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Kale (new Crop.CropBuilder()
-            .setName("Kale")
-            .setSource(SeedType.KaleSeeds)
-            .setStages(new int[] {1, 2, 2, 1})
-            .setHarvestTime(6)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(110)
-            .setEdible(true)
-            .setEnergy(50)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Parsnip (new Crop.CropBuilder()
-            .setName("Parsnip")
-            .setSource(SeedType.ParsnipSeeds)
-            .setStages(new int[] {1, 1, 1, 1})
-            .setHarvestTime(4)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(35)
-            .setEdible(true)
-            .setEnergy(25)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Potato (new Crop.CropBuilder()
-            .setName("Potato")
-            .setSource(SeedType.PotatoSeeds)
-            .setStages(new int[] {1, 1, 1, 2, 1})
-            .setHarvestTime(6)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(80)
-            .setEdible(true)
-            .setEnergy(25)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Rhubarb (new Crop.CropBuilder()
-            .setName("Rhubarb")
-            .setSource(SeedType.RhubarbSeeds)
-            .setStages(new int[] {2, 2, 2, 3, 4})
-            .setHarvestTime(13)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(220)
-            .setEdible(false)
-            .setEnergy(0)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Strawberry (new Crop.CropBuilder()
-            .setName("Strawberry")
-            .setSource(SeedType.StrawberrySeeds)
-            .setStages(new int[] {1, 1, 2, 2, 2})
-            .setHarvestTime(8)
-            .setOneTime(false)
-            .setRegrowthTime(4)
-            .setBaseSellPrice(120)
-            .setEdible(true)
-            .setEnergy(50)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Tulip (new Crop.CropBuilder()
-            .setName("Tulip")
-            .setSource(SeedType.TulipBulb)
-            .setStages(new int[] {1, 1, 2, 2})
-            .setHarvestTime(6)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(30)
-            .setEdible(true)
-            .setEnergy(45)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setCanBecomeGiant(false)
-            .build()),
-    UnmilledRice (new Crop.CropBuilder()
-            .setName("Unmilled Rice")
-            .setSource(SeedType.RiceShoot)
-            .setStages(new int[] {1, 2, 2, 3})
-            .setHarvestTime(8)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(30)
-            .setEdible(true)
-            .setEnergy(3)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Blueberry (new Crop.CropBuilder()
-            .setName("Blueberry")
-            .setSource(SeedType.BlueberrySeeds)
-            .setStages(new int[] {1, 3, 3, 4, 2})
-            .setHarvestTime(13)
-            .setOneTime(false)
-            .setRegrowthTime(4)
-            .setBaseSellPrice(50)
-            .setEdible(true)
-            .setEnergy(25)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Corn (new Crop.CropBuilder()
-            .setName("Corn")
-            .setSource(SeedType.CornSeeds)
-            .setStages(new int[] {2, 3, 3, 3, 3})
-            .setHarvestTime(14)
-            .setOneTime(false)
-            .setRegrowthTime(4)
-            .setBaseSellPrice(50)
-            .setEdible(true)
-            .setEnergy(25)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer, Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Hops (new Crop.CropBuilder()
-            .setName("Hops")
-            .setSource(SeedType.HopsStarter)
-            .setStages(new int[] {1, 1, 2, 3, 4})
-            .setHarvestTime(11)
-            .setOneTime(false)
-            .setRegrowthTime(1)
-            .setBaseSellPrice(25)
-            .setEdible(true)
-            .setEnergy(45)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setCanBecomeGiant(false)
-            .build()),
-    HotPepper (new Crop.CropBuilder()
-            .setName("Hot Pepper")
-            .setSource(SeedType.PepperSeeds)
-            .setStages(new int[] {1, 1, 1, 1, 1})
-            .setHarvestTime(5)
-            .setOneTime(false)
-            .setRegrowthTime(3)
-            .setBaseSellPrice(40)
-            .setEdible(true)
-            .setEnergy(13)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Melon (new Crop.CropBuilder()
-            .setName("Melon")
-            .setSource(SeedType.MelonSeeds)
-            .setStages(new int[] {1, 2, 3, 3, 3})
-            .setHarvestTime(12)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(250)
-            .setEdible(true)
-            .setEnergy(113)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setCanBecomeGiant(true)
-            .build()),
-    Poppy (new Crop.CropBuilder()
-            .setName("Poppy")
-            .setSource(SeedType.PoppySeeds)
-            .setStages(new int[] {1, 2, 2, 2})
-            .setHarvestTime(7)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(140)
-            .setEdible(true)
-            .setEnergy(45)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Radish (new Crop.CropBuilder()
-            .setName("Radish")
-            .setSource(SeedType.RadishSeeds)
-            .setStages(new int[] {2, 1, 2, 1})
-            .setHarvestTime(6)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(90)
-            .setEdible(true)
-            .setEnergy(45)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setCanBecomeGiant(false)
-            .build()),
-    RedCabbage (new Crop.CropBuilder()
-            .setName("Red Cabbage")
-            .setSource(SeedType.RedCabbageSeeds)
-            .setStages(new int[] {2, 1, 2, 2, 2})
-            .setHarvestTime(9)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(260)
-            .setEdible(true)
-            .setEnergy(75)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Starfruit (new Crop.CropBuilder()
-            .setName("Starfruit")
-            .setSource(SeedType.StarfruitSeeds)
-            .setStages(new int[] {2, 3, 2, 3, 3})
-            .setHarvestTime(13)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(750)
-            .setEdible(true)
-            .setEnergy(125)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setCanBecomeGiant(false)
-            .build()),
-    SummerSpangle (new Crop.CropBuilder()
-            .setName("Summer Spangle")
-            .setSource(SeedType.SpangleSeeds)
-            .setStages(new int[] {1, 2, 3, 1})
-            .setHarvestTime(8)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(90)
-            .setEdible(true)
-            .setEnergy(45)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setCanBecomeGiant(false)
-            .build()),
-    SummerSquash (new Crop.CropBuilder()
-            .setName("Summer Squash")
-            .setSource(SeedType.SummerSquashSeeds)
-            .setStages(new int[] {1, 1, 1, 2, 1})
-            .setHarvestTime(6)
-            .setOneTime(false)
-            .setRegrowthTime(3)
-            .setBaseSellPrice(45)
-            .setEdible(true)
-            .setEnergy(63)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Sunflower (new Crop.CropBuilder()
-            .setName("Sunflower")
-            .setSource(SeedType.SunflowerSeeds)
-            .setStages(new int[] {1, 2, 3, 2})
-            .setHarvestTime(8)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(80)
-            .setEdible(true)
-            .setEnergy(45)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer, Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Tomato (new Crop.CropBuilder()
-            .setName("Tomato")
-            .setSource(SeedType.TomatoSeeds)
-            .setStages(new int[] {2, 2, 2, 2, 3})
-            .setHarvestTime(11)
-            .setOneTime(false)
-            .setRegrowthTime(4)
-            .setBaseSellPrice(60)
-            .setEdible(true)
-            .setEnergy(20)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Wheat (new Crop.CropBuilder()
-            .setName("Wheat")
-            .setSource(SeedType.WheatSeeds)
-            .setStages(new int[] {1, 1, 1, 1})
-            .setHarvestTime(4)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(25)
-            .setEdible(false)
-            .setEnergy(0)
-            .setSeasons(new ArrayList<>(List.of(Season.Summer, Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Amaranth (new Crop.CropBuilder()
-            .setName("Amaranth")
-            .setSource(SeedType.AmaranthSeeds)
-            .setStages(new int[] {1, 2, 2, 2})
-            .setHarvestTime(7)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(150)
-            .setEdible(true)
-            .setEnergy(50)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Artichoke (new Crop.CropBuilder()
-            .setName("Artichoke")
-            .setSource(SeedType.ArtichokeSeeds)
-            .setStages(new int[] {2, 2, 1, 2, 1})
-            .setHarvestTime(8)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(160)
-            .setEdible(true)
-            .setEnergy(30)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Beet (new Crop.CropBuilder()
-            .setName("Beet")
-            .setSource(SeedType.BeetSeeds)
-            .setStages(new int[] {1, 1, 2, 2})
-            .setHarvestTime(6)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(100)
-            .setEdible(true)
-            .setEnergy(30)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    BokChoy (new Crop.CropBuilder()
-            .setName("Bok Choy")
-            .setSource(SeedType.BokChoySeeds)
-            .setStages(new int[] {1, 1, 1, 1})
-            .setHarvestTime(4)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(80)
-            .setEdible(true)
-            .setEnergy(25)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Broccoli (new Crop.CropBuilder()
-            .setName("Broccoli")
-            .setSource(SeedType.BroccoliSeeds)
-            .setStages(new int[] {2, 2, 2, 2})
-            .setHarvestTime(8)
-            .setOneTime(false)
-            .setRegrowthTime(4)
-            .setBaseSellPrice(70)
-            .setEdible(true)
-            .setEnergy(63)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Cranberries (new Crop.CropBuilder()
-            .setName("Cranberries")
-            .setSource(SeedType.CranberrySeeds)
-            .setStages(new int[] {1, 2, 1, 1, 2})
-            .setHarvestTime(7)
-            .setOneTime(false)
-            .setRegrowthTime(5)
-            .setBaseSellPrice(75)
-            .setEdible(true)
-            .setEnergy(38)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Eggplant (new Crop.CropBuilder()
-            .setName("Eggplant")
-            .setSource(SeedType.EggplantSeeds)
-            .setStages(new int[] {1, 1, 1, 1})
-            .setHarvestTime(5)
-            .setOneTime(false)
-            .setRegrowthTime(5)
-            .setBaseSellPrice(60)
-            .setEdible(true)
-            .setEnergy(20)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    FairyRose (new Crop.CropBuilder()
-            .setName("Fairy Rose")
-            .setSource(SeedType.FairySeeds)
-            .setStages(new int[] {1, 4, 4, 3})
-            .setHarvestTime(12)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(290)
-            .setEdible(true)
-            .setEnergy(45)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Grape (new Crop.CropBuilder()
-            .setName("Grape")
-            .setSource(SeedType.GrapeStarter)
-            .setStages(new int[] {1, 1, 2, 3, 3})
-            .setHarvestTime(10)
-            .setOneTime(false)
-            .setRegrowthTime(3)
-            .setBaseSellPrice(80)
-            .setEdible(true)
-            .setEnergy(38)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Pumpkin (new Crop.CropBuilder()
-            .setName("Pumpkin")
-            .setSource(SeedType.PumpkinSeeds)
-            .setStages(new int[] {1, 2, 3, 4, 3})
-            .setHarvestTime(13)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(320)
-            .setEdible(false)
-            .setEnergy(0)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setCanBecomeGiant(true)
-            .build()),
-    Yam (new Crop.CropBuilder()
-            .setName("Yam")
-            .setSource(SeedType.YamSeeds)
-            .setStages(new int[] {1, 3, 3, 3})
-            .setHarvestTime(10)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(160)
-            .setEdible(true)
-            .setEnergy(45)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    SweetGemBerry (new Crop.CropBuilder()
-            .setName("Sweet Gem Berry")
-            .setSource(SeedType.RareSeed)
-            .setStages(new int[] {2, 4, 6, 6, 6})
-            .setHarvestTime(24)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(3000)
-            .setEdible(false)
-            .setEnergy(0)
-            .setSeasons(new ArrayList<>(List.of(Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Powdermelon (new Crop.CropBuilder()
-            .setName("Powdermelon")
-            .setSource(SeedType.PowdermelonSeeds)
-            .setStages(new int[] {1, 2, 1, 2, 1})
-            .setHarvestTime(7)
-            .setOneTime(true)
-            .setRegrowthTime(0)
-            .setBaseSellPrice(60)
-            .setEdible(true)
-            .setEnergy(63)
-            .setSeasons(new ArrayList<>(List.of(Season.Winter)))
-            .setCanBecomeGiant(true)
-            .build()),
-    AncientFruit (new Crop.CropBuilder()
-            .setName("Ancient Fruit")
-            .setSource(SeedType.AncientSeeds)
-            .setStages(new int[] {2, 7, 7, 7, 5})
-            .setHarvestTime(28)
-            .setOneTime(false)
-            .setRegrowthTime(7)
-            .setBaseSellPrice(550)
-            .setEdible(false)
-            .setEnergy(0)
-            .setSeasons(new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall)))
-            .setCanBecomeGiant(false)
-            .build()),
-    Mixed (new Crop.CropBuilder()
-            .setIsMixed(true)
-            .build());
 
-    private final Crop crop;
 
-    CropType (Crop crop) {
-        this.crop = crop;
+    BlueJazz ("Blue Jazz", SeedType.JazzSeeds, new int[] {1, 2, 2, 2},
+            7, true, 0, 50, true, 45,
+            new ArrayList<>(List.of(Season.Spring)), false, false),
+
+    Carrot ("Carrot", SeedType.CarrotSeeds, new int[] {1, 1, 1},
+            3, true, 0, 35, true, 75,
+            new ArrayList<>(List.of(Season.Spring)), false, false),
+
+    Cauliflower ("Cauliflower", SeedType.CauliflowerSeeds, new int[] {1, 2, 4, 4, 1},
+            12, true, 0, 175, true, 75,
+            new ArrayList<>(List.of(Season.Spring)), true, false),
+
+    CoffeeBean ("Coffee Bean", SeedType.CoffeeBean, new int[] {1, 2, 2, 3, 2},
+            10, false, 2, 15, false, 0,
+            new ArrayList<>(List.of(Season.Spring, Season.Summer)), false, false),
+
+    Garlic ("Garlic", SeedType.GarlicSeeds, new int[] {1, 1, 1, 1},
+            4, true, 0, 60, true, 20,
+            new ArrayList<>(List.of(Season.Spring)), false, false),
+
+    GreenBean ("Green Bean", SeedType.BeanStarter, new int[] {1, 1, 1, 3, 4},
+            10, false, 3, 40, true, 25,
+            new ArrayList<>(List.of(Season.Spring)), false, false),
+
+    Kale ("Kale", SeedType.KaleSeeds, new int[] {1, 2, 2, 1},
+            6, true, 0, 110, true, 50,
+            new ArrayList<>(List.of(Season.Spring)), false, false),
+
+    Parsnip ("Parsnip", SeedType.ParsnipSeeds, new int[] {1, 1, 1, 1},
+            4, true, 0, 35, true, 25,
+            new ArrayList<>(List.of(Season.Spring)), false, false),
+
+    Potato ("Potato", SeedType.PotatoSeeds, new int[] {1, 1, 1, 2, 1},
+            6, true, 0, 80, true, 25,
+            new ArrayList<>(List.of(Season.Spring)), false, false),
+
+    Rhubarb ("Rhubarb", SeedType.RhubarbSeeds, new int[] {2, 2, 2, 3, 4},
+            13, true, 0, 220, false, 0,
+            new ArrayList<>(List.of(Season.Spring)), false, false),
+
+    Strawberry ("Strawberry", SeedType.StrawberrySeeds, new int[] {1, 1, 2, 2, 2},
+            8, false, 4, 120, true, 50,
+            new ArrayList<>(List.of(Season.Spring)), false, false),
+
+    Tulip ("Tulip", SeedType.TulipBulb, new int[] {1, 1, 2, 2},
+            6, true, 0, 30, true, 45,
+            new ArrayList<>(List.of(Season.Spring)), false, false),
+
+    UnmilledRice ("Unmilled Rice", SeedType.RiceShoot, new int[] {1, 2, 2, 3},
+            8, true, 0, 30, true, 3,
+            new ArrayList<>(List.of(Season.Spring)), false, false),
+
+    Blueberry ("Blueberry", SeedType.BlueberrySeeds, new int[] {1, 3, 3, 4, 2},
+            13, false, 4, 50, true, 25,
+            new ArrayList<>(List.of(Season.Summer)), false, false),
+
+    Corn ("Corn", SeedType.CornSeeds, new int[] {2, 3, 3, 3, 3},
+            14, false, 4, 50, true, 25,
+            new ArrayList<>(List.of(Season.Summer, Season.Fall)), false, false),
+
+    Hops ("Hops", SeedType.HopsStarter, new int[] {1, 1, 2, 3, 4},
+            11, false, 1, 25, true, 45,
+            new ArrayList<>(List.of(Season.Summer)), false, false),
+
+    HotPepper ("Hot Pepper", SeedType.PepperSeeds, new int[] {1, 1, 1, 1, 1},
+            5, false, 3, 40, true, 13,
+            new ArrayList<>(List.of(Season.Summer)), false, false),
+
+    Melon ("Melon", SeedType.MelonSeeds, new int[] {1, 2, 3, 3, 3},
+            12, true, 0, 250, true, 113,
+            new ArrayList<>(List.of(Season.Summer)), true, false),
+
+    Poppy ("Poppy", SeedType.PoppySeeds, new int[] {1, 2, 2, 2},
+            7, true, 0, 140, true, 45,
+            new ArrayList<>(List.of(Season.Summer)), false, false),
+
+    Radish ("Radish", SeedType.RadishSeeds, new int[] {2, 1, 2, 1},
+            6, true, 0, 90, true, 45,
+            new ArrayList<>(List.of(Season.Summer)), false, false),
+
+    RedCabbage ("Red Cabbage", SeedType.RedCabbageSeeds, new int[] {2, 1, 2, 2, 2},
+            9, true, 0, 260, true, 75,
+            new ArrayList<>(List.of(Season.Summer)), false, false),
+
+    Starfruit ("Starfruit", SeedType.StarfruitSeeds, new int[] {2, 3, 2, 3, 3},
+            13, true, 0, 750, true, 125,
+            new ArrayList<>(List.of(Season.Summer)), false, false),
+
+    SummerSpangle ("Summer Spangle", SeedType.SpangleSeeds, new int[] {1, 2, 3, 1},
+            8, true, 0, 90, true, 45,
+            new ArrayList<>(List.of(Season.Summer)), false, false),
+
+    SummerSquash ("Summer Squash", SeedType.SummerSquashSeeds, new int[] {1, 1, 1, 2, 1},
+            6, false, 3, 45, true, 63,
+            new ArrayList<>(List.of(Season.Summer)), false, false),
+
+    Sunflower ("Sunflower", SeedType.SunflowerSeeds, new int[] {1, 2, 3, 2},
+            8, true, 0, 80, true, 45,
+            new ArrayList<>(List.of(Season.Summer, Season.Fall)), false, false),
+
+    Tomato ("Tomato", SeedType.TomatoSeeds, new int[] {2, 2, 2, 2, 3},
+            11, false, 4, 60, true, 20,
+            new ArrayList<>(List.of(Season.Summer)), false, false),
+
+    Wheat ("Wheat", SeedType.WheatSeeds, new int[] {1, 1, 1, 1},
+            4, true, 0, 25, false, 0,
+            new ArrayList<>(List.of(Season.Summer, Season.Fall)), false, false),
+
+    Amaranth ("Amaranth", SeedType.AmaranthSeeds, new int[] {1, 2, 2, 2},
+            7, true, 0, 150, true, 50,
+            new ArrayList<>(List.of(Season.Fall)), false, false),
+
+    Artichoke ("Artichoke", SeedType.ArtichokeSeeds, new int[] {2, 2, 1, 2, 1},
+            8, true, 0, 160, true, 30,
+            new ArrayList<>(List.of(Season.Fall)), false, false),
+
+    Beet ("Beet", SeedType.BeetSeeds, new int[] {1, 1, 2, 2},
+            6, true, 0, 100, true, 30,
+            new ArrayList<>(List.of(Season.Fall)), false, false),
+
+    BokChoy ("Bok Choy", SeedType.BokChoySeeds, new int[] {1, 1, 1, 1},
+            4, true, 0, 80, true, 25,
+            new ArrayList<>(List.of(Season.Fall)), false, false),
+
+    Broccoli ("Broccoli", SeedType.BroccoliSeeds, new int[] {2, 2, 2, 2},
+            8, false, 4, 70, true, 63,
+            new ArrayList<>(List.of(Season.Fall)), false, false),
+
+    Cranberries ("Cranberries", SeedType.CranberrySeeds, new int[] {1, 2, 1, 1, 2},
+            7, false, 5, 75, true, 38,
+            new ArrayList<>(List.of(Season.Fall)), false, false),
+
+    Eggplant ("Eggplant", SeedType.EggplantSeeds, new int[] {1, 1, 1, 1},
+            5, false, 5, 60, true, 20,
+            new ArrayList<>(List.of(Season.Fall)), false, false),
+
+    FairyRose ("Fairy Rose", SeedType.FairySeeds, new int[] {1, 4, 4, 3},
+            12, true, 0, 290, true, 45,
+            new ArrayList<>(List.of(Season.Fall)), false, false),
+
+    Grape ("Grape", SeedType.GrapeStarter, new int[] {1, 1, 2, 3, 3},
+            10, false, 3, 80, true, 38,
+            new ArrayList<>(List.of(Season.Fall)), false, false),
+
+    Pumpkin ("Pumpkin", SeedType.PumpkinSeeds, new int[] {1, 2, 3, 4, 3},
+            13, true, 0, 320, false, 0,
+            new ArrayList<>(List.of(Season.Fall)), true, false),
+
+    Yam ("Yam", SeedType.YamSeeds, new int[] {1, 3, 3, 3},
+            10, true, 0, 160, true, 45,
+            new ArrayList<>(List.of(Season.Fall)), false, false),
+
+    SweetGemBerry ("Sweet Gem Berry", SeedType.RareSeed, new int[] {2, 4, 6, 6, 6},
+            24, true, 0, 3000, false, 0,
+            new ArrayList<>(List.of(Season.Fall)), false, false),
+
+    Powdermelon ("Powdermelon", SeedType.PowdermelonSeeds, new int[] {1, 2, 1, 2, 1},
+            7, true, 0, 60, true, 63,
+            new ArrayList<>(List.of(Season.Winter)), true, false),
+
+    AncientFruit ("Ancient Fruit", SeedType.AncientSeeds, new int[] {2, 7, 7, 7, 5},
+            28, false, 7, 550, false, 0,
+            new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall)), false, false),
+
+    Mixed (null, null, null, 0, false, 0,
+            0, false, 0, null, false, false);
+
+
+    private final String name;
+    private final SeedType source;
+    private final int[] stages;
+    private final int harvestTime;
+    private final boolean oneTime;
+    private final int regrowthTime;
+    private final int baseSellPrice;
+    private final boolean isEdible;
+    private final int energy;
+    private final ArrayList<Season> seasons;
+    private final boolean canBecomeGiant;
+    private final boolean isMixed;
+
+    CropType (String name, SeedType source, int[] stages, int harvestTime, boolean oneTime,
+              int regrowthTime, int baseSellPrice, boolean isEdible, int energy,
+              ArrayList<Season> seasons, boolean canBecomeGiant, boolean isMixed) {
+        this.name = name;
+        this.source = source;
+        this.stages = stages;
+        this.harvestTime = harvestTime;
+        this.oneTime = oneTime;
+        this.regrowthTime = regrowthTime;
+        this.baseSellPrice = baseSellPrice;
+        this.isEdible = isEdible;
+        this.energy = energy;
+        this.seasons = seasons;
+        this.canBecomeGiant = canBecomeGiant;
+        this.isMixed = isMixed;
     }
 
-    public Crop getCrop () {
-        return crop;
+    public String getName() {
+        return name;
+    }
+
+    public SeedType getSource() {
+        return source;
+    }
+
+    public int[] getStages() {
+        return stages;
+    }
+
+    public int getHarvestTime() {
+        return harvestTime;
+    }
+
+    public boolean isOneTime() {
+        return oneTime;
+    }
+
+    public int getRegrowthTime() {
+        return regrowthTime;
+    }
+
+    public int getBaseSellPrice() {
+        return baseSellPrice;
+    }
+
+    public boolean isEdible() {
+        return isEdible;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public ArrayList<Season> getSeasons() {
+        return seasons;
+    }
+
+    public boolean canBecomeGiant() {
+        return canBecomeGiant;
+    }
+
+    public boolean isMixed() {
+        return isMixed;
     }
 }

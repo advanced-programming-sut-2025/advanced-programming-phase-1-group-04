@@ -7,84 +7,67 @@ import Model.Game;
 import java.util.ArrayList;
 
 public class Crop {
-    private final String name;
-    private final SeedType source;
-    private final int[] stages;
-    private final int harvestTime;
-    private final boolean oneTime;
-    private final int regrowthTime;
-    private final int baseSellPrice;
-    private final boolean isEdible;
-    private final int energy;
-    private ArrayList<Season> seasons = new ArrayList<>();
-    private final boolean canBecomeGiant;
     private DateAndTime plantingDate;
     private DateAndTime lastTimeHarvested;
-    private boolean isMixed;
+    private final CropType type;
+    //TODO: isGiant?
+
 
     //constructor:
-    private Crop (CropBuilder builder) {
-        this.name = builder.name;
-        this.source = builder.source;
-        this.stages = builder.stages;
-        this.harvestTime = builder.harvestTime;
-        this.oneTime = builder.oneTime;
-        this.regrowthTime = builder.regrowthTime;
-        this.baseSellPrice = builder.baseSellPrice;
-        this.isEdible = builder.isEdible;
-        this.energy = builder.energy;
-        this.seasons = builder.seasons;
-        this.canBecomeGiant = builder.canBecomeGiant;
+    private Crop (DateAndTime plantingDate, CropType type) {
         this.plantingDate = null;
-        this.lastTimeHarvested = null;
-        this.isMixed = builder.isMixed;
+        this.type = type;
 
     }
 
 
     //getters:
     public String getName() {
-        return name;
+        return type.getName();
     }
 
     public SeedType getSource() {
-        return source;
+        return type.getSource();
     }
 
     public int[] getStages() {
-        return stages;
+        return type.getStages();
     }
 
     public int getHarvestTime() {
-        return harvestTime;
+        return type.getHarvestTime();
     }
 
     public boolean isOneTime() {
-        return oneTime;
+        return type.isOneTime();
     }
 
     public int getRegrowthTime() {
-        return regrowthTime;
+        return type.getRegrowthTime();
     }
 
     public int getBaseSellPrice() {
-        return baseSellPrice;
+        return type.getBaseSellPrice();
     }
 
     public boolean isEdible() {
-        return isEdible;
+        return type.isEdible();
     }
 
     public int getEnergy() {
-        return energy;
+        return type.getEnergy();
     }
 
     public ArrayList<Season> getSeasons() {
-        return seasons;
+        return type.getSeasons();
     }
 
     public boolean canBecomeGiant() {
-        return canBecomeGiant;
+        return type.canBecomeGiant();
+    }
+
+    public boolean isMixed() {
+        return type.isMixed();
     }
 
     public DateAndTime getPlantingDate() {
@@ -96,14 +79,14 @@ public class Crop {
     }
 
     public int getCurrentStage () {
-        int stageTime = harvestTime;
-        int currentStage = stages.length + 1;
+        int stageTime = getHarvestTime();
+        int currentStage = getStages().length + 1;
         int daysSincePlanted = Game.getCurrentTime().getDay() - plantingDate.getDay();
         if (lastTimeHarvested == null) {
             if (daysSincePlanted >= stageTime) {
                 return currentStage;
             }
-            for (int i : stages) {
+            for (int i : getStages()) {
                 currentStage--;
                 stageTime -= i;
                 if (daysSincePlanted >= stageTime) {
@@ -112,8 +95,8 @@ public class Crop {
             }
         }
         else {
-            if (Game.getCurrentTime().getDay() - lastTimeHarvested.getDay() >= regrowthTime) {
-                return stages.length;
+            if (Game.getCurrentTime().getDay() - lastTimeHarvested.getDay() >= getRegrowthTime()) {
+                return getStages().length;
             }
             else {
                 return 1;
@@ -126,92 +109,9 @@ public class Crop {
     //setters:
     public void setPlantingDate(DateAndTime plantingDate) {
         this.plantingDate = plantingDate;
-    }
+    } //TODO: in bashe ya na?
 
     public void setLastTimeHarvested(DateAndTime lastTimeHarvested) {
         this.lastTimeHarvested = lastTimeHarvested;
     }
-
-
-    //builder:
-    public static class CropBuilder {
-        private String name;
-        private SeedType source;
-        private int[] stages;
-        private int harvestTime;
-        private boolean oneTime;
-        private int regrowthTime;
-        private int baseSellPrice;
-        private boolean isEdible;
-        private int energy;
-        private ArrayList<Season> seasons;
-        private boolean canBecomeGiant;
-        private boolean isMixed = false;
-
-        public CropBuilder setName (String name) {
-            this.name = name;
-            return this;
-        }
-
-
-        public CropBuilder setSource(SeedType source) {
-            this.source = source;
-            return this;
-        }
-
-        public CropBuilder setStages(int[] stages) {
-            this.stages = stages;
-            return this;
-        }
-
-        public CropBuilder setHarvestTime(int harvestTime) {
-            this.harvestTime = harvestTime;
-            return this;
-        }
-
-        public CropBuilder setOneTime(boolean oneTime) {
-            this.oneTime = oneTime;
-            return this;
-        }
-
-        public CropBuilder setRegrowthTime(int regrowthTime) {
-            this.regrowthTime = regrowthTime;
-            return this;
-        }
-
-        public CropBuilder setBaseSellPrice(int baseSellPrice) {
-            this.baseSellPrice = baseSellPrice;
-            return this;
-        }
-
-        public CropBuilder setEdible(boolean edible) {
-            isEdible = edible;
-            return this;
-        }
-
-        public CropBuilder setEnergy(int energy) {
-            this.energy = energy;
-            return this;
-        }
-
-        public CropBuilder setSeasons(ArrayList<Season> seasons) {
-            this.seasons = seasons;
-            return this;
-        }
-
-        public CropBuilder setCanBecomeGiant(boolean canBecomeGiant) {
-            this.canBecomeGiant = canBecomeGiant;
-            return this;
-        }
-
-        public CropBuilder setIsMixed (boolean isMixed) {
-            this.isMixed = isMixed;
-            return this;
-        }
-
-        public Crop build () {
-            return new Crop(this);
-        }
-    }
-
 }

@@ -5,69 +5,31 @@ import Model.Enum.Season;
 import java.util.ArrayList;
 
 public class ForagingCrop implements Forageable{
-    private final String name;
-    private final ArrayList<Season> seasons;
-    private final int baseSellPrice;
-    private final int energy;
+    private final ForagingCropType type;
 
-    public ForagingCrop (ForagingCropBuilder builder) {
-        this.name = builder.name;
-        this.seasons = builder.seasons;
-        this.baseSellPrice = builder.baseSellPrice;
-        this.energy = builder.energy;
+    public ForagingCrop (ForagingCropType type) {
+        this.type = type;
     }
 
     public String getName() {
-        return name;
+        return type.getName();
     }
 
     @Override
     public ArrayList<Season> getSeasons() {
-        return seasons;
+        return type.getSeasons();
     }
 
     public int getBaseSellPrice() {
-        return baseSellPrice;
+        return type.getBaseSellPrice();
     }
 
     public int getEnergy() {
-        return energy;
+        return type.getEnergy();
     }
 
     @Override
     public boolean isForageable () {
         return true;
-    }
-
-
-    public static class ForagingCropBuilder {
-        private String name;
-        private ArrayList<Season> seasons;
-        private int baseSellPrice;
-        private int energy;
-
-        public ForagingCropBuilder setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public ForagingCropBuilder setSeasons(ArrayList<Season> seasons) {
-            this.seasons = seasons;
-            return this;
-        }
-
-        public ForagingCropBuilder setBaseSellPrice(int baseSellPrice) {
-            this.baseSellPrice = baseSellPrice;
-            return this;
-        }
-
-        public ForagingCropBuilder setEnergy(int energy) {
-            this.energy = energy;
-            return this;
-        }
-
-        public ForagingCrop build() {
-            return new ForagingCrop (this);
-        }
     }
 }

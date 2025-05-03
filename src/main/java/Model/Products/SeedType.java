@@ -47,7 +47,7 @@ public enum SeedType {
     RareSeed(new Seed("Rare Seed", new ArrayList<>(List.of(Season.Fall)), CropType.SweetGemBerry)),
     PowdermelonSeeds(new Seed("Powdermelon Seeds", new ArrayList<>(List.of(Season.Winter)), CropType.Powdermelon)),
     AncientSeeds(new Seed("Ancient Seeds", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall)), CropType.AncientFruit)),
-    MixedSeeds(new Seed("Mixed Seeds", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), null));
+    MixedSeeds(new Seed("Mixed Seeds", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), CropType.Mixed));
 
 
     private final Seed seed;

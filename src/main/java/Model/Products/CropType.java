@@ -538,6 +538,9 @@ public enum CropType {
             .setEnergy(0)
             .setSeasons(new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall)))
             .setCanBecomeGiant(false)
+            .build()),
+    Mixed (new Crop.CropBuilder()
+            .setIsMixed(true)
             .build());
 
     private final Crop crop;

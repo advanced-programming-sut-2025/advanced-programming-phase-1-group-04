@@ -20,6 +20,7 @@ public class Crop {
     private final boolean canBecomeGiant;
     private DateAndTime plantingDate;
     private DateAndTime lastTimeHarvested;
+    private boolean isMixed;
 
     //constructor:
     private Crop (CropBuilder builder) {
@@ -36,6 +37,8 @@ public class Crop {
         this.canBecomeGiant = builder.canBecomeGiant;
         this.plantingDate = null;
         this.lastTimeHarvested = null;
+        this.isMixed = builder.isMixed;
+
     }
 
 
@@ -143,6 +146,7 @@ public class Crop {
         private int energy;
         private ArrayList<Season> seasons;
         private boolean canBecomeGiant;
+        private boolean isMixed = false;
 
         public CropBuilder setName (String name) {
             this.name = name;
@@ -197,6 +201,11 @@ public class Crop {
 
         public CropBuilder setCanBecomeGiant(boolean canBecomeGiant) {
             this.canBecomeGiant = canBecomeGiant;
+            return this;
+        }
+
+        public CropBuilder setIsMixed (boolean isMixed) {
+            this.isMixed = isMixed;
             return this;
         }
 

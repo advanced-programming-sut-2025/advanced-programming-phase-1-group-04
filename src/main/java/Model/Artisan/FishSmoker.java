@@ -1,7 +1,7 @@
 package Model.Artisan;
 
 public enum FishSmoker {
-    SmookedFish("A whole fish, smoked to perfection." , 0 , 1 , 0);
+    SmokedFish("A whole fish, smoked to perfection." , 0 , 1 , 0);
 
     private final String description;
     private final int energy;

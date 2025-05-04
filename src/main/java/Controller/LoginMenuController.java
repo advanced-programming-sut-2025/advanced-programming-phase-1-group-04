@@ -11,6 +11,13 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class LoginMenuController {
     public static Result register(String username, String password, String rePassword, String nickName, String email, String gender) throws IOException {
@@ -45,7 +52,7 @@ public class LoginMenuController {
             return new Result(false, "Generated password: " + randomPassword + "\nDo you accept this password? (yes/no)");
         }
 
-        User user = new User(username, password, nickName, email, gender);
+        User user = new User(username, getHashPassword(password), nickName, email, gender);
         Gson gson = new Gson();
         FileWriter writer = new FileWriter("users/" + username + ".json");
         gson.toJson(user, writer);
@@ -53,7 +60,7 @@ public class LoginMenuController {
         return new Result(true,"Now pick a security question:\n" + SecurityQuestion.getQuestions());
     }
 
-    public static Result securityQuestion(String username, int number, String answer, String reAnswer) {
+    public static Result securityQuestion(String username, int number, String answer, String reAnswer) throws IOException {
         User user = App.getUserByUsername(username);
         if (user == null) {
             return new Result(true, "Something went wrong. Register again!");
@@ -65,6 +72,11 @@ public class LoginMenuController {
 
         user.setQuestion(SecurityQuestion.valueOf("S" + number));
         user.setAnswer(answer);
+
+        Gson gson = new Gson();
+        FileWriter writer = new FileWriter("users/" + username + ".json");
+        gson.toJson(user, writer);
+        writer.close();
         return new Result(true, "User registered successfully.");
     }
 
@@ -73,12 +85,13 @@ public class LoginMenuController {
         return new Result(true, "");
     }
 
-    public static Result forgetPassword(String username) {
+
+    public static Result securityAnswer(String answer) {
 
         return new Result(true, "");
     }
 
-    public static Result securityAnswer(String answer) {
+    public static Result forgetPassword(String username) {
 
         return new Result(true, "");
     }
@@ -102,7 +115,47 @@ public class LoginMenuController {
     }
 
     private static String generatePassword() {
-        //TODO
-        return "";
+        final String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        final String lower = "abcdefghijklmnopqrstuvwxyz";
+        final String digit = "0123456789";
+        final String symbol = "!@#$%^&*()_+-={}[]:;\"'<>,.?/|\\";
+
+        SecureRandom random = new SecureRandom();
+        int length = random.nextInt(10) + 8;
+
+        List<Character> list = new ArrayList<>();
+        list.add(upper.charAt(random.nextInt(upper.length())));
+        list.add(lower.charAt(random.nextInt(lower.length())));
+        list.add(digit.charAt(random.nextInt(digit.length())));
+        list.add(symbol.charAt(random.nextInt(symbol.length())));
+
+        String all = upper + lower + digit + symbol;
+        while (list.size() < length)
+            list.add(all.charAt(random.nextInt(all.length())));
+
+        Collections.shuffle(list);
+
+        StringBuilder password = new StringBuilder();
+        for (char ch : list) {
+            password.append(ch);
+        }
+
+        return password.toString();
+    }
+
+    private static String getHashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashedBytes = digest.digest(password.getBytes());
+
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashedBytes) {
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 algorithm not found!");
+        }
     }
 }

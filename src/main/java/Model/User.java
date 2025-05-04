@@ -13,6 +13,8 @@ public class User {
     private SecurityQuestion question;
     private String answer;
 
+    private int games = 0;
+    private int mostCoinsEarned = 0;
 
 
     public User(String username, String password, String nickname, String email, String gender) {
@@ -52,6 +54,14 @@ public class User {
         this.nickname = nickname;
     }
 
+    public void setGames(int games) {
+        this.games = games;
+    }
+
+    public void setMostCoinsEarned(int mostCoinsEarned) {
+        this.mostCoinsEarned = mostCoinsEarned;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -70,5 +80,16 @@ public class User {
 
     public String getGender() {
         return gender;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("User Information:\n").append("______________________________\n");
+        result.append("Username: ").append(this.username).append("\n")
+                .append("Nickname: ").append(this.nickname).append("\n")
+                .append("Most coins earned: ").append(this.mostCoinsEarned).append("\n")
+                .append("Number of games played: ").append(this.games).append("\n");
+        return result.toString();
     }
 }

@@ -1,6 +1,11 @@
 package Model;
 
 import Model.Command.Menu;
+import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class App {
     private static Menu currentMenu = Menu.LoginMenu;
@@ -30,5 +35,23 @@ public class App {
 
     public static void setCurrentUser(User currentUser) {
         App.currentUser = currentUser;
+    }
+
+    public static User getUserByUsername (String username) {
+        File file = new File("users/" + username + ".json");
+
+        if (!file.exists()) return null;
+
+        try (FileReader reader = new FileReader(file)) {
+            Gson gson = new Gson();
+            return gson.fromJson(reader, User.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static int getNumberOfUsers() {
+        return 0;
     }
 }

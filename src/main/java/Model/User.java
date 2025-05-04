@@ -1,38 +1,28 @@
 package Model;
 
-import Model.Enum.Season;
-import Model.Enum.Skill;
 import Model.Enum.SecurityQuestion;
-import Model.Enum.WeekDay;
-import Model.Map.Coordinate;
-
-import java.util.HashMap;
 
 public class User {
+    private final int id;
     private String username;
     private String password;
     private String nickname;
     private String email;
     private final String gender;
+
     private SecurityQuestion question;
-
-    private Game currentGame;
-    private Coordinate coordinate;
-    private int energy = 200;
-    private Inventory inventory;
-    public final HashMap<Skill, Integer> myAbility = new HashMap<>();
-    //animal friendship
+    private String answer;
 
 
 
-    User(String username, String password, String nickname, String email, String gender) {
+    public User(String username, String password, String nickname, String email, String gender) {
+        this.id = App.getNumberOfUsers() + 1;
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.email = email;
         this.gender = gender;
     }
-
 
     public SecurityQuestion getQuestion() {
         return question;
@@ -42,16 +32,16 @@ public class User {
         this.question = question;
     }
 
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setCurrentGame(Game currentGame) {
-        this.currentGame = currentGame;
     }
 
     public void setEmail(String email) {
@@ -78,22 +68,7 @@ public class User {
         return nickname;
     }
 
-    public Game getCurrentGame() {
-        return currentGame;
-    }
-
     public String getGender() {
         return gender;
-    }
-
-    public int getAbilityLevel (String ability) {
-        return (100 * this.myAbility.get(Skill.valueOf(ability)) + 50);
-    }
-
-    public void handleCrash()
-    {
-        DateAndTime newTime = new DateAndTime (0 , 0 , WeekDay.Monday , Season.Spring);
-        //if (this.energy == 0)
-            //Game.currentTime = newTime;
     }
 }

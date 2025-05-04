@@ -1,6 +1,11 @@
 package Model.Products;
 
-public enum ForagingMineralType {
+import Model.Enum.Season;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public enum ForagingMineralType implements Forageable {
     Quartz ("Quartz", 25),
     EarthCrystal ("Earth Crystal", 50),
     FrozenTear ("Frozen Tear", 75),
@@ -34,5 +39,15 @@ public enum ForagingMineralType {
 
     public int getSellPrice() {
         return sellPrice;
+    }
+
+    @Override
+    public ArrayList<Season> getSeasons() {
+        return new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter));
+    }
+
+    @Override
+    public boolean isForageable () {
+        return true;
     }
 }

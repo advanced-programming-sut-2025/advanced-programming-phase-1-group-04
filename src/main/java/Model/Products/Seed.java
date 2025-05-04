@@ -4,7 +4,7 @@ import Model.Enum.Season;
 
 import java.util.ArrayList;
 
-public class Seed implements Forageable{
+public class Seed{
     //TODO: mixed seeds must be controlled in controller. no specific operation has been considered yet.
 
     private final SeedType seedType;

@@ -5,7 +5,7 @@ import Model.Enum.Season;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum SaplingType {
+public enum SaplingType implements Forageable {
     ApricotSapling("Apricot Sapling", new ArrayList<>(List.of(Season.Spring)), TreeType.Apricot, false),
     CherrySapling("Cherry Sapling", new ArrayList<>(List.of(Season.Spring)), TreeType.Cherry, false),
     BananaSapling("Banana Sapling", new ArrayList<>(List.of(Season.Summer)), TreeType.Banana, false),
@@ -40,6 +40,7 @@ public enum SaplingType {
         return name;
     }
 
+    @Override
     public ArrayList<Season> getSeasons() {
         return seasons;
     }
@@ -48,6 +49,7 @@ public enum SaplingType {
         return treeType;
     }
 
+    @Override
     public boolean isForageable() {
         return isForageable;
     }

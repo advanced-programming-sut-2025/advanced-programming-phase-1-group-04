@@ -5,7 +5,7 @@ import Model.Enum.Season;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum ForagingCropType {
+public enum ForagingCropType implements Forageable {
     CommonMushroom ("Common Mushroom", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), 40, 38),
 
     Daffodil("Daffodil", new ArrayList<>(List.of(Season.Spring)), 30, 0),
@@ -71,6 +71,7 @@ public enum ForagingCropType {
         return name;
     }
 
+    @Override
     public ArrayList<Season> getSeasons() {
         return seasons;
     }
@@ -81,5 +82,10 @@ public enum ForagingCropType {
 
     public int getEnergy() {
         return energy;
+    }
+
+    @Override
+    public boolean isForageable () {
+        return true;
     }
 }

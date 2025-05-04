@@ -4,7 +4,7 @@ import Model.Enum.Season;
 
 import java.util.ArrayList;
 
-public class ForagingCrop implements Forageable{
+public class ForagingCrop{
     private final ForagingCropType type;
 
     public ForagingCrop (ForagingCropType type) {
@@ -15,7 +15,6 @@ public class ForagingCrop implements Forageable{
         return type.getName();
     }
 
-    @Override
     public ArrayList<Season> getSeasons() {
         return type.getSeasons();
     }
@@ -28,7 +27,6 @@ public class ForagingCrop implements Forageable{
         return type.getEnergy();
     }
 
-    @Override
     public boolean isForageable () {
         return true;
     }

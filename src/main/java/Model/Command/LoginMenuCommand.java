@@ -9,7 +9,8 @@ public enum LoginMenuCommand implements Command {
     SecurityQuestion("pick question -q (?<questionNumber>-?[0-9]+) -a (?<answer>.+?) -c (?<reAnswer>.+)"),
 
     Login("login -u (?<username>\\S+) -p (?<password>\\S+)(?: (?<loggedIn>-stay-logged-in))?"),
-    Answer("answer -a (?<answer>.+)"),
+    EnterAnswer("answer -a (?<answer>.+)"),
+    EnterPassword("password -p (?<password>.+)"),
     ForgetPassword("forget password -u (?<username>\\S+)"),
 
     GoMenu("go to (?<menu>main|login|game|profile) menu"),

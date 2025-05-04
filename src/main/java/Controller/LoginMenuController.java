@@ -57,7 +57,7 @@ public class LoginMenuController {
         FileWriter writer = new FileWriter("users/" + username + ".json");
         gson.toJson(user, writer);
         writer.close();
-        return new Result(true,"Now pick a security question:\n" + SecurityQuestion.getQuestions());
+        return new Result(true,"Benazam.\nNow pick a security question:\n" + SecurityQuestion.getQuestions());
     }
 
     public static Result securityQuestion(String username, int number, String answer, String reAnswer) throws IOException {
@@ -80,29 +80,77 @@ public class LoginMenuController {
         return new Result(true, "User registered successfully.");
     }
 
-    public static Result login(String username, String password, String loggedIn) {
-
-        return new Result(true, "");
-    }
-
-
-    public static Result securityAnswer(String answer) {
-
-        return new Result(true, "");
-    }
-
-    public static Result forgetPassword(String username) {
-
-        return new Result(true, "");
-    }
-
-    public static Result goMenu (String menu) {
-        if (!menu.equals("main")) {
-            return new Result(false, "You can't go to " + menu + " menu in login menu");
+    public static Result login(String username, String password, String loggedIn) throws IOException {
+        User user = App.getUserByUsername(username);
+        if (user == null) {
+            return new Result(false, "There is no such username!");
+        } else if (!getHashPassword(password).equals(user.getPassword())) {
+            return new Result(false, "Password is incorrect!" + getHashPassword(password)); // TODO
         }
 
+        Gson gson = new Gson();
+        FileWriter writer = new FileWriter("users/loggedIn.json");
+        if (loggedIn == null) gson.toJson(null, writer);
+        else gson.toJson(user, writer);
+        writer.close();
+
+        App.setCurrentUser(user);
         App.setCurrentMenu(Menu.MainMenu);
-        return new Result(true, "Now you are in " + menu + " menu");
+        return new Result(true, "You login successfully. Now you are in Main menu.");
+    }
+
+
+    public static Result forgetPassword(String username) {
+        User user = App.getUserByUsername(username);
+        if (user == null) {
+            return new Result(false, "There is no such username!");
+        }
+
+        return new Result(true, "Now answer the security question:\n" + user.getSecurityQuestion());
+    }
+
+    public static Result forgetPassword(String username, String password) throws IOException {
+        User user = App.getUserByUsername(username);
+        if (user == null) {
+            return new Result(false, "There is no such username!");
+        } else if (!password.equals("random")) {
+            if (!LoginMenuCommand.Password.isMatch(password)) {
+                return new Result(false, "Password format is invalid!");
+            } else if (password.length() < 8) {
+                return new Result(false, "Your password is not strong enough!\nIt must be at least 8 characters long.");
+            } else if (!password.matches(".*[a-z].*")) {
+                return new Result(false, password + "Your password is not strong enough!\nIt must contain lowercase letters.");
+            } else if (!password.matches(".*[A-Z].*")) {
+                return new Result(false, password + "Your password is not strong enough!\nIt must contain uppercase letters.");
+            } else if (!password.matches(".*[0-9].*")) {
+                return new Result(false, "Your password is not strong enough!\nIt must contain numbers.");
+            } else if (!password.matches(".*[!@#$%^&*()_+\\-={}\\[\\]:;\"'<>,.?/|\\\\].*")) {
+                return new Result(false, "Your password is not strong enough!\nIt must contain special symbols.");
+            } else if (getHashPassword(password).equals(user.getPassword())) {
+                return new Result(false, "New and old passwords are the same!");
+            }
+        } else if (password.equals("random")) {
+            String randomPassword = generatePassword();
+            return new Result(false, "Generated password: " + randomPassword + "\nDo you accept this password? (yes/no)");
+        }
+
+        user.setPassword(getHashPassword(password));
+        App.setCurrentUser(user);
+
+        Gson gson = new Gson();
+        FileWriter writer = new FileWriter("users/" + username + ".json");
+        gson.toJson(user, writer);
+        writer.close();
+
+        return new Result(true, "Your password changed successfully!");
+    }
+
+    public static Result securityAnswer(String username, String answer) {
+        if (!App.getUserByUsername(username).getAnswer().equals(answer)) {
+            return new Result(false, "answer is incorrect!");
+        }
+
+        return new Result(true, "Benazam. Now enter new password:");
     }
 
     public static Result currentMenu () {

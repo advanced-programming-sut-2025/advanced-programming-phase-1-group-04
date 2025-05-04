@@ -82,6 +82,14 @@ public class User {
         return gender;
     }
 
+    public String getAnswer() {
+        return answer;
+    }
+
+    public String getSecurityQuestion () {
+        return this.question.getQuestion();
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

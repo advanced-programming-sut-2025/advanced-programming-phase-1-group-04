@@ -1,8 +1,6 @@
-import Model.User;
-import View.AppView;
-import com.google.gson.Gson;
 
-import java.io.FileWriter;
+import View.AppView;
+
 import java.io.IOException;
 
 public class Main {

@@ -1,7 +1,7 @@
 package Model.Command;
 
 public enum MainMenuCommand implements Command {
-    Logout("user logout"),
+    Logout("logout"),
 
     GoMenu ("go to (?<menu>main|login|game|profile) menu"),
     CurrentMenu ("show current menu"),

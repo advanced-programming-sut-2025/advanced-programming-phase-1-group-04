@@ -21,8 +21,9 @@ public enum SecurityQuestion {
     public static String getQuestions() {
         StringBuilder allQuestions = new StringBuilder();
         allQuestions.append("Questions:\n").append("_________________________________________________\n");
+        int i = 1;
         for (SecurityQuestion sq : SecurityQuestion.values()) {
-            allQuestions.append(sq.getQuestion()).append("\n");
+            allQuestions.append(i++).append(".").append(sq.getQuestion()).append("\n");
         }
 
         return allQuestions.toString();

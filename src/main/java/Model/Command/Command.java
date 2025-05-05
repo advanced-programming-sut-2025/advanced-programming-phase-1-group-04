@@ -7,11 +7,15 @@ public interface Command {
 
      String getPattern();
 
-     default Matcher isMatch(String input){
+     default Matcher getMatcher(String input){
           Matcher matcher = Pattern.compile(this.getPattern()).matcher(input);
           if (matcher.matches()) {
                return matcher;
           }
           return null;
+     }
+
+     default boolean isMatch (String input) {
+          return getMatcher(input).matches();
      }
 }

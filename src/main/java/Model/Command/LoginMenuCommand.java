@@ -3,14 +3,15 @@ package Model.Command;
 public enum LoginMenuCommand implements Command {
     Register("register -u (?<username>\\S+) -p (?<password>\\S+)(?: (?<rePassword>\\S+))? -n (?<nickname>\\S+) -e (?<email>\\S+) -g (?<gender>\\S+)"),
         Name ("^[a-zA-Z0-9_]+$"),
-        Password("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9]+$"),
-        Email("^[A-Za-z0-9][A-Za-z0-9_.-]*[A-Za-z0-9]@[a-z](?![a-z]*[-.][a-z]*[-.][a-z]*[a-z]\\.)[a-z.\\-]{1,5}[a-z]\\.(org|com|net|edu)$"),
+        Password("^[a-zA-Z0-9!@#$%^&*()_+\\-={}\\[\\]:;\"'<>,.?/|\\\\]+$"),
+        Email("^[a-zA-Z0-9](?!.*\\.\\.)[a-zA-Z0-9._-]*[a-zA-Z0-9]@[a-zA-Z0-9][a-zA-Z0-9_]*[a-zA-Z0-9]\\.[A-Za-z]{2,}$"),
         Gender("^male|female$"),
-        SecurityQuestion("pick question -q (?<questionNumber>[0-9]+) -a (?<answer>.+?) -c (?<reAnswer>.+)"),
+    SecurityQuestion("pick question -q (?<questionNumber>-?[0-9]+) -a (?<answer>.+?) -c (?<reAnswer>.+)"),
 
     Login("login -u (?<username>\\S+) -p (?<password>\\S+)(?: (?<loggedIn>-stay-logged-in))?"),
+    EnterAnswer("answer -a (?<answer>.+)"),
+    EnterPassword("password -p (?<password>.+)"),
     ForgetPassword("forget password -u (?<username>\\S+)"),
-        Answer("answer -a (?<answer>.+)"),
 
     GoMenu("go to (?<menu>main|login|game|profile) menu"),
     CurrentMenu("show current menu"),

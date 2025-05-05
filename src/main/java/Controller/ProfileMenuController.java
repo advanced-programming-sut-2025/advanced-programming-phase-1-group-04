@@ -5,32 +5,32 @@ import Model.Command.Menu;
 import Model.Result;
 
 public class ProfileMenuController {
-    public Result changeUsername (String username) {
+    public static Result changeUsername (String username) {
 
         return new Result(true, "");
     }
 
-    public Result changeNickname (String nickname) {
+    public static Result changeNickname (String nickname) {
 
         return new Result(true, "");
     }
 
-    public Result changeEmail (String email) {
+    public static Result changeEmail (String email) {
 
         return new Result(true, "");
     }
 
-    public Result changePassword (String newPassword, String oldPassword) {
+    public static Result changePassword (String newPassword, String oldPassword) {
 
         return new Result(true, "");
     }
 
-    public Result showInfo() {
+    public static Result showInfo() {
 
         return new Result(true, "");
     }
 
-    public Result goMenu (String menu) {
+    public static Result goMenu (String menu) {
         if (!menu.equals("main")) {
             return new Result(false, "You can't go to " + menu + " menu in profile menu");
         }
@@ -39,11 +39,11 @@ public class ProfileMenuController {
         return new Result(true, "Now you are in " + menu + " menu");
     }
 
-    public Result currentMenu () {
+    public static Result currentMenu () {
         return new Result(true, "You are in profile menu");
     }
 
-    public Result exitMenu () {
+    public static Result exitMenu () {
         App.setCurrentMenu(Menu.MainMenu);
         return new Result(true, "Now you are in main menu");
     }

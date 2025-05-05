@@ -1,6 +1,8 @@
 package Model.Command;
 
 import View.*;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public enum Menu {
@@ -16,7 +18,7 @@ public enum Menu {
         this.menu = menu;
     }
 
-    public void checkCommand (Scanner scanner) {
+    public void checkCommand (Scanner scanner) throws IOException {
         this.menu.check(scanner);
     }
 }

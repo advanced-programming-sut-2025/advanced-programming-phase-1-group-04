@@ -1,31 +1,24 @@
 package Model;
 
-import Model.Enum.Season;
-import Model.Enum.Skill;
 import Model.Enum.SecurityQuestion;
-import Model.Enum.WeekDay;
-import Model.Map.Coordinate;
-
-import java.util.HashMap;
 
 public class User {
+    private final int id;
     private String username;
     private String password;
     private String nickname;
     private String email;
     private final String gender;
+
     private SecurityQuestion question;
+    private String answer;
 
-    private Game currentGame;
-    private Coordinate coordinate;
-    private int energy = 200;
-    private Inventory inventory;
-    public final HashMap<Skill, Integer> myAbility = new HashMap<>();
-    //animal friendship
+    private int games = 0;
+    private int mostCoinsEarned = 0;
 
 
-
-    User(String username, String password, String nickname, String email, String gender) {
+    public User(String username, String password, String nickname, String email, String gender) {
+        this.id = App.getNumberOfUsers() + 1;
         this.username = username;
         this.password = password;
         this.nickname = nickname;
@@ -33,13 +26,16 @@ public class User {
         this.gender = gender;
     }
 
-
     public SecurityQuestion getQuestion() {
         return question;
     }
 
     public void setQuestion(SecurityQuestion question) {
         this.question = question;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public void setUsername(String username) {
@@ -50,16 +46,20 @@ public class User {
         this.password = password;
     }
 
-    public void setCurrentGame(Game currentGame) {
-        this.currentGame = currentGame;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public void setGames(int games) {
+        this.games = games;
+    }
+
+    public void setMostCoinsEarned(int mostCoinsEarned) {
+        this.mostCoinsEarned = mostCoinsEarned;
     }
 
     public String getUsername() {
@@ -78,22 +78,26 @@ public class User {
         return nickname;
     }
 
-    public Game getCurrentGame() {
-        return currentGame;
-    }
-
     public String getGender() {
         return gender;
     }
 
-    public int getAbilityLevel (String ability) {
-        return (100 * this.myAbility.get(Skill.valueOf(ability)) + 50);
+    public String getAnswer() {
+        return answer;
     }
 
-    public void handleCrash()
-    {
-        DateAndTime newTime = new DateAndTime (0 , 0 , WeekDay.Monday , Season.Spring);
-        //if (this.energy == 0)
-            //Game.currentTime = newTime;
+    public String getSecurityQuestion () {
+        return this.question.getQuestion();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("User Information:\n").append("______________________________\n");
+        result.append("Username: ").append(this.username).append("\n")
+                .append("Nickname: ").append(this.nickname).append("\n")
+                .append("Most coins earned: ").append(this.mostCoinsEarned).append("\n")
+                .append("Number of games played: ").append(this.games).append("\n");
+        return result.toString();
     }
 }

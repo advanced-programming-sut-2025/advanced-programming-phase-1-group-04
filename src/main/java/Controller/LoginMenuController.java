@@ -37,9 +37,9 @@ public class LoginMenuController {
             } else if (password.length() < 8) {
                 return new Result(false, "Your password is not strong enough!\nIt must be at least 8 characters long.");
             } else if (!password.matches(".*[a-z].*")) {
-                return new Result(false, password + "Your password is not strong enough!\nIt must contain lowercase letters.");
+                return new Result(false, "Your password is not strong enough!\nIt must contain lowercase letters.");
             } else if (!password.matches(".*[A-Z].*")) {
-                return new Result(false, password + "Your password is not strong enough!\nIt must contain uppercase letters.");
+                return new Result(false, "Your password is not strong enough!\nIt must contain uppercase letters.");
             } else if (!password.matches(".*[0-9].*")) {
                 return new Result(false, "Your password is not strong enough!\nIt must contain numbers.");
             } else if (!password.matches(".*[!@#$%^&*()_+\\-={}\\[\\]:;\"'<>,.?/|\\\\].*")) {
@@ -85,7 +85,7 @@ public class LoginMenuController {
         if (user == null) {
             return new Result(false, "There is no such username!");
         } else if (!getHashPassword(password).equals(user.getPassword())) {
-            return new Result(false, "Password is incorrect!" + getHashPassword(password)); // TODO
+            return new Result(false, "Password is incorrect!");
         }
 
         Gson gson = new Gson();
@@ -191,7 +191,7 @@ public class LoginMenuController {
         return password.toString();
     }
 
-    private static String getHashPassword(String password) {
+    public static String getHashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hashedBytes = digest.digest(password.getBytes());

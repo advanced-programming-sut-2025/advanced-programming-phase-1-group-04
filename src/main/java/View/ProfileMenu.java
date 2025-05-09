@@ -3,12 +3,13 @@ package View;
 import Controller.ProfileMenuController;
 import Model.Command.ProfileMenuCommand;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class ProfileMenu implements AppMenu {
     @Override
-    public void check(Scanner scanner) {
+    public void check(Scanner scanner) throws IOException {
         String input = scanner.nextLine();
         Matcher matcher;
         

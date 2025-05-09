@@ -20,7 +20,7 @@ public class Player {
         this.gender = gender;
     }
 
-    public int getAbilityLevel (String ability) {
-        return (100 * this.myAbility.get(Skill.valueOf(ability)) + 50);
+    public int getAbilityLevel (Skill skill) {
+        return (100 * this.myAbility.get(skill) + 50);
     }
 }

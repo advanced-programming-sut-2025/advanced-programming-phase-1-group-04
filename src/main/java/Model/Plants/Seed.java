@@ -1,4 +1,4 @@
-package Model.Products;
+package Model.Plants;
 
 import Model.Enum.Season;
 
@@ -21,7 +21,6 @@ public class Seed{
         return seedType.getName();
     }
 
-    @Override
     public ArrayList<Season> getSeasons() {
         return seedType.getSeasons();
     }
@@ -30,7 +29,6 @@ public class Seed{
         return seedType.getCrop();
     }
 
-    @Override
     public boolean isForageable () {
         return true;
     }

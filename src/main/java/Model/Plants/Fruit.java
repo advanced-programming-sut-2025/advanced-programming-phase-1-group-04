@@ -1,4 +1,4 @@
-package Model.Products;
+package Model.Plants;
 
 public class Fruit {
     private final FruitType type;

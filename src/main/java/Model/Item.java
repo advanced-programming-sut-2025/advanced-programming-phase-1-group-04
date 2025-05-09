@@ -1,11 +1,7 @@
 package Model;
 
-import Model.Enum.ObjType;
+import Model.Enum.ItemType;
 
-public class Item {
-    protected ObjType type;
-
-    public Item(String name) {
-        this.type = ObjType.valueOf(name);
-    }
+public abstract class Item {
+    public abstract ItemType getType ();
 }

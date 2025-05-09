@@ -1,4 +1,4 @@
-package Model.Products;
+package Model.Plants;
 
 import Model.DateAndTime;
 import Model.Enum.Season;

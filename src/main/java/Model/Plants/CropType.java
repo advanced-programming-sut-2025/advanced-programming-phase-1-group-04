@@ -1,11 +1,12 @@
-package Model.Products;
+package Model.Plants;
+
 
 import Model.Enum.Season;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public enum CropType {
+public enum CropType{
 
 
     BlueJazz ("Blue Jazz", SeedType.JazzSeeds, new int[] {1, 2, 2, 2},

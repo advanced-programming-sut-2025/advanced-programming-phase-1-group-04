@@ -1,7 +1,7 @@
 package Controller.SirkBozorg;
 
 import Model.Map.Coordinate;
-import Model.Products.Seed;
+import Model.Plants.Seed;
 
 public class FarmingController {
     public void plow (Coordinate coordinate) {

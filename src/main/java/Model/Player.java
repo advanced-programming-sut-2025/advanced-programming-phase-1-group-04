@@ -11,7 +11,7 @@ public class Player {
 
     private Coordinate coordinate;
     private int energy = 200;
-    private Inventory inventory;
+    private Inventory inventory = new Inventory(12);
     public final HashMap<Skill, Integer> myAbility = new HashMap<>();
     //animal friendship
 

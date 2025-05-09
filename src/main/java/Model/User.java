@@ -96,6 +96,9 @@ public class User {
         result.append("User Information:\n").append("______________________________\n");
         result.append("Username: ").append(this.username).append("\n")
                 .append("Nickname: ").append(this.nickname).append("\n")
+                .append("Email: ").append(this.email).append("\n")
+                .append("Gender: ").append(this.gender).append("\n")
+                .append("Security Question: ").append(this.getSecurityQuestion()).append("\n")
                 .append("Most coins earned: ").append(this.mostCoinsEarned).append("\n")
                 .append("Number of games played: ").append(this.games).append("\n");
         return result.toString();

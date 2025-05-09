@@ -13,7 +13,21 @@ public class Player {
     private int energy = 200;
     private Inventory inventory = new Inventory(12);
     public final HashMap<Skill, Integer> myAbility = new HashMap<>();
+
+    private int count;
+
     //animal friendship
+    //player friendship
+    //NPC friendship
+
+    //gift list
+    //ask marriage list?
+    //trade list
+    //quest list
+
+    //gift history
+    //talk history
+    //trade history
 
     public Player(int id, String gender) {
         this.id = id;

@@ -2,13 +2,22 @@ register -u Parsa -p Bbhshm1234* Bbhshm1234* -n Bani -e email12sk@gmail.com -g m
 register -u Aynaz -p Rahmani1234* Rahmani1234* -n Rahim -e email1ere2sk@gmail.com -g female
 register -u Majid -p Majik1234* Majik1234* -n 3456Tigh -e tigharol12sk@gmail.com -g male
 register -u Nafiseh -p Nz8421343* Nz8421343* -n 3456Tigh -e Nafisehz842@gmail.com -g female
-register -u Mahdi -p Nz8421343* Nz8421343* -n 3456Tigh -e Nafisehz842@gmail.com -g female
+register -u Sag -p Nz8421343* Nz8421343* -n Mehdi -e Nafisehz842@gmail.com -g female
 register -u Shahram -p random -n dasham -e dadashesh@gmail.com -g female
 
 pick question -q 3 -a to daftaresh -c to daftaresh
 
 login -u Nafiseh -p Nz8421343* -stay-logged-in
-login -u Mahdi -p Nz8421343* -stay-logged-in
-login -u Mahdi -p Nz8421343*
+login -u Sag -p Nz8421343* -stay-logged-in
+login -u Sag -p Nz8421343*
 
 forget password -u Parsa
+
+_______________________________________________________________
+
+change username -u
+change nickname -u
+change email -e
+change password -p      -o
+
+

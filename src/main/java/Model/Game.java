@@ -1,7 +1,8 @@
 package Model;
 
-import Model.Enum.Season;
-import Model.Enum.WeekDay;
+import Model.Time.DateAndTime;
+import Model.Time.Season;
+import Model.Time.WeekDay;
 
 import java.util.ArrayList;
 

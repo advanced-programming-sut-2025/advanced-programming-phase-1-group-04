@@ -1,9 +1,8 @@
 package Model.Plants;
 
-import Model.DateAndTime;
-import Model.Enum.Season;
+import Model.Time.DateAndTime;
+import Model.Time.Season;
 import Model.Game;
-import Model.Item;
 
 import java.util.ArrayList;
 

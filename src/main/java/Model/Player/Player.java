@@ -1,6 +1,5 @@
-package Model;
+package Model.Player;
 
-import Model.Enum.Skill;
 import Model.Map.Coordinate;
 
 import java.util.HashMap;

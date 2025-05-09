@@ -1,6 +1,6 @@
 package Model.Animals;
 
-import Model.Enum.Season;
+import Model.Time.Season;
 
 public class Fish {
     private FishType name;

@@ -1,6 +1,6 @@
 package Controller.SirkBozorg;
 
-import Model.Enum.Season;
+import Model.Time.Season;
 
 public class TimeController {
     public void seasonChange (Season currentSeason) {

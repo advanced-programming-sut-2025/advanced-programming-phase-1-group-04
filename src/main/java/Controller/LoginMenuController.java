@@ -3,19 +3,17 @@ package Controller;
 import Model.App;
 import Model.Command.LoginMenuCommand;
 import Model.Command.Menu;
-import Model.Enum.SecurityQuestion;
+import Model.Command.SecurityQuestion;
 import Model.Result;
 import Model.User;
 import com.google.gson.Gson;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

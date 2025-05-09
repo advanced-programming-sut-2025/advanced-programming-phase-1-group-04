@@ -1,7 +1,5 @@
 package Model.Map;
 
-import Model.Item;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 

@@ -1,6 +1,6 @@
 package Model.Tool;
 
-import Model.Enum.Skill;
+import Model.Player.Skill;
 
 public enum Tools {
     Hoe (Skill.Farming),

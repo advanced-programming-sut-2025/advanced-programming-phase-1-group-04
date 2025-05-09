@@ -1,6 +1,6 @@
 package Model.NPC;
 
-import Model.Item;
+import Model.Map.Item;
 import Model.Map.Place;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package Model;
 
-import Model.Enum.SecurityQuestion;
+import Model.Command.SecurityQuestion;
 
 public class User {
     private final int id;

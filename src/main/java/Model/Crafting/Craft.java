@@ -1,6 +1,6 @@
 package Model.Crafting;
 
-import Model.Item;
+import Model.Map.Item;
 
 import java.util.ArrayList;
 

@@ -13,12 +13,10 @@ public class GameMenu implements AppMenu {
         Matcher matcher;
         // TODO: tehkhhhh
         
-        if ((matcher = GameMenuCommand.GoMenu.getMatcher(input)) != null) {
+        if ((matcher = GameMenuCommand.NewGame.getMatcher(input)) != null) {
             System.out.println(GameMenuController.goMenu(matcher.group("menu")));
         } else if (GameMenuCommand.CurrentMenu.getMatcher(input) != null) {
             System.out.println(GameMenuController.currentMenu());
-        } else if (GameMenuCommand.Exit.getMatcher(input) != null) {
-            System.out.println(GameMenuController.exitMenu());
         } else {
             System.out.println("invalid command");
         }

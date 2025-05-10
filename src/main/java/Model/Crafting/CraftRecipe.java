@@ -1,10 +1,6 @@
 package Model.Crafting;
 
-import Model.Item;
-
-import java.util.HashMap;
-
-public enum CraftIngredients {
+public enum CraftRecipe {
     CherryBomb,
     Bomb,
     MegaBomb,
@@ -23,8 +19,9 @@ public enum CraftIngredients {
     OilMaker,
     PreservesJar,
     Dehydrator,
+    GrassStarter,
     FishSmoker,
     MysticTreeSeed;
-
+//  TODO:
 //    private final HashMap <Item, Integer> = new HashMap<>();
 }

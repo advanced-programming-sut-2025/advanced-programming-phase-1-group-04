@@ -1,6 +1,6 @@
 package Model.Cooking;
 
-import Model.Player;
+import Model.Player.*;
 
 @FunctionalInterface
 public interface BuffCheck {

@@ -1,8 +1,7 @@
 package Model.Cooking;
 
-import Model.Enum.Skill;
-import Model.Item;
-import Model.Player;
+import Model.Player.*;
+import Model.Map.Item;
 import Model.Trade.ShopType;
 
 import java.util.ArrayList;

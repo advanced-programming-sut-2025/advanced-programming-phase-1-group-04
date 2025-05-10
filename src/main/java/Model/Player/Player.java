@@ -1,14 +1,13 @@
 package Model.Player;
 
-<<<<<<< HEAD:src/main/java/Model/Player.java
 import Model.Crafting.CraftRecipe;
 import Model.Crafting.CraftType;
-import Model.Enum.Skill;
-=======
->>>>>>> origin/menu:src/main/java/Model/Player/Player.java
+import Model.Map.*;
+
 import Model.Map.Coordinate;
 
 import java.util.*;
+import java.util.Map;
 
 public class Player {
     private final int id;

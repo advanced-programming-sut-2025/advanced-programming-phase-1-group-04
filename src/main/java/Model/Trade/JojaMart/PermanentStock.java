@@ -1,6 +1,8 @@
 package Model.Trade.JojaMart;
 
-public enum PermanentStock {
+import Model.Trade.ProductInterface;
+
+public enum PermanentStock implements ProductInterface {
     JojaCola("The flagship product of Joja corporation." ,"Joja Cola" , 75 , -1),
     AncientSeed("Could these still grow?" , "Ancient Seed" , 500 , 1),
     GrassStarter("Place this on your farm to start a new patch of grass." , "Grass Starter" ,125 , -1),
@@ -20,18 +22,22 @@ public enum PermanentStock {
         this.dailyLimit = dailyLimit;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public int getPrice() {
         return price;
     }
 
+    @Override
     public int getDailyLimit() {
         return dailyLimit;
     }

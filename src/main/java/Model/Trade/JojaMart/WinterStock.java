@@ -1,6 +1,8 @@
 package Model.Trade.JojaMart;
 
-public enum WinterStock {
+import Model.Trade.ProductInterface;
+
+public enum WinterStock implements ProductInterface {
     PowdermelonSeeds("This special melon grows in the winter. Takes 7 days to grow." , "Powdermelon Seeds" , 20 , 10);
 
     private final String description;
@@ -15,18 +17,22 @@ public enum WinterStock {
         this.dailyLimit = dailyLimit;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public int getPrice() {
         return price;
     }
 
+    @Override
     public int getDailyLimit() {
         return dailyLimit;
     }

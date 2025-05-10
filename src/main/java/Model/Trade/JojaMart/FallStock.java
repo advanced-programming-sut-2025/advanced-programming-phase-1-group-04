@@ -1,6 +1,8 @@
 package Model.Trade.JojaMart;
 
-public enum FallStock {
+import Model.Trade.ProductInterface;
+
+public enum FallStock implements ProductInterface {
     CornSeeds("Plant these in the summer or fall. Takes 14 days to mature, and continues to produce after first harvest." , "Corn Seeds" , 187 , 5),
     EggplantSeeds("Plant these in the fall. Takes 5 days to mature, and continues to produce after first harvest." , "Eggplant Seeds", 25 , 5),
     PumpkinSeeds("Plant these in the fall. Takes 13 days to mature." , "Pumpkin Seeds" , 125 , 5),
@@ -28,18 +30,22 @@ public enum FallStock {
         this.dailyLimit = dailyLimit;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public int getPrice() {
         return price;
     }
 
+    @Override
     public int getDailyLimit() {
         return dailyLimit;
     }

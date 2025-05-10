@@ -1,6 +1,8 @@
 package Model.Trade.PierresGeneralStore;
 
-public enum YearRoundStock {
+import Model.Trade.ProductInterface;
+
+public enum YearRoundStock implements ProductInterface {
     Rice("A basic grain often served under vegetables." , "Rice" , 200 , -1),
     WheatFlour("A common cooking ingredient made from crushed wheat seeds." , "Wheat Flour" , 100 , -1),
     Bouquet("A gift that shows your romantic interest.\n(Unlocked after reaching level 2 friendship with a player)" , "Bouquet" , 1000 , 2),
@@ -32,5 +34,25 @@ public enum YearRoundStock {
         this.name = name;
         this.price = price;
         this.dailyLimit = dailyLimit;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public int getPrice() {
+        return price;
+    }
+
+    @Override
+    public int getDailyLimit() {
+        return dailyLimit;
     }
 }

@@ -2,7 +2,7 @@ package View;
 
 import Controller.LoginMenuController;
 import Model.Command.LoginMenuCommand;
-import Model.Enum.SecurityQuestion;
+import Model.Command.SecurityQuestion;
 import Model.Result;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class LoginMenu implements AppMenu {
     public void check(Scanner scanner) throws IOException {
         String input = scanner.nextLine();
         Matcher matcher;
-        
+
         if ((matcher = LoginMenuCommand.Register.getMatcher(input)) != null) {
             Result result = LoginMenuController.register(matcher.group("username"), matcher.group("password"),
                     matcher.group("rePassword"), matcher.group("nickname"), matcher.group("email"),

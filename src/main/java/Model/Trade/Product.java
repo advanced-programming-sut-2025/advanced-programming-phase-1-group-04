@@ -1,7 +1,6 @@
 package Model.Trade;
 
 import Model.Animals.AnimalType;
-import Model.Enum.RecipeType;
 import Model.Trade.CarpentersShop.FarmBuildings;
 
 public class Product {

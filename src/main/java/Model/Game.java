@@ -6,6 +6,9 @@ import Model.Trade.JojaMart.SpringStock;
 import Model.Trade.Product;
 import Model.Trade.Shop;
 import Model.Trade.ShopType;
+import Model.Time.DateAndTime;
+import Model.Time.Season;
+import Model.Time.WeekDay;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package Model.Enum;
+package Model.Command;
 
 public enum SecurityQuestion {
     S1 ("Esme saget/siblinget chie?"),

@@ -1,8 +1,11 @@
-package Model;
+package Model.Player;
 
+<<<<<<< HEAD:src/main/java/Model/Player.java
 import Model.Crafting.CraftRecipe;
 import Model.Crafting.CraftType;
 import Model.Enum.Skill;
+=======
+>>>>>>> origin/menu:src/main/java/Model/Player/Player.java
 import Model.Map.Coordinate;
 
 import java.util.*;

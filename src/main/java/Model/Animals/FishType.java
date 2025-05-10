@@ -1,6 +1,6 @@
 package Model.Animals;
 
-import Model.Enum.Season;
+import Model.Time.Season;
 
 public enum FishType {
     Salmon(75 , Season.Fall),

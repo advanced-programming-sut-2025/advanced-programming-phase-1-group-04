@@ -1,7 +1,7 @@
 package Model.Plants;
 
 
-import Model.Enum.Season;
+import Model.Time.Season;
 
 import java.util.ArrayList;
 import java.util.List;

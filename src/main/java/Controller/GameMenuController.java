@@ -3,14 +3,17 @@ package Controller;
 import Model.App;
 import Model.Command.Menu;
 import Model.Result;
+import Model.Trade.Product;
+import Model.Trade.Shop;
+import Model.Trade.ShopType;
+
+import java.util.ArrayList;
 
 public class GameMenuController {
     public static Result goMenu (String menu) {
         if (!menu.equals("main")) {
             return new Result(false, "You can't go to " + menu + " menu in game menu");
         }
-
-        
         App.setCurrentMenu(Menu.MainMenu);
         return new Result(true, "Now you are in " + menu + " menu");
     }
@@ -23,4 +26,5 @@ public class GameMenuController {
         App.setCurrentMenu(Menu.MainMenu);
         return new Result(true, "Now you are in main menu");
     }
+
 }

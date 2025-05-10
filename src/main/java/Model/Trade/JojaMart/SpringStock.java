@@ -1,6 +1,8 @@
 package Model.Trade.JojaMart;
 
-public enum SpringStock {
+import Model.Trade.ProductInterface;
+
+public enum SpringStock implements ProductInterface {
     ParsnipSeeds("Plant these in the spring. Takes 4 days to mature." , "Parsnip Seeds" , 25 ,5),
     BeanStarter("Plant these in the spring. Takes 10 days to mature, but keeps producing after that. Grows on a trellis." , "Bean Starter" , 75 , 5),
     CauliflowerSeeds("Plant these in the spring. Takes 12 days to produce a large cauliflower." , "Cauliflower Seeds" , 100 , 5),
@@ -25,18 +27,22 @@ public enum SpringStock {
         this.dailyLimit = dailyLimit;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public int getPrice() {
         return price;
     }
 
+    @Override
     public int getDailyLimit() {
         return dailyLimit;
     }

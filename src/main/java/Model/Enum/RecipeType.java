@@ -1,14 +1,9 @@
-package Model.Trade.TheStardropSaloon;
+package Model.Enum;
 
 import Model.Trade.ProductInterface;
 
-public enum PermanentStock implements ProductInterface {
-    Beer("Drink in moderation." , "Beer" , 400 , -1),
-    Salad("A healthy garden salad." , "Salad" ,  220 , -1),
-    Bread("A crusty baguette." , "Bread" , 120 , -1),
-    Spaghetti("An old favorite." , "Spaghetti" ,240 , -1),
-    Pizza("It's popular for all the right reasons." , "Pizza" , 600 , -1),
-    Coffee("It smells delicious. This is sure to give you a boost." , "Coffee" ,300 , -1),
+public enum RecipeType implements ProductInterface {
+    FishSmoker("A recipe to make Fish Smoker" , "Fish Smoker (Recipe)" , 10000 , 1),
     HashbrownsRecipe("A recipe to make Hashbrowns" , "Hashbrowns Recipe" , 50 , 1),
     OmeletRecipe("A recipe to make Omelet" , "Omelet Recipe" , 100 , 1),
     PancakesRecipe("A recipe to make Pancakes" , "Pancakes Recipe" , 100 , 1),
@@ -24,7 +19,7 @@ public enum PermanentStock implements ProductInterface {
     private final int price;
     private final int dailyLimit;
 
-    PermanentStock(String description, String name, int price, int dailyLimit) {
+    RecipeType(String description, String name, int price, int dailyLimit) {
         this.description = description;
         this.name = name;
         this.price = price;

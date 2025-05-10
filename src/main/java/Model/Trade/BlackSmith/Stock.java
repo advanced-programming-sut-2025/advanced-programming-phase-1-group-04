@@ -1,6 +1,8 @@
 package Model.Trade.BlackSmith;
 
-public enum Stock {
+import Model.Trade.ProductInterface;
+
+public enum Stock implements ProductInterface {
     CopperOre("A common ore that can be smelted into bars." , "Copper Ore" , 75 , -1),
     IronOre("A fairly common ore that can be smelted into bars." , "Iron Ore" , 150 , -1),
     Coal("A combustible rock that is useful for crafting and smelting." , "Coal" , 150 , -1),
@@ -18,5 +20,23 @@ public enum Stock {
         this.dailyLimit = dailyLimit;
     }
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public int getPrice() {
+        return price;
+    }
+
+    @Override
+    public int getDailyLimit() {
+        return dailyLimit;
+    }
 }

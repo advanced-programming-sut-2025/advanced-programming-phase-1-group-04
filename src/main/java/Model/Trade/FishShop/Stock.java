@@ -1,6 +1,8 @@
 package Model.Trade.FishShop;
 
-public enum Stock {
+import Model.Trade.ProductInterface;
+
+public enum Stock implements ProductInterface {
     FishSmoker("A recipe to make Fish Smoker" , "Fish Smoker (Recipe)" , 10000 , 0 , 1),
     TroutSoup("Pretty salty." , "Trout Soup" , 250 , 0 , 1),
     BambooPole("Use in the water to catch fish." , "Bamboo Pole" , 500 , 0 , 1),
@@ -22,22 +24,26 @@ public enum Stock {
         this.dailyLimit = dailyLimit;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
     public int getFishingSkill() {
         return fishingSkill;
     }
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public int getPrice() {
+        return price;
+    }
+
+    @Override
     public int getDailyLimit() {
         return dailyLimit;
     }

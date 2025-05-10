@@ -1,7 +1,7 @@
 package Model.Trade.PierresGeneralStore;
 
 import Model.App;
-import Model.Enum.Season;
+import Model.Time.Season;
 import Model.Game;
 import Model.Trade.ProductInterface;
 

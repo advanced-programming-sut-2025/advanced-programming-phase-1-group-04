@@ -6,13 +6,15 @@ public enum Symbols {
     Mountain("M"),
     Lake("L"),
     Mine("X"),
-    Door("D"),
 
+    Ground("G"),
     Tree("T"),
     Foraging("^"),
+    Pavement("*"),
 
     House("H"),
     GreenHouse("9"),
+    //Door("D"),
 
     FishShop("F"),
     JojaMart("J"),
@@ -27,5 +29,9 @@ public enum Symbols {
 
     Symbols(String symbol) {
         this.symbol = symbol;
+    }
+
+    public String getSymbol() {
+        return symbol;
     }
 }

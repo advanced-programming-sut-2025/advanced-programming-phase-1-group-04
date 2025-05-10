@@ -7,21 +7,31 @@ import Model.Player.Player;
 public class Tile {
     private TypeTile type;
 
-    private boolean isDoor = false;
+    //private boolean isDoor = false; // TODO: baraye in faz dar hesab nakardam
     private BuildingType buildingType = null;
+
+    private boolean isPavement = false;
+    private Item item = null;
+    private NPC npc = null; // TODO: npc nadarim felan dosrost shod add mikonam
 
     private boolean isPlowed = false;
     private boolean isWatered = false;
-    private boolean isPavement = false;
-    private Item item = null;
     private Animal animal = null;
-    private Player player = null;
-    private NPC npc = null;
 
-    public Tile(TypeTile type, boolean isDoor, BuildingType buildingType) {
+    public Tile(TypeTile type) { // For Water, Mountain, Mine
         this.type = type;
-        this.isDoor = isDoor;
+    }
+
+    public Tile(TypeTile type, BuildingType buildingType) { // For Building
+        this.type = type;
         this.buildingType = buildingType;
+    }
+
+    public Tile(TypeTile type, boolean isPavement, Item item, NPC npc){ // For Ground
+        this.type = type;
+        this.isPavement = isPavement;
+        this.item = item;
+        this.npc = npc;
     }
 
     public TypeTile getType() {
@@ -30,14 +40,6 @@ public class Tile {
 
     public void setType(TypeTile type) {
         this.type = type;
-    }
-
-    public boolean isDoor() {
-        return isDoor;
-    }
-
-    public void setDoor(boolean door) {
-        isDoor = door;
     }
 
     public BuildingType getBuildingType() {
@@ -80,14 +82,6 @@ public class Tile {
         this.animal = animal;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
     public NPC getNpc() {
         return npc;
     }
@@ -95,11 +89,4 @@ public class Tile {
     public void setNpc(NPC npc) {
         this.npc = npc;
     }
-}
-
-enum TypeTile {
-    Building,
-    Ground,
-    Water,
-    Mountain
 }

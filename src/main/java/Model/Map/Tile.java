@@ -2,12 +2,12 @@ package Model.Map;
 
 import Model.Animals.Animal;
 import Model.NPC.NPC;
-import Model.Player.Player;
+
 
 public class Tile {
-    private TypeTile type;
+    private TileType type;
 
-    //private boolean isDoor = false; // TODO: baraye in faz dar hesab nakardam
+    //private boolean isDoor = false; TODO: baraye in faz dar hesab nakardam
     private BuildingType buildingType = null;
 
     private boolean isPavement = false;
@@ -18,27 +18,32 @@ public class Tile {
     private boolean isWatered = false;
     private Animal animal = null;
 
-    public Tile(TypeTile type) { // For Water, Mountain, Mine
+    public Tile(TileType type) { // For Water, Mountain, Mine
         this.type = type;
     }
 
-    public Tile(TypeTile type, BuildingType buildingType) { // For Building
+    public Tile(TileType type, BuildingType buildingType) { // For Building
         this.type = type;
         this.buildingType = buildingType;
     }
 
-    public Tile(TypeTile type, boolean isPavement, Item item, NPC npc){ // For Ground
+    public Tile(TileType type, boolean isPavement, Item item, NPC npc){ // For Ground
         this.type = type;
         this.isPavement = isPavement;
         this.item = item;
         this.npc = npc;
     }
 
-    public TypeTile getType() {
+    public boolean isWalkable() {
+
+        return false;
+    }
+
+    public TileType getType() {
         return type;
     }
 
-    public void setType(TypeTile type) {
+    public void setType(TileType type) {
         this.type = type;
     }
 

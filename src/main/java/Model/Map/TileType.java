@@ -1,6 +1,6 @@
 package Model.Map;
 
-public enum TypeTile {
+public enum TileType {
     Building,
     Ground,
     Water,

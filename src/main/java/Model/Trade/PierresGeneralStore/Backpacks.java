@@ -1,6 +1,5 @@
 package Model.Trade.PierresGeneralStore;
 
-import Model.Trade.Product;
 import Model.Trade.ProductInterface;
 
 public enum Backpacks implements ProductInterface {

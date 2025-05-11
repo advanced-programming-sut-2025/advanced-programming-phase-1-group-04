@@ -3,32 +3,47 @@ package Model.Animals;
 import Model.Time.Season;
 
 public enum FishType {
-    Salmon(75 , Season.Fall),
-    Sardine(40 , Season.Fall),
-    Shad(60 , Season.Fall),
-    BlueDiscus(120 , Season.Fall),
-    MidnightCarp(150 , Season.Winter),
-    Squid(80 , Season.Winter),
-    Tuna(100 , Season.Winter),
-    Perch(55 , Season.Winter),
-    Flounder(100 , Season.Spring),
-    Lionfish(100 , Season.Spring),
-    Herring(30 , Season.Spring),
-    GhostFish(45 , Season.Spring),
-    Tilapia(75 , Season.Summer),
-    Dorado(100 , Season.Summer),
-    Sunfish(30 , Season.Summer),
-    RainbowTrout(65 , Season.Summer),
-    Legend(5000 , Season.Spring),
-    GlacierFish(1000 , Season.Winter),
-    Angler(900 , Season.Fall),
-    CrimsonFish(1500 , Season.Summer);
+    Salmon(75 , Season.Fall, false),
+    Sardine(40 , Season.Fall, false),
+    Shad(60 , Season.Fall, false),
+    BlueDiscus(120 , Season.Fall, false),
+    MidnightCarp(150 , Season.Winter, false),
+    Squid(80 , Season.Winter, false),
+    Tuna(100 , Season.Winter, false),
+    Perch(55 , Season.Winter, false),
+    Flounder(100 , Season.Spring, false),
+    Lionfish(100 , Season.Spring, false),
+    Herring(30 , Season.Spring, false),
+    GhostFish(45 , Season.Spring, false),
+    Tilapia(75 , Season.Summer, false),
+    Dorado(100 , Season.Summer, false),
+    Sunfish(30 , Season.Summer, false),
+    RainbowTrout(65 , Season.Summer, false),
+
+    Legend(5000 , Season.Spring, true),
+    GlacierFish(1000 , Season.Winter, true),
+    Angler(900 , Season.Fall, true),
+    CrimsonFish(1500 , Season.Summer, true);
 
     private final int basePrice;
     private final Season season;
+    private final boolean isLegendary;
 
-    FishType(int basePrice, Season season) {
+    FishType(int basePrice, Season season, boolean isLegendary) {
         this.basePrice = basePrice;
         this.season = season;
+        this.isLegendary = isLegendary;
+    }
+
+    public int getBasePrice() {
+        return basePrice;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public boolean isLegendary() {
+        return isLegendary;
     }
 }

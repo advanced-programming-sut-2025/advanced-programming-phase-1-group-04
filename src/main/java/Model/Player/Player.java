@@ -29,6 +29,9 @@ public class Player {
     private ArrayList<CraftRecipe> craftRecipes = new ArrayList<>(List.of(CraftRecipe.Furnace,
             CraftRecipe.Scarecrow, CraftRecipe.MayonnaiseMachine));
 
+    //List Recipe
+    //List Tool
+
     //animal friendship
     //player friendship
     //NPC friendship

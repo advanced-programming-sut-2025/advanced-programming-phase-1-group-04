@@ -1,20 +1,43 @@
 package Model.Map;
 
 public enum Symbols {
-    Player("P"),
+    Player("@"),
 
     Mountain("M"),
-    Lake("L"),
+    Water("L"),
     Mine("X"),
 
+    Pavement("*"),
     Ground("G"),
     Tree("T"),
-    Foraging("^"),
-    Pavement("*"),
+    Sapling("1"),
+    Crop("2"),
+    Fruit("3"),
+    Seed("4"),
+    ForagingCrop("^"),
+    ForagingMineral("<"),
+    Stone("%"),
+    Wood("W"),
+    Craft("/"),
+    Food("U"),
+    Fish("Y"),
+    AnimalProduct("{"),
+
+    NPC("#"),
+    Animal("$"),
 
     House("H"),
     GreenHouse("9"),
     //Door("D"),
+
+    Barn("&"),
+    BigBarn("="),
+    DeluxeBarn("_"),
+    Coop(")"),
+    BigCoop("("),
+    DeluxeCoop("!"),
+    Well("?"),
+    ShippingBin("0"),
 
     FishShop("F"),
     JojaMart("J"),

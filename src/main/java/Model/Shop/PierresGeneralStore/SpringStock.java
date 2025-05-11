@@ -1,5 +1,6 @@
 package Model.Shop.PierresGeneralStore;
 
+import Model.App;
 import Model.Time.Season;
 import Model.Game;
 import Model.Shop.ProductInterface;
@@ -39,7 +40,7 @@ public enum SpringStock implements ProductInterface {
 
     @Override
     public int getPrice() {
-        if (Game.getCurrentTime().getSeason() == Season.Spring)
+        if (App.getCurrentGame().getCurrentTime().getSeason() == Season.Spring)
             return (price * 2) / 3;
         else
             return price;

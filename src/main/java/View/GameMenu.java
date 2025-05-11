@@ -1,8 +1,12 @@
 package View;
 
 import Controller.GameMenuController;
+import Model.App;
 import Model.Command.GameMenuCommand;
+import Model.Player.Player;
+import Model.Result;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -11,16 +15,34 @@ public class GameMenu implements AppMenu {
     public void check(Scanner scanner) {
         String input = scanner.nextLine().trim();
         Matcher matcher;
-        // TODO: tehkhhhh
-        
+
         if ((matcher = GameMenuCommand.NewGame.getMatcher(input)) != null) {
-            System.out.println(GameMenuController.goMenu(matcher.group("menu")));
+            Result result = GameMenuController.newGame(matcher.group("username1"), matcher.group("username2"), matcher.group("username3"));
+            System.out.println(result);
+
+            if (result.isSuccessful()) {
+                ArrayList<Player> players = App.getCurrentGame().getPlayers();
+
+                for (int i = 0; i < players.size(); i++) {
+                    Player player = players.get(i);
+                    System.out.println("Player " + player.getUsername() + ", choose your farm number (1-2):");
+
+                    while (true) {
+                        input = scanner.nextLine().trim();
+                        if ((matcher = GameMenuCommand.ChooseMap.getMatcher(input)) != null) {
+                            result = GameMenuController.chooseMap(i ,Integer.parseInt(matcher.group("mapNumber")));
+                            System.out.println(result);
+                            if (result.isSuccessful()) break;
+                        } else {
+                            System.out.println("Use this format: game map <1|2>");
+                        }
+                    }
+                }
+                System.out.println(GameMenuController.loadNewGame());
+            }
         }
         else if (GameMenuCommand.CurrentMenu.getMatcher(input) != null) {
             System.out.println(GameMenuController.currentMenu());
-        }
-        else if ((matcher = GameMenuCommand.ChooseMap.getMatcher(input)) != null) {
-            //TODO Nafiseh
         }
         else if (GameMenuCommand.LoadGame.getMatcher(input) != null) {
             //TODO Nafiseh
@@ -72,6 +94,9 @@ public class GameMenu implements AppMenu {
         }
         else if ((matcher = GameMenuCommand.Walk.getMatcher(input)) != null) {
             //TODO Nafiseh
+        }
+        else if (GameMenuCommand.PrintAllMap.isMatch(input)) {
+
         }
         else if ((matcher = GameMenuCommand.PrintMap.getMatcher(input)) != null) {
             //TODO Nafiseh

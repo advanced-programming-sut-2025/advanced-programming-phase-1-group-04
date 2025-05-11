@@ -16,6 +16,7 @@ public interface Command {
      }
 
      default boolean isMatch (String input) {
+          if (getMatcher(input) == null) return false;
           return getMatcher(input).matches();
      }
 }

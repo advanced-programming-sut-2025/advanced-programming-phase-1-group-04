@@ -1,5 +1,6 @@
 package Model.Plants;
 
+import Model.App;
 import Model.Map.Item;
 import Model.Time.DateAndTime;
 import Model.Time.Season;
@@ -75,7 +76,7 @@ public class Tree implements Item {
     }
 
     public int getCurrentStage () {
-        int daysSincePlanted = Game.getCurrentTime().getDay() - plantingDate.getDay();
+        int daysSincePlanted = App.getCurrentGame().getCurrentTime().getDay() - plantingDate.getDay();
         if (daysSincePlanted < 7) {
             return 1;
         }
@@ -93,7 +94,7 @@ public class Tree implements Item {
 
     public boolean hasFruit () {
         if (lastTimeHarvested != null) {
-            if (Game.getCurrentTime().getDay() - lastTimeHarvested.getDay() >= getFruitHarvestCycle()) {
+            if (App.getCurrentGame().getCurrentTime().getDay() - lastTimeHarvested.getDay() >= getFruitHarvestCycle()) {
                 return true;
             }
         }

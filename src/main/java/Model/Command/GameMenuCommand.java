@@ -2,8 +2,8 @@ package Model.Command;
 
 public enum GameMenuCommand implements Command {
     // Game Controller: Nafiseh
-    NewGame("\\s*game\\s+new\\s+-u\\s+(?<username_1>.+?)\\s+(?<username_2>.+?)\\s+(?<username_3>.+)\\s*"),
-    ChooseMap("game\\s+map\\s+(?<map_number>\\S+)"), //TODO: age parseint mizani aval check kon aslan adad bashe
+    NewGame("new\\s+game\\s+-u(?:\\s+(?<username1>.+?))?(?:\\s+(?<username2>.+?))?(?:\\s+(?<username3>.+?))?"),
+    ChooseMap("game\\s+map\\s+(?<mapNumber>[-+]?\\d+)"),
     LoadGame("load\\s+game"),
     ExitGame("exit\\s+game"),
     DeleteGame("delete\\s+game"),
@@ -28,6 +28,7 @@ public enum GameMenuCommand implements Command {
     BuildGreenhouse("greenhouse\\s+build"), // todo
 
     Walk("walk\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
+    PrintAllMap("print\\s+all\\s+map"),
     PrintMap("print\\s+map\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>\\s+-s\\s+(?<size>\\d+)"),
     HelpMap("help\\s+reading\\s+map"),
 

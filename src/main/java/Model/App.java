@@ -55,6 +55,7 @@ public class App {
     }
 
     public static User getUserByUsername (String username) {
+        if (username == null) return null;
         File file = new File("users/" + username + ".json");
 
         if (!file.exists()) return null;

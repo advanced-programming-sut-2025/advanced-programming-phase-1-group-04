@@ -5,13 +5,18 @@ import Model.Crafting.CraftType;
 import Model.Map.*;
 
 import Model.Map.Coordinate;
+import Model.User;
+import com.google.gson.Gson;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 import java.util.Map;
 
 public class Player {
     private final int id;
-    private final String gender;
 
     private Coordinate coordinate;
     private int maxEnergy = 200;
@@ -45,9 +50,8 @@ public class Player {
     //talk history
     //trade history
 
-    public Player(int id, String gender) {
+    public Player(int id) {
         this.id = id;
-        this.gender = gender;
     }
 
     public int getAbilityLevel (Skill skill) {
@@ -56,10 +60,6 @@ public class Player {
 
     public int getId() {
         return id;
-    }
-
-    public String getGender() {
-        return gender;
     }
 
     public Coordinate getCoordinate() {
@@ -110,6 +110,25 @@ public class Player {
 
     public double getInventoryCapacity () {
         return inventory.getCapacity();
+    }
+
+    public String getUsername() {
+        File usersFolder = new File("users");
+        File[] userFiles = usersFolder.listFiles((dir, name) -> name.endsWith(".json"));
+
+        if (userFiles != null) {
+            Gson gson = new Gson();
+            for (File userFile : userFiles) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(userFile))) {
+                    User user = gson.fromJson(reader, User.class);
+                    if (user.getId() == this.id)
+                        return user.getUsername();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 
     public void addAbility (Skill skill, int value) {

@@ -1,6 +1,6 @@
-package Model.Trade.JojaMart;
+package Model.Shop.JojaMart;
 
-import Model.Trade.ProductInterface;
+import Model.Shop.ProductInterface;
 
 public enum WinterStock implements ProductInterface {
     PowdermelonSeeds("This special melon grows in the winter. Takes 7 days to grow." , "Powdermelon Seeds" , 20 , 10);

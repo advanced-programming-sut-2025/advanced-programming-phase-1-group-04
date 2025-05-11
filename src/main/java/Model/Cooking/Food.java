@@ -1,7 +1,7 @@
 package Model.Cooking;
 
 import Model.Player.*;
-import Model.Trade.ShopType;
+import Model.Shop.ShopType;
 
 import java.util.HashMap;
 

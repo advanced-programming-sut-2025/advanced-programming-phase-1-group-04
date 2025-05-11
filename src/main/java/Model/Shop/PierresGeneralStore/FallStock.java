@@ -1,8 +1,8 @@
-package Model.Trade.PierresGeneralStore;
+package Model.Shop.PierresGeneralStore;
 
 import Model.Time.Season;
 import Model.Game;
-import Model.Trade.ProductInterface;
+import Model.Shop.ProductInterface;
 
 public enum FallStock implements ProductInterface {
     EggplantSeeds("Plant these in the fall. Takes 5 days to mature, and continues to produce after first harvest." , "Eggplant Seeds" , 30 , 5),

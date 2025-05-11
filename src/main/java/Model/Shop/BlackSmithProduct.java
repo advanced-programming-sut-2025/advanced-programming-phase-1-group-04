@@ -1,4 +1,4 @@
-package Model.Trade;
+package Model.Shop;
 
 public enum BlackSmithProduct {
     CopperOre("A common ore that can be smelted into bars." , "Copper Ore" , 75 , -1),

@@ -1,6 +1,6 @@
-package Model.Trade.JojaMart;
+package Model.Shop.JojaMart;
 
-import Model.Trade.ProductInterface;
+import Model.Shop.ProductInterface;
 
 public enum FallStock implements ProductInterface {
     CornSeeds("Plant these in the summer or fall. Takes 14 days to mature, and continues to produce after first harvest." , "Corn Seeds" , 187 , 5),

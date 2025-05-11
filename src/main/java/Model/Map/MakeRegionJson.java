@@ -8,6 +8,8 @@ import Model.Time.DateAndTime;
 import Model.Time.Season;
 import Model.Time.WeekDay;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import Gson.ItemAdapter;
 
 import java.io.*;
 
@@ -16,7 +18,10 @@ public class MakeRegionJson {
         Tile[][] tiles = MakeRegionJson.loadMapFromTextFile(fileName);
         Region region = new Region(fileName, tiles);
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Item.class, new ItemAdapter())
+            .create();
+
         FileWriter writer = new FileWriter("src/main/resources/Maps/" + fileName + ".json");
         gson.toJson(region, writer);
         writer.close();

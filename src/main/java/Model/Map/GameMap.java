@@ -1,22 +1,18 @@
 package Model.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import Gson.ItemAdapter;
 
 public class GameMap {
     private Region[][] region = new Region[3][3];
 
     public GameMap(int[] farmSelection) {
-        // Debug
-        farmSelection[0] = 1;
-        farmSelection[1] = 1;
-        farmSelection[2] = 1;
-        farmSelection[3] = 1;
-
-        region[0][0] = loadRegionJson("Farming" + farmSelection[0]);
+        region[0][0] = loadRegionJson("Farming"  + farmSelection[0]);
         region[0][1] = loadRegionJson("Path1");
         region[0][2] = loadRegionJson("Farming" + farmSelection[1]);
 
@@ -33,8 +29,9 @@ public class GameMap {
         File file = new File("src/main/resources/Maps/" + name + ".json");
 
         try (FileReader reader = new FileReader(file)) {
-            Gson gson = new Gson();
-            return gson.fromJson(reader, Region.class);
+            Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Item.class, new ItemAdapter()) // ثبت TypeAdapter
+                .create();            return gson.fromJson(reader, Region.class);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

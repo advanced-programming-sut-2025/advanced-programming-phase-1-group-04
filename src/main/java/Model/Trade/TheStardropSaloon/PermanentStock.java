@@ -1,6 +1,6 @@
-package Model.Shop.TheStardropSaloon;
+package Model.Trade.TheStardropSaloon;
 
-import Model.Shop.ProductInterface;
+import Model.Trade.ProductInterface;
 
 public enum PermanentStock implements ProductInterface {
     Beer("Drink in moderation." , "Beer" , 400 , -1),

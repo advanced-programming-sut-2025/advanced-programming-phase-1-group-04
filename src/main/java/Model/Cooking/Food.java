@@ -1,11 +1,12 @@
 package Model.Cooking;
 
+import Model.Map.Item;
 import Model.Player.*;
 import Model.Shop.ShopType;
 
 import java.util.HashMap;
 
-public class Food {
+public class Food implements Item {
     private final FoodType type;
 
     public Food (FoodType type) {
@@ -16,6 +17,7 @@ public class Food {
         return type;
     }
 
+    @Override
     public String getName() {
         return type.getName();
     }
@@ -36,7 +38,8 @@ public class Food {
         return type.getEnergy();
     }
 
-    public int getSellPrice() {
+    @Override
+    public int getPrice() {
         return type.getSellPrice();
     }
 

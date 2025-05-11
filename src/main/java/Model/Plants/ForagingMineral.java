@@ -1,11 +1,12 @@
 package Model.Plants;
 
+import Model.Map.Item;
 import Model.Time.Season;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForagingMineral {
+public class ForagingMineral implements Item {
     private final ForagingMineralType type;
 
     //constructor:
@@ -14,11 +15,13 @@ public class ForagingMineral {
     }
 
     //getters:
+    @Override
     public String getName() {
         return type.getName();
     }
 
-    public int getSellPrice() {
+    @Override
+    public int getPrice() {
         return type.getSellPrice();
     }
 

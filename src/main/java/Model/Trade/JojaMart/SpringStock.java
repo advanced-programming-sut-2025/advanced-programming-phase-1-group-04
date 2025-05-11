@@ -1,6 +1,6 @@
-package Model.Shop.JojaMart;
+package Model.Trade.JojaMart;
 
-import Model.Shop.ProductInterface;
+import Model.Trade.ProductInterface;
 
 public enum SpringStock implements ProductInterface {
     ParsnipSeeds("Plant these in the spring. Takes 4 days to mature." , "Parsnip Seeds" , 25 ,5),

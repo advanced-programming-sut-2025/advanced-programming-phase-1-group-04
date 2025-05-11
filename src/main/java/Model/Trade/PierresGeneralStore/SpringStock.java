@@ -1,8 +1,8 @@
-package Model.Shop.PierresGeneralStore;
+package Model.Trade.PierresGeneralStore;
 
 import Model.Time.Season;
 import Model.Game;
-import Model.Shop.ProductInterface;
+import Model.Trade.ProductInterface;
 
 public enum SpringStock implements ProductInterface {
     ParsnipSeeds("Plant these in the spring. Takes 4 days to mature." , "Parsnip Seeds" , 30 , 5),

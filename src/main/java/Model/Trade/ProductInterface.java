@@ -1,4 +1,4 @@
-package Model.Shop;
+package Model.Trade;
 
 public interface ProductInterface {
     public int getPrice ();

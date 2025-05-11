@@ -1,6 +1,8 @@
 package Model.Plants;
 
-public class Fruit {
+import Model.Map.Item;
+
+public class Fruit implements Item {
     private final FruitType type;
 
     //constructor:
@@ -9,11 +11,13 @@ public class Fruit {
     }
 
     //getters:
+    @Override
     public String getName() {
         return type.getName();
     }
 
-    public int getBaseSellPrice() {
+    @Override
+    public int getPrice() {
         return type.getBaseSellPrice();
     }
 

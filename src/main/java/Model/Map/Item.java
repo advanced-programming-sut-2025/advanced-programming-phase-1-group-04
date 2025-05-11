@@ -1,9 +1,6 @@
 package Model.Map;
 
-public class Item {
-    private ItemType type;
-
-    public ItemType getType() {
-        return null;
-    }
+public interface Item {
+    public String getName();
+    public int getPrice();
 }

@@ -1,6 +1,6 @@
-package Model.Shop.JojaMart;
+package Model.Trade.JojaMart;
 
-import Model.Shop.ProductInterface;
+import Model.Trade.ProductInterface;
 
 public enum SummerStock implements ProductInterface {
     TomatoSeeds("Plant these in the summer. Takes 11 days to mature, and continues to produce after first harvest." , "Tomato Seeds" , 62 , 5),

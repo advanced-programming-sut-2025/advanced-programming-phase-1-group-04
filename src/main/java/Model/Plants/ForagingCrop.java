@@ -1,16 +1,18 @@
 package Model.Plants;
 
+import Model.Map.Item;
 import Model.Time.Season;
 
 import java.util.ArrayList;
 
-public class ForagingCrop{
+public class ForagingCrop implements Item {
     private final ForagingCropType type;
 
     public ForagingCrop (ForagingCropType type) {
         this.type = type;
     }
 
+    @Override
     public String getName() {
         return type.getName();
     }
@@ -19,7 +21,8 @@ public class ForagingCrop{
         return type.getSeasons();
     }
 
-    public int getBaseSellPrice() {
+    @Override
+    public int getPrice() {
         return type.getBaseSellPrice();
     }
 

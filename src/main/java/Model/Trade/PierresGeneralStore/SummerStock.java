@@ -1,8 +1,8 @@
-package Model.Shop.PierresGeneralStore;
+package Model.Trade.PierresGeneralStore;
 
 import Model.Time.Season;
 import Model.Game;
-import Model.Shop.ProductInterface;
+import Model.Trade.ProductInterface;
 
 public enum SummerStock implements ProductInterface {
     MelonSeeds("Plant these in the summer. Takes 12 days to mature." , "Melon Seeds" , 120 , 5),

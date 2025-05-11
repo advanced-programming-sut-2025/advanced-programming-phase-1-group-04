@@ -1,4 +1,4 @@
-package Model.Shop.MarniesRanch;
+package Model.Trade.MarniesRanch;
 
 public enum ShopInventory {
     Hay("Dried grass used as animal food." , "Hay" , 50 , -1),

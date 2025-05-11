@@ -1,12 +1,13 @@
 package Model.Plants;
 
+import Model.Map.Item;
 import Model.Time.DateAndTime;
 import Model.Time.Season;
 import Model.Game;
 
 import java.util.ArrayList;
 
-public class Crop {
+public class Crop implements Item {
     private DateAndTime plantingDate;
     private DateAndTime lastTimeHarvested;
     private final CropType type;
@@ -22,6 +23,7 @@ public class Crop {
 
 
     //getters:
+    @Override
     public String getName() {
         return type.getName();
     }
@@ -46,7 +48,8 @@ public class Crop {
         return type.getRegrowthTime();
     }
 
-    public int getBaseSellPrice() {
+    @Override
+    public int getPrice() {
         return type.getBaseSellPrice();
     }
 

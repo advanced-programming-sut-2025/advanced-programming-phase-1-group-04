@@ -1,4 +1,4 @@
-package Model.Shop.MarniesRanch;
+package Model.Trade.MarniesRanch;
 
 public enum AnimalProduction {
     Chicken("Well cared-for chickens lay eggs every day. Lives in the coop." , 800 , "Coop" , 2),

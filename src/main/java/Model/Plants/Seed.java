@@ -1,10 +1,11 @@
 package Model.Plants;
 
+import Model.Map.Item;
 import Model.Time.Season;
 
 import java.util.ArrayList;
 
-public class Seed{
+public class Seed implements Item {
     //TODO: mixed seeds must be controlled in controller. no specific operation has been considered yet.
 
     private final SeedType seedType;
@@ -17,6 +18,7 @@ public class Seed{
         return seedType;
     }
 
+    @Override
     public String getName() {
         return seedType.getName();
     }
@@ -31,5 +33,11 @@ public class Seed{
 
     public boolean isForageable () {
         return true;
+    }
+
+    @Override
+    public int getPrice() {
+        //TODO: check shop
+        return 0;
     }
 }

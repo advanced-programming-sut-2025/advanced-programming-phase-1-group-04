@@ -1,4 +1,4 @@
-package Model.Shop.CarpentersShop;
+package Model.Trade.CarpentersShop;
 
 public enum FarmBuildings {
     Barn("Houses 4 barn-dwelling animals." , "Barn" , 6000 , 350 , 150 , 7 , 4 , 1),

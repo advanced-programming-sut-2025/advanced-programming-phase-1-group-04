@@ -1,6 +1,6 @@
-package Model.Shop.PierresGeneralStore;
+package Model.Trade.PierresGeneralStore;
 
-import Model.Shop.ProductInterface;
+import Model.Trade.ProductInterface;
 
 public enum YearRoundStock implements ProductInterface {
     Rice("A basic grain often served under vegetables." , "Rice" , 200 , -1),

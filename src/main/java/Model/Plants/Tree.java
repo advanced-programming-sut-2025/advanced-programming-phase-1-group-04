@@ -1,12 +1,13 @@
 package Model.Plants;
 
+import Model.Map.Item;
 import Model.Time.DateAndTime;
 import Model.Time.Season;
 import Model.Game;
 
 import java.util.ArrayList;
 
-public class Tree {
+public class Tree implements Item {
 
     private final TreeType type;
     private boolean isBurned;
@@ -26,8 +27,15 @@ public class Tree {
         return type;
     }
 
+    @Override
     public String getName() {
         return type.getName();
+    }
+
+    @Override
+    public int getPrice() {
+        //TODO: nemidoonammmmmmmmmmmmmmm
+        return 0;
     }
 
     public SaplingType getSource() {

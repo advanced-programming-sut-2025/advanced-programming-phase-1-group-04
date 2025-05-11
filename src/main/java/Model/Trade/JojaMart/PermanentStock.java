@@ -1,6 +1,6 @@
-package Model.Shop.JojaMart;
+package Model.Trade.JojaMart;
 
-import Model.Shop.ProductInterface;
+import Model.Trade.ProductInterface;
 
 public enum PermanentStock implements ProductInterface {
     JojaCola("The flagship product of Joja corporation." ,"Joja Cola" , 75 , -1),

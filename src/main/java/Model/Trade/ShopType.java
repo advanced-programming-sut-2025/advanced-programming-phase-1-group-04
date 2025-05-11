@@ -1,4 +1,4 @@
-package Model.Shop;
+package Model.Trade;
 
 public enum ShopType {
     Blacksmith("Clint" , "Blacksmith" , 9 , 16),

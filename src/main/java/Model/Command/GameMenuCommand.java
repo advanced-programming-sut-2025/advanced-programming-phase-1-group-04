@@ -2,120 +2,127 @@ package Model.Command;
 
 public enum GameMenuCommand implements Command {
     // Game Controller: Nafiseh
-    NewGame("game new -u <username_1> <username_2> <username_3>"),
-    ChooseMap("game map <map_number>"),
-    LoadGame("load game"),
-    ExitGame("exit game"),
-    DeleteGame("delete game"),
-    NextTurn("next turn"),
+    NewGame("\\s*game\\s+new\\s+-u\\s+(?<username_1>.+?)\\s+(?<username_2>.+?)\\s+(?<username_3>.+)\\s*"),
+    ChooseMap("game\\s+map\\s+(?<map_number>\\S+)"), //TODO: age parseint mizani aval check kon aslan adad bashe
+    LoadGame("load\\s+game"),
+    ExitGame("exit\\s+game"),
+    DeleteGame("delete\\s+game"),
+    NextTurn("next\\s+turn"),
 
     // Time Controller: Nafiseh
-    Time("time|date|datetime|day of the week"),
-    CheatTime("cheat advance time <X>h"),
-    CheatDate("cheat advance date <X>d"),
+    Time("time"),
+    Date("date"),
+    DateTime("datetime"),
+    DayOfTheWeek ("day\\s+of\\s+the\\s+week"),
+    CheatTime("cheat\\s+advance\\s+time\\s+(?<X>[-+]?\\d+)h"),
+    CheatDate("cheat\\s+advance\\s+date\\s+(?<X>[-+]?\\d+)d"),
 
     // Time Controller: Nafiseh
-    Weather("season|weather|weather forecast"),
-    CheatThor("cheat Thor -l <x , y>"), // todo
-    cheatWeather("cheat weather set <Type>"),
+    Season("season"),
+    Weather("weather"),
+    WeatherForecast("weather\\s+forecast"),
+    CheatThor("cheat\\s+Thor\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"), // todo
+    CheatWeather("cheat\\s+weather\\s+set\\s+(?<Type>\\S+)"),
 
     // Map Controller: Nafiseh
-    BuildGreenhouse("greenhouse build"), // todo
+    BuildGreenhouse("greenhouse\\s+build"), // todo
 
-    Walk("walk -l <x, y>"),
-    PrintMap("print map -l <x, y> -s <size>"),
-    HelpMap("help reading map"),
-
-    // Player Controller: Aynaz
-    ShowEnergy("show energy"),
-    CheatEnergy("energy set -v <value>"),
-    CheatUnlimitedEnergy("energy unlimited"),
+    Walk("walk\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
+    PrintMap("print\\s+map\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>\\s+-s\\s+(?<size>\\d+)"),
+    HelpMap("help\\s+reading\\s+map"),
 
     // Player Controller: Aynaz
-    ShowInventory("show inventory"),
-    InventoryTrash("inventory trash -i <item’s name> -n <number>"),
-    ShowAbility("show ability"),
+    ShowEnergy("energy\\s+show"),
+    CheatEnergy("energy\\s+set\\s+-v\\s+(?<value>\\d+)"),
+    CheatUnlimitedEnergy("energy\\s+unlimited"),
+
+    // Player Controller: Aynaz
+    ShowInventory("inventory\\s+show"),
+    InventoryTrash("inventory\\s+trash\\s+-i\\s+(?<itemName>.+?)\\s+-n\\s+(?<number>\\d+)"),
+    ShowAbility("show\\s+ability"),
 
     // Tool Controller: Aynaz
-    EquipTool("tools equip <tool_name>"),
-    ShowCurrentTool("tools show current"),
-    ShowAvailableTool("tools show available"),
-    UpgradeTool("tools upgrade <tool_name>"),
-    UseTool("tools use -d <direction>"), // todo
+    EquipTool("tools\\s+equip\\s+(?<toolName>.+)"),
+    ShowCurrentTool("tools\\s+show\\s+current"),
+    ShowAvailableTool("tools\\s+show\\s+available"),
+    UpgradeTool("tools\\s+upgrade\\s+(?<toolName>.+)"),
+    UseTool("tools\\s+use\\s+-d\\s+(?<direction>.+)"),
 
     // Plant Controller: Aynaz
-    CropInfo("crop info -n <craft_name>"),
-    Plant("plant -s <seed> -d <direction>"),
-    ShowPlant("showplant -l <x, y>"),
-    Fertilize("fertilize -f <fertilizer> -d <direction>"),
-    ShowWater("how much water"),
+    CropInfo("crop\\s+info\\s+-n\\s+(?<craftName>.+?)"),
+    Plant("plant\\s+-s\\s+(?<seed>.+?)\\s+-d\\s+(?<direction>\\S+)"),
+    ShowPlant("showplant\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
+    Fertilize("fertilize\\s+-f\\s+(?<fertilizer>.+?)\\s+-d\\s+(?<direction>\\S+)"),
+    ShowWater("how\\s+much\\s+water"),
 
     // Craft Controller: Aynaz
-    ShowCraftingRecipes("crafting show recipes"),
-    Crafting("crafting craft <item_name>"),
-    PlaceItem("place item -n <item_name> -d <direction>"), // todo
-    CheatCrafting("cheat add item -n <item_name> -c <count>"),
+    ShowCraftingRecipes("crafting\\s+show\\s+recipes"),
+    Crafting("crafting\\s+craft\\s+(?<itemName>.+)"),
+    PlaceItem("place\\s+item\\s+-n\\s+(?<itemName>.+?)\\s+-d\\s+(?<direction>\\S+)"), // todo
+    CheatCrafting("cheat\\s+add\\s+item\\s+-n\\s+(?<itemName>.+?)\\s+-c\\s+(?<count>\\d+)"),
 
     // Food Controller: Aynaz
-    Refrigerator("cooking refrigerator [put/pick] <item>"),
-    ShowCookingRecipes("cooking show recipes"),
-    Cooking("cooking prepare <recipe_name>"),
-    Eat("eat <food_name>"),
+    PutRefrigerator("cooking\\s+refrigerator\\s+put\\s+(?<item>.+)"),
+    PickRefrigerator("cooking\\s+refrigerator\\s+pick\\s+(?<item>.+)"),
+    ShowCookingRecipes("cooking\\s+show\\s+recipes"),
+    Cooking("cooking\\s+prepare\\s+(?<recipeName>.+)"),
+    Eat("eat\\s+(?<foodName>.+)"),
 
     // Map Controller: Nafiseh
-    Build("build -a <building_name> -l <x , y>"),
+    Build("build\\s+-a\\s+(?<buildingName>.+?)\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
 
     // Animal Controller: Parsa
-    BuyAnimal("buy animal -a <animal> -n <name>"),
-    Pet("pet -n <name>"),
-    ShowAnimalInfo("animals"),
-    CheatFriendShipAnimal("cheat set friendship -n <animal name> -c <amount>"),
-    ShepherdAnimal("shepherd animals -n <animal name> -l <x , y>"), // todo
-    FeedAnimal("feed hay -n <animal name>"),
+    BuyAnimal("buy\\s+animal\\s+-a\\s+(?<animal>.+?)\\s+-n\\s+(?<name>.+)"),
+    Pet("pet\\s+-n\\s+(?<name>.+)"),
+    ShowAnimalsInfo("animals"),
+    CheatFriendShipAnimal("cheat\\s+set\\s+friendship\\s+-n\\s+(?<animalName>.+?)\\s+-c\\s+(?<amount>\\d+)"),
+    ShepherdAnimal("shepherd\\s+animals\\s+-n\\s+(?<animalName>.+?)\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"), // todo
+    FeedAnimal("feed\\s+hay\\s+-n\\s+(?<animalName>.+)"),
     ShowAnimalProduceInfo("produces"),
-    CollectAnimalProduce("collect produce -n <name>"),
-    SellAnimal("sell animal -n <name>"),
+    CollectAnimalProduce("collect\\s+produce\\s+-n\\s+(?<name>.+)"),
+    SellAnimal("sell\\s+animal\\s+-n\\s+(?<name>.+)"),
 
-    Fishing("fishing -p <fishing pole>"), // todo
+    Fishing("fishing\\s+-p\\s+(?<fishingPole>.+)"), // todo
 
     // Artisan Controller: Aynaz (optional)
-    ArtisanUse("artisan use <artisan_name> <item1_name>"),
-    ArtisanGet("artisan get <artisan_name>"),
+    ArtisanUse("artisan\\s+use\\s+-a\\s+(?<artisanName>.+?)\\s+-i\\s+(?<item1Name>.+)"),
+    ArtisanGet("artisan\\s+get\\s+(?<artisanName>.+)"),
 
     // Shop Controller: Parsa -> Nafiseh, Aynaz
-    ShowShopProduct("show all products"),
-    ShowShopAvailableProduct("show all available products"),
-    Purchase("purchase <product_name> -n <count>"),
-    CheatAddCount("cheat add <count> dollars"),
-    SellProduct("sell <product_name> -n <count>"),
+    ShowShopProduct("show\\s+all\\s+products"),
+    ShowShopAvailableProduct("show\\s+all\\s+available\\s+products"),
+    Purchase("purchase\\s+(?<productName>.+?)\\s+-n\\s+(?<count>\\d+)"),
+    CheatAddCount("cheat\\s+add\\s+(?<count>\\d+)\\s+dollars"),
+    SellProduct("sell\\s+(?<productName>.+?)\\s+-n\\s+(?<count>\\d+)"),
 
 
     FriendsShipPlayerList("friendships"),
-    Talk("talk -u <username> -m <message>"),
-    TalkHistory("talk history -u <username>"),
-    Gift("gift -u <username> -i <item> -a <amount>"),
-    GiftList("gift list"),
-    GiftRate("gift rate -i <gift-number> -r <rate>"),
-    GiftHistory("gift history -u <username>"),
-    Hug("hug -u <username>"),
-    Flower("flower -u <username>"),
+    Talk("talk\\s+-u\\s+(?<username>.+?)\\s+-m\\s+(?<message>.+)"),
+    TalkHistory("talk\\s+history\\s+-u\\s+(?<username>.+)"),
+    Gift("gift\\s+-u\\s+(?<username>.+)\\s+-i\\s+(?<item>.+?)\\s+-a\\s+(?<amount>\\d+)"),
+    GiftList("gift\\s+list"),
+    GiftRate("gift\\s+rate\\s+-i\\s+(?<giftNumber>\\d+)\\s+-r\\s+(?<rate>\\d+)"),
+    GiftHistory("gift\\s+history\\s+-u\\s+(?<username>.+)"),
+    Hug("hug\\s+-u\\s+(?<username>.+)"),
+    Flower("flower\\s+-u\\s+(?<username>.+)"),
 
-    AskMarriage("ask marriage -u <username> -r <ring>"),
-    RespondMarriage("respond (–accept | –reject) -u <username>"),
+    AskMarriage("ask\\s+marriage\\s+-u\\s+(?<username>.+?)\\s+-r\\s+(?<ring>.+)"),
+    RespondMarriage("respond\\s+(–accept|–reject)\\s+-u\\s+(?<username>.+)"),
 
-    TradeMenu("start trade"),
-    Trade("trade -u <username> -t <type> -i <item> -a <amount> [-p <price>] [-ti <targetItem> -ta <targetAmount>]"),
-    TradeLIst("trade list"),
-    TradeRespond("trade response (–accept | –reject) -i <id>"),
-    TradeHistory("trade history"),
+    TradeMenu("start\\s+trade"),
+    Trade("trade\\s+-u\\s+(?<username>.+?)\\s+-t\\s+(?<type>.+?)\\s+-i\\s+(?<item>.+?)\\s+-a\\s+(?<amount>\\d+)\\s+(-p\\s+(?<price>.+)|-ti\\s+(?<targetItem>.+?)\\s+-ta\\s+(?<targetAmount>.+))"),
+    TradeLIst("trade\\s+list"),
+    TradeRespond("trade\\s+response\\s+(–accept|–reject)\\s+-i\\s+(?<id>\\d+)"),
+    TradeHistory("trade\\s+history"),
 
-    MeetNPC("meet NPC <npc_name>"),
-    GiftNPC("gift NPC <npc_name> -i <item>"),
-    FriendShipNPCList("friendship NPC list"),
-    QuestList("quests list"),
-    QuestFinish("quests finish -i <index>"),
+    MeetNPC("meet\\s+NPC\\s+(?<npcName>.+)"),
+    GiftNPC("gift\\s+NPC\\s+(?<npcName>.+?)\\s+-i\\s+(?<item>.+)"),
+    FriendShipNPCList("friendship\\s+NPC\\s+list"),
+    QuestList("quests\\s+list"),
+    QuestFinish("quests\\s+finish\\s+-i\\s+(?<index>\\d+)"),
 
-    CurrentMenu ("show current menu");
+    //Game Controller: Nafiseh
+    CurrentMenu ("show\\s+current\\s+menu");
 
     private final String pattern;
 

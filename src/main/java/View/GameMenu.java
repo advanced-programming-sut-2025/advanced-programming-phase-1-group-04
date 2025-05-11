@@ -9,15 +9,279 @@ import java.util.regex.Matcher;
 public class GameMenu implements AppMenu {
     @Override
     public void check(Scanner scanner) {
-        String input = scanner.nextLine();
+        String input = scanner.nextLine().trim();
         Matcher matcher;
         // TODO: tehkhhhh
         
         if ((matcher = GameMenuCommand.NewGame.getMatcher(input)) != null) {
             System.out.println(GameMenuController.goMenu(matcher.group("menu")));
-        } else if (GameMenuCommand.CurrentMenu.getMatcher(input) != null) {
+        }
+        else if (GameMenuCommand.CurrentMenu.getMatcher(input) != null) {
             System.out.println(GameMenuController.currentMenu());
-        } else {
+        }
+        else if ((matcher = GameMenuCommand.ChooseMap.getMatcher(input)) != null) {
+            //TODO Nafiseh
+        }
+        else if (GameMenuCommand.LoadGame.getMatcher(input) != null) {
+            //TODO Nafiseh
+        }
+        else if (GameMenuCommand.ExitGame.getMatcher(input) != null) {
+            //TODO Nafiseh
+        }
+        else if (GameMenuCommand.DeleteGame.getMatcher(input) != null) {
+            //TODO Nafiseh
+        }
+        else if (GameMenuCommand.NextTurn.getMatcher(input) != null) {
+            //TODO Nafiseh
+        }
+        else if (GameMenuCommand.Time.getMatcher(input) != null) {
+            //TODO Nafiseh
+        }
+        else if (GameMenuCommand.Date.getMatcher(input) != null) {
+            //TODO Nafiseh
+        }
+        else if (GameMenuCommand.DateTime.getMatcher(input) != null) {
+            //TODO Nafiseh
+        }
+        else if (GameMenuCommand.DayOfTheWeek.getMatcher(input) != null) {
+            //TODO Nafiseh
+        }
+        else if ((matcher = GameMenuCommand.CheatTime.getMatcher(input)) != null) {
+            //TODO Nafiseh
+        }
+        else if ((matcher = GameMenuCommand.CheatDate.getMatcher(input)) != null) {
+            //TODO Nafiseh
+        }
+        else if (GameMenuCommand.Season.getMatcher(input) != null) {
+            //TODO Nafiseh
+        }
+        else if (GameMenuCommand.Weather.getMatcher(input) != null) {
+            //TODO Nafiseh
+        }
+        else if (GameMenuCommand.WeatherForecast.getMatcher(input) != null) {
+            //TODO Nafiseh
+        }
+        else if ((matcher = GameMenuCommand.CheatThor.getMatcher(input)) != null) {
+            //TODO Nafiseh
+        }
+        else if ((matcher = GameMenuCommand.CheatWeather.getMatcher(input)) != null) {
+            //TODO Nafiseh
+        }
+        else if (GameMenuCommand.BuildGreenhouse.getMatcher(input) != null) {
+            //TODO Nafiseh
+        }
+        else if ((matcher = GameMenuCommand.Walk.getMatcher(input)) != null) {
+            //TODO Nafiseh
+        }
+        else if ((matcher = GameMenuCommand.PrintMap.getMatcher(input)) != null) {
+            //TODO Nafiseh
+        }
+        else if ((matcher = GameMenuCommand.HelpMap.getMatcher(input)) != null) {
+            //TODO Nafiseh
+        }
+
+        else if (GameMenuCommand.ShowEnergy.getMatcher(input) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.CheatEnergy.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if (GameMenuCommand.CheatUnlimitedEnergy.getMatcher(input) != null) {
+            //TODO Aynaz
+        }
+        else if (GameMenuCommand.ShowInventory.getMatcher(input) != null) {
+            //TODO Aynaz
+        }
+        else if (GameMenuCommand.InventoryTrash.getMatcher(input) != null) {
+            //TODO Aynaz
+        }
+        else if (GameMenuCommand.ShowAbility.getMatcher(input) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.EquipTool.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if (GameMenuCommand.ShowCurrentTool.getMatcher(input) != null) {
+            //TODO Aynaz
+        }
+        else if (GameMenuCommand.ShowAvailableTool.getMatcher(input) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.UpgradeTool.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.UseTool.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.CropInfo.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.Plant.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.ShowPlant.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.Fertilize.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if (GameMenuCommand.ShowWater.getMatcher(input) != null) {
+            //TODO Aynaz
+        }
+        else if (GameMenuCommand.ShowCraftingRecipes.getMatcher(input) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.Crafting.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.PlaceItem.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.CheatCrafting.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.PutRefrigerator.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.PickRefrigerator.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if (GameMenuCommand.ShowCookingRecipes.getMatcher(input) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.Cooking.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.Eat.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+
+        else if ((matcher = GameMenuCommand.Build.getMatcher(input)) != null) {
+            //TODO Nafiseh
+        }
+
+        else if ((matcher = GameMenuCommand.BuyAnimal.getMatcher(input)) != null) {
+            //TODO Parsa
+        }
+        else if ((matcher = GameMenuCommand.Pet.getMatcher(input)) != null) {
+            //TODO Parsa
+        }
+        else if (GameMenuCommand.ShowAnimalsInfo.getMatcher(input) != null) {
+            //TODO Parsa
+        }
+        else if ((matcher = GameMenuCommand.CheatFriendShipAnimal.getMatcher(input)) != null) {
+            //TODO Parsa
+        }
+        else if ((matcher = GameMenuCommand.ShepherdAnimal.getMatcher(input)) != null) {
+            //TODO Parsa
+        }
+        else if ((matcher = GameMenuCommand.FeedAnimal.getMatcher(input)) != null) {
+            //TODO Parsa
+        }
+        else if (GameMenuCommand.ShowAnimalProduceInfo.getMatcher(input) != null) {
+            //TODO Parsa
+        }
+        else if ((matcher = GameMenuCommand.CollectAnimalProduce.getMatcher(input)) != null) {
+            //TODO Parsa
+        }
+        else if ((matcher = GameMenuCommand.SellAnimal.getMatcher(input)) != null) {
+            //TODO Parsa
+        }
+        else if ((matcher = GameMenuCommand.Fishing.getMatcher(input)) != null) {
+            //TODO Parsa
+        }
+
+
+        else if ((matcher = GameMenuCommand.ArtisanUse.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+        else if ((matcher = GameMenuCommand.ArtisanGet.getMatcher(input)) != null) {
+            //TODO Aynaz
+        }
+
+
+        else if (GameMenuCommand.ShowShopProduct.getMatcher(input) != null) {
+            //TODO Parsa
+        }
+        else if (GameMenuCommand.ShowShopAvailableProduct.getMatcher(input) != null) {
+            //TODO Parsa
+        }
+        else if ((matcher = GameMenuCommand.Purchase.getMatcher(input)) != null) {
+            //TODO Parsa
+        }
+        else if ((matcher = GameMenuCommand.CheatAddCount.getMatcher(input)) != null) {
+            //TODO Parsa
+        }
+        else if ((matcher = GameMenuCommand.SellProduct.getMatcher(input)) != null) {
+            //TODO Parsa
+        }
+
+        else if (GameMenuCommand.FriendsShipPlayerList.getMatcher(input) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.Talk.getMatcher(input)) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.TalkHistory.getMatcher(input)) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.Gift.getMatcher(input)) != null) {
+            //TODO
+        }
+        else if (GameMenuCommand.GiftList.getMatcher(input) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.GiftRate.getMatcher(input)) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.GiftHistory.getMatcher(input)) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.Hug.getMatcher(input)) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.Flower.getMatcher(input)) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.AskMarriage.getMatcher(input)) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.RespondMarriage.getMatcher(input)) != null) {
+            //TODO
+        }
+
+        else if (GameMenuCommand.TradeMenu.getMatcher(input) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.Trade.getMatcher(input)) != null) {
+            //TODO
+        }
+        else if (GameMenuCommand.TradeLIst.getMatcher(input) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.TradeRespond.getMatcher(input)) != null) {
+            //TODO
+        }
+        else if (GameMenuCommand.TradeHistory.getMatcher(input) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.MeetNPC.getMatcher(input)) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.GiftNPC.getMatcher(input)) != null) {
+            //TODO
+        }
+        else if (GameMenuCommand.FriendShipNPCList.getMatcher(input) != null) {
+            //TODO
+        }
+        else if (GameMenuCommand.QuestList.getMatcher(input) != null) {
+            //TODO
+        }
+        else if ((matcher = GameMenuCommand.QuestFinish.getMatcher(input)) != null) {
+            //TODO
+        }
+
+        else {
             System.out.println("invalid command");
         }
     }

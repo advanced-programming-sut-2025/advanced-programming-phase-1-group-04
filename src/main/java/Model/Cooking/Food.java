@@ -1,10 +1,8 @@
 package Model.Cooking;
 
 import Model.Player.*;
-import Model.Map.Item;
-import Model.Trade.ShopType;
+import Model.Shop.ShopType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Food {

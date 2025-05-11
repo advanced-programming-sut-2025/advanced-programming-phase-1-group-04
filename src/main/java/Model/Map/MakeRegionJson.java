@@ -1,5 +1,12 @@
 package Model.Map;
 
+import Model.Plants.ForagingCrop;
+import Model.Plants.ForagingCropType;
+import Model.Plants.Tree;
+import Model.Plants.TreeType;
+import Model.Time.DateAndTime;
+import Model.Time.Season;
+import Model.Time.WeekDay;
 import com.google.gson.Gson;
 
 import java.io.*;
@@ -24,8 +31,10 @@ public class MakeRegionJson {
             int row = 0;
 
             while ((line = reader.readLine()) != null && row < 30) {
-                for (int col = 0; col < Math.min(line.length(), 40); col++) {
-                    String symbol = String.valueOf(line.charAt(col));
+                String[] symbols = line.trim().split("\\s+");
+
+                for (int col = 0; col < Math.min(symbols.length, 40); col++) {
+                    char symbol = symbols[col].charAt(0);
                     tiles[row][col] = MakeRegionJson.getTileFromString(symbol);
                 }
                 row++;
@@ -35,47 +44,48 @@ public class MakeRegionJson {
         return tiles;
     }
 
-    private static Tile getTileFromString(String symbol) {
+    private static Tile getTileFromString(char symbol) {
         switch (symbol) {
-            case "M":
+            case 'M':
                 return new Tile(TileType.Mountain);
-            case "L":
+            case 'L':
                 return new Tile(TileType.Water);
-            case "X":
+            case 'X':
                 return new Tile(TileType.Mine);
 
-            case "G":
+            case 'G':
                 return new Tile(TileType.Ground, false, null, null);
-            case "T":
-
-                return new Tile(TileType.Ground, false, null, null);
-            case "^":
-
-                return new Tile(TileType.Ground, false, null, null);
-            case "*":
+            case 'T':
+                Tree tree = new Tree(TreeType.Apricot, new DateAndTime(9, 1, WeekDay.Saturday, Season.Spring));
+                return new Tile(TileType.Ground, false, tree, null);
+            case '^':
+                ForagingCrop foraging = new ForagingCrop(ForagingCropType.CommonMushroom);
+                return new Tile(TileType.Ground, false, foraging, null);
+            case '*':
                 return new Tile(TileType.Ground, true, null, null);
 
-            case "H":
+            case 'H':
                 return new Tile(TileType.Building, BuildingType.House);
-            case "9":
+            case '9':
                 return new Tile(TileType.Building, BuildingType.GreenHouse);
 
-            case "F":
+            case 'F':
                 return new Tile(TileType.Building, BuildingType.FishShop);
-            case "J":
+            case 'J':
                 return new Tile(TileType.Building, BuildingType.JojaMart);
-            case "B":
+            case 'B':
                 return new Tile(TileType.Building, BuildingType.Blacksmith);
-            case "I":
+            case 'I':
                 return new Tile(TileType.Building, BuildingType.PierresGeneralStore);
-            case "R":
+            case 'R':
                 return new Tile(TileType.Building, BuildingType.MarniesRanch);
-            case "C":
+            case 'C':
                 return new Tile(TileType.Building, BuildingType.CarpentersShop);
-            case "K":
+            case 'K':
                 return new Tile(TileType.Building, BuildingType.TheStarDropSaloon);
 
             default:
+                System.out.println("Unknown symbol: '" + symbol + "'");
                 throw new IllegalArgumentException("Invalid tile character: " + symbol);
         }
     }

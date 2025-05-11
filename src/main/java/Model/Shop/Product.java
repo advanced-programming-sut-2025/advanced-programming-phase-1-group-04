@@ -1,7 +1,7 @@
-package Model.Trade;
+package Model.Shop;
 
 import Model.Animals.AnimalType;
-import Model.Trade.CarpentersShop.FarmBuildings;
+import Model.Shop.CarpentersShop.FarmBuildings;
 
 public class Product {
 

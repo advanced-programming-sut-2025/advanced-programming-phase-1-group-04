@@ -1,4 +1,4 @@
-package Model.Trade;
+package Model.Shop;
 
 public enum RecipeType implements ProductInterface {
     FishSmoker("A recipe to make Fish Smoker" , "Fish Smoker (Recipe)" , 10000 , 1),

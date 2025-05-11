@@ -1,4 +1,4 @@
-package Model.Trade.CarpentersShop;
+package Model.Shop.CarpentersShop;
 
 public enum PermanentStock {
     Wood("A sturdy, yet flexible plant material with a wide variety of uses." , 10 , -1),

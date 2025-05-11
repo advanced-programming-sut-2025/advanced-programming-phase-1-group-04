@@ -1,6 +1,6 @@
-package Model.Trade.FishShop;
+package Model.Shop.FishShop;
 
-import Model.Trade.ProductInterface;
+import Model.Shop.ProductInterface;
 
 public enum Stock implements ProductInterface {
     FishSmoker("A recipe to make Fish Smoker" , "Fish Smoker (Recipe)" , 10000 , 0 , 1),

@@ -1,4 +1,4 @@
-package Model.Trade.BlackSmith;
+package Model.Shop.BlackSmith;
 
 public enum UpgradeTools {
     CopperTool("CopperBar" , "Copper Tool" , 2000 , 1),

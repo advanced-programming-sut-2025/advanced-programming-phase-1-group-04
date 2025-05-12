@@ -1,5 +1,6 @@
 package Model.Shop.PierresGeneralStore;
 
+import Model.App;
 import Model.Time.Season;
 import Model.Game;
 import Model.Shop.ProductInterface;
@@ -42,7 +43,7 @@ public enum FallStock implements ProductInterface {
 
     @Override
     public int getPrice() {
-        if (Game.getCurrentTime().getSeason() == Season.Fall)
+        if (App.getCurrentGame().getCurrentTime().getSeason() == Season.Fall)
             return (price * 2) / 3;
         else
             return price;

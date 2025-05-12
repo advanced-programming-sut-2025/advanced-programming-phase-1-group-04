@@ -1,9 +1,17 @@
 package View;
 
 import Controller.GameMenuController;
-import Controller.SirkBozorg.PlayerController;
-import Model.Command.GameMenuCommand;
 
+import Controller.SirkBozorg.PlayerController;
+import Controller.SirkBozorg.MapController;
+import Controller.SirkBozorg.TimeController;
+import Model.App;
+
+import Model.Command.GameMenuCommand;
+import Model.Player.Player;
+import Model.Result;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -12,67 +20,79 @@ public class GameMenu implements AppMenu {
     public void check(Scanner scanner) {
         String input = scanner.nextLine().trim();
         Matcher matcher;
-        // TODO: tehkhhhh
-        
-        if ((matcher = GameMenuCommand.NewGame.getMatcher(input)) != null) {
-            System.out.println(GameMenuController.goMenu(matcher.group("menu")));
-        }
-        else if (GameMenuCommand.CurrentMenu.getMatcher(input) != null) {
+
+        if (GameMenuCommand.CurrentMenu.getMatcher(input) != null) {
             System.out.println(GameMenuController.currentMenu());
         }
-        else if ((matcher = GameMenuCommand.ChooseMap.getMatcher(input)) != null) {
-            //TODO Nafiseh
+        else if ((matcher = GameMenuCommand.NewGame.getMatcher(input)) != null) {
+            Result result = GameMenuController.newGame(matcher.group("username1"), matcher.group("username2"), matcher.group("username3"));
+            System.out.println(result);
+
+            if (result.isSuccessful()) {
+                ArrayList<Player> players = App.getCurrentGame().getPlayers();
+
+                for (int i = 0; i < players.size(); i++) {
+                    Player player = players.get(i);
+                    System.out.println("Player " + player.getUsername() + ", choose your farm number (1-2):");
+
+                    while (true) {
+                        input = scanner.nextLine().trim();
+                        if ((matcher = GameMenuCommand.ChooseMap.getMatcher(input)) != null) {
+                            result = GameMenuController.chooseMap(i ,Integer.parseInt(matcher.group("mapNumber")));
+                            System.out.println(result);
+                            if (result.isSuccessful()) break;
+                        } else {
+                            System.out.println("Use this format: game map <1|2>");
+                        }
+                    }
+                }
+                System.out.println(GameMenuController.loadNewGame());
+            }
         }
         else if (GameMenuCommand.LoadGame.getMatcher(input) != null) {
-            //TODO Nafiseh
+            System.out.println(GameMenuController.loadGame());
         }
         else if (GameMenuCommand.ExitGame.getMatcher(input) != null) {
-            //TODO Nafiseh
+            System.out.println(GameMenuController.exitGame());
         }
         else if (GameMenuCommand.DeleteGame.getMatcher(input) != null) {
-            //TODO Nafiseh
+            System.out.println(GameMenuController.deleteGame());
         }
         else if (GameMenuCommand.NextTurn.getMatcher(input) != null) {
-            //TODO Nafiseh
+            System.out.println(GameMenuController.nextTurn());
         }
         else if (GameMenuCommand.Time.getMatcher(input) != null) {
-            //TODO Nafiseh
-        }
-        else if (GameMenuCommand.Date.getMatcher(input) != null) {
-            //TODO Nafiseh
-        }
-        else if (GameMenuCommand.DateTime.getMatcher(input) != null) {
-            //TODO Nafiseh
-        }
-        else if (GameMenuCommand.DayOfTheWeek.getMatcher(input) != null) {
-            //TODO Nafiseh
+            System.out.println(TimeController.time());
         }
         else if ((matcher = GameMenuCommand.CheatTime.getMatcher(input)) != null) {
-            //TODO Nafiseh
+            System.out.println(TimeController.cheatTime(matcher.group("time")));
         }
         else if ((matcher = GameMenuCommand.CheatDate.getMatcher(input)) != null) {
-            //TODO Nafiseh
+            System.out.println(TimeController.cheatTime(matcher.group("date")));
         }
         else if (GameMenuCommand.Season.getMatcher(input) != null) {
-            //TODO Nafiseh
+            System.out.println(TimeController.season());
         }
         else if (GameMenuCommand.Weather.getMatcher(input) != null) {
-            //TODO Nafiseh
+            System.out.println(TimeController.weather());
         }
         else if (GameMenuCommand.WeatherForecast.getMatcher(input) != null) {
-            //TODO Nafiseh
+            System.out.println(TimeController.weather());
         }
         else if ((matcher = GameMenuCommand.CheatThor.getMatcher(input)) != null) {
-            //TODO Nafiseh
+            System.out.println(TimeController.cheatThor(matcher.group("x"), matcher.group("y")));
         }
         else if ((matcher = GameMenuCommand.CheatWeather.getMatcher(input)) != null) {
-            //TODO Nafiseh
+            System.out.println(TimeController.cheatWeather(matcher.group("type")));
         }
         else if (GameMenuCommand.BuildGreenhouse.getMatcher(input) != null) {
             //TODO Nafiseh
         }
         else if ((matcher = GameMenuCommand.Walk.getMatcher(input)) != null) {
             //TODO Nafiseh
+        }
+        else if (GameMenuCommand.PrintAllMap.isMatch(input)) {
+            System.out.println(MapController.printAllMap());
         }
         else if ((matcher = GameMenuCommand.PrintMap.getMatcher(input)) != null) {
             //TODO Nafiseh

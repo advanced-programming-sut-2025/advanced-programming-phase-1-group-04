@@ -90,6 +90,10 @@ public class User {
         return this.question.getQuestion();
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

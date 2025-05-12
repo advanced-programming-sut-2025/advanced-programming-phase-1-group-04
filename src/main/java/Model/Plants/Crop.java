@@ -1,5 +1,6 @@
 package Model.Plants;
 
+import Model.App;
 import Model.Map.Item;
 import Model.Time.DateAndTime;
 import Model.Time.Season;
@@ -84,7 +85,7 @@ public class Crop implements Item {
     public int getCurrentStage () {
         int stageTime = getHarvestTime();
         int currentStage = getStages().length + 1;
-        int daysSincePlanted = Game.getCurrentTime().getDay() - plantingDate.getDay();
+        int daysSincePlanted = App.getCurrentGame().getCurrentTime().getDay() - plantingDate.getDay();
         if (lastTimeHarvested == null) {
             if (daysSincePlanted >= stageTime) {
                 return currentStage;
@@ -98,7 +99,7 @@ public class Crop implements Item {
             }
         }
         else {
-            if (Game.getCurrentTime().getDay() - lastTimeHarvested.getDay() >= getRegrowthTime()) {
+            if (App.getCurrentGame().getCurrentTime().getDay() - lastTimeHarvested.getDay() >= getRegrowthTime()) {
                 return getStages().length;
             }
             else {

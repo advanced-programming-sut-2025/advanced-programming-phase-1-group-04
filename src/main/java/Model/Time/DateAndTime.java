@@ -1,10 +1,11 @@
 package Model.Time;
 
 public class DateAndTime {
-    private int hour; // HH:MM
-    private int day;//
+    private int hour; // (9-24):00
+    private int day; // 1-28
     private WeekDay dayOfWeek; // Monday Tuesday Wednesday Thursday Friday Saturday Sunday
     private Season season; // Enum Season types
+
 
     private String hourToString () {
         return String.format("%02d" , hour) + ":" + "00";

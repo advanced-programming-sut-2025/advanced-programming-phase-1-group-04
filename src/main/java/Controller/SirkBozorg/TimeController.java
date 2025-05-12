@@ -1,10 +1,45 @@
 package Controller.SirkBozorg;
 
-import Model.Time.Season;
+import Model.Result;
 
 public class TimeController {
-    public void seasonChange (Season currentSeason) {
+    public static Result time() {
+        //TODO
+        return new Result(true, "");
     }
-    public void dayChange() {
+
+    public static Result cheatTime(String time) {
+        //TODO
+        return new Result(true, "");
+    }
+
+    public static Result cheatDate(String date) {
+        //TODO
+        return new Result(true, "");
+    }
+
+    public static Result season() {
+        //TODO
+        return new Result(true, "");
+    }
+
+    public static Result weather() {
+        //TODO
+        return new Result(true, "");
+    }
+
+    public static Result weatherForecast() {
+        //TODO
+        return new Result(true, "");
+    }
+
+    public static Result cheatThor(String x, String y) {
+        //TODO
+        return new Result(true, "");
+    }
+
+    public static Result cheatWeather(String type) {
+        //TODO
+        return new Result(true, "");
     }
 }

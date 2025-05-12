@@ -6,9 +6,9 @@ import java.util.HashMap;
 
 public class Inventory {
     private HashMap<Item, Integer> items = new HashMap<>();
-    private double capacity;
+    private int capacity;
 
-    public Inventory (double capacity) {
+    public Inventory (int capacity) {
         this.capacity = capacity;
     }
     //TODO: we have infinity as capacity
@@ -42,7 +42,7 @@ public class Inventory {
         return true;
     }
 
-    public void setCapacity (double capacity) {
+    public void setCapacity (int capacity) {
         this.capacity = capacity;
     }
 

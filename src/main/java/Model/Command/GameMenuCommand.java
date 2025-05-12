@@ -32,7 +32,7 @@ public enum GameMenuCommand implements Command {
 
     // Player Controller: Aynaz
     ShowEnergy("energy\\s+show"),
-    CheatEnergy("energy\\s+set\\s+-v\\s+(?<value>\\d+)"),
+    CheatEnergy("energy\\s+set\\s+-v\\s+(?<value>[-+]?\\d+)"),
     CheatUnlimitedEnergy("energy\\s+unlimited"),
 
     // Player Controller: Aynaz
@@ -45,10 +45,10 @@ public enum GameMenuCommand implements Command {
     ShowCurrentTool("tools\\s+show\\s+current"),
     ShowAvailableTool("tools\\s+show\\s+available"),
     UpgradeTool("tools\\s+upgrade\\s+(?<toolName>.+)"),
-    UseTool("tools\\s+use\\s+-d\\s+(?<direction>.+)"),
+    UseTool("tools\\s+use\\s+-d\\s+(?<direction>.+)"), //
 
     // Plant Controller: Aynaz
-    CropInfo("crop\\s+info\\s+-n\\s+(?<craftName>.+?)"),
+    CropInfo("craft\\s+info\\s+-n\\s+(?<craftName>.+?)"),
     Plant("plant\\s+-s\\s+(?<seed>.+?)\\s+-d\\s+(?<direction>\\S+)"),
     ShowPlant("showplant\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
     Fertilize("fertilize\\s+-f\\s+(?<fertilizer>.+?)\\s+-d\\s+(?<direction>\\S+)"),

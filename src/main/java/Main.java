@@ -1,6 +1,4 @@
 
-import Model.Map.MakeRegionJson;
-import Model.Map.Symbols;
 import View.AppView;
 
 import java.io.IOException;

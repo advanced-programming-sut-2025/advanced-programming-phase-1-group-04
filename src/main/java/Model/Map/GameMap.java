@@ -10,7 +10,7 @@ import Gson.ItemAdapter;
 
 public class GameMap {
     private Region[][] region = new Region[3][3];
-
+    private Tile[][] fullMap;
     public GameMap(int[] farmSelection) {
         region[0][0] = loadRegionJson("Farming"  + farmSelection[0]);
         region[0][1] = loadRegionJson("Path1");
@@ -39,8 +39,7 @@ public class GameMap {
         }
     }
 
-    @Override
-    public String toString() {
+    public void setFulMap() {
         int tileRowsPerRegion = 30;
         int tileColsPerRegion = 40;
         int totalRows = 3 * 30;
@@ -63,6 +62,13 @@ public class GameMap {
             }
         }
 
+        this.fullMap = fullMap;
+    }
+
+    @Override
+    public String toString() {
+        int totalRows = 3 * 30;
+        int totalCols = 3 * 40;
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < totalRows; i++) {
             for (int j = 0; j < totalCols; j++) {
@@ -76,4 +82,7 @@ public class GameMap {
         return result.toString();
     }
 
- }
+    public Tile[][] getFullMap() {
+        return fullMap;
+    }
+}

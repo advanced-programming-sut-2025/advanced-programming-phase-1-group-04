@@ -1,5 +1,6 @@
 package Controller.SirkBozorg;
 
+import Controller.GameMenuController;
 import Model.App;
 import Model.Map.Item;
 import Model.Result;
@@ -52,8 +53,10 @@ public class ToolController {
         }
     }
 
-    public static Result useTool () {
-        //TODO
+    public static Result useTool (String direction) {
+        App.getCurrentGame().getCurrentPlayer().getCurrentTool().
+                use(GameMenuController.getTileByDirection(direction));
+        return new Result(true, "used");
     }
 
 

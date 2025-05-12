@@ -43,6 +43,7 @@ public class PlayerController {
     public static Result inventoryTrash (Item item, int number) {
         //TODO................................................................................
         // tool ro bezan
+        return  new Result(false, "khali");
     }
 
     public static Result showAbility() {

@@ -3,7 +3,9 @@ package Controller;
 import Model.App;
 import Model.Command.Menu;
 import Model.Game;
+import Model.Map.Coordinate;
 import Model.Map.GameMap;
+import Model.Map.Tile;
 import Model.Player.Player;
 import Model.Result;
 import Model.User;
@@ -92,5 +94,65 @@ public class GameMenuController {
 
     public static Result currentMenu () {
         return new Result(true, "You are in game menu");
+    }
+
+    public static Tile getTileByDirection (String direction) {
+        direction = direction.toLowerCase();
+        Coordinate coordinate = App.getCurrentGame().getCurrentPlayer().getCoordinate();
+        if (coordinate == null) {
+            return null;
+        }
+        int x = coordinate.getX();
+        int y = coordinate.getY();
+        switch (direction) {
+            case "n":
+                if (x > 0) {
+                    coordinate.setX(x - 1);
+                } else {return null;}
+                break;
+            case "s":
+                if (x < 89) {
+                    coordinate.setX(x + 1);
+                } else {return null;}
+                break;
+            case "e":
+                if (y < 119) {
+                    coordinate.setY(y + 1);
+                } else {return null;}
+                break;
+            case "w":
+                if (y > 0) {
+                    coordinate.setY(y - 1);
+                } else {return null;}
+                break;
+            case "ne":
+                if (x > 0 && y < 119) {
+                    coordinate.setX(x - 1);
+                    coordinate.setY(y + 1);
+                } else {return null;}
+                break;
+            case "nw":
+                if (x > 0 && y > 0) {
+                    coordinate.setX(x - 1);
+                    coordinate.setY(y - 1);
+                } else {return null;}
+                break;
+            case "se":
+                if (x < 89 && y < 119) {
+                    coordinate.setX(x + 1);
+                    coordinate.setY(y + 1);
+                } else {return null;}
+                break;
+            case "sw":
+                if (x < 89 && y > 0) {
+                    coordinate.setX(x + 1);
+                    coordinate.setY(y - 1);
+                } else {return null;}
+                break;
+            default:
+                return null;
+        }
+
+        return App.getCurrentGame().getTile(coordinate);
     }
 }

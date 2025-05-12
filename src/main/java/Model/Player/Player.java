@@ -43,7 +43,6 @@ public class Player {
 
     private Tool currentTool;
     //List Recipe
-    //List Tool
 
     //animal friendship
     //player friendship

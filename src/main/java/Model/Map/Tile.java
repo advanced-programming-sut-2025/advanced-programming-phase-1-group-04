@@ -166,4 +166,15 @@ public class Tile {
         }
     }
 
+    public void setPlowed(boolean plowed) {
+        isPlowed = plowed;
+    }
+
+    public TileType getType() {
+        return type;
+    }
+
+    public void setWatered(boolean watered) {
+        isWatered = watered;
+    }
 }

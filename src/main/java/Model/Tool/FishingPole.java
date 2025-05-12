@@ -1,14 +1,38 @@
 package Model.Tool;
 
-public enum FishingPole {
-    Training (8),
-    Bamboo (8),
-    Fiberglass (6),
-    Iridium (4);
+import Model.Map.Tile;
 
-    private final int energy;
+public class FishingPole implements Tool{
+    private FishingPoleType type;
 
-    FishingPole(int energy) {
-        this.energy = energy;
+    public FishingPole (FishingPoleType type) {
+        this.type = type;
+    }
+
+    @Override
+    public void upgrade() {
+        //TODO
+        // related to shops and inventory
+    }
+
+    @Override
+    public boolean use(Tile tile) {
+        return false;
+        //TODO
+    }
+
+    @Override
+    public int getEnergyConsumption(boolean useSuccess) {
+        return type.getEnergyConsumption();
+    }
+
+    @Override
+    public String getName() {
+        return "Fishing pole";
+    }
+
+    @Override
+    public int getPrice() {
+        return type.getPrice();
     }
 }

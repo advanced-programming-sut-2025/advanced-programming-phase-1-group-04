@@ -5,5 +5,6 @@ import Model.Map.Tile;
 
 public interface Tool extends Item {
     public void upgrade();
-    public void use (Tile tile);
+    public boolean use (Tile tile);
+    public int getEnergyConsumption(boolean useSuccess);
 }

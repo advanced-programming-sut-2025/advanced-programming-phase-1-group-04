@@ -1,11 +1,29 @@
 package Model.Tool;
 
-public enum Scythe {
-    Starter (2);
+import Model.Map.Tile;
 
-    private final int energy;
+public class Scythe implements Tool {
 
-    Scythe(int energy) {
-        this.energy = energy;
+    @Override
+    public void upgrade() {}
+
+    @Override
+    public boolean use(Tile tile) {
+        return false; //TODO
+    }
+
+    @Override
+    public int getEnergyConsumption(boolean useSuccess) {
+        return 2;
+    }
+
+    @Override
+    public String getName() {
+        return "Scythe";
+    }
+
+    @Override
+    public int getPrice() {
+        return 0;
     }
 }

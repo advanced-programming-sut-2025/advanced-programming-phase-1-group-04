@@ -23,6 +23,8 @@ public class Player {
 
     private int maxEnergy = 200;
     private int energy = 200;
+    private int maxMovesInTurn = 20; //TODO: ????????????????????????????
+    private int movesThisTurn = 0;
 
     private Inventory inventory = new Inventory(12);
     private HashMap<Skill, Integer> myAbility = new HashMap<>(Map.of(Skill.Mining, 0, Skill.Foraging, 0,
@@ -174,5 +176,21 @@ public class Player {
 
     public void setEnergy(int energy) {
         this.energy = energy;
+    }
+
+    public int getMaxMovesInTurn() {
+        return maxMovesInTurn;
+    }
+
+    public int getMovesThisTurn() {
+        return movesThisTurn;
+    }
+
+    public void setMaxMovesInTurn(int maxMovesInTurn) {
+        this.maxMovesInTurn = maxMovesInTurn;
+    }
+
+    public void addMovesThisTurn() {
+        this.movesThisTurn ++;
     }
 }

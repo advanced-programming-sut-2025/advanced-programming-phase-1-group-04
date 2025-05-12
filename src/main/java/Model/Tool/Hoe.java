@@ -5,6 +5,10 @@ import Model.Map.Tile;
 public class Hoe implements Tool{
     private ToolLevel level;
 
+    public Hoe (ToolLevel level) {
+        this.level = level;
+    }
+
     @Override
     public void upgrade() {
         if (level == ToolLevel.Starter) {
@@ -22,8 +26,26 @@ public class Hoe implements Tool{
     }
 
     @Override
-    public void use(Tile tile) {
+    public boolean use(Tile tile) {
         tile.setPlowed(true);
+        return true;
+    }
+
+    @Override
+    public int getEnergyConsumption(boolean useSuccess) {
+        if (level == ToolLevel.Starter) {
+            return 5;
+        }
+        else if (level == ToolLevel.Copper) {
+            return 4;
+        }
+        else if (level == ToolLevel.Steel) {
+            return 3;
+        }
+        else if (level == ToolLevel.Gold) {
+            return 2;
+        }
+        return 1;
     }
 
     @Override
@@ -34,5 +56,9 @@ public class Hoe implements Tool{
     @Override
     public int getPrice() {
         return 0; //TODO
+    }
+
+    public ToolLevel getLevel() {
+        return level;
     }
 }

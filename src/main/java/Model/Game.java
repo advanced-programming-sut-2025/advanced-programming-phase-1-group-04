@@ -59,8 +59,5 @@ public class Game {
         return map;
     }
 
-    public static Player getCurrentPlayer() {
-        return Game.currentPlayer;
-    }
 
 }

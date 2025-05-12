@@ -1,11 +1,28 @@
 package Model.Tool;
 
-public enum MilkPail {
-    Starter (4);
+import Model.Map.Tile;
 
-    private final int energy;
+public class MilkPail implements Tool{
+    @Override
+    public void upgrade() {}
 
-    MilkPail(int energy) {
-        this.energy = energy;
+    @Override
+    public boolean use(Tile tile) {
+        return false; //TODO
+    }
+
+    @Override
+    public int getEnergyConsumption(boolean useSuccess) {
+        return 4;
+    }
+
+    @Override
+    public String getName() {
+        return "Milk pail";
+    }
+
+    @Override
+    public int getPrice() {
+        return 1000;
     }
 }

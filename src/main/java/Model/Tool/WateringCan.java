@@ -94,6 +94,11 @@ public class WateringCan implements Tool{
     }
 
     @Override
+    public String getLevelString() {
+        return level.name();
+    }
+
+    @Override
     public String getName() {
         return "Watering can";
     }
@@ -114,4 +119,5 @@ public class WateringCan implements Tool{
     public int getWaterAmount() {
         return waterAmount;
     }
+
 }

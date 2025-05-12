@@ -104,6 +104,11 @@ public class Axe implements Tool{
     }
 
     @Override
+    public String getLevelString() {
+        return level.name();
+    }
+
+    @Override
     public String getName() {
         return "Axe";
     }

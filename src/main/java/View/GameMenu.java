@@ -102,31 +102,31 @@ public class GameMenu implements AppMenu {
             //TODO Nafiseh
         }
 
-        else if (GameMenuCommand.ShowEnergy.getMatcher(input) != null) {
+        else if (GameMenuCommand.ShowEnergy.isMatch(input)) {
             System.out.println(PlayerController.showEnergy());
         }
         else if ((matcher = GameMenuCommand.CheatEnergy.getMatcher(input)) != null) {
             System.out.println(PlayerController.cheatEnergy(matcher.group("value")));
         }
-        else if (GameMenuCommand.CheatUnlimitedEnergy.getMatcher(input) != null) {
-            //TODO Aynaz
+        else if (GameMenuCommand.CheatUnlimitedEnergy.isMatch(input)) {
+            System.out.println(PlayerController.unlimitedEnergy());
         }
-        else if (GameMenuCommand.ShowInventory.getMatcher(input) != null) {
+        else if (GameMenuCommand.ShowInventory.isMatch(input)) {
             System.out.println(PlayerController.showInventory());
         }
-        else if (GameMenuCommand.InventoryTrash.getMatcher(input) != null) {
-            //TODO Aynaz
+        else if ((matcher = GameMenuCommand.InventoryTrash.getMatcher(input)) != null) {
+            System.out.println(PlayerController.inventoryTrash(matcher.group("itemName"), matcher.group("number")));
         }
-        else if (GameMenuCommand.ShowAbility.getMatcher(input) != null) {
+        else if (GameMenuCommand.ShowAbility.isMatch(input)) {
             System.out.println(PlayerController.showAbility());
         }
         else if ((matcher = GameMenuCommand.EquipTool.getMatcher(input)) != null) {
             System.out.println(ToolController.equip(matcher.group("toolName")));
         }
-        else if (GameMenuCommand.ShowCurrentTool.getMatcher(input) != null) {
+        else if (GameMenuCommand.ShowCurrentTool.isMatch(input)) {
             System.out.println(ToolController.showCurrentTool());
         }
-        else if (GameMenuCommand.ShowAvailableTool.getMatcher(input) != null) {
+        else if (GameMenuCommand.ShowAvailableTool.isMatch(input)) {
             System.out.println(ToolController.showAvailableTools());
         }
         else if ((matcher = GameMenuCommand.UpgradeTool.getMatcher(input)) != null) {

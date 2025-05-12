@@ -17,6 +17,11 @@ public class MilkPail implements Tool{
     }
 
     @Override
+    public String getLevelString() {
+        return "Milk pail";
+    }
+
+    @Override
     public String getName() {
         return "Milk pail";
     }

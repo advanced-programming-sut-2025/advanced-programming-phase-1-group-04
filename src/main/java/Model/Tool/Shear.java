@@ -18,6 +18,11 @@ public class Shear implements Tool {
     }
 
     @Override
+    public String getLevelString() {
+        return "Shear";
+    }
+
+    @Override
     public String getName() {
         return "Shear";
     }

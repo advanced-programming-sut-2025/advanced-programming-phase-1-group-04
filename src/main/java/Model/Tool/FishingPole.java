@@ -27,6 +27,11 @@ public class FishingPole implements Tool{
     }
 
     @Override
+    public String getLevelString() {
+        return type.name();
+    }
+
+    @Override
     public String getName() {
         return "Fishing pole";
     }

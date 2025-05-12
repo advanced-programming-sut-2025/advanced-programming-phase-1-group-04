@@ -18,6 +18,11 @@ public class Scythe implements Tool {
     }
 
     @Override
+    public String getLevelString() {
+        return "Scythe";
+    }
+
+    @Override
     public String getName() {
         return "Scythe";
     }

@@ -1,5 +1,6 @@
 package Controller.SirkBozorg;
 
+import Model.App;
 import Model.Game;
 import Model.Map.Item;
 import Model.Player.Inventory;
@@ -10,8 +11,8 @@ import Model.Result;
 public class PlayerController {
 
     public static Result showEnergy () {
-        return new Result(true, "player " + Game.getCurrentPlayer().getName() + " energy: " +
-                Game.getCurrentPlayer().getEnergy());
+        return new Result(true, "player " + App.getCurrentGame().getCurrentPlayer().getUsername() + " energy: " +
+                App.getCurrentGame().getCurrentPlayer().getEnergy());
     }
 
     public static Result cheatEnergy (String value) {
@@ -19,8 +20,8 @@ public class PlayerController {
         if (value == null || (v = Integer.parseInt(value)) < 0) {
             return new Result (false, "value must be a non-negative number!");
         }
-        Game.getCurrentPlayer().setEnergy(v);
-        return new Result (true, "player " + Game.getCurrentPlayer().getName() +
+        App.getCurrentGame().getCurrentPlayer().setEnergy(v);
+        return new Result (true, "player " + App.getCurrentGame().getCurrentPlayer().getUsername() +
                 " energy is now " + value);
     }
 
@@ -31,7 +32,7 @@ public class PlayerController {
 
     public static Result showInventory () {
         String result = "items in inventory:\n";
-        Inventory inventory = Game.getCurrentPlayer().getInventory();
+        Inventory inventory = App.getCurrentGame().getCurrentPlayer().getInventory();
         for (Item item : inventory.getItems().keySet()) {
             result = result + item.getName() + " : " + inventory.getItems().get(item) + "\n";
         }
@@ -45,7 +46,7 @@ public class PlayerController {
     }
 
     public static Result showAbility() {
-        Player player = Game.getCurrentPlayer();
+        Player player = App.getCurrentGame().getCurrentPlayer();
         String result = "ability levels:\nfarming : " + player.getAbilityLevel(Skill.Farming) +
                 "\nmining : " + player.getAbilityLevel(Skill.Mining) + "\nforaging : " +
                 player.getAbilityLevel(Skill.Foraging) + "\nfishing : " + player.getAbilityLevel(Skill.Fishing);

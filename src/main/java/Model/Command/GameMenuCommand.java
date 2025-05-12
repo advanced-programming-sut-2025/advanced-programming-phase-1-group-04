@@ -45,7 +45,7 @@ public enum GameMenuCommand implements Command {
     ShowCurrentTool("tools\\s+show\\s+current"),
     ShowAvailableTool("tools\\s+show\\s+available"),
     UpgradeTool("tools\\s+upgrade\\s+(?<toolName>.+)"),
-    UseTool("tools\\s+use\\s+-d\\s+(?<direction>.+)"),
+    UseTool("tools\\s+use\\s+-d\\s+(?<direction>.+)"), //
 
     // Plant Controller: Aynaz
     CropInfo("craft\\s+info\\s+-n\\s+(?<craftName>.+?)"),

@@ -5,6 +5,7 @@ import Controller.GameMenuController;
 import Controller.SirkBozorg.PlayerController;
 import Controller.SirkBozorg.MapController;
 import Controller.SirkBozorg.TimeController;
+import Controller.SirkBozorg.ToolController;
 import Model.App;
 
 import Model.Command.GameMenuCommand;
@@ -120,16 +121,16 @@ public class GameMenu implements AppMenu {
             System.out.println(PlayerController.showAbility());
         }
         else if ((matcher = GameMenuCommand.EquipTool.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(ToolController.equip(matcher.group("toolName")));
         }
         else if (GameMenuCommand.ShowCurrentTool.getMatcher(input) != null) {
-            //TODO Aynaz
+            System.out.println(ToolController.showCurrentTool());
         }
         else if (GameMenuCommand.ShowAvailableTool.getMatcher(input) != null) {
-            //TODO Aynaz
+            System.out.println(ToolController.showAvailableTools());
         }
         else if ((matcher = GameMenuCommand.UpgradeTool.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(ToolController.upgradeTool(matcher.group("toolName")));
         }
         else if ((matcher = GameMenuCommand.UseTool.getMatcher(input)) != null) {
             //TODO Aynaz

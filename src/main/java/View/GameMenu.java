@@ -25,6 +25,9 @@ public class GameMenu implements AppMenu {
         if (GameMenuCommand.CurrentMenu.getMatcher(input) != null) {
             System.out.println(GameMenuController.currentMenu());
         }
+        else if (GameMenuCommand.CurrentPlayer.getMatcher(input) != null) {
+            System.out.println(GameMenuController.currentPlayer());
+        }
         else if ((matcher = GameMenuCommand.NewGame.getMatcher(input)) != null) {
             Result result = GameMenuController.newGame(matcher.group("username1"), matcher.group("username2"), matcher.group("username3"));
             System.out.println(result);
@@ -69,7 +72,7 @@ public class GameMenu implements AppMenu {
             System.out.println(TimeController.cheatTime(matcher.group("time")));
         }
         else if ((matcher = GameMenuCommand.CheatDate.getMatcher(input)) != null) {
-            System.out.println(TimeController.cheatTime(matcher.group("date")));
+            System.out.println(TimeController.cheatDate(matcher.group("date")));
         }
         else if (GameMenuCommand.Season.getMatcher(input) != null) {
             System.out.println(TimeController.season());
@@ -78,7 +81,7 @@ public class GameMenu implements AppMenu {
             System.out.println(TimeController.weather());
         }
         else if (GameMenuCommand.WeatherForecast.getMatcher(input) != null) {
-            System.out.println(TimeController.weather());
+            System.out.println(TimeController.weatherForecast());
         }
         else if ((matcher = GameMenuCommand.CheatThor.getMatcher(input)) != null) {
             System.out.println(TimeController.cheatThor(matcher.group("x"), matcher.group("y")));

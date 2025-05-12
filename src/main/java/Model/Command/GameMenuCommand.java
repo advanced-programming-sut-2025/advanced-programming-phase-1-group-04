@@ -3,6 +3,7 @@ package Model.Command;
 public enum GameMenuCommand implements Command {
     // Game Controller: Nafiseh
     CurrentMenu ("show\\s+current\\s+menu"),
+    CurrentPlayer("show\\s+current\\s+player"),
     NewGame("new\\s+game\\s+-u(?:\\s+(?<username1>.+?))?(?:\\s+(?<username2>.+?))?(?:\\s+(?<username3>.+?))?"),
     ChooseMap("game\\s+map\\s+(?<mapNumber>[-+]?\\d+)"),
     LoadGame("load\\s+game"),
@@ -114,7 +115,7 @@ public enum GameMenuCommand implements Command {
     TradeRespond("trade\\s+response\\s+(–accept|–reject)\\s+-i\\s+(?<id>\\d+)"),
     TradeHistory("trade\\s+history"),
 
-    // NPC Controller: Nafiseh
+    // NPC Controller: Parsa -> Nafiseh
     MeetNPC("meet\\s+NPC\\s+(?<npcName>.+)"),
     GiftNPC("gift\\s+NPC\\s+(?<npcName>.+?)\\s+-i\\s+(?<item>.+)"),
     FriendShipNPCList("friendship\\s+NPC\\s+list"),

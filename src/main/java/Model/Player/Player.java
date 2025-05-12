@@ -20,7 +20,7 @@ public class Player {
     private final int id;
 
     private Coordinate coordinate;
-    //private final Coordinate houseCoordinate;
+    private final Coordinate houseCoordinate;
 
     private int maxEnergy = 200;
     private int energy = 200;
@@ -57,11 +57,11 @@ public class Player {
     //talk history
     //trade history
 
-    public Player(int id) {
+    public Player(int id, Coordinate houseCoordinate) {
         this.id = id;
-        //this.houseCoordinate = houseCoordinate;
+        this.houseCoordinate = houseCoordinate;
 
-        //this.coordinate = houseCoordinate;
+        this.coordinate = houseCoordinate;
     }
 
     public int getAbilityLevel (Skill skill) {
@@ -198,6 +198,9 @@ public class Player {
         this.currentTool = currentTool;
     }
 
+    public void resetMovesThisTurn() {
+        this.movesThisTurn = 0;
+    }
 
     public Tool getCurrentTool() {
         return currentTool;

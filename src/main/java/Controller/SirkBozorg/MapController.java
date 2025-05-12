@@ -16,7 +16,6 @@ import java.util.PriorityQueue;
 public class MapController {
     public static Result printAllMap() {
         return new Result(true, App.getCurrentGame().getMap().toString());
-        //TODO: print player
     }
 
     public static Result printMap(String stringX, String stringY, String stringSize) {
@@ -34,7 +33,21 @@ public class MapController {
         Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
         for (int i = x; i < x + size; i++){
             for(int j = y; j < y +size; j++) {
-                result.append(" ").append(fullMap[i][j].getSymbol()).append(" ");
+                result.append(" ");
+                Coordinate coordinate = new Coordinate(i, j);
+                boolean isPlayer = false;
+                for (Player player: App.getCurrentGame().getPlayers()) {
+                    if (player.getCoordinate().equals(coordinate)) {
+                        isPlayer = true;
+                        if (player.getId() == App.getCurrentGame().getCurrentPlayer().getId())
+                            result.append(Symbols.CurrentPlayer.getColoredSymbol());
+                        else
+                            result.append(Symbols.Player.getColoredSymbol());
+                    }
+                }
+                if (!isPlayer)
+                    result.append(fullMap[i][j].getSymbol());
+                result.append(" ");
             }
             result.append("\n");
         }
@@ -45,7 +58,7 @@ public class MapController {
     public static Result helpMap(){
         StringBuilder result = new StringBuilder();
         for (Symbols s: Symbols.values()) {
-            result.append(s.name()).append(s.getColoredSymbol()).append("\n");
+            result.append(s.name()).append(" ").append(s.getColoredSymbol()).append("\n");
         }
 
         return new Result(true, result.toString());
@@ -104,9 +117,6 @@ public class MapController {
         return last;
     }
 
-<<<<<<< HEAD
-
-=======
     public static int getDestinationEnergy (Coordinate destination) {
         int lenx = Math.abs(destination.getX() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
         int leny = Math.abs(destination.getY() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
@@ -159,5 +169,4 @@ public class MapController {
         }
         return -1;
     }
->>>>>>> origin/main
 }

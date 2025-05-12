@@ -11,6 +11,10 @@ public class DateAndTime {
         this.weather = weather;
     }
 
+    public void setWeather(Weather weather) {
+        this.weather = weather;
+    }
+
     public int getDay() {
         return day;
     }
@@ -24,12 +28,12 @@ public class DateAndTime {
     }
 
     public Season getSeason() {
-        int s = this.day % 28;
+        int s = ((this.day - 1) / 28) % 4;
         return Season.values()[s];
     }
 
     public WeekDay getDayOfWeek() {
-        int w = this.day % 7;
+        int w = (this.day - 1) % 7;
         return WeekDay.values()[w];
     }
 

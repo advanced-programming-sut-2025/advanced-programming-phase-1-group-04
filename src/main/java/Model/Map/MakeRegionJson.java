@@ -29,7 +29,7 @@ public class MakeRegionJson {
         System.out.println("save shod. mobarak kheilia!");
     }
 
-    public static Tile[][] loadMapFromTextFile(String filePath) throws IOException {
+    private static Tile[][] loadMapFromTextFile(String filePath) throws IOException {
         Tile[][] tiles = new Tile[30][40];
 
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/Maps/" + filePath + ".txt"))) {

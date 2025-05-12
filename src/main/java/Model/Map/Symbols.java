@@ -11,7 +11,8 @@ public enum Symbols {
     36 cyan
     37 gray
      */
-    Player("@", "\u001B[30m"),
+    Player("@", "\u001B[35m"),
+    CurrentPlayer("~", "\u001B[35m"),
 
     Mountain("M", "\u001B[37m"),
     Water("L", "\u001B[34m"),

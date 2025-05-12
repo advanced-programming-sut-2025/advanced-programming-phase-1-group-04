@@ -1,6 +1,7 @@
 package View;
 
 import Controller.GameMenuController;
+import Controller.SirkBozorg.PlayerController;
 import Model.Command.GameMenuCommand;
 
 import java.util.Scanner;
@@ -81,22 +82,22 @@ public class GameMenu implements AppMenu {
         }
 
         else if (GameMenuCommand.ShowEnergy.getMatcher(input) != null) {
-            //TODO Aynaz
+            System.out.println(PlayerController.showEnergy());
         }
         else if ((matcher = GameMenuCommand.CheatEnergy.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(PlayerController.cheatEnergy(matcher.group("value")));
         }
         else if (GameMenuCommand.CheatUnlimitedEnergy.getMatcher(input) != null) {
             //TODO Aynaz
         }
         else if (GameMenuCommand.ShowInventory.getMatcher(input) != null) {
-            //TODO Aynaz
+            System.out.println(PlayerController.showInventory());
         }
         else if (GameMenuCommand.InventoryTrash.getMatcher(input) != null) {
             //TODO Aynaz
         }
         else if (GameMenuCommand.ShowAbility.getMatcher(input) != null) {
-            //TODO Aynaz
+            System.out.println(PlayerController.showAbility());
         }
         else if ((matcher = GameMenuCommand.EquipTool.getMatcher(input)) != null) {
             //TODO Aynaz

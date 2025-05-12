@@ -1,15 +1,38 @@
 package Model.Tool;
 
-public enum Hoe {
-    Starter (5),
-    Copper (4),
-    Steel (3),
-    Gold (2),
-    Iridium (1);
+import Model.Map.Tile;
 
-    private final int energy;
+public class Hoe implements Tool{
+    private ToolLevel level;
 
-    Hoe(int energy) {
-        this.energy = energy;
+    @Override
+    public void upgrade() {
+        if (level == ToolLevel.Starter) {
+            level = ToolLevel.Copper;
+        }
+        else if (level == ToolLevel.Copper) {
+            level = ToolLevel.Steel;
+        }
+        else if (level == ToolLevel.Steel) {
+            level = ToolLevel.Gold;
+        }
+        else if (level == ToolLevel.Gold) {
+            level = ToolLevel.Iridium;
+        }
+    }
+
+    @Override
+    public void use(Tile tile) {
+        tile.setPlowed(true);
+    }
+
+    @Override
+    public String getName() {
+        return "Hoe";
+    }
+
+    @Override
+    public int getPrice() {
+        return 0; //TODO
     }
 }

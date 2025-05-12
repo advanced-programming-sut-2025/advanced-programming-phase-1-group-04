@@ -144,4 +144,12 @@ public class Player {
         maxEnergy += value;
     }
 
+    public String getName() {
+        //TODO: for bezan roo user ha........................................................
+        return "";
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
+    }
 }

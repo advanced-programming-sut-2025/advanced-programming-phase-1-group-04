@@ -37,9 +37,7 @@ public class MapController {
             dist[sourcex][sourcey][i] = 0;
             pq.offer(new int[]{0, sourcex, sourcey, i});
         }
-        Coordinate last = new Coordinate();
-        last.setX(sourcex);
-        last.setY(sourcey);
+        Coordinate last = new Coordinate(sourcex, sourcey);
         while (!pq.isEmpty()) {
             int[] cur = pq.poll();
             int cost = cur[0];
@@ -92,9 +90,7 @@ public class MapController {
             dist[sourcex][sourcey][i] = 0;
             pq.offer(new int[]{0, sourcex, sourcey, i});
         }
-        Coordinate last = new Coordinate();
-        last.setX(sourcex);
-        last.setY(sourcey);
+        Coordinate last = new Coordinate(sourcex, sourcey);
         int ans = 0;
         while (!pq.isEmpty()) {
             int[] cur = pq.poll();

@@ -28,7 +28,7 @@ public enum GameMenuCommand implements Command {
     Walk("walk\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
     PrintAllMap("print\\s+all\\s+map"),
     PrintMap("print\\s+map\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>\\s+-s\\s+(?<size>\\d+)"),
-    HelpMap("help\\s+reading\\s+map"),
+    HelpMap("help\\s++map"),
 
     // Player Controller: Aynaz
     ShowEnergy("energy\\s+show"),

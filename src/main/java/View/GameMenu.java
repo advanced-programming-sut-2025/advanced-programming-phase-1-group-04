@@ -92,12 +92,11 @@ public class GameMenu implements AppMenu {
             System.out.println(MapController.printAllMap());
         }
         else if ((matcher = GameMenuCommand.PrintMap.getMatcher(input)) != null) {
-            //TODO Nafiseh
+            System.out.println(MapController.printMap(matcher.group("x"), matcher.group("y"), matcher.group("size")));
         }
-        else if ((matcher = GameMenuCommand.HelpMap.getMatcher(input)) != null) {
-            //TODO Nafiseh
+        else if (GameMenuCommand.HelpMap.getMatcher(input) != null) {
+            System.out.println(MapController.helpMap());
         }
-
         else if (GameMenuCommand.ShowEnergy.getMatcher(input) != null) {
             //TODO Aynaz
         }

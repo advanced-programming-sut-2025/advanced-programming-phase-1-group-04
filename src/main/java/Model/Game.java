@@ -1,6 +1,8 @@
 package Model;
 
+import Model.Map.Coordinate;
 import Model.Map.GameMap;
+import Model.Map.Tile;
 import Model.Player.Player;
 import Model.Time.Season;
 import Model.Time.Weather;
@@ -8,7 +10,6 @@ import Model.Time.WeekDay;
 import Model.Time.DateAndTime;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Game {
     private final ArrayList<Player> players;
@@ -57,5 +58,10 @@ public class Game {
 
     public GameMap getMap() {
         return map;
+    }
+
+    public Tile getTile(Coordinate coordinate) {
+        Tile[][] tiles = this.getMap().getFullMap();
+        return tiles[coordinate.getX()][coordinate.getY()];
     }
 }

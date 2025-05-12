@@ -8,4 +8,5 @@ public class MapController {
         return new Result(true, App.getCurrentGame().getMap().toString());
     }
 
+
 }

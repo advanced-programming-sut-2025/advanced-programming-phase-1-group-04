@@ -59,6 +59,7 @@ public class GameMenuController {
             farmSelections[i] = 1;
         }
         App.getCurrentGame().setMap(new GameMap(farmSelections));
+        App.getCurrentGame().getMap().setFulMap();
         return new Result(true, "Game loaded. Now you are in the game. Boro eshgh kon.");
     }
 

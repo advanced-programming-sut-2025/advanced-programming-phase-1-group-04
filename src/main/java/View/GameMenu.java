@@ -59,7 +59,7 @@ public class GameMenu implements AppMenu {
             System.out.println(GameMenuController.nextTurn());
         }
         else if (GameMenuCommand.Time.getMatcher(input) != null) {
-            System.out.println(TimeController.time());
+            System.out.println(TimeController.time(input));
         }
         else if ((matcher = GameMenuCommand.CheatTime.getMatcher(input)) != null) {
             System.out.println(TimeController.cheatTime(matcher.group("time")));

@@ -8,6 +8,7 @@ import Model.Result;
 public class MapController {
     public static Result printAllMap() {
         return new Result(true, App.getCurrentGame().getMap().toString());
+        //TODO: print player
     }
 
     public static Result printMap(String stringX, String stringY, String stringSize) {
@@ -29,7 +30,7 @@ public class MapController {
             }
             result.append("\n");
         }
-
+        //TODO: print players
         return new Result(true, result.toString());
     }
 

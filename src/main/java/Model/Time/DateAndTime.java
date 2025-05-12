@@ -3,23 +3,12 @@ package Model.Time;
 public class DateAndTime {
     private int hour; // (9-24):00
     private int day; // 1-28
-    private WeekDay dayOfWeek; // Monday Tuesday Wednesday Thursday Friday Saturday Sunday
-    private Season season; // Enum Season types
+    private Weather weather;
 
-
-    private String hourToString () {
-        return String.format("%02d" , hour) + ":" + "00";
-    }
-
-    private String dateToString () {
-        return "";
-    }
-
-    public DateAndTime(int hour, int day, WeekDay weekDay, Season season) {
+    public DateAndTime(int hour, int day, Weather weather) {
         this.hour = hour;
         this.day = day;
-        this.dayOfWeek = weekDay;
-        this.season = season;
+        this.weather = weather;
     }
 
     public int getDay() {
@@ -30,12 +19,18 @@ public class DateAndTime {
         return hour;
     }
 
+    public Weather getWeather() {
+        return weather;
+    }
+
     public Season getSeason() {
-        return season;
+        int s = this.day % 28;
+        return Season.values()[s];
     }
 
     public WeekDay getDayOfWeek() {
-        return dayOfWeek;
+        int w = this.day % 7;
+        return WeekDay.values()[w];
     }
 
     public void setDay(int day) {
@@ -45,18 +40,4 @@ public class DateAndTime {
     public void setHour(int hour) {
         this.hour = hour;
     }
-
-    public void setDayOfWeek(WeekDay dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
-
-    public void setSeason(int seasonNumber) {
-        Season s = null;
-        if (seasonNumber == 1) {s = Season.Spring;}
-        else if (seasonNumber == 2) {s = Season.Summer;}
-        else if (seasonNumber == 3) {s = Season.Fall;}
-        else if (seasonNumber == 4) {s = Season.Winter;}
-        this.season = s;
-    }
-
 }

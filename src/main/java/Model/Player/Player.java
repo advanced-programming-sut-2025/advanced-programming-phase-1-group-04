@@ -55,6 +55,9 @@ public class Player {
 
     public Player(int id) {
         this.id = id;
+        //this.houseCoordinate = houseCoordinate;
+
+        //this.coordinate = houseCoordinate;
     }
 
     public int getAbilityLevel (Skill skill) {

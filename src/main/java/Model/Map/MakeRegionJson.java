@@ -6,6 +6,7 @@ import Model.Plants.Tree;
 import Model.Plants.TreeType;
 import Model.Time.DateAndTime;
 import Model.Time.Season;
+import Model.Time.Weather;
 import Model.Time.WeekDay;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -61,7 +62,7 @@ public class MakeRegionJson {
             case 'G':
                 return new Tile(TileType.Ground, false, null, null);
             case 'T':
-                Tree tree = new Tree(TreeType.Apricot, new DateAndTime(9, 1, WeekDay.Saturday, Season.Spring));
+                Tree tree = new Tree(TreeType.Apricot, new DateAndTime(9, 1, Weather.Sunny));
                 return new Tile(TileType.Ground, false, tree, null);
             case '^':
                 ForagingCrop foraging = new ForagingCrop(ForagingCropType.CommonMushroom);

@@ -44,88 +44,92 @@ public class Tile {
             case Building:
                 switch (this.buildingType) {
                     case GreenHouse:
-                        return Symbols.GreenHouse.getSymbol();
+                        return Symbols.GreenHouse.getColoredSymbol();
                     case House:
-                        return Symbols.House.getSymbol();
+                        return Symbols.House.getColoredSymbol();
                     case Barn:
-                        return Symbols.Barn.getSymbol();
+                        return Symbols.Barn.getColoredSymbol();
                     case BigBarn:
-                        return Symbols.BigBarn.getSymbol();
+                        return Symbols.BigBarn.getColoredSymbol();
                     case DeluxeBarn:
-                        return Symbols.DeluxeBarn.getSymbol();
+                        return Symbols.DeluxeBarn.getColoredSymbol();
                     case Coop:
-                        return Symbols.Coop.getSymbol();
+                        return Symbols.Coop.getColoredSymbol();
                     case BigCoop:
-                        return Symbols.BigCoop.getSymbol();
+                        return Symbols.BigCoop.getColoredSymbol();
                     case DeluxeCoop:
-                        return Symbols.DeluxeCoop.getSymbol();
+                        return Symbols.DeluxeCoop.getColoredSymbol();
                     case Well:
-                        return Symbols.Well.getSymbol();
+                        return Symbols.Well.getColoredSymbol();
                     case ShippingBin:
-                        return Symbols.ShippingBin.getSymbol();
+                        return Symbols.ShippingBin.getColoredSymbol();
                     case Blacksmith:
-                        return Symbols.Blacksmith.getSymbol();
+                        return Symbols.Blacksmith.getColoredSymbol();
                     case JojaMart:
-                        return Symbols.JojaMart.getSymbol();
+                        return Symbols.JojaMart.getColoredSymbol();
                     case PierresGeneralStore:
-                        return Symbols.PierresGeneralStore.getSymbol();
+                        return Symbols.PierresGeneralStore.getColoredSymbol();
                     case CarpentersShop:
-                        return Symbols.CarpentersShop.getSymbol();
+                        return Symbols.CarpentersShop.getColoredSymbol();
                     case FishShop:
-                        return Symbols.FishShop.getSymbol();
+                        return Symbols.FishShop.getColoredSymbol();
                     case MarniesRanch:
-                        return Symbols.MarniesRanch.getSymbol();
+                        return Symbols.MarniesRanch.getColoredSymbol();
                     case TheStarDropSaloon:
-                        return Symbols.TheStarDropSaloon.getSymbol();
+                        return Symbols.TheStarDropSaloon.getColoredSymbol();
                     default:
                         throw new IllegalArgumentException("Invalid tile");
                 }
             case Ground:
                 if (this.item instanceof Tree) {
-                    return Symbols.Tree.getSymbol();
+                    return Symbols.Tree.getColoredSymbol();
                 } else if (this.item instanceof Sapling) {
-                    return Symbols.Sapling.getSymbol();
+                    return Symbols.Sapling.getColoredSymbol();
                 } else if (this.item instanceof Crop) {
-                    return Symbols.Crop.getSymbol();
+                    return Symbols.Crop.getColoredSymbol();
                 } else if (this.item instanceof Fruit) {
-                    return Symbols.Fruit.getSymbol();
+                    return Symbols.Fruit.getColoredSymbol();
                 } else if (this.item instanceof Seed) {
-                    return Symbols.Seed.getSymbol();
+                    return Symbols.Seed.getColoredSymbol();
                 } else if (this.item instanceof ForagingCrop) {
-                    return Symbols.ForagingCrop.getSymbol();
+                    return Symbols.ForagingCrop.getColoredSymbol();
                 } else if (this.item instanceof ForagingMineral) {
-                    return Symbols.ForagingMineral.getSymbol();
+                    return Symbols.ForagingMineral.getColoredSymbol();
                 } else if (this.item instanceof Stone) {
-                    return Symbols.Stone.getSymbol();
+                    return Symbols.Stone.getColoredSymbol();
                 } else if (this.item instanceof Wood) {
-                    return Symbols.Wood.getSymbol();
+                    return Symbols.Wood.getColoredSymbol();
                 } else if (this.item instanceof Craft) {
-                    return Symbols.Craft.getSymbol();
+                    return Symbols.Craft.getColoredSymbol();
                 } else if (this.item instanceof Food) {
-                    return Symbols.Food.getSymbol();
+                    return Symbols.Food.getColoredSymbol();
                 } else if (this.item instanceof Fish) {
-                    return Symbols.Fish.getSymbol();
+                    return Symbols.Fish.getColoredSymbol();
                 } else if (this.item instanceof AnimalProduct) {
-                    return Symbols.AnimalProduct.getSymbol();
-                }
-
-                if (this.isPavement) {
-                    return Symbols.Pavement.getSymbol();
+                    return Symbols.AnimalProduct.getColoredSymbol();
                 }
 
                 if (this.npc != null) {
-                    return Symbols.Pavement.getSymbol();
+                    return Symbols.Pavement.getColoredSymbol();
                 }
 
                 if (this.animal != null) {
-                    return Symbols.Animal.getSymbol();
+                    return Symbols.Animal.getColoredSymbol();
+                }
+
+                if (this.isPavement) {
+                    return Symbols.Pavement.getColoredSymbol();
+                }
+
+                if (this.item == null) {
+                    return Symbols.Ground.getColoredSymbol();
                 }
             case Water:
-                return Symbols.Water.getSymbol();
+                return Symbols.Water.getColoredSymbol();
             case Mountain:
-                return Symbols.Mountain.getSymbol();
+                return Symbols.Mountain.getColoredSymbol();
             case Mine:
-                return Symbols.Mine.getSymbol();
+                return Symbols.Mine.getColoredSymbol();
             default:
                 throw new IllegalArgumentException("Invalid tile");
         }

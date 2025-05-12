@@ -31,7 +31,8 @@ public class GameMap {
         try (FileReader reader = new FileReader(file)) {
             Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Item.class, new ItemAdapter()) // ثبت TypeAdapter
-                .create();            return gson.fromJson(reader, Region.class);
+                .create();
+            return gson.fromJson(reader, Region.class);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -65,7 +66,9 @@ public class GameMap {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < totalRows; i++) {
             for (int j = 0; j < totalCols; j++) {
-                result.append(" ").append(fullMap[i][j].getSymbol()).append(" ");
+                result.append(" ").
+                    append(fullMap[i][j].getSymbol()).
+                    append(" ");
             }
             result.append("\n");
         }

@@ -2,6 +2,7 @@ package Model.Command;
 
 public enum GameMenuCommand implements Command {
     // Game Controller: Nafiseh
+    CurrentMenu ("show\\s+current\\s+menu"),
     NewGame("new\\s+game\\s+-u(?:\\s+(?<username1>.+?))?(?:\\s+(?<username2>.+?))?(?:\\s+(?<username3>.+?))?"),
     ChooseMap("game\\s+map\\s+(?<mapNumber>[-+]?\\d+)"),
     LoadGame("load\\s+game"),
@@ -10,22 +11,19 @@ public enum GameMenuCommand implements Command {
     NextTurn("next\\s+turn"),
 
     // Time Controller: Nafiseh
-    Time("time"),
-    Date("date"),
-    DateTime("datetime"),
-    DayOfTheWeek ("day\\s+of\\s+the\\s+week"),
-    CheatTime("cheat\\s+advance\\s+time\\s+(?<X>[-+]?\\d+)h"),
-    CheatDate("cheat\\s+advance\\s+date\\s+(?<X>[-+]?\\d+)d"),
+    Time("time|date|datetime|day of the week"),
+    CheatTime("cheat\\s+advance\\s+time\\s+(?<time>[-+]?\\d+)h"),
+    CheatDate("cheat\\s+advance\\s+date\\s+(?<date>[-+]?\\d+)d"),
 
     // Time Controller: Nafiseh
     Season("season"),
     Weather("weather"),
     WeatherForecast("weather\\s+forecast"),
     CheatThor("cheat\\s+Thor\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"), // todo
-    CheatWeather("cheat\\s+weather\\s+set\\s+(?<Type>\\S+)"),
+    CheatWeather("cheat\\s+weather\\s+set\\s+(?<type>\\S+)"),
 
     // Map Controller: Nafiseh
-    BuildGreenhouse("greenhouse\\s+build"), // todo
+    BuildGreenhouse("build\\s+greenhouse"), // todo
 
     Walk("walk\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
     PrintAllMap("print\\s+all\\s+map"),
@@ -72,7 +70,7 @@ public enum GameMenuCommand implements Command {
     // Map Controller: Nafiseh
     Build("build\\s+-a\\s+(?<buildingName>.+?)\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
 
-    // Animal Controller: Parsa
+    // Animal Controller: Parsa -> Nafiseh
     BuyAnimal("buy\\s+animal\\s+-a\\s+(?<animal>.+?)\\s+-n\\s+(?<name>.+)"),
     Pet("pet\\s+-n\\s+(?<name>.+)"),
     ShowAnimalsInfo("animals"),
@@ -96,7 +94,7 @@ public enum GameMenuCommand implements Command {
     CheatAddCount("cheat\\s+add\\s+(?<count>\\d+)\\s+dollars"),
     SellProduct("sell\\s+(?<productName>.+?)\\s+-n\\s+(?<count>\\d+)"),
 
-
+    // Relation Controller: Parsa
     FriendsShipPlayerList("friendships"),
     Talk("talk\\s+-u\\s+(?<username>.+?)\\s+-m\\s+(?<message>.+)"),
     TalkHistory("talk\\s+history\\s+-u\\s+(?<username>.+)"),
@@ -106,24 +104,22 @@ public enum GameMenuCommand implements Command {
     GiftHistory("gift\\s+history\\s+-u\\s+(?<username>.+)"),
     Hug("hug\\s+-u\\s+(?<username>.+)"),
     Flower("flower\\s+-u\\s+(?<username>.+)"),
-
     AskMarriage("ask\\s+marriage\\s+-u\\s+(?<username>.+?)\\s+-r\\s+(?<ring>.+)"),
     RespondMarriage("respond\\s+(–accept|–reject)\\s+-u\\s+(?<username>.+)"),
 
+    // Relation Controller: Parsa
     TradeMenu("start\\s+trade"),
     Trade("trade\\s+-u\\s+(?<username>.+?)\\s+-t\\s+(?<type>.+?)\\s+-i\\s+(?<item>.+?)\\s+-a\\s+(?<amount>\\d+)\\s+(-p\\s+(?<price>.+)|-ti\\s+(?<targetItem>.+?)\\s+-ta\\s+(?<targetAmount>.+))"),
     TradeLIst("trade\\s+list"),
     TradeRespond("trade\\s+response\\s+(–accept|–reject)\\s+-i\\s+(?<id>\\d+)"),
     TradeHistory("trade\\s+history"),
 
+    // NPC Controller: Nafiseh
     MeetNPC("meet\\s+NPC\\s+(?<npcName>.+)"),
     GiftNPC("gift\\s+NPC\\s+(?<npcName>.+?)\\s+-i\\s+(?<item>.+)"),
     FriendShipNPCList("friendship\\s+NPC\\s+list"),
     QuestList("quests\\s+list"),
-    QuestFinish("quests\\s+finish\\s+-i\\s+(?<index>\\d+)"),
-
-    //Game Controller: Nafiseh
-    CurrentMenu ("show\\s+current\\s+menu");
+    QuestFinish("quests\\s+finish\\s+-i\\s+(?<index>\\d+)");
 
     private final String pattern;
 

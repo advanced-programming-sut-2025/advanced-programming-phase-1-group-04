@@ -61,12 +61,32 @@ public class GameMenuController {
         App.getCurrentGame().setMap(new GameMap(farmSelections));
         return new Result(true, "Game loaded. Now you are in the game. Boro eshgh kon.");
     }
-    public static Result goMenu (String menu) {
-        if (!menu.equals("main")) {
-            return new Result(false, "You can't go to " + menu + " menu in game menu");
+
+    public static Result loadGame() {
+        // TODO: save & load game
+        return new Result(true, "tekh rakab");
+    }
+    public static Result exitGame() {
+        if (App.getCurrentGame().getCurrentPlayer().getId() != App.getCurrentGame().getMainPlayer().getId()) {
+            return new Result(false, "Just main player(who created the game or last loaded it) can use the following command!");
         }
+
+        // TODO: save games
         App.setCurrentMenu(Menu.MainMenu);
-        return new Result(true, "Now you are in " + menu + " menu");
+        return new Result(true, "Game saved successfully. Now you are in Main menu");
+    }
+
+    public static Result deleteGame() {
+        // TODO: save & load game
+        return new Result(true, "tekh rakab");
+    }
+
+    public static Result nextTurn() {
+        int index = App.getCurrentGame().getPlayers().indexOf(App.getCurrentGame().getCurrentPlayer());
+        int nextIndex = (index + 1) % App.getCurrentGame().getPlayers().size();
+        App.getCurrentGame().setCurrentPlayer(App.getCurrentGame().getPlayers().get(nextIndex));
+
+        return new Result(true, "Now it's " +App.getCurrentGame().getCurrentPlayer().getUsername() + "'s turn.");
     }
 
     public static Result currentMenu () {

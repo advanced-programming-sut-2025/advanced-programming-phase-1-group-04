@@ -19,8 +19,11 @@ public class Player {
     private final int id;
 
     private Coordinate coordinate;
+    //private final Coordinate houseCoordinate;
+
     private int maxEnergy = 200;
     private int energy = 200;
+
     private Inventory inventory = new Inventory(12);
     private HashMap<Skill, Integer> myAbility = new HashMap<>(Map.of(Skill.Mining, 0, Skill.Foraging, 0,
             Skill.Fishing, 0, Skill.Farming, 0));
@@ -113,6 +116,7 @@ public class Player {
     }
 
     public String getUsername() {
+        // TODO: وقت شد درستش کن نره همه رو بگرده هر دفعه:/
         File usersFolder = new File("users");
         File[] userFiles = usersFolder.listFiles((dir, name) -> name.endsWith(".json"));
 

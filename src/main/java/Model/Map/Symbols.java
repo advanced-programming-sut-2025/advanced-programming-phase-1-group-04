@@ -1,60 +1,77 @@
 package Model.Map;
 
 public enum Symbols {
-    Player("@"),
+    /*
+    30 black
+    31 red
+    32 green
+    33 yellow
+    34 blue
+    35 purple
+    36 cyan
+    37 gray
+     */
+    Player("@", "\u001B[30m"),
 
-    Mountain("M"),
-    Water("L"),
-    Mine("X"),
+    Mountain("M", "\u001B[37m"),
+    Water("L", "\u001B[34m"),
+    Mine("X", "\u001B[35m"),
 
-    Pavement("*"),
-    Ground("G"),
-    Tree("T"),
-    Sapling("1"),
-    Crop("2"),
-    Fruit("3"),
-    Seed("4"),
-    ForagingCrop("^"),
-    ForagingMineral("<"),
-    Stone("%"),
-    Wood("W"),
-    Craft("/"),
-    Food("U"),
-    Fish("Y"),
-    AnimalProduct("{"),
+    Pavement("*", "\u001B[36m"),
+    Ground("G", "\u001B[32m"),
 
-    NPC("#"),
-    Animal("$"),
+    Tree("T", "\u001B[90m"),
+    Sapling("1", "\u001B[90m"),
+    Crop("2", "\u001B[90m"),
+    Fruit("3", "\u001B[90m"),
+    Seed("4", "\u001B[90m"),
+    ForagingCrop("^", "\u001B[90m"),
+    ForagingMineral("<", "\u001B[90m"),
+    Stone("%", "\u001B[90m"),
+    Wood("W", "\u001B[90m"),
+    Craft("/", "\u001B[90m"),
+    Food("U", "\u001B[90m"),
+    Fish("Y", "\u001B[90m"),
+    AnimalProduct("{", "\u001B[90m"),
 
-    House("H"),
-    GreenHouse("9"),
+    NPC("#", "\u001B[35m"),
+    Animal("$", "\u001B[35m"),
+
+    House("H", "\u001B[36m"),
+    GreenHouse("9", "\u001B[36m"),
     //Door("D"),
 
-    Barn("&"),
-    BigBarn("="),
-    DeluxeBarn("_"),
-    Coop(")"),
-    BigCoop("("),
-    DeluxeCoop("!"),
-    Well("?"),
-    ShippingBin("0"),
+    Barn("&", "\u001B[37m"),
+    BigBarn("=", "\u001B[37m"),
+    DeluxeBarn("_", "\u001B[37m"),
+    Coop(")", "\u001B[37m"),
+    BigCoop("(", "\u001B[37m"),
+    DeluxeCoop("!", "\u001B[37m"),
+    Well("?", "\u001B[37m"),
+    ShippingBin("0", "\u001B[37m"),
 
-    FishShop("F"),
-    JojaMart("J"),
-    Blacksmith("B"),
-    PierresGeneralStore("I"),
-    MarniesRanch("R"),
-    CarpentersShop("C"),
-    TheStarDropSaloon("K")
+    FishShop("F", "\u001B[33m"),
+    JojaMart("J", "\u001B[33m"),
+    Blacksmith("B", "\u001B[33m"),
+    PierresGeneralStore("I", "\u001B[33m"),
+    MarniesRanch("R", "\u001B[33m"),
+    CarpentersShop("C", "\u001B[33m"),
+    TheStarDropSaloon("K", "\u001B[33m")
     ;
 
-    private String symbol;
+    private final String symbol;
+    private final String colorCode;
 
-    Symbols(String symbol) {
+    Symbols(String symbol, String colorCode) {
         this.symbol = symbol;
+        this.colorCode = colorCode;
     }
 
     public String getSymbol() {
         return symbol;
+    }
+
+    public String getColoredSymbol() {
+        return colorCode + symbol + "\u001B[0m";
     }
 }

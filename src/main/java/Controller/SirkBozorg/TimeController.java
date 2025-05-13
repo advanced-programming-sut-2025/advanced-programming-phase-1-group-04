@@ -39,7 +39,7 @@ public class TimeController {
         }
         // TODO: night controller
         App.getCurrentGame().getCurrentTime().addDay(date);
-        return new Result(true, "Date successfully changed to " + date);
+        return new Result(true, "Date successfully changed to " + App.getCurrentGame().getCurrentTime().getDay());
     }
 
     public static Result season() {

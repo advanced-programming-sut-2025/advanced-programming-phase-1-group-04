@@ -41,6 +41,7 @@ public enum GameMenuCommand implements Command {
     InventoryTrashWithNumber("inventory\\s+trash\\s+-i\\s+(?<itemName>.+?)\\s+-n\\s+(?<number>[-+]?\\d+)"),
     InventoryTrashWithoutNumber("inventory\\s+trash\\s+-i\\s+(?<itemName>.+)"),
     ShowAbility("show\\s+ability"),
+    CheatAddItem("cheat\\s+add\\s+item\\s+-n\\s+(?<itemName>\\S+)\\s+-c\\s+(?<count>\\d+)"),
 
     // Tool Controller: Aynaz
     EquipTool("tools\\s+equip\\s+(?<toolName>.+)"),

@@ -2,6 +2,7 @@ package Model;
 
 import Model.Map.Coordinate;
 import Model.Map.GameMap;
+import Model.Map.Region;
 import Model.Map.Tile;
 import Model.Player.Player;
 import Model.Time.Season;
@@ -17,6 +18,8 @@ public class Game {
     private Player currentPlayer;
 
     private GameMap map;
+    //private Region currentRegion = null;
+
 
     private DateAndTime currentTime = new DateAndTime (9, 1, Weather.Sunny);
     private Weather tomorrowWeather;

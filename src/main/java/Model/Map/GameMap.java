@@ -13,6 +13,8 @@ import Gson.ItemAdapter;
 public class GameMap {
     private Region[][] region = new Region[3][3];
     private Tile[][] fullMap;
+    //private Region[] mine = new Region[4];
+
     public GameMap(int[] farmSelection) {
         region[0][0] = loadRegionJson("Farming"  + farmSelection[0]);
         region[0][1] = loadRegionJson("Path1");
@@ -25,6 +27,12 @@ public class GameMap {
         region[2][0] = loadRegionJson("Farming" + farmSelection[3]);
         region[2][1] = loadRegionJson("Path3");
         region[2][2] = loadRegionJson("Farming" + farmSelection[2]);
+
+        /*mine[0] = loadRegionJson("Mine" + farmSelection[0]);
+        mine[1] = loadRegionJson("Mine" + farmSelection[1]);
+        mine[2] = loadRegionJson("Mine" + farmSelection[2]);
+        mine[3] = loadRegionJson("Mine" + farmSelection[3]);*/
+
     }
 
     private Region loadRegionJson(String name) {

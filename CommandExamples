@@ -4,8 +4,10 @@ register -u Majid -p Majik1234* Majik1234* -n 3456Tigh -e tigharol12sk@gmail.com
 register -u Nafiseh -p Nz8421343* Nz8421343* -n 3456Tigh -e Nafisehz842@gmail.com -g female
 register -u Sag -p Nz8421343* Nz8421343* -n Mehdi -e Nafisehz842@gmail.com -g female
 register -u Shahram -p random -n dasham -e dadashesh@gmail.com -g female
+register -u Radical -p Radical1234# Radical1234# -n Amirhossein -e AmirhossetMirza@gmail.com -g male
 
 pick question -q 3 -a to daftaresh -c to daftaresh
+pick question -q 10 -a amin kohi -c amin kohi
 
 login -u Nafiseh -p Nz8421343* -stay-logged-in
 login -u Sag -p Nz8421343* -stay-logged-in

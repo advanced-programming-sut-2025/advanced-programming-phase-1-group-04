@@ -15,6 +15,10 @@ public class DateAndTime {
         this.weather = weather;
     }
 
+    public void updateHour() {
+        this.hour++;
+    }
+
     public int getDay() {
         return day;
     }

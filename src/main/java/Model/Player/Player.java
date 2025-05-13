@@ -21,6 +21,7 @@ public class Player {
 
     private Coordinate coordinate;
     private final Coordinate houseCoordinate;
+    private final int farm;
 
     private int maxEnergy = 200;
     private int energy = 200;
@@ -57,11 +58,27 @@ public class Player {
     //talk history
     //trade history
 
-    public Player(int id, Coordinate houseCoordinate) {
+    public Player(int id, int farm) {
         this.id = id;
-        this.houseCoordinate = houseCoordinate;
+        this.farm = farm;
+        switch (farm) {
+            case 1:
+                this.houseCoordinate = new Coordinate(4, 31);
+                break;
+            case 2:
+                this.houseCoordinate = new Coordinate(4, 31 + 80);
+                break;
+            case 3:
+                this.houseCoordinate = new Coordinate(4 + 60, 31);
+                break;
+            case 4:
+                this.houseCoordinate = new Coordinate(4 + 60, 31 + 80);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid player farm");
+        }
 
-        this.coordinate = houseCoordinate;
+        this.coordinate = this.houseCoordinate;
     }
 
     public int getAbilityLevel (Skill skill) {
@@ -228,5 +245,19 @@ public class Player {
 
     public void addCount(int count) {
         this.count += count;
+    }
+
+    public boolean isMyFarm(Coordinate coordinate) {
+        return switch (farm) {
+            case 1 -> coordinate.getX() < 30 && coordinate.getY() < 40
+                    && coordinate.getX() >= 0 && coordinate.getY() >= 0;
+            case 2 -> coordinate.getX() < 30 && coordinate.getY() < 120
+                    && coordinate.getX() >= 0 && coordinate.getY() >= 80;
+            case 3 -> coordinate.getX() < 90 && coordinate.getY() < 120
+                    && coordinate.getX() >= 60 && coordinate.getY() >= 80;
+            case 4 -> coordinate.getX() < 90 && coordinate.getY() < 40
+                    && coordinate.getX() >= 60 && coordinate.getY() >= 0;
+            default -> throw new IllegalArgumentException("Invalid player farm");
+        };
     }
 }

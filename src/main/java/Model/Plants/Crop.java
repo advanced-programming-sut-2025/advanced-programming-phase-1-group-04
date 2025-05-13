@@ -13,14 +13,15 @@ public class Crop implements Item, Plant {
     private DateAndTime plantingDate;
     private DateAndTime lastTimeHarvested;
     private final CropType type;
+    private final boolean purposelyPlanted;
     //TODO: isGiant?
 
 
     //constructor:
-    public Crop(DateAndTime plantingDate, CropType type) {
-        this.plantingDate = null;
+    public Crop(DateAndTime plantingDate, CropType type, boolean purposelyPlanted) {
+        this.plantingDate = plantingDate;
         this.type = type;
-
+        this.purposelyPlanted = purposelyPlanted;
     }
 
 
@@ -125,6 +126,11 @@ public class Crop implements Item, Plant {
     public String showPlantInfo() {
         return "crop info:\nname: " + getName() + "\ntotal harvest time: " + getHarvestTime() + "\ndate of planting: " +
                 plantingDate.getSeason().name() + " " + plantingDate.getDay() + "th\nstages: " +
-                PlantController.stagesToString(getStages()) + "\ncurrent stage: " + getCurrentStage();
+                PlantController.stagesToString(getStages()) + "\ncurrent stage: " + getCurrentStage() + "\nis foraging: " +
+                purposelyPlanted;
+    }
+
+    public boolean isPurposelyPlanted() {
+        return purposelyPlanted;
     }
 }

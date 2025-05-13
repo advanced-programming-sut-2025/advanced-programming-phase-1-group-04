@@ -15,13 +15,15 @@ public class Tree implements Item, Plant {
     private boolean isBurned;
     private DateAndTime plantingDate;
     private DateAndTime lastTimeHarvested;
+    private final boolean purposelyPlanted;
 
     //constructor:
-    public Tree (TreeType type, DateAndTime plantingDate) {
+    public Tree (TreeType type, DateAndTime plantingDate, boolean purposelyPlanted) {
         this.type = type;
         this.plantingDate = plantingDate;
         isBurned = false;
         lastTimeHarvested = null;
+        this.purposelyPlanted = purposelyPlanted;
     }
 
     //getters:

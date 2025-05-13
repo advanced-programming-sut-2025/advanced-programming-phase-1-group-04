@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlantController {
+    
     public static Result craftInfo (String craftName) {
         if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
@@ -91,10 +92,10 @@ public class PlantController {
             return new Result(false, "invalid seed/ sapling name!");
         }
         if (seedType != null) {
-            return plantInTile(new Seed(seedType), GameMenuController.getTileByDirection(direction),
+            return plantInTile(new Seed(seedType, true), GameMenuController.getTileByDirection(direction),
                     App.getCurrentGame().getCurrentTime());
         }
-        return plantInTile(new Sapling(saplingType), GameMenuController.getTileByDirection(direction),
+        return plantInTile(new Sapling(saplingType, true), GameMenuController.getTileByDirection(direction),
                 App.getCurrentGame().getCurrentTime());
     }
 
@@ -215,7 +216,7 @@ public class PlantController {
         if (!tile.isPlowed()) {
             return new Result(false, "this tile has not been plowed");
         }
-        Crop crop = new Crop (time, seed.getCrop());
+        Crop crop = new Crop (time, seed.getCrop(), true);
         tile.setItem(crop);
         return new Result(true, seed.getName() + " is planted in selected tile.");
     }
@@ -230,7 +231,7 @@ public class PlantController {
         if (!tile.isPlowed()) {
             return new Result(false, "this tile has not been plowed");
         }
-        Tree tree = new Tree(sapling.getTreeType(), time);
+        Tree tree = new Tree(sapling.getTreeType(), time, true);
         tile.setItem(tree);
         return new Result(true, sapling.getName() + " is planted in selected tile.");
     }

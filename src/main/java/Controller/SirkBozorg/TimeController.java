@@ -29,7 +29,7 @@ public class TimeController {
 
         // TODO: night controller
         App.getCurrentGame().getCurrentTime().addHour(time);
-        return new Result(true, "Time successfully changed to " + time + ":00");
+        return new Result(true, "Time successfully changed to " + App.getCurrentGame().getCurrentTime().getHour() + ":00");
     }
 
     public static Result cheatDate(String stringDate) {

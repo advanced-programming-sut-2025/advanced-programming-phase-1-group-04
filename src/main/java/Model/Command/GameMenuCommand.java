@@ -13,8 +13,8 @@ public enum GameMenuCommand implements Command {
 
     // Time Controller: Nafiseh
     Time("time|date|datetime|day of the week"),
-    CheatTime("cheat\\s+advance\\s+time\\s+(?<time>[-+]?\\d+)h"),
-    CheatDate("cheat\\s+advance\\s+date\\s+(?<date>[-+]?\\d+)d"),
+    CheatTime("cheat\\s+time\\s+(?<time>[-+]?\\d+)h"),
+    CheatDate("cheat\\s+date\\s+(?<date>[-+]?\\d+)d"),
 
     // Time Controller: Nafiseh
     Season("season"),

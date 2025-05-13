@@ -2,7 +2,7 @@ package Model.Time;
 
 public class DateAndTime {
     private int hour; // (9-24):00
-    private int day; // 1-28
+    private int day;
     private Weather weather;
 
     public DateAndTime(int hour, int day, Weather weather) {
@@ -29,6 +29,14 @@ public class DateAndTime {
 
     public int getHour() {
         return hour;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
     }
 
     public Weather getWeather() {

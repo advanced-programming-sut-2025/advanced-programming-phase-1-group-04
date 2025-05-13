@@ -5,7 +5,7 @@ import Model.Time.Season;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum ForagingMineralType implements Forageable {
+public enum ForagingMineralType implements Forageable, PlantType {
     Quartz ("Quartz", 25),
     EarthCrystal ("Earth Crystal", 50),
     FrozenTear ("Frozen Tear", 75),
@@ -49,5 +49,10 @@ public enum ForagingMineralType implements Forageable {
     @Override
     public boolean isForageable () {
         return true;
+    }
+
+    @Override
+    public String getInformation () {
+        return "foraging mineral information:\nname: " + name + "\nsell price: " + sellPrice;
     }
 }

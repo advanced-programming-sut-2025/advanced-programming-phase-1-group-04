@@ -1,12 +1,14 @@
 package Model.Plants;
 
 
+import Controller.SirkBozorg.PlantController;
+import Controller.SirkBozorg.PlayerController;
 import Model.Time.Season;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public enum CropType{
+public enum CropType implements PlantType{
 
 
     BlueJazz ("Blue Jazz", SeedType.JazzSeeds, new int[] {1, 2, 2, 2},
@@ -253,5 +255,18 @@ public enum CropType{
 
     public boolean isMixed() {
         return isMixed;
+    }
+
+    @Override
+    public String getInformation () {
+        if (name != null) {
+            return "crop information:\n" + "name: " + name + "\nsource: " + source.getName() + "\nstages: " +
+                    PlantController.stagesToString(stages) + "\ntotal harvest time: " + harvestTime +
+                    "\n" + "one time: " + oneTime + "\nregrowth time: " + regrowthTime +
+                    "\nbase sell price: " + baseSellPrice + "\nis edible: " + isEdible +
+                    "\nbase energy: " + energy + "\nseason: " + PlantController.SeasonsToString(seasons) +
+                    "\ncan become giant: " + canBecomeGiant;
+        }
+        return "\n";
     }
 }

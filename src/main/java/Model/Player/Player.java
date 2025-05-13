@@ -24,14 +24,14 @@ public class Player {
 
     private int maxEnergy = 200;
     private int energy = 200;
-    private int maxMovesInTurn = 20; //TODO: ????????????????????????????
+    private int maxMovesInTurn = 15; //TODO: ????????????????????????????
     private int movesThisTurn = 0;
 
-    private Inventory inventory = new Inventory(12);
+    private Inventory inventory = new Inventory(12, 1);
     private HashMap<Skill, Integer> myAbility = new HashMap<>(Map.of(Skill.Mining, 0, Skill.Foraging, 0,
             Skill.Fishing, 0, Skill.Farming, 0));
 
-    private int count; //TODO: in chie?
+    private int count;
 
     private HashMap<Skill, Integer> skillBuff = new HashMap<>(Map.of(Skill.Mining, 0, Skill.Foraging, 0,
             Skill.Fishing, 0, Skill.Farming, 0));
@@ -110,8 +110,24 @@ public class Player {
         return inventory.addItem(item, quantity);
     }
 
-    public boolean removeItemFromInventory (Item item, int quantity) {
-        return inventory.removeItem(item, quantity);
+    public boolean removeItemFromInventory (String itemName, int quantity) {
+        int price = 0;
+        if (inventory.hasItemWithName(itemName) != null) {
+            if (quantity != -1) {
+                price = quantity * inventory.hasItemWithName(itemName).getPrice() *
+                        (inventory.getTrashCanLevel() - 1) * 15 / 100;
+            }
+            else {
+                price = inventory.getItems().get(inventory.hasItemWithName(itemName)) *
+                        inventory.hasItemWithName(itemName).getPrice() *
+                        (inventory.getTrashCanLevel() - 1) * 15 / 100;
+            }
+        }
+        boolean result = inventory.removeItem(itemName, quantity);
+        if (result) {
+            addCount(price);
+        }
+        return result;
     }
 
     public void setInventoryCapacity(int capacity) {
@@ -204,5 +220,13 @@ public class Player {
 
     public Tool getCurrentTool() {
         return currentTool;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void addCount(int count) {
+        this.count += count;
     }
 }

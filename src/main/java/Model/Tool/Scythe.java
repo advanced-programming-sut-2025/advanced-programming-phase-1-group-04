@@ -1,20 +1,28 @@
 package Model.Tool;
 
 import Model.Map.Tile;
+import Model.Result;
 
 public class Scythe implements Tool {
 
     @Override
-    public void upgrade() {}
+    public Result upgrade() {
+        return new Result(false, "scythe can't get upgraded");
+    }
 
     @Override
-    public boolean use(Tile tile) {
-        return false; //TODO
+    public Result use(Tile tile) {
+        return new Result(false, "TODO"); //TODO
     }
 
     @Override
     public int getEnergyConsumption(boolean useSuccess) {
         return 2;
+    }
+
+    @Override
+    public String getLevelString() {
+        return "Scythe";
     }
 
     @Override

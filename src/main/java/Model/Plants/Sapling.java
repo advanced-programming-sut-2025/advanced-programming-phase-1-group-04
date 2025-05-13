@@ -1,11 +1,12 @@
 package Model.Plants;
 
+import Controller.SirkBozorg.PlantController;
 import Model.Map.Item;
 import Model.Time.Season;
 
 import java.util.ArrayList;
 
-public class Sapling implements Item {
+public class Sapling implements Item, Plant {
     private final SaplingType saplingType;
 
     public Sapling (SaplingType saplingType) {
@@ -32,5 +33,10 @@ public class Sapling implements Item {
     @Override
     public int getPrice() {
         return 0;
+    }
+
+    @Override
+    public String showPlantInfo() {
+        return "sapling info:\nname: " + getName() + "\ntree type: " + getTreeType();
     }
 }

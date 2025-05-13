@@ -177,4 +177,20 @@ public class Tile {
     public void setWatered(boolean watered) {
         isWatered = watered;
     }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public boolean isPlowed() {
+        return isPlowed;
+    }
+
+    public BuildingType getBuildingType() {
+        return buildingType;
+    }
 }

@@ -164,4 +164,8 @@ public class GameMenuController {
 
         return App.getCurrentGame().getTile(coordinate);
     }
+
+    public static void moveControl () {
+        App.getCurrentGame().getCurrentPlayer().addMovesThisTurn();
+    }
 }

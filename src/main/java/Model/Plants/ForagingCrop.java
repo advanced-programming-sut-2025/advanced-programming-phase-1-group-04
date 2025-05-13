@@ -1,11 +1,12 @@
 package Model.Plants;
 
+import Controller.SirkBozorg.PlantController;
 import Model.Map.Item;
 import Model.Time.Season;
 
 import java.util.ArrayList;
 
-public class ForagingCrop implements Item {
+public class ForagingCrop implements Item, Plant {
     private final ForagingCropType type;
 
     public ForagingCrop (ForagingCropType type) {
@@ -32,5 +33,10 @@ public class ForagingCrop implements Item {
 
     public boolean isForageable () {
         return true;
+    }
+
+    @Override
+    public String showPlantInfo() {
+        return "foraging crop info:\nname: " + getName();
     }
 }

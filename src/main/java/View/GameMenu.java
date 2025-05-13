@@ -2,10 +2,7 @@ package View;
 
 import Controller.GameMenuController;
 
-import Controller.SirkBozorg.PlayerController;
-import Controller.SirkBozorg.MapController;
-import Controller.SirkBozorg.TimeController;
-import Controller.SirkBozorg.ToolController;
+import Controller.SirkBozorg.*;
 import Model.App;
 
 import Model.Command.GameMenuCommand;
@@ -104,53 +101,57 @@ public class GameMenu implements AppMenu {
         else if (GameMenuCommand.HelpMap.getMatcher(input) != null) {
             System.out.println(MapController.helpMap());
         }
-        else if (GameMenuCommand.ShowEnergy.getMatcher(input) != null) {
+
+        else if (GameMenuCommand.ShowEnergy.isMatch(input)) {
             System.out.println(PlayerController.showEnergy());
         }
         else if ((matcher = GameMenuCommand.CheatEnergy.getMatcher(input)) != null) {
             System.out.println(PlayerController.cheatEnergy(matcher.group("value")));
         }
-        else if (GameMenuCommand.CheatUnlimitedEnergy.getMatcher(input) != null) {
-            //TODO Aynaz
+        else if (GameMenuCommand.CheatUnlimitedEnergy.isMatch(input)) {
+            System.out.println(PlayerController.unlimitedEnergy());
         }
-        else if (GameMenuCommand.ShowInventory.getMatcher(input) != null) {
+        else if (GameMenuCommand.ShowInventory.isMatch(input)) {
             System.out.println(PlayerController.showInventory());
         }
-        else if (GameMenuCommand.InventoryTrash.getMatcher(input) != null) {
-            //TODO Aynaz
+        else if ((matcher = GameMenuCommand.InventoryTrashWithNumber.getMatcher(input)) != null) {
+            System.out.println(PlayerController.inventoryTrash(matcher.group("itemName").trim(), matcher.group("number")));
         }
-        else if (GameMenuCommand.ShowAbility.getMatcher(input) != null) {
+        else if ((matcher = GameMenuCommand.InventoryTrashWithoutNumber.getMatcher(input)) != null) {
+            System.out.println(PlayerController.inventoryTrashWithoutNumber(matcher.group("itemName").trim()));
+        }
+        else if (GameMenuCommand.ShowAbility.isMatch(input)) {
             System.out.println(PlayerController.showAbility());
         }
         else if ((matcher = GameMenuCommand.EquipTool.getMatcher(input)) != null) {
             System.out.println(ToolController.equip(matcher.group("toolName")));
         }
-        else if (GameMenuCommand.ShowCurrentTool.getMatcher(input) != null) {
+        else if (GameMenuCommand.ShowCurrentTool.isMatch(input)) {
             System.out.println(ToolController.showCurrentTool());
         }
-        else if (GameMenuCommand.ShowAvailableTool.getMatcher(input) != null) {
+        else if (GameMenuCommand.ShowAvailableTool.isMatch(input)) {
             System.out.println(ToolController.showAvailableTools());
         }
         else if ((matcher = GameMenuCommand.UpgradeTool.getMatcher(input)) != null) {
             System.out.println(ToolController.upgradeTool(matcher.group("toolName")));
         }
         else if ((matcher = GameMenuCommand.UseTool.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(ToolController.useTool(matcher.group("direction")));
         }
         else if ((matcher = GameMenuCommand.CropInfo.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(PlantController.craftInfo(matcher.group("craftName")));
         }
         else if ((matcher = GameMenuCommand.Plant.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(PlantController.plant(matcher.group("seed"), matcher.group("direction")));
         }
         else if ((matcher = GameMenuCommand.ShowPlant.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(PlantController.showPlant(matcher.group("x"), matcher.group("y")));
         }
         else if ((matcher = GameMenuCommand.Fertilize.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(PlantController.fertilize(matcher.group("fertilizer"), matcher.group("direction")));
         }
         else if (GameMenuCommand.ShowWater.getMatcher(input) != null) {
-            //TODO Aynaz
+            System.out.println(PlantController.howMuchWater());
         }
         else if (GameMenuCommand.ShowCraftingRecipes.getMatcher(input) != null) {
             //TODO Aynaz

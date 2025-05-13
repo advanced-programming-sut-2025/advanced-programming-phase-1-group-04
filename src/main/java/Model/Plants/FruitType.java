@@ -1,6 +1,6 @@
 package Model.Plants;
 
-public enum FruitType {
+public enum FruitType implements PlantType{
 
     Apricot ("Apricot", 59, true, 38, TreeType.Apricot),
     Cherry("Cherry", 80, true, 38, TreeType.Cherry),
@@ -52,5 +52,11 @@ public enum FruitType {
 
     public TreeType getTreeType() {
         return treeType;
+    }
+
+    @Override
+    public String getInformation () {
+        return "fruit information:\nname: " + name + "\nbase sell price: " + baseSellPrice + "\nis edible: " +
+                isEdible + "\nenergy: " + energy + "\ntree: " + treeType.name();
     }
 }

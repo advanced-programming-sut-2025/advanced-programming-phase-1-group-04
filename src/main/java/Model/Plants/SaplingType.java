@@ -1,11 +1,12 @@
 package Model.Plants;
 
+import Controller.SirkBozorg.PlantController;
 import Model.Time.Season;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public enum SaplingType implements Forageable {
+public enum SaplingType implements Forageable, PlantType{
     ApricotSapling("Apricot Sapling", new ArrayList<>(List.of(Season.Spring)), TreeType.Apricot, false),
     CherrySapling("Cherry Sapling", new ArrayList<>(List.of(Season.Spring)), TreeType.Cherry, false),
     BananaSapling("Banana Sapling", new ArrayList<>(List.of(Season.Summer)), TreeType.Banana, false),
@@ -52,5 +53,11 @@ public enum SaplingType implements Forageable {
     @Override
     public boolean isForageable() {
         return isForageable;
+    }
+
+    @Override
+    public String getInformation () {
+        return "sapling information: \nname: " + name + "\nseason: " + PlantController.SeasonsToString(seasons) +
+                "\nis forageable: " + isForageable;
     }
 }

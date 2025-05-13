@@ -12,6 +12,10 @@ import java.util.stream.Collectors;
 
 public class ToolController {
     public static Result equip (String toolName) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         List<Tool> tools = extractTools(new ArrayList<>(App.getCurrentGame().getCurrentPlayer().
                 getInventory().getItems().keySet()));
         Tool tool = findToolByName(tools, toolName);
@@ -20,16 +24,27 @@ public class ToolController {
         }
         else {
             App.getCurrentGame().getCurrentPlayer().setCurrentTool(tool);
-            return new Result(true, "you're now equipped with a " + toolName);
+            return new Result(true, "you're now equipped with a " + toolName.toLowerCase());
         }
     }
 
     public static Result showCurrentTool () {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
+        if (App.getCurrentGame().getCurrentPlayer().getCurrentTool() == null) {
+            return new Result(false, "you are equipped with no tools right now!\nuse tools equip command.");
+        }
         return new Result(true, "your current tool is " + App.getCurrentGame().getCurrentPlayer().
                 getCurrentTool().getName());
     }
 
     public static Result showAvailableTools () {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         List<Tool> tools = extractTools(new ArrayList<>(App.getCurrentGame().getCurrentPlayer().
                 getInventory().getItems().keySet()));
         String result = "your available tools are:";
@@ -40,6 +55,10 @@ public class ToolController {
     }
 
     public static Result upgradeTool (String toolName) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         List<Tool> tools = extractTools(new ArrayList<>(App.getCurrentGame().getCurrentPlayer().
                 getInventory().getItems().keySet()));
         Tool tool = findToolByName(tools, toolName);
@@ -47,16 +66,19 @@ public class ToolController {
             return new Result(false, "you don't have this tool in your inventory!");
         }
         else {
-            tool.upgrade();
-            return new Result(true, toolName + "has been upgraded.\nprevious level: \ncurrent level:");
+            return tool.upgrade();
             //TODO.....................................................
+            // ahangari
         }
     }
 
     public static Result useTool (String direction) {
-        App.getCurrentGame().getCurrentPlayer().getCurrentTool().
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
+        return App.getCurrentGame().getCurrentPlayer().getCurrentTool().
                 use(GameMenuController.getTileByDirection(direction));
-        return new Result(true, "used");
     }
 
 

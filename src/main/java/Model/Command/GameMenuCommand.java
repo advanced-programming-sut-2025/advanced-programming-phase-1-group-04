@@ -38,7 +38,8 @@ public enum GameMenuCommand implements Command {
 
     // Player Controller: Aynaz
     ShowInventory("inventory\\s+show"),
-    InventoryTrash("inventory\\s+trash\\s+-i\\s+(?<itemName>.+?)\\s+-n\\s+(?<number>\\d+)"),
+    InventoryTrashWithNumber("inventory\\s+trash\\s+-i\\s+(?<itemName>.+?)\\s+-n\\s+(?<number>[-+]?\\d+)"),
+    InventoryTrashWithoutNumber("inventory\\s+trash\\s+-i\\s+(?<itemName>.+)"),
     ShowAbility("show\\s+ability"),
 
     // Tool Controller: Aynaz
@@ -49,7 +50,7 @@ public enum GameMenuCommand implements Command {
     UseTool("tools\\s+use\\s+-d\\s+(?<direction>.+)"), //
 
     // Plant Controller: Aynaz
-    CropInfo("craft\\s+info\\s+-n\\s+(?<craftName>.+?)"),
+    CropInfo("craftinfo\\s+-n\\s+(?<craftName>.+?)"),
     Plant("plant\\s+-s\\s+(?<seed>.+?)\\s+-d\\s+(?<direction>\\S+)"),
     ShowPlant("showplant\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
     Fertilize("fertilize\\s+-f\\s+(?<fertilizer>.+?)\\s+-d\\s+(?<direction>\\S+)"),

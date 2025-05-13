@@ -1,8 +1,9 @@
 package Model.Plants;
 
+import Controller.SirkBozorg.PlantController;
 import Model.Map.Item;
 
-public class Fruit implements Item {
+public class Fruit implements Item, Plant {
     private final FruitType type;
 
     //constructor:
@@ -31,5 +32,10 @@ public class Fruit implements Item {
 
     public TreeType getTreeType() {
         return type.getTreeType();
+    }
+
+    @Override
+    public String showPlantInfo() {
+        return "fruit info:\nname: " + getName();
     }
 }

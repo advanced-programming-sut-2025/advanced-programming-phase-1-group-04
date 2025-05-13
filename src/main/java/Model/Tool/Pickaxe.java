@@ -3,6 +3,7 @@ package Model.Tool;
 import Model.App;
 import Model.Map.Tile;
 import Model.Player.Skill;
+import Model.Result;
 
 public class Pickaxe implements Tool {
     private ToolLevel level;
@@ -12,27 +13,47 @@ public class Pickaxe implements Tool {
     }
 
     @Override
-    public void upgrade() {
+    public Result upgrade() {
+        String pre = "previous level: ";
+        String cur = "\ncurrent level: ";
         if (level == ToolLevel.Starter) {
             level = ToolLevel.Copper;
+            pre = pre + "Starter";
+            cur = cur + "Copper";
+            return new Result(true, "pickaxe upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Copper) {
             level = ToolLevel.Steel;
+            pre = pre + "Copper";
+            cur = cur + "Steel";
+            return new Result(true, "pickaxe upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Steel) {
             level = ToolLevel.Gold;
+            pre = pre + "Steel";
+            cur = cur + "Gold";
+            return new Result(true, "pickaxe upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Gold) {
             level = ToolLevel.Iridium;
+            pre = pre + "Gold";
+            cur = cur + "Iridium";
+            return new Result(true, "pickaxe upgraded successfully.\n" + pre + cur);
         }
+        return new Result(false, "pickaxe is already upgraded!\ncurrent level: Iridium");
     }
 
     @Override
-    public boolean use(Tile tile) {
-        //TODO:
-        // need getItem in tile class
-        //temp:
-        return true;
+    public Result use(Tile tile) {
+        //TODO: معدن و سنگ میخوایم
+        if (tile.isPlowed()) {
+            tile.setPlowed(false);
+            App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(true));
+            return new Result(true, "the selected tile is no longer plowed.");
+        }
+
+        App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(false));
+        return new Result(false, "TODO / nothing can be done on the selected tile!");
     }
 
     @Override

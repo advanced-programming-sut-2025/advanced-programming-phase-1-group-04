@@ -26,31 +26,57 @@ public class PlantController {
         GameMenuController.moveControl();
         craftName = craftName.toLowerCase();
         for (CropType t : CropType.values()) {
+            if (t == null || t.getName() == null) {
+                continue;
+            }
             if (t.getName().toLowerCase().equals(craftName)) {
                 return new Result(true, t.getInformation());
             }
         }
         for (ForagingCropType t : ForagingCropType.values()) {
+            if (t == null || t.getName() == null) {
+                continue;
+            }
             if (t.getName().toLowerCase().equals(craftName)) {
                 return new Result(true, t.getInformation());
             }
         }
         for (ForagingMineralType t : ForagingMineralType.values()) {
+            if (t == null || t.getName() == null) {
+                continue;
+            }
             if (t.getName().toLowerCase().equals(craftName)) {
                 return new Result(true, t.getInformation());
             }
         }
         for (FruitType t : FruitType.values()) {
+            if (t == null || t.getName() == null) {
+                continue;
+            }
             if (t.getName().toLowerCase().equals(craftName)) {
                 return new Result(true, t.getInformation());
             }
         }
         for (SaplingType t : SaplingType.values()) {
+            if (t == null || t.getName() == null) {
+                continue;
+            }
+            if (t.getName().toLowerCase().equals(craftName)) {
+                return new Result(true, t.getInformation());
+            }
+        }
+        for (SeedType t : SeedType.values()) {
+            if (t == null || t.getName() == null) {
+                continue;
+            }
             if (t.getName().toLowerCase().equals(craftName)) {
                 return new Result(true, t.getInformation());
             }
         }
         for (TreeType t : TreeType.values()) {
+            if (t == null || t.getName() == null) {
+                continue;
+            }
             if (t.getName().toLowerCase().equals(craftName)) {
                 return new Result(true, t.getInformation());
             }
@@ -66,7 +92,7 @@ public class PlantController {
         SeedType seedType;
         SaplingType saplingType = getSaplingTypeByName(seedName);
         if ((seedType = getSeedTypeByName(seedName)) == null && saplingType == null) {
-            return new Result(false, "invalid seed name!");
+            return new Result(false, "invalid seed/ sapling name!");
         }
         if (seedType != null) {
             return plantInTile(new Seed(seedType), GameMenuController.getTileByDirection(direction),
@@ -104,7 +130,7 @@ public class PlantController {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        return new Result(false, "NOT COMPLETED/ TODO");
+        return new Result(false, "NOT COMPLETED/ TODO"); //TODO
     }
 
     public static Result howMuchWater () {

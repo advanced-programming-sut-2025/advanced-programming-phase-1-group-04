@@ -1,6 +1,7 @@
 package Model.Tool;
 
 import Model.Map.Tile;
+import Model.Result;
 
 public class FishingPole implements Tool{
     private FishingPoleType type;
@@ -10,14 +11,15 @@ public class FishingPole implements Tool{
     }
 
     @Override
-    public void upgrade() {
+    public Result upgrade() {
         //TODO
         // related to shops and inventory
+        return new Result(false, "TODO");
     }
 
     @Override
-    public boolean use(Tile tile) {
-        return false;
+    public Result use(Tile tile) {
+        return new Result(false, "TODO");
         //TODO
     }
 

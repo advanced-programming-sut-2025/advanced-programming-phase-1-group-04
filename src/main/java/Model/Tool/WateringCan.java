@@ -4,6 +4,7 @@ import Model.App;
 import Model.Map.Tile;
 import Model.Map.TileType;
 import Model.Player.Skill;
+import Model.Result;
 
 public class WateringCan implements Tool{
     private int capacity;
@@ -31,35 +32,51 @@ public class WateringCan implements Tool{
     }
 
     @Override
-    public void upgrade() {
+    public Result upgrade() {
+        String pre = "previous level: ";
+        String cur = "\ncurrent level: ";
         if (level == ToolLevel.Starter) {
             level = ToolLevel.Copper;
+            pre = pre + "Starter";
+            cur = cur + "Copper";
+            return new Result(true, "watering can upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Copper) {
             level = ToolLevel.Steel;
+            pre = pre + "Copper";
+            cur = cur + "Steel";
+            return new Result(true, "watering can upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Steel) {
             level = ToolLevel.Gold;
+            pre = pre + "Steel";
+            cur = cur + "Gold";
+            return new Result(true, "watering can upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Gold) {
             level = ToolLevel.Iridium;
+            pre = pre + "Gold";
+            cur = cur + "Iridium";
+            return new Result(true, "watering can upgraded successfully.\n" + pre + cur);
         }
+        return new Result(false, "watering can is already upgraded!\ncurrent level: Iridium");
     }
 
     @Override
-    public boolean use(Tile tile) {
+    public Result use(Tile tile) {
+        App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(true));
         if (waterAmount == 0) {
-            return false;
+            return new Result(false, "your watering can is out of water!");
         }
         else if (tile.getType() == TileType.Ground) {
             tile.setWatered(true);
-            return true;
+            return new Result(true, "the selected tile is now watered.");
         }
         else if (tile.getType() == TileType.Water) {
             waterAmount = capacity;
-            return true;
+            return new Result(true, "your watering can is now full of water.");
         }
-        return false;
+        return new Result(false, "invalid tile!");
     }
 
     @Override

@@ -3,6 +3,7 @@ package Model.Tool;
 import Model.App;
 import Model.Map.Tile;
 import Model.Player.Skill;
+import Model.Result;
 
 public class Axe implements Tool{
     private ToolLevel level;
@@ -12,27 +13,42 @@ public class Axe implements Tool{
     }
 
     @Override
-    public void upgrade() {
+    public Result upgrade() {
+        String pre = "previous level: ";
+        String cur = "\ncurrent level: ";
         if (level == ToolLevel.Starter) {
             level = ToolLevel.Copper;
+            pre = pre + "Starter";
+            cur = cur + "Copper";
+            return new Result(true, "axe upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Copper) {
             level = ToolLevel.Steel;
+            pre = pre + "Copper";
+            cur = cur + "Steel";
+            return new Result(true, "axe upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Steel) {
             level = ToolLevel.Gold;
+            pre = pre + "Steel";
+            cur = cur + "Gold";
+            return new Result(true, "axe upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Gold) {
             level = ToolLevel.Iridium;
+            pre = pre + "Gold";
+            cur = cur + "Iridium";
+            return new Result(true, "axe upgraded successfully.\n" + pre + cur);
         }
+        return new Result(false, "axe is already upgraded!\ncurrent level: Iridium");
     }
 
     @Override
-    public boolean use(Tile tile) {
+    public Result use(Tile tile) {
         //TODO:
         // need getItem in tile class
         //temp:
-        return true;
+        return new Result(false, "TODO");
     }
 
     @Override

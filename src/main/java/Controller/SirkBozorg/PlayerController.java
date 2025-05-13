@@ -46,6 +46,9 @@ public class PlayerController {
         GameMenuController.moveControl();
         String result = "items in inventory:\n";
         Inventory inventory = App.getCurrentGame().getCurrentPlayer().getInventory();
+        if (inventory.getItems().isEmpty()) {
+            return new Result(true, "hich ani nadari");
+        }
         for (Item item : inventory.getItems().keySet()) {
             result = result + item.getName() + " : " + inventory.getItems().get(item) + "\n";
         }
@@ -67,9 +70,21 @@ public class PlayerController {
                     itemName + " in your inventory!");
         }
         if (quantity == 1) {
-            return new Result(true, "one " + itemName + " has been removed from inventory");
+            return new Result(true, "one " + itemName.toLowerCase() + " has been removed from inventory.");
         }
-        return  new Result(false, quantity + " " + itemName + "s have been remove from inventory");
+        return  new Result(false, quantity + " " + itemName.toLowerCase() + "s have been remove from inventory.");
+    }
+
+    public static Result inventoryTrashWithoutNumber (String itemName) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
+        if (!App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(itemName, -1)) {
+            return new Result(false, "you don't have " +
+                    itemName + " in your inventory!");
+        }
+        return new Result(false,  itemName.toLowerCase() + " has been completely remove from inventory.");
     }
 
     public static Result showAbility() {

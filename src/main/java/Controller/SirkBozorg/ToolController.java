@@ -66,9 +66,9 @@ public class ToolController {
             return new Result(false, "you don't have this tool in your inventory!");
         }
         else {
-            tool.upgrade();
-            return new Result(true, toolName + "has been upgraded.\nprevious level: \ncurrent level:");
+            return tool.upgrade();
             //TODO.....................................................
+            // ahangari
         }
     }
 
@@ -77,9 +77,8 @@ public class ToolController {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        App.getCurrentGame().getCurrentPlayer().getCurrentTool().
+        return App.getCurrentGame().getCurrentPlayer().getCurrentTool().
                 use(GameMenuController.getTileByDirection(direction));
-        return new Result(true, "used");
     }
 
 

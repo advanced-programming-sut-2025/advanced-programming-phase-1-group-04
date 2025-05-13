@@ -189,4 +189,8 @@ public class Tile {
     public boolean isPlowed() {
         return isPlowed;
     }
+
+    public BuildingType getBuildingType() {
+        return buildingType;
+    }
 }

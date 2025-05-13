@@ -100,4 +100,18 @@ public class Inventory {
         return null;
     }
 
+    public boolean hasItemWithNumber (String itemName, int number) {
+        Item item = hasItemWithName(itemName);
+        if (item == null) {
+            return false;
+        }
+        if (!items.containsKey(item)) {
+            return false;
+        }
+        if (items.get(item) < number) {
+            return false;
+        }
+        return true;
+    }
+
 }

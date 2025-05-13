@@ -1,6 +1,7 @@
 package Model.Tool;
 
 import Model.App;
+import Model.Map.BuildingType;
 import Model.Map.Tile;
 import Model.Map.TileType;
 import Model.Player.Skill;
@@ -10,6 +11,7 @@ public class WateringCan implements Tool{
     private int capacity;
     private ToolLevel level;
     private int waterAmount;
+    int price;
 
     public WateringCan (ToolLevel level) {
         this.level = level;
@@ -33,27 +35,82 @@ public class WateringCan implements Tool{
 
     @Override
     public Result upgrade() {
+        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.Blacksmith) {
+            return new Result(false, "you are not in black smith building!");
+        }
         String pre = "previous level: ";
         String cur = "\ncurrent level: ";
         if (level == ToolLevel.Starter) {
+            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("copper", 25)) {
+                return new Result(false, "you don't have enough copper ores!\n25 copper ores are needed.");
+            }
+            else if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
+                return new Result(false, "you don't have enough coal!\n5 pieces are needed.");
+            }
+            else if (App.getCurrentGame().getCurrentPlayer().getCount() < 1000) {
+                return new Result(false, "you don't have enough money!\ncost: 2000g.");
+            }
+            App.getCurrentGame().getCurrentPlayer().addCount(-1000);
+            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("copper", 25);
+            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
+            price = 1000;
             level = ToolLevel.Copper;
             pre = pre + "Starter";
             cur = cur + "Copper";
             return new Result(true, "watering can upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Copper) {
+            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("iron", 25)) {
+                return new Result(false, "you don't have enough iron ores!\n25 iron ores are needed.");
+            }
+            else if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
+                return new Result(false, "you don't have enough coal!\n5 pieces are needed.");
+            }
+            else if (App.getCurrentGame().getCurrentPlayer().getCount() < 2500) {
+                return new Result(false, "you don't have enough money!\ncost: 5000g.");
+            }
+            App.getCurrentGame().getCurrentPlayer().addCount(-2500);
+            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("iron", 25);
+            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
+            price = 2500;
             level = ToolLevel.Steel;
             pre = pre + "Copper";
             cur = cur + "Steel";
             return new Result(true, "watering can upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Steel) {
+            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("gold", 25)) {
+                return new Result(false, "you don't have enough gold ores!\n25 gold ores are needed.");
+            }
+            else if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
+                return new Result(false, "you don't have enough coal!\n5 pieces are needed.");
+            }
+            else if (App.getCurrentGame().getCurrentPlayer().getCount() < 5000) {
+                return new Result(false, "you don't have enough money!\ncost: 10000g.");
+            }
+            App.getCurrentGame().getCurrentPlayer().addCount(-5000);
+            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("gold", 25);
+            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
+            price = 5000;
             level = ToolLevel.Gold;
             pre = pre + "Steel";
             cur = cur + "Gold";
             return new Result(true, "watering can upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Gold) {
+            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("iridium", 25)) {
+                return new Result(false, "you don't have enough iridium ores!\n25 iridium ores are needed.");
+            }
+            else if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
+                return new Result(false, "you don't have enough coal!\n5 pieces are needed.");
+            }
+            else if (App.getCurrentGame().getCurrentPlayer().getCount() < 12500) {
+                return new Result(false, "you don't have enough money!\ncost: 25000g.");
+            }
+            App.getCurrentGame().getCurrentPlayer().addCount(-12500);
+            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("iridium", 25);
+            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
+            price = 12500;
             level = ToolLevel.Iridium;
             pre = pre + "Gold";
             cur = cur + "Iridium";
@@ -122,7 +179,7 @@ public class WateringCan implements Tool{
 
     @Override
     public int getPrice() {
-        return 0; //TODO
+        return price;
     }
 
     public int getCapacity() {

@@ -29,11 +29,11 @@ public class ForageableFactory {
     public static ArrayList<Forageable> getPlantForageables() {
         plantForageables.addAll(Arrays.asList(ForagingCropType.values()));
         plantForageables.addAll(Arrays.asList(SeedType.values()));
-        for (SaplingType type : SaplingType.values()) {
-            if (type.isForageable()) {
-                plantForageables.add(type);
-            }
-        }
+//        for (SaplingType type : SaplingType.values()) {
+//            if (type.isForageable()) {
+//                plantForageables.add(type);
+//            }
+//        }
         return plantForageables;
     }
 
@@ -49,11 +49,11 @@ public class ForageableFactory {
             }
 
         }
-        for (SaplingType type : SaplingType.values()) {
-            if (type.isForageable() && type.getSeasons().contains(Season.Spring)) {
-                springPlantForageables.add(type);
-            }
-        }
+//        for (SaplingType type : SaplingType.values()) {
+//            if (type.isForageable() && type.getSeasons().contains(Season.Spring)) {
+//                springPlantForageables.add(type);
+//            }
+//        }
         return springPlantForageables;
     }
 
@@ -70,11 +70,11 @@ public class ForageableFactory {
             }
 
         }
-        for (SaplingType type : SaplingType.values()) {
-            if (type.isForageable() && type.getSeasons().contains(Season.Summer)) {
-                summerPlantForageables.add(type);
-            }
-        }
+//        for (SaplingType type : SaplingType.values()) {
+//            if (type.isForageable() && type.getSeasons().contains(Season.Summer)) {
+//                summerPlantForageables.add(type);
+//            }
+//        }
         return summerPlantForageables;
     }
 
@@ -89,11 +89,11 @@ public class ForageableFactory {
                 fallPlantForageables.add(type);
             }
         }
-        for (SaplingType type : SaplingType.values()) {
-            if (type.isForageable() && type.getSeasons().contains(Season.Fall)) {
-                fallPlantForageables.add(type);
-            }
-        }
+//        for (SaplingType type : SaplingType.values()) {
+//            if (type.isForageable() && type.getSeasons().contains(Season.Fall)) {
+//                fallPlantForageables.add(type);
+//            }
+//        }
         return fallPlantForageables;
     }
 
@@ -108,16 +108,29 @@ public class ForageableFactory {
                 winterPlantForageables.add(type);
             }
         }
-        for (SaplingType type : SaplingType.values()) {
-            if (type.isForageable() && type.getSeasons().contains(Season.Winter)) {
-                winterPlantForageables.add(type);
-            }
-        }
+//        for (SaplingType type : SaplingType.values()) {
+//            if (type.isForageable() && type.getSeasons().contains(Season.Winter)) {
+//                winterPlantForageables.add(type);
+//            }
+//        }
         return winterPlantForageables;
     }
 
     public static ArrayList<Forageable> getMineralForageables() {
         mineralForageables.addAll(Arrays.asList(ForagingMineralType.values()));
         return mineralForageables;
+    }
+
+    public static ArrayList<Forageable> getSeasonPlantForageables(Season s) {
+        if (s == Season.Spring) {
+            return springPlantForageables;
+        }
+        if (s == Season.Summer) {
+            return summerPlantForageables;
+        }
+        if (s == Season.Fall) {
+            return fallPlantForageables;
+        }
+        return winterPlantForageables;
     }
 }

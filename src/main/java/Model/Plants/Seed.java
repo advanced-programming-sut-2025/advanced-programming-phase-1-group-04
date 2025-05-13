@@ -10,9 +10,11 @@ public class Seed implements Item, Plant {
     //TODO: mixed seeds must be controlled in controller. no specific operation has been considered yet.
 
     private final SeedType seedType;
+    private final boolean purposelyPlanted;
 
-    public Seed (SeedType seedType) {
+    public Seed (SeedType seedType, boolean purposelyPlanted) {
         this.seedType = seedType;
+        this.purposelyPlanted = purposelyPlanted;
     }
 
     public SeedType getSeedType() {
@@ -45,5 +47,9 @@ public class Seed implements Item, Plant {
     @Override
     public String showPlantInfo() {
         return "seed info:\nname: " + getName() + "\nis forageable: " + isForageable();
+    }
+
+    public boolean isPurposelyPlanted() {
+        return purposelyPlanted;
     }
 }

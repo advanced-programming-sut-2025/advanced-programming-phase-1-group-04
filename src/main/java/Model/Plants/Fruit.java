@@ -5,10 +5,12 @@ import Model.Map.Item;
 
 public class Fruit implements Item, Plant {
     private final FruitType type;
+    private final boolean purposelyPlanted;
 
     //constructor:
-    public Fruit (FruitType type) {
+    public Fruit (FruitType type, boolean purposelyPlanted) {
         this.type = type;
+        this.purposelyPlanted = purposelyPlanted;
     }
 
     //getters:
@@ -36,6 +38,10 @@ public class Fruit implements Item, Plant {
 
     @Override
     public String showPlantInfo() {
-        return "fruit info:\nname: " + getName();
+        return "fruit info:\nname: " + getName() + "\nis forageable: " + purposelyPlanted;
+    }
+
+    public boolean isPurposelyPlanted() {
+        return purposelyPlanted;
     }
 }

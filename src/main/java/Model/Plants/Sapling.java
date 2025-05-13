@@ -8,9 +8,11 @@ import java.util.ArrayList;
 
 public class Sapling implements Item, Plant {
     private final SaplingType saplingType;
+    private final boolean purposelyPlanted;
 
-    public Sapling (SaplingType saplingType) {
+    public Sapling (SaplingType saplingType, boolean purposelyPlanted) {
         this.saplingType =saplingType;
+        this.purposelyPlanted = purposelyPlanted;
     }
 
     @Override

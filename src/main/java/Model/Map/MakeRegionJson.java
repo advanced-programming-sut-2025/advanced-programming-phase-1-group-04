@@ -62,10 +62,10 @@ public class MakeRegionJson {
             case 'G':
                 return new Tile(TileType.Ground, false, null, null);
             case 'T':
-                Tree tree = new Tree(TreeType.Apricot, new DateAndTime(9, 1, Weather.Sunny));
+                Tree tree = new Tree(TreeType.Apricot, new DateAndTime(9, 1, Weather.Sunny), false);
                 return new Tile(TileType.Ground, false, tree, null);
             case '^':
-                ForagingCrop foraging = new ForagingCrop(ForagingCropType.CommonMushroom);
+                ForagingCrop foraging = new ForagingCrop(ForagingCropType.CommonMushroom, false);
                 return new Tile(TileType.Ground, false, foraging, null);
             case '*':
                 return new Tile(TileType.Ground, true, null, null);

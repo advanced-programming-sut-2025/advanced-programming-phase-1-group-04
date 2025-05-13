@@ -15,10 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlantController {
-    public void lightning () {
-
-    }
-
+    
     public static Result craftInfo (String craftName) {
         if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");

@@ -18,14 +18,15 @@ public class Game {
 
     private GameMap map;
 
-    private DateAndTime currentTime = new DateAndTime (9, 1, WeekDay.Monday, Season.Spring);
-    private Weather currentWeather;
+    private DateAndTime currentTime = new DateAndTime (9, 1, Weather.Sunny);
     private Weather tomorrowWeather;
 
     public Game(ArrayList<Player> players, Player currentPlayer) {
         this.players = players;
         this.mainPlayer = currentPlayer;
         this.currentPlayer = currentPlayer;
+
+        this.tomorrowWeather = Weather.Sunny;
     }
 
     public void setMap(GameMap map) {
@@ -38,6 +39,14 @@ public class Game {
 
     public void setMainPlayer(Player mainPlayer) {
         this.mainPlayer = mainPlayer;
+    }
+
+    public void setTomorrowWeather(Weather tomorrowWeather) {
+        this.tomorrowWeather = tomorrowWeather;
+    }
+
+    public Weather getTomorrowWeather() {
+        return tomorrowWeather;
     }
 
     public DateAndTime getCurrentTime() {

@@ -41,7 +41,7 @@ public class LoginMenu implements AppMenu {
                         result = LoginMenuController.securityQuestion(username,  Integer.parseInt(matcher.group("questionNumber")), matcher.group("answer"), matcher.group("reAnswer"));
                         System.out.println(result);
                         if (result.isSuccessful()) break;
-                    }else {
+                    } else {
                         System.out.println("Please pick a security question!\n" + SecurityQuestion.getQuestions());
                     }
                     input = scanner.nextLine();

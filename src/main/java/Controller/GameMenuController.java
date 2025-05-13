@@ -14,9 +14,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameMenuController {
-    private static int[] farmSelections = new int[4];
+    private static final int[] farmSelections = new int[4];
+
     public static Result newGame(String username1, String username2, String username3) {
-        Player currentPlayer = new Player(App.getCurrentUser().getId());
+        if (App.getCurrentGame() != null) {
+            return new Result(false, "You are in game. Boro khodeto siah kon");
+        }
+        Player currentPlayer = new Player(App.getCurrentUser().getId(), new Coordinate(4, 31));
         ArrayList<Player> players = new ArrayList<>();
         players.add(currentPlayer);
 
@@ -27,20 +31,20 @@ public class GameMenuController {
         User user1 = App.getUserByUsername(username1);
         if (user1 == null)
             return new Result(false, "Username1 not found!");
-        players.add(new Player(user1.getId()));
+        players.add(new Player(user1.getId(), new Coordinate(4, 31 + 80)));
 
         if (username2 != null) {
             User user2 = App.getUserByUsername(username2);
             if (user2 == null)
                 return new Result(false, "Username2 not found!");
-            players.add(new Player(user2.getId()));
+            players.add(new Player(user2.getId(), new Coordinate(4 + 60, 31)));
         }
 
         if (username3 != null) {
             User user3 = App.getUserByUsername(username3);
             if (user3 == null)
                 return new Result(false, "Username3 not found!");
-            players.add(new Player(user3.getId()));
+            players.add(new Player(user3.getId(), new Coordinate(4 + 60, 31 + 80)));
         }
 
         App.setCurrentGame(new Game(players, currentPlayer));
@@ -75,6 +79,7 @@ public class GameMenuController {
         }
 
         // TODO: save games
+        App.setCurrentGame(null);
         App.setCurrentMenu(Menu.MainMenu);
         return new Result(true, "Game saved successfully. Now you are in Main menu");
     }
@@ -88,6 +93,7 @@ public class GameMenuController {
         int index = App.getCurrentGame().getPlayers().indexOf(App.getCurrentGame().getCurrentPlayer());
         int nextIndex = (index + 1) % App.getCurrentGame().getPlayers().size();
         App.getCurrentGame().setCurrentPlayer(App.getCurrentGame().getPlayers().get(nextIndex));
+        App.getCurrentGame().getCurrentPlayer().resetMovesThisTurn();
 
         return new Result(true, "Now it's " +App.getCurrentGame().getCurrentPlayer().getUsername() + "'s turn.");
     }
@@ -96,6 +102,9 @@ public class GameMenuController {
         return new Result(true, "You are in game menu");
     }
 
+    public static Result currentPlayer() {
+        return new Result(true, App.getCurrentGame().getCurrentPlayer().getUsername());
+    }
     public static Tile getTileByDirection (String direction) {
         direction = direction.toLowerCase();
         Coordinate coordinate = App.getCurrentGame().getCurrentPlayer().getCoordinate();

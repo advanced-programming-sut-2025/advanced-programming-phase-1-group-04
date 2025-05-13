@@ -22,6 +22,9 @@ public class GameMenu implements AppMenu {
         if (GameMenuCommand.CurrentMenu.getMatcher(input) != null) {
             System.out.println(GameMenuController.currentMenu());
         }
+        else if (GameMenuCommand.CurrentPlayer.getMatcher(input) != null) {
+            System.out.println(GameMenuController.currentPlayer());
+        }
         else if ((matcher = GameMenuCommand.NewGame.getMatcher(input)) != null) {
             Result result = GameMenuController.newGame(matcher.group("username1"), matcher.group("username2"), matcher.group("username3"));
             System.out.println(result);
@@ -60,13 +63,13 @@ public class GameMenu implements AppMenu {
             System.out.println(GameMenuController.nextTurn());
         }
         else if (GameMenuCommand.Time.getMatcher(input) != null) {
-            System.out.println(TimeController.time());
+            System.out.println(TimeController.time(input));
         }
         else if ((matcher = GameMenuCommand.CheatTime.getMatcher(input)) != null) {
             System.out.println(TimeController.cheatTime(matcher.group("time")));
         }
         else if ((matcher = GameMenuCommand.CheatDate.getMatcher(input)) != null) {
-            System.out.println(TimeController.cheatTime(matcher.group("date")));
+            System.out.println(TimeController.cheatDate(matcher.group("date")));
         }
         else if (GameMenuCommand.Season.getMatcher(input) != null) {
             System.out.println(TimeController.season());
@@ -75,7 +78,7 @@ public class GameMenu implements AppMenu {
             System.out.println(TimeController.weather());
         }
         else if (GameMenuCommand.WeatherForecast.getMatcher(input) != null) {
-            System.out.println(TimeController.weather());
+            System.out.println(TimeController.weatherForecast());
         }
         else if ((matcher = GameMenuCommand.CheatThor.getMatcher(input)) != null) {
             System.out.println(TimeController.cheatThor(matcher.group("x"), matcher.group("y")));
@@ -93,10 +96,10 @@ public class GameMenu implements AppMenu {
             System.out.println(MapController.printAllMap());
         }
         else if ((matcher = GameMenuCommand.PrintMap.getMatcher(input)) != null) {
-            //TODO Nafiseh
+            System.out.println(MapController.printMap(matcher.group("x"), matcher.group("y"), matcher.group("size")));
         }
-        else if ((matcher = GameMenuCommand.HelpMap.getMatcher(input)) != null) {
-            //TODO Nafiseh
+        else if (GameMenuCommand.HelpMap.getMatcher(input) != null) {
+            System.out.println(MapController.helpMap());
         }
 
         else if (GameMenuCommand.ShowEnergy.isMatch(input)) {

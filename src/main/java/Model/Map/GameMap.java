@@ -1,5 +1,7 @@
 package Model.Map;
 
+import Model.App;
+import Model.Player.Player;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -67,14 +69,24 @@ public class GameMap {
 
     @Override
     public String toString() {
-        int totalRows = 3 * 30;
-        int totalCols = 3 * 40;
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < totalRows; i++) {
-            for (int j = 0; j < totalCols; j++) {
-                result.append(" ").
-                    append(fullMap[i][j].getSymbol()).
-                    append(" ");
+        for (int i = 0; i < 3 * 30; i++) {
+            for (int j = 0; j < 3 * 40; j++) {
+                result.append(" ");
+                Coordinate coordinate = new Coordinate(i, j);
+                boolean isPlayer = false;
+                for (Player player: App.getCurrentGame().getPlayers()) {
+                    if (player.getCoordinate().equals(coordinate)) {
+                        isPlayer = true;
+                        if (player.getId() == App.getCurrentGame().getCurrentPlayer().getId())
+                            result.append(Symbols.CurrentPlayer.getColoredSymbol());
+                        else
+                            result.append(Symbols.Player.getColoredSymbol());
+                    }
+                }
+                if (!isPlayer)
+                    result.append(fullMap[i][j].getSymbol());
+                result.append(" ");
             }
             result.append("\n");
         }

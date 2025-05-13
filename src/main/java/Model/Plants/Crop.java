@@ -1,5 +1,6 @@
 package Model.Plants;
 
+import Controller.SirkBozorg.PlantController;
 import Model.App;
 import Model.Map.Item;
 import Model.Time.DateAndTime;
@@ -8,7 +9,7 @@ import Model.Game;
 
 import java.util.ArrayList;
 
-public class Crop implements Item {
+public class Crop implements Item, Plant {
     private DateAndTime plantingDate;
     private DateAndTime lastTimeHarvested;
     private final CropType type;
@@ -16,7 +17,7 @@ public class Crop implements Item {
 
 
     //constructor:
-    private Crop (DateAndTime plantingDate, CropType type) {
+    public Crop(DateAndTime plantingDate, CropType type) {
         this.plantingDate = null;
         this.type = type;
 
@@ -85,7 +86,7 @@ public class Crop implements Item {
     public int getCurrentStage () {
         int stageTime = getHarvestTime();
         int currentStage = getStages().length + 1;
-        int daysSincePlanted = App.getCurrentGame().getCurrentTime().getDay() - plantingDate.getDay();
+        int daysSincePlanted = App.getCurrentGame().getCurrentTime().getDay() - plantingDate.getDay();//TODO: in moshkel dare
         if (lastTimeHarvested == null) {
             if (daysSincePlanted >= stageTime) {
                 return currentStage;
@@ -117,5 +118,13 @@ public class Crop implements Item {
 
     public void setLastTimeHarvested(DateAndTime lastTimeHarvested) {
         this.lastTimeHarvested = lastTimeHarvested;
+    }
+
+
+    @Override
+    public String showPlantInfo() {
+        return "crop info:\nname: " + getName() + "\ntotal harvest time: " + getHarvestTime() + "\ndate of planting: " +
+                plantingDate.getSeason().name() + " " + plantingDate.getDay() + "th\nstages: " +
+                PlantController.stagesToString(getStages()) + "\ncurrent stage: " + getCurrentStage();
     }
 }

@@ -1,5 +1,6 @@
 package Model.Plants;
 
+import Controller.SirkBozorg.PlantController;
 import Model.App;
 import Model.Map.Item;
 import Model.Time.DateAndTime;
@@ -8,7 +9,7 @@ import Model.Game;
 
 import java.util.ArrayList;
 
-public class Tree implements Item {
+public class Tree implements Item, Plant {
 
     private final TreeType type;
     private boolean isBurned;
@@ -115,5 +116,12 @@ public class Tree implements Item {
 
     public void setLastTimeHarvested(DateAndTime lastTimeHarvested) {
         this.lastTimeHarvested = lastTimeHarvested;
+    }
+
+    @Override
+    public String showPlantInfo() {
+        return "crop info:\nname: " + getName() + "\ntotal harvest time: " + getTotalHarvestTime() + "\ndate of planting: " +
+                plantingDate.getSeason().name() + " " + plantingDate.getDay() + "th\nstages: " +
+                PlantController.stagesToString(getStages()) + "\ncurrent stage: " + getCurrentStage();
     }
 }

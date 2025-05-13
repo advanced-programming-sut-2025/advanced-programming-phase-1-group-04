@@ -1,11 +1,12 @@
 package Model.Plants;
 
+import Controller.SirkBozorg.PlantController;
 import Model.Map.Item;
 import Model.Time.Season;
 
 import java.util.ArrayList;
 
-public class Seed implements Item {
+public class Seed implements Item, Plant {
     //TODO: mixed seeds must be controlled in controller. no specific operation has been considered yet.
 
     private final SeedType seedType;
@@ -39,5 +40,10 @@ public class Seed implements Item {
     public int getPrice() {
         //TODO: check shop
         return 0;
+    }
+
+    @Override
+    public String showPlantInfo() {
+        return "seed info:\nname: " + getName() + "\nis forageable: " + isForageable();
     }
 }

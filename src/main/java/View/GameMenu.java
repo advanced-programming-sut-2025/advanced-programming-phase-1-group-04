@@ -2,10 +2,7 @@ package View;
 
 import Controller.GameMenuController;
 
-import Controller.SirkBozorg.PlayerController;
-import Controller.SirkBozorg.MapController;
-import Controller.SirkBozorg.TimeController;
-import Controller.SirkBozorg.ToolController;
+import Controller.SirkBozorg.*;
 import Model.App;
 
 import Model.Command.GameMenuCommand;
@@ -133,22 +130,22 @@ public class GameMenu implements AppMenu {
             System.out.println(ToolController.upgradeTool(matcher.group("toolName")));
         }
         else if ((matcher = GameMenuCommand.UseTool.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(ToolController.useTool(matcher.group("direction")));
         }
         else if ((matcher = GameMenuCommand.CropInfo.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(PlantController.craftInfo(matcher.group("craftName")));
         }
         else if ((matcher = GameMenuCommand.Plant.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(PlantController.plant(matcher.group("seed"), matcher.group("direction")));
         }
         else if ((matcher = GameMenuCommand.ShowPlant.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(PlantController.showPlant(matcher.group("x"), matcher.group("y")));
         }
         else if ((matcher = GameMenuCommand.Fertilize.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(PlantController.fertilize(matcher.group("fertilizer"), matcher.group("direction")));
         }
         else if (GameMenuCommand.ShowWater.getMatcher(input) != null) {
-            //TODO Aynaz
+            System.out.println(PlantController.howMuchWater());
         }
         else if (GameMenuCommand.ShowCraftingRecipes.getMatcher(input) != null) {
             //TODO Aynaz

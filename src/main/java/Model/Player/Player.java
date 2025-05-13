@@ -108,9 +108,13 @@ public class Player {
     }
 
     public boolean removeItemFromInventory (String itemName, int quantity) {
+        int price = 0;
+        if (inventory.hasItemWithName(itemName) != null) {
+            price = quantity * inventory.hasItemWithName(itemName).getPrice() * (inventory.getTrashCanLevel() - 1) * 15 / 100;
+        }
         boolean result = inventory.removeItem(itemName, quantity);
         if (result) {
-            addCount(quantity * inventory.hasItemWithName(itemName).getPrice() * (inventory.getTrashCanLevel() - 1) * 15 / 100);
+            addCount(price);
         }
         return result;
     }

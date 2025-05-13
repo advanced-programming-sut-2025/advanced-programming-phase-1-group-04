@@ -27,8 +27,11 @@ public class Hoe implements Tool{
 
     @Override
     public boolean use(Tile tile) {
-        tile.setPlowed(true);
-        return true;
+        if (tile.getItem() == null) { //TODO: shart makan ham darim (?)
+            tile.setPlowed(true);
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package Model.Player;
 
 import Model.Map.Item;
+import Model.Tool.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,12 @@ public class Inventory {
     public Inventory (int capacity, int trashCanLevel) {
         this.capacity = capacity;
         this.trashCanLevel = trashCanLevel;
+        items.put(new Hoe(ToolLevel.Starter), 1);
+        items.put(new Pickaxe(ToolLevel.Starter), 1);
+        items.put(new Axe(ToolLevel.Starter), 1);
+        items.put(new WateringCan(ToolLevel.Starter), 1);
+        items.put(new Scythe(), 1);
+        items.put(new MilkPail(), 1);
     }
     //TODO: we have maxint as infinite capacity
 
@@ -32,9 +39,11 @@ public class Inventory {
     public boolean removeItem (String itemName, int quantity) {
         Item item;
         if ((item = hasItemWithName(itemName)) == null) {
+//            System.out.println(items.get(item) + "biboo");
             return false;
         }
         if (items.get(item) < quantity) {
+//            System.out.println(items.get(item) + "biboobiboobiboobiboo");
             return false;
         }
         if (items.get(item) == quantity || quantity == -1) {
@@ -84,7 +93,7 @@ public class Inventory {
     public Item hasItemWithName(String itemName) {
         itemName = itemName.toLowerCase();
         for (Item item : items.keySet()) {
-            if (item.getName().equals(itemName)) {
+            if (item.getName().toLowerCase().equals(itemName)) {
                 return item;
             }
         }

@@ -1,11 +1,12 @@
 package Model.Plants;
 
+import Controller.SirkBozorg.PlantController;
 import Model.Time.Season;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public enum TreeType {
+public enum TreeType implements PlantType{
     Apricot ("Apricot Tree", SaplingType.ApricotSapling, new int[] {7, 7, 7, 7}, 28,
             FruitType.Apricot, 1, new ArrayList<>(List.of(Season.Spring))),
 
@@ -84,5 +85,12 @@ public enum TreeType {
 
     public ArrayList<Season> getSeasons() {
         return seasons;
+    }
+
+    public String getInformation () {
+        return "tree information: \nname: " + name + "\nsource: " + source.getName() + "\nstages: " +
+                PlantController.stagesToString(stages) + "\ntotal harvest time: " + totalHarvestTime +
+                totalHarvestTime + "\nfruit: " + fruitType.name() + "\nfruit harvest cycle: " +
+                fruitHarvestCycle + "\nseason: " + PlantController.SeasonsToString(seasons);
     }
 }

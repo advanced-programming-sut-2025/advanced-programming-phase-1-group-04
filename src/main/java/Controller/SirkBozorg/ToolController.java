@@ -24,7 +24,7 @@ public class ToolController {
         }
         else {
             App.getCurrentGame().getCurrentPlayer().setCurrentTool(tool);
-            return new Result(true, "you're now equipped with a " + toolName);
+            return new Result(true, "you're now equipped with a " + toolName.toLowerCase());
         }
     }
 
@@ -33,6 +33,9 @@ public class ToolController {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
+        if (App.getCurrentGame().getCurrentPlayer().getCurrentTool() == null) {
+            return new Result(false, "you are equipped with no tools right now!\nuse tools equip command.");
+        }
         return new Result(true, "your current tool is " + App.getCurrentGame().getCurrentPlayer().
                 getCurrentTool().getName());
     }

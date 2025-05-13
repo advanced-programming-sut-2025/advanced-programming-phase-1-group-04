@@ -26,6 +26,9 @@ public class PlayerController {
             return new Result (false, "value must be a non-negative number!");
         }
         App.getCurrentGame().getCurrentPlayer().setEnergy(v);
+        if (v > App.getCurrentGame().getCurrentPlayer().getMaxEnergy()) {
+            App.getCurrentGame().getCurrentPlayer().setMaxEnergy(v);
+        }
         return new Result (true, "player " + App.getCurrentGame().getCurrentPlayer().getUsername() +
                 " energy is now " + value);
     }

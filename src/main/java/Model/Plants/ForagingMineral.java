@@ -1,12 +1,13 @@
 package Model.Plants;
 
+import Controller.SirkBozorg.PlantController;
 import Model.Map.Item;
 import Model.Time.Season;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForagingMineral implements Item {
+public class ForagingMineral implements Item, Plant {
     private final ForagingMineralType type;
 
     //constructor:
@@ -31,5 +32,9 @@ public class ForagingMineral implements Item {
 
     public boolean isForageable () {
         return true;
+    }
+
+    public String showPlantInfo() {
+        return "foraging mineral info:\nname: " + getName();
     }
 }

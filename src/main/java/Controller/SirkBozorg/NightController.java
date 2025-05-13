@@ -43,11 +43,10 @@ public class NightController {
         for (int x = c1.getX(); x < c2.getX(); x++) {
             for (int y = c1.getY(); y < c2.getY(); y++) {
                 if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() == null &&
-                        !App.getCurrentGame().getTile(new Coordinate(x, y)).isPlowed()) {
-                    if (rand.nextInt(100) != 0) {
+                        App.getCurrentGame().getTile(new Coordinate(x, y)).isPlowed()) {
+                    if (rand.nextInt(100) == 0) {
                         plantForageable(App.getCurrentGame().getTile(new Coordinate(x, y)),
                                 listOfPlants.get(rand.nextInt(listOfPlants.size())));
-                        //in 2 khat moshkel dareh
                     }
                 }
             }

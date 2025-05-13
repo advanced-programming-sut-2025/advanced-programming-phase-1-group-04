@@ -126,4 +126,8 @@ public class Tree implements Item, Plant {
                 plantingDate.getSeason().name() + " " + plantingDate.getDay() + "th\nstages: " +
                 PlantController.stagesToString(getStages()) + "\ncurrent stage: " + getCurrentStage();
     }
+
+    public boolean isPurposelyPlanted() {
+        return purposelyPlanted;
+    }
 }

@@ -2,7 +2,10 @@ package Model.Tool;
 
 import Model.App;
 import Model.Map.BuildingType;
+import Model.Map.Stone;
 import Model.Map.Tile;
+import Model.Plants.ForagingMineral;
+import Model.Plants.ForagingMineralType;
 import Model.Player.Skill;
 import Model.Result;
 
@@ -102,15 +105,28 @@ public class Pickaxe implements Tool {
 
     @Override
     public Result use(Tile tile) {
-        //TODO: معدن و سنگ میخوایم
         if (tile.isPlowed()) {
             tile.setPlowed(false);
             App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(true));
             return new Result(true, "the selected tile is no longer plowed.");
         }
+        if (tile.getItem() instanceof Stone) {
+            tile.setItem(null);
+            App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(true));
+            App.getCurrentGame().getCurrentPlayer().addAbility(Skill.Mining, 10);
+            App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Stone(), 1);
+            return new Result(true, "you destroyed a stone.");
+        }
+        if (tile.getItem() instanceof ForagingMineral) {
+            tile.setItem(null);
+            App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(true));
+            App.getCurrentGame().getCurrentPlayer().addAbility(Skill.Mining, 10);
+            App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Stone(), 1);
+            return new Result(true, "you destroyed a " + tile.getItem().getName());
+        }
 
         App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(false));
-        return new Result(false, "TODO / nothing can be done on the selected tile!");
+        return new Result(false, "nothing can be done on the selected tile!");
     }
 
     @Override

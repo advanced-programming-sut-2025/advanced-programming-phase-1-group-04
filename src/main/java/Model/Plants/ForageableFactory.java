@@ -123,14 +123,14 @@ public class ForageableFactory {
 
     public static ArrayList<Forageable> getSeasonPlantForageables(Season s) {
         if (s == Season.Spring) {
-            return springPlantForageables;
+            return getSpringPlantForageables();
         }
         if (s == Season.Summer) {
-            return summerPlantForageables;
+            return getSummerPlantForageables();
         }
         if (s == Season.Fall) {
-            return fallPlantForageables;
+            return getFallPlantForageables();
         }
-        return winterPlantForageables;
+        return getWinterPlantForageables();
     }
 }

@@ -20,24 +20,24 @@ public enum GameMenuCommand implements Command {
     Season("season"),
     Weather("weather"),
     WeatherForecast("weather\\s+forecast"),
-    CheatThor("cheat\\s+Thor\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"), // todo
+    CheatThor("cheat\\s+Thor\\s+-l\\s+(?<x>\\d+)\\s*,\\s*(?<y>\\d+)"), // todo
     CheatWeather("cheat\\s+weather\\s+set\\s+(?<type>\\S+)"),
 
     // Map Controller: Nafiseh
     BuildGreenhouse("build\\s+greenhouse"), // todo
 
-    Walk("walk\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
+    Walk("walk\\s+-l\\s+(?<x>\\d+)\\s*,\\s*(?<y>\\d+)"),
     PrintAllMap("print\\s+all\\s+map"),
-    PrintMap("print\\s+map\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>\\s+-s\\s+(?<size>\\d+)"),
+    PrintMap("print\\s+map\\s+-l\\s+(?<x>\\d+)\\s*,\\s*(?<y>\\d+)\\s+-s\\s+(?<size>\\d+)"),
     HelpMap("help\\s++map"),
 
     // Player Controller: Aynaz
-    ShowEnergy("energy\\s+show"),
+    ShowEnergy("show\\s+energy"),
     CheatEnergy("energy\\s+set\\s+-v\\s+(?<value>[-+]?\\d+)"),
-    CheatUnlimitedEnergy("energy\\s+unlimited"),
+    CheatUnlimitedEnergy("unlimited\\s+energy"),
 
     // Player Controller: Aynaz
-    ShowInventory("inventory\\s+show"),
+    ShowInventory("show\\s+inventory"),
     InventoryTrashWithNumber("inventory\\s+trash\\s+-i\\s+(?<itemName>.+?)\\s+-n\\s+(?<number>[-+]?\\d+)"),
     InventoryTrashWithoutNumber("inventory\\s+trash\\s+-i\\s+(?<itemName>.+)"),
     ShowAbility("show\\s+ability"),

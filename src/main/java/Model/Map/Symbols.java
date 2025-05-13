@@ -40,6 +40,7 @@ public enum Symbols {
 
     House("H", "\u001B[36m"),
     GreenHouse("9", "\u001B[36m"),
+    GreenHouserBuild("%", "\u001B[36m"),
     //Door("D"),
 
     Barn("&", "\u001B[37m"),

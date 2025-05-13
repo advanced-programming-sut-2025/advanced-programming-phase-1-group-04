@@ -94,8 +94,13 @@ public class GameMenuController {
     public static Result nextTurn() {
         int index = App.getCurrentGame().getPlayers().indexOf(App.getCurrentGame().getCurrentPlayer());
         int nextIndex = (index + 1) % App.getCurrentGame().getPlayers().size();
-        if (nextIndex == 0) App.getCurrentGame().getCurrentTime().updateHour();
-        if (App.getCurrentGame().getCurrentTime().getHour() == 24) NightController.nightControl();
+        if (nextIndex == 0) App.getCurrentGame().getCurrentTime().addHour(1);
+
+        if (App.getCurrentGame().getCurrentTime().getHour() == 24) {
+            NightController.nightControl();
+            return new Result(true, "Shab bekheir...");
+        }
+
         App.getCurrentGame().setCurrentPlayer(App.getCurrentGame().getPlayers().get(nextIndex));
         if (App.getCurrentGame().getCurrentPlayer().getEnergy() <= 0) {
             nextIndex = (index + 1) % App.getCurrentGame().getPlayers().size();
@@ -103,7 +108,6 @@ public class GameMenuController {
         }
 
         App.getCurrentGame().getCurrentPlayer().resetMovesThisTurn();
-
         return new Result(true, "Now it's " +App.getCurrentGame().getCurrentPlayer().getUsername() + "'s turn.");
     }
 

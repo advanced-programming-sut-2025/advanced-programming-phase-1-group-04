@@ -138,7 +138,8 @@ public class Tile {
     public boolean isWalkable() {
         switch (this.type) {
             case Building:
-
+                if (this.buildingType.equals(BuildingType.GreenHouse)) return false;
+                return true;
             case Ground:
                 if (this.item instanceof Tree) {
                     return false;
@@ -155,9 +156,7 @@ public class Tile {
                 } else {
                     return true;
                 }
-            case Water:
-                return false;
-            case Mountain:
+            case Water, Mountain:
                 return false;
             case Mine:
                 return true;

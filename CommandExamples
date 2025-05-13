@@ -10,6 +10,7 @@ pick question -q 3 -a to daftaresh -c to daftaresh
 pick question -q 10 -a amin kohi -c amin kohi
 
 login -u Nafiseh -p Nz8421343* -stay-logged-in
+login -u Radical -p Radical1234# -stay-logged-in
 login -u Sag -p Nz8421343* -stay-logged-in
 login -u Sag -p Nz8421343*
 

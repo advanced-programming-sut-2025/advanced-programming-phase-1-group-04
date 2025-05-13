@@ -21,12 +21,14 @@ public class TimeController {
 
     public static Result cheatTime(String stringTime) {
         int time = Integer.parseInt(stringTime);
-        if (time < 9 || time > 24) {
-            return new Result(false, "Time should be between 9-24!");
+        if (time < 1) {
+            return new Result(false, "You can't turn back the clock. Sorry");
+        } else if (App.getCurrentGame().getCurrentTime().getHour() + time > 23) {
+            return new Result(false, "Time should be between 9-24");
         }
 
         // TODO: night controller
-        App.getCurrentGame().getCurrentTime().setHour(time);
+        App.getCurrentGame().getCurrentTime().addHour(time);
         return new Result(true, "Time successfully changed to " + time + ":00");
     }
 
@@ -36,7 +38,7 @@ public class TimeController {
             return new Result(false, "Date should be greater than 1");
         }
         // TODO: night controller
-        App.getCurrentGame().getCurrentTime().setDay(date);
+        App.getCurrentGame().getCurrentTime().addDay(date);
         return new Result(true, "Date successfully changed to " + date);
     }
 

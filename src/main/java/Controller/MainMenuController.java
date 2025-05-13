@@ -14,7 +14,7 @@ public class MainMenuController {
 
     public static Result goMenu (String menu) {
         if (!menu.equals("game") && !menu.equals("profile")) {
-            return new Result(false, "You can't go to " + menu + " menu in login menu");
+            return new Result(false, "You can't go to " + menu + " menu in main menu with go to command");
         }
 
         if (menu.equals("game")) App.setCurrentMenu(Menu.GameMenu);

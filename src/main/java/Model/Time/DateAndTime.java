@@ -15,8 +15,12 @@ public class DateAndTime {
         this.weather = weather;
     }
 
-    public void updateHour() {
-        this.hour++;
+    public void addHour(int hour) {
+        this.hour += hour;
+    }
+
+    public void addDay(int day) {
+        this.day += day;
     }
 
     public int getDay() {
@@ -39,13 +43,5 @@ public class DateAndTime {
     public WeekDay getDayOfWeek() {
         int w = (this.day - 1) % 7;
         return WeekDay.values()[w];
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public void setHour(int hour) {
-        this.hour = hour;
     }
 }

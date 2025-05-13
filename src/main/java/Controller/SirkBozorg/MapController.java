@@ -80,16 +80,18 @@ public class MapController {
         int x = Integer.parseInt(stringX);
         int y = Integer.parseInt(stringY);
         Coordinate coordinate = new Coordinate(x, y);
+        int energy = getDestinationEnergy(coordinate);
 
         if (!input.toLowerCase().contains("yes")) {
             return new Result(false, "Fekresho nemikardi na?");
         }
 
+        App.getCurrentGame().getCurrentPlayer().addEnergy(-energy);
         App.getCurrentGame().getCurrentPlayer().setCoordinate(getDestination(coordinate));
         return new Result(true, "You successfully go to (" + x +", " + y + ")");
     }
 
-    public static Coordinate getDestination (Coordinate destination) {
+    /*public static Coordinate getDestination (Coordinate destination) {
         int lenx = Math.abs(destination.getX() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
         int leny = Math.abs(destination.getY() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
         int minx = Math.min(destination.getX(), App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
@@ -193,5 +195,68 @@ public class MapController {
             }
         }
         return -1;
+    }*/
+
+    public static int getDestinationEnergy(Coordinate destination) {
+        Coordinate start = App.getCurrentGame().getCurrentPlayer().getCoordinate();
+
+        int maxEnergy = App.getCurrentGame().getCurrentPlayer().getEnergy();
+
+        int width = 90;
+        int height = 120;
+
+        int[][][] dist = new int[height][width][4];
+        for (int[][] row : dist)
+            for (int[] col : row)
+                Arrays.fill(col, Integer.MAX_VALUE);
+
+        final int[] dx = {-1, 1, 0, 0};
+        final int[] dy = {0, 0, -1, 1};
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
+        for (int dir = 0; dir < 4; dir++) {
+            dist[start.getY()][start.getX()][dir] = 0;
+            pq.offer(new int[]{0, start.getX(), start.getY(), dir});
+        }
+
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            int cost = cur[0], x = cur[1], y = cur[2], dir = cur[3];
+
+            int energyUsed = cost / 20;
+            if (energyUsed > maxEnergy) return -1;
+
+            if (x == destination.getX() && y == destination.getY())
+                return energyUsed;
+
+            for (int i = 0; i < 4; i++) {
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+                if (nx < 0 || ny < 0 || nx >= width || ny >= height)
+                    continue;
+                Coordinate coor = new Coordinate(nx, ny);
+                Tile tile = App.getCurrentGame().getTile(coor);
+                if (tile == null || !tile.isWalkable())  // مهم‌ترین بخش
+                    continue;
+
+                int newCost = cost + 1;
+                if (dir != i) newCost += 10;
+
+                if (newCost < dist[ny][nx][i]) {
+                    dist[ny][nx][i] = newCost;
+                    pq.offer(new int[]{newCost, nx, ny, i});
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    public static Coordinate getDestination(Coordinate destination) {
+        int energyNeeded = getDestinationEnergy(destination);
+        if (energyNeeded == -1) {
+            return new Coordinate(-1, -1);  // unreachable
+        }
+        return destination;
     }
 }

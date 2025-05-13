@@ -2,9 +2,12 @@ package Model.Tool;
 
 import Model.App;
 import Model.Map.BuildingType;
+import Model.Map.Stone;
 import Model.Map.Tile;
+import Model.Map.Wood;
 import Model.Player.Skill;
 import Model.Result;
+import Model.Plants.*;
 
 public class Axe implements Tool{
     private ToolLevel level;
@@ -103,9 +106,27 @@ public class Axe implements Tool{
 
     @Override
     public Result use(Tile tile) {
-        //TODO:
-        // need getItem in tile class
-        //temp:
+        if (tile.getItem() == null) {
+            return new Result(false, "this tile is empty!");
+        }
+        if (tile.getItem() instanceof Wood) {
+            tile.setItem(null);
+            App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(true));
+            App.getCurrentGame().getCurrentPlayer().addAbility(Skill.Foraging, 10);
+            App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Wood(), 1);
+            return new Result(true, "you destroyed a piece of wood.");
+        }
+        if (tile.getItem() instanceof Tree) {
+            tile.setItem(null);
+            App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(true));
+            App.getCurrentGame().getCurrentPlayer().addAbility(Skill.Foraging, 10);
+            App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Wood(), 1);
+            if (!((Tree) tile.getItem()).isPurposelyPlanted()) {
+                App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Sapling(((Tree) tile.getItem()).getSource(), false), 1);
+            }
+            return new Result(true, "you destroyed a tree.");
+
+        }
         return new Result(false, "TODO");
     }
 

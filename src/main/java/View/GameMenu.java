@@ -2,6 +2,7 @@ package View;
 
 import Controller.GameMenuController;
 
+import Controller.LoginMenuController;
 import Controller.SirkBozorg.*;
 import Model.App;
 
@@ -90,7 +91,12 @@ public class GameMenu implements AppMenu {
             //TODO Nafiseh
         }
         else if ((matcher = GameMenuCommand.Walk.getMatcher(input)) != null) {
-            //TODO Nafiseh
+            Result result = MapController.walk(matcher.group("x"), matcher.group("y"));
+            System.out.println(result);
+            if (result.isSuccessful()) {
+                input = scanner.nextLine();
+                System.out.println(MapController.walk(input, matcher.group("x"), matcher.group("y")));
+            }
         }
         else if (GameMenuCommand.PrintAllMap.isMatch(input)) {
             System.out.println(MapController.printAllMap());

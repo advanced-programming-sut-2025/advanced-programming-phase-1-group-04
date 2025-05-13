@@ -3,14 +3,12 @@ package Controller.SirkBozorg;
 import Model.App;
 import Model.Map.Symbols;
 import Model.Map.Tile;
-import Model.Game;
 import Model.Map.Coordinate;
 import Model.Player.Player;
 import Model.Result;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.PriorityQueue;
 
 public class MapController {
@@ -51,7 +49,6 @@ public class MapController {
             }
             result.append("\n");
         }
-        //TODO: print players
         return new Result(true, result.toString());
     }
 
@@ -62,6 +59,34 @@ public class MapController {
         }
 
         return new Result(true, result.toString());
+    }
+
+    public static Result walk(String stringX, String stringY) {
+        int x = Integer.parseInt(stringX);
+        int y = Integer.parseInt(stringY);
+        Coordinate coordinate = new Coordinate(x, y);
+        int energy = getDestinationEnergy(coordinate);
+
+        if ((x < 0 || x >= 90) || (y < 0 || y >= 120)) {
+            return new Result(false, "Mashti x,y bein (0,0) - (89, 119)!");
+        } else if (energy < 0) {
+            return new Result(false, "You can't go there!");
+        }
+
+        return new Result(true, "Required Energy: " + energy + "\nDo you want to go?");
+    }
+
+    public static Result walk(String input, String stringX, String stringY) {
+        int x = Integer.parseInt(stringX);
+        int y = Integer.parseInt(stringY);
+        Coordinate coordinate = new Coordinate(x, y);
+
+        if (!input.toLowerCase().contains("yes")) {
+            return new Result(false, "Fekresho nemikardi na?");
+        }
+
+        App.getCurrentGame().getCurrentPlayer().setCoordinate(getDestination(coordinate));
+        return new Result(true, "You successfully go to (" + x +", " + y + ")");
     }
 
     public static Coordinate getDestination (Coordinate destination) {

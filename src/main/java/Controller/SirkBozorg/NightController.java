@@ -4,6 +4,7 @@ import Model.App;
 import Model.Map.Coordinate;
 import Model.Map.Tile;
 import Model.Plants.*;
+import Model.Time.DateAndTime;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,6 +14,8 @@ public class NightController {
 
     public static void nightControl() {
         foragingPlants();
+
+        goToNextDay();
     }
 
     public static void foragingPlants() {
@@ -28,16 +31,23 @@ public class NightController {
         }
     }
 
+    public static void goToNextDay () {
+        DateAndTime t = App.getCurrentGame().getCurrentTime();
+        t.setDay(t.getDay() + 1);
+        t.setHour(9);
+    }
+
     public static void foragingPlantsForEachFarm(Coordinate c1, Coordinate c2) {
         ArrayList<Forageable> listOfPlants = ForageableFactory.getSeasonPlantForageables(App.getCurrentGame().
                 getCurrentTime().getSeason());
-        for (int x = c1.getX(); x <= c2.getX(); x++) {
+        for (int x = c1.getX(); x < c2.getX(); x++) {
             for (int y = c1.getY(); y < c2.getY(); y++) {
                 if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() == null &&
-                        App.getCurrentGame().getTile(new Coordinate(x, y)).isPlowed()) {
-                    if (rand.nextInt(100) == 0) {
+                        !App.getCurrentGame().getTile(new Coordinate(x, y)).isPlowed()) {
+                    if (rand.nextInt(100) != 0) {
                         plantForageable(App.getCurrentGame().getTile(new Coordinate(x, y)),
                                 listOfPlants.get(rand.nextInt(listOfPlants.size())));
+                        //in 2 khat moshkel dareh
                     }
                 }
             }
@@ -53,4 +63,6 @@ public class NightController {
                     false));
         }
     }
+
+
 }

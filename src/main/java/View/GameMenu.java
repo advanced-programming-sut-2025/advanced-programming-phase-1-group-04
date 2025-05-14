@@ -139,6 +139,9 @@ public class GameMenu implements AppMenu {
         else if (GameMenuCommand.ShowAbility.isMatch(input)) {
             System.out.println(PlayerController.showAbility());
         }
+        else if ((matcher = GameMenuCommand.CheatAddItem.getMatcher(input)) != null) {
+            System.out.println(PlayerController.cheatItem(matcher.group("type"), matcher.group("name"), matcher.group("count")));
+        }
         else if ((matcher = GameMenuCommand.EquipTool.getMatcher(input)) != null) {
             System.out.println(ToolController.equip(matcher.group("toolName")));
         }

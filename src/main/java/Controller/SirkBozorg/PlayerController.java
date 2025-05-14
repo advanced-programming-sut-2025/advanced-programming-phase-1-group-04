@@ -4,6 +4,8 @@ import Controller.GameMenuController;
 import Model.App;
 import Model.Game;
 import Model.Map.Item;
+import Model.Map.ItemType;
+import Model.Map.Stone;
 import Model.Player.Inventory;
 import Model.Player.Player;
 import Model.Player.Skill;
@@ -101,6 +103,27 @@ public class PlayerController {
 
     }
 
+    public static Result cheatItem(String type, String name, String stringCount) {
+        int count = Integer.parseInt(stringCount);
+        Item item = getItemByTypeName(type, name);
+
+        if (App.getCurrentGame().getCurrentPlayer().getInventoryCapacity() > count) { // TODO: نمیدونم چطور مشخص میکنی جا داره یا نه ولی ارور مربوطه
+            return new Result(false, "");
+        } else if (count < 1) {
+            return new Result(false, "Count must be a positive number!");
+        } else if (!isTypeValid(type)) {
+            StringBuilder validType = new StringBuilder();
+            for (ItemType itemType: ItemType.values()) {
+                validType.append(itemType.getName()).append(" ");
+            }
+            return new Result(false, "Type is invalid. Valid types: {" + validType + "}");
+        } else if (item == null) {
+            return new Result(false, "Name is invalid!");
+        }
+
+        App.getCurrentGame().getCurrentPlayer().getInventory().addItem(item, count);
+        return new Result(true, "Now you have " + count +" of " + name + " in your inventory");
+    }
 
     public static boolean isParsableInt(String s) {
         try {
@@ -108,6 +131,39 @@ public class PlayerController {
             return true;
         } catch (NumberFormatException e) {
             return false;
+        }
+    }
+
+    private static boolean isTypeValid(String type) {
+        for (ItemType itemType: ItemType.values()) {
+            if (itemType.getName().equals(type))
+                return true;
+        }
+        return false;
+    }
+
+    private static Item getItemByTypeName(String type, String name) {
+        //TODO: change some constructors and return items for each type
+        switch (type) {
+            case "tree":
+            case "sapling":
+            case "crop":
+            case "fruit":
+            case "seed":
+            case "foraging crop":
+            case "foraging mineral":
+            case "stone":
+                if (name.equals("stone")) return new Stone();
+                else return null;
+            case "wood":
+                if (name.equals("wood")) return new Stone();
+                else return null;
+            case "craft":
+            case "food":
+            case "fish":
+            case "animal product":
+            default:
+                return null;
         }
     }
 }

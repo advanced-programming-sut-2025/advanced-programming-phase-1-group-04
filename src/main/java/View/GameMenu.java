@@ -7,6 +7,7 @@ import Controller.SirkBozorg.*;
 import Model.App;
 
 import Model.Command.GameMenuCommand;
+import Model.Game;
 import Model.Player.Player;
 import Model.Result;
 
@@ -35,13 +36,12 @@ public class GameMenu implements AppMenu {
 
                 for (int i = 0; i < players.size(); i++) {
                     Player player = players.get(i);
-                    System.out.println("Player " + player.getUsername() + ", choose your farm number (1-2):");
+                    System.out.println(player.getUsername() + ", choose your farm number (1-2):");
 
                     while (true) {
                         input = scanner.nextLine().trim();
                         if ((matcher = GameMenuCommand.ChooseMap.getMatcher(input)) != null) {
                             result = GameMenuController.chooseMap(i ,Integer.parseInt(matcher.group("mapNumber")));
-                            System.out.println(result);
                             if (result.isSuccessful()) break;
                         } else {
                             System.out.println("Use this format: game map <1|2>");
@@ -58,7 +58,17 @@ public class GameMenu implements AppMenu {
             System.out.println(GameMenuController.exitGame());
         }
         else if (GameMenuCommand.DeleteGame.getMatcher(input) != null) {
-            System.out.println(GameMenuController.deleteGame());
+            int playerCount = App.getCurrentGame().getPlayers().size();
+            int crPlayer = App.getCurrentGame().getPlayers().indexOf(App.getCurrentGame().getCurrentPlayer());
+            for (int i = 1; i < playerCount; i++) {
+                System.out.println(App.getCurrentGame().getPlayers().get((i + crPlayer) % playerCount).getUsername() + " do you want to delete this game? (yse, no)");
+                while (true) {
+                    input = scanner.nextLine().trim();
+                    Result result = GameMenuController.deleteGame(i, input);
+                    if (result.isSuccessful()) break;
+                }
+            }
+            System.out.println(GameMenuController.resultDeleteGame());
         }
         else if (GameMenuCommand.NextTurn.getMatcher(input) != null) {
             System.out.println(GameMenuController.nextTurn());

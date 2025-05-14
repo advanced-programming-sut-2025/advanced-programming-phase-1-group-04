@@ -4,7 +4,7 @@ public enum GameMenuCommand implements Command {
     // Game Controller: Nafiseh
     CurrentMenu ("show\\s+current\\s+menu"),
     CurrentPlayer("show\\s+current\\s+player"),
-    NewGame("new\\s+game\\s+-u(?:\\s+(?<username1>.+?))?(?:\\s+(?<username2>.+?))?(?:\\s+(?<username3>.+?))?"),
+    NewGame("new\\s+game\\s+-u(?:\\s+(?<username1>\\S+))?(?:\\s+(?<username2>\\S+))?(?:\\s+(?<username3>\\S+))?"),
     ChooseMap("game\\s+map\\s+(?<mapNumber>[-+]?\\d+)"),
     LoadGame("load\\s+game"),
     ExitGame("exit\\s+game"),

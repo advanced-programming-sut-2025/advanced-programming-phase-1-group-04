@@ -12,10 +12,10 @@ import Model.Result;
 import Model.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class GameMenuController {
     private static final int[] farmSelections = new int[4];
+    private static final boolean[] deleteGame = new boolean[4];
 
     public static Result newGame(String username1, String username2, String username3) {
         if (App.getCurrentGame() != null) {
@@ -86,9 +86,24 @@ public class GameMenuController {
         return new Result(true, "Game saved successfully. Now you are in Main menu");
     }
 
-    public static Result deleteGame() {
-        // TODO: save & load game
-        return new Result(true, "tekh rakab");
+    public static Result deleteGame(int i, String vote) {
+        if (!vote.equalsIgnoreCase("yes") && !vote.equalsIgnoreCase("no")) {
+            return new Result(false, "Just use yes or no, stupid.");
+        }
+
+        deleteGame[i] = vote.equalsIgnoreCase("yes");
+        return new Result(true, "Benazam.");
+    }
+
+    public static Result resultDeleteGame() {
+        if (allPlayersVotedYes()) {
+            // TODO:  check saved games in games folder and delete them
+            App.setCurrentGame(null);
+            App.setCurrentMenu(Menu.MainMenu);
+            return new Result(true, "Bazi hazf shod. Mobarak kheilia");
+        } else {
+            return new Result(false, "All players must agree to delete the game!");
+        }
     }
 
     public static Result nextTurn() {
@@ -118,6 +133,7 @@ public class GameMenuController {
     public static Result currentPlayer() {
         return new Result(true, App.getCurrentGame().getCurrentPlayer().getUsername());
     }
+
     public static Tile getTileByDirection (String direction) {
         direction = direction.toLowerCase();
         Coordinate coordinate = App.getCurrentGame().getCurrentPlayer().getCoordinate();
@@ -180,5 +196,15 @@ public class GameMenuController {
 
     public static void moveControl () {
         App.getCurrentGame().getCurrentPlayer().addMovesThisTurn();
+    }
+
+    private static boolean allPlayersVotedYes() {
+        int playerCount = App.getCurrentGame().getPlayers().size();
+        for (int i = 1; i < playerCount; i++) {
+            if (!deleteGame[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 }

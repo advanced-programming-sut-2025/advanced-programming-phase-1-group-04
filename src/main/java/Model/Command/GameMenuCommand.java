@@ -29,11 +29,12 @@ public enum GameMenuCommand implements Command {
     Walk("walk\\s+-l\\s+(?<x>\\d+)\\s*,\\s*(?<y>\\d+)"),
     PrintAllMap("print\\s+all\\s+map"),
     PrintMap("print\\s+map\\s+-l\\s+(?<x>\\d+)\\s*,\\s*(?<y>\\d+)\\s+-s\\s+(?<size>\\d+)"),
+    PrintFarm("print\\s+my\\s+farm"),
     HelpMap("help\\s++map"),
 
     // Player Controller: Aynaz
     ShowEnergy("show\\s+energy"),
-    CheatEnergy("energy\\s+set\\s+-v\\s+(?<value>[-+]?\\d+)"),
+    CheatEnergy("cheat\\s+energy\\s+set\\s+-v\\s+(?<value>[-+]?\\d+)"),
     CheatUnlimitedEnergy("unlimited\\s+energy"),
 
     // Player Controller: Aynaz
@@ -52,9 +53,9 @@ public enum GameMenuCommand implements Command {
     UseTool("tools\\s+use\\s+-d\\s+(?<direction>.+)"), //
 
     // Plant Controller: Aynaz
-    CropInfo("craftinfo\\s+-n\\s+(?<craftName>.+?)"),
+    CropInfo("craft info\\s+-n\\s+(?<craftName>.+?)"),
     Plant("plant\\s+-s\\s+(?<seed>.+?)\\s+-d\\s+(?<direction>\\S+)"),
-    ShowPlant("showplant\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
+    ShowPlant("show plant\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
     Fertilize("fertilize\\s+-f\\s+(?<fertilizer>.+?)\\s+-d\\s+(?<direction>\\S+)"),
     ShowWater("how\\s+much\\s+water"),
 

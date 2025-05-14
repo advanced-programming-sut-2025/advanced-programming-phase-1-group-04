@@ -25,10 +25,17 @@ public enum BuildingType {
 
     private int w;
     private int l;
-    // اینا طول و عرضی که از بیرون معلومه
 
     BuildingType(int w, int l) {
         this.w = w;
         this.l = l;
+    }
+
+    public int getW() {
+        return w;
+    }
+
+    public int getL() {
+        return l;
     }
 }

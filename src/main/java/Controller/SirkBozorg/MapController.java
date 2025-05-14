@@ -1,9 +1,7 @@
 package Controller.SirkBozorg;
 
 import Model.App;
-import Model.Map.Symbols;
-import Model.Map.Tile;
-import Model.Map.Coordinate;
+import Model.Map.*;
 import Model.Player.Player;
 import Model.Result;
 
@@ -14,6 +12,20 @@ import java.util.PriorityQueue;
 public class MapController {
     public static Result printAllMap() {
         return new Result(true, App.getCurrentGame().getMap().toString());
+    }
+
+    public static Result printFarm() {
+        int i = 0, j = 0;
+        switch (App.getCurrentGame().getCurrentPlayer().getFarm()) {
+            case 2:
+                j = 2;
+            case 3:
+                i = 2;
+                j = 2;
+            case 4:
+                i = 2;
+        }
+        return new Result(true, App.getCurrentGame().getMap().getRegion(i, j).toString());
     }
 
     public static Result printMap(String stringX, String stringY, String stringSize) {
@@ -89,6 +101,34 @@ public class MapController {
         App.getCurrentGame().getCurrentPlayer().addEnergy(-energy);
         App.getCurrentGame().getCurrentPlayer().setCoordinate(getDestination(coordinate));
         return new Result(true, "You successfully go to (" + x +", " + y + ")");
+    }
+
+    public static Result buildGreenHouse() {
+        Player player = App.getCurrentGame().getCurrentPlayer();
+        if (player.getCount() < 1000) {
+            return new Result(false, "You don't have enough money!(1000 dollars)");
+        } else if (!player.getInventory().hasItemWithNumber("Stone", 500)) {
+            return new Result(false, "You don't have enough stone!(500)");
+        }
+
+        player.getInventory().removeItem("stone", 500);
+        player.addCount(-1000);
+        int x = 4,y =5;
+        switch (player.getFarm()) {
+            case 2:
+                y = 5 + 80;
+                break;
+            case 3:
+                x = 4 + 60;
+                y = 5 + 80;
+                break;
+            case 4:
+                x = 4 + 60;
+                break;
+        }
+
+        App.getCurrentGame().getMap().build(x, y, BuildingType.GreenHouserBuild);
+        return new Result(true, "Now you have Greenhouse:)");
     }
 
     /*public static Coordinate getDestination (Coordinate destination) {

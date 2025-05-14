@@ -4,9 +4,11 @@ import Model.Map.Item;
 
 public class AnimalProduct implements Item {
     private final AnimalProductType type;
+    private final double quality;
 
-    public AnimalProduct(AnimalProductType type) {
+    public AnimalProduct(AnimalProductType type, int quality) {
         this.type = type;
+        this.quality = quality;
     }
 
 

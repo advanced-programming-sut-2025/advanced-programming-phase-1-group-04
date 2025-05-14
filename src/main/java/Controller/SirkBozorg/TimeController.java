@@ -1,6 +1,7 @@
 package Controller.SirkBozorg;
 
 import Model.App;
+import Model.Map.Coordinate;
 import Model.Result;
 import Model.Time.Weather;
 
@@ -61,7 +62,7 @@ public class TimeController {
             return new Result(false, "Mashti x,y bein (0,0) - (89, 119)");
         }
 
-        //TODO: night controller
+        NightController.saveThor(new Coordinate(x, y));
         return new Result(true, "Tomorrow you see impact of thor in (" + x + ", " + y + ")");
     }
 

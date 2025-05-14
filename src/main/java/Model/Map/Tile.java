@@ -45,6 +45,8 @@ public class Tile {
                 switch (this.buildingType) {
                     case GreenHouse:
                         return Symbols.GreenHouse.getColoredSymbol();
+                    case GreenHouserBuild:
+                        return Symbols.GreenHouserBuild.getColoredSymbol();
                     case House:
                         return Symbols.House.getColoredSymbol();
                     case Barn:
@@ -163,6 +165,14 @@ public class Tile {
             default:
                 throw new IllegalArgumentException("Invalid tile");
         }
+    }
+
+    public void setType(TileType type) {
+        this.type = type;
+    }
+
+    public void setBuildingType(BuildingType buildingType) {
+        this.buildingType = buildingType;
     }
 
     public void setPlowed(boolean plowed) {

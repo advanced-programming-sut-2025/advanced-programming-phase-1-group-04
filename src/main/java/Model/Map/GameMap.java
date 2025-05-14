@@ -105,4 +105,16 @@ public class GameMap {
     public Tile[][] getFullMap() {
         return fullMap;
     }
+
+    public Region getRegion(int i, int j) {
+        return region[i][j];
+    }
+    public void build(int x, int y, BuildingType type) {
+        for (int i = x; i < type.getW() + x; i++) {
+            for (int j = y; j < type.getL() + y; j++) {
+                fullMap[i][j].setType(TileType.Building);
+                fullMap[i][j].setBuildingType(type);
+            }
+        }
+    }
 }

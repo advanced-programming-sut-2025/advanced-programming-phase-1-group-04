@@ -2,12 +2,10 @@ package View;
 
 import Controller.GameMenuController;
 
-import Controller.LoginMenuController;
 import Controller.SirkBozorg.*;
 import Model.App;
 
 import Model.Command.GameMenuCommand;
-import Model.Game;
 import Model.Player.Player;
 import Model.Result;
 
@@ -44,7 +42,7 @@ public class GameMenu implements AppMenu {
                             result = GameMenuController.chooseMap(i ,Integer.parseInt(matcher.group("mapNumber")));
                             if (result.isSuccessful()) break;
                         } else {
-                            System.out.println("Use this format: game map <1|2>");
+                            System.out.println("Use this format: game map <1-2>");
                         }
                     }
                 }
@@ -98,7 +96,7 @@ public class GameMenu implements AppMenu {
             System.out.println(TimeController.cheatWeather(matcher.group("type")));
         }
         else if (GameMenuCommand.BuildGreenhouse.getMatcher(input) != null) {
-            //TODO Nafiseh
+            System.out.println(MapController.buildGreenHouse());
         }
         else if ((matcher = GameMenuCommand.Walk.getMatcher(input)) != null) {
             Result result = MapController.walk(matcher.group("x"), matcher.group("y"));
@@ -110,6 +108,9 @@ public class GameMenu implements AppMenu {
         }
         else if (GameMenuCommand.PrintAllMap.isMatch(input)) {
             System.out.println(MapController.printAllMap());
+        }
+        else if (GameMenuCommand.PrintFarm.isMatch(input)) {
+            System.out.println(MapController.printFarm());
         }
         else if ((matcher = GameMenuCommand.PrintMap.getMatcher(input)) != null) {
             System.out.println(MapController.printMap(matcher.group("x"), matcher.group("y"), matcher.group("size")));
@@ -254,7 +255,7 @@ public class GameMenu implements AppMenu {
             //TODO Parsa
         }
         else if ((matcher = GameMenuCommand.CheatAddCount.getMatcher(input)) != null) {
-            //TODO Parsa
+            System.out.println(ShopController.cheatAddCount(matcher.group("count")));
         }
         else if ((matcher = GameMenuCommand.SellProduct.getMatcher(input)) != null) {
             //TODO Parsa

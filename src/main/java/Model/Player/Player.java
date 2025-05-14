@@ -1,5 +1,7 @@
 package Model.Player;
 
+import Model.Animals.Animal;
+import Model.Animals.AnimalType;
 import Model.Crafting.CraftRecipe;
 import Model.Crafting.CraftType;
 import Model.Map.*;
@@ -18,10 +20,12 @@ import java.util.Map;
 
 public class Player {
     private final int id;
+    private final int farm;
 
     private Coordinate coordinate;
     private final Coordinate houseCoordinate;
-    private final int farm;
+
+    private final List<Animal> myAnimals = new ArrayList<>();
 
     private int maxEnergy = 200;
     private int energy = 200;
@@ -109,6 +113,10 @@ public class Player {
         return energy;
     }
 
+    public Coordinate getHouseCoordinate() {
+        return houseCoordinate;
+    }
+
     public void addEnergy(int energy) {
         this.energy += energy;
         if (this.energy > maxEnergy) {
@@ -173,6 +181,10 @@ public class Player {
             }
         }
         return null;
+    }
+
+    public int getFarm() {
+        return farm;
     }
 
     public void addAbility (Skill skill, int value) {
@@ -259,5 +271,28 @@ public class Player {
                     && coordinate.getX() >= 60 && coordinate.getY() >= 0;
             default -> throw new IllegalArgumentException("Invalid player farm");
         };
+    }
+
+    public void addAnimal(Animal animal) {
+        this.myAnimals.add(animal);
+    }
+
+    public void removeAnimal(Animal animal) {
+        this.myAnimals.remove(animal);
+    }
+
+    @Override
+    public String toString() {
+        return "Player Info:\n" +
+            "________________________________\n" +
+            "Username: " + getUsername() + "\n" +
+            "Id: " + this.id + "\n" +
+            "Farm id: " + this.farm + "\n" +
+            "Coordinate: (" + this.coordinate.getX() + ", " + this.coordinate.getY() + ")\n" +
+
+            "Max moves in this turn: " + this.maxMovesInTurn + "\n" +
+            "Moves in this Turn: " + this.movesThisTurn + "\n" +
+
+            "Count: " + this.count + "\n";
     }
 }

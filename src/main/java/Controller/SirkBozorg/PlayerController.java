@@ -6,6 +6,7 @@ import Model.Game;
 import Model.Map.Item;
 import Model.Map.ItemType;
 import Model.Map.Stone;
+import Model.Map.Wood;
 import Model.Player.Inventory;
 import Model.Player.Player;
 import Model.Player.Skill;
@@ -156,7 +157,7 @@ public class PlayerController {
                 if (name.equals("stone")) return new Stone();
                 else return null;
             case "wood":
-                if (name.equals("wood")) return new Stone();
+                if (name.equals("wood")) return new Wood();
                 else return null;
             case "craft":
             case "food":

@@ -31,20 +31,20 @@ public class GameMenuController {
 
         User user1 = App.getUserByUsername(username1);
         if (user1 == null)
-            return new Result(false, "Username1 not found!");
+            return new Result(false, username1 + " not found!");
         players.add(new Player(user1.getId(), 2));
 
         if (username2 != null) {
             User user2 = App.getUserByUsername(username2);
             if (user2 == null)
-                return new Result(false, "Username2 not found!");
+                return new Result(false, username2 + " not found!");
             players.add(new Player(user2.getId(), 3));
         }
 
         if (username3 != null) {
             User user3 = App.getUserByUsername(username3);
             if (user3 == null)
-                return new Result(false, "Username3 not found!");
+                return new Result(false, username3 + " not found!");
             players.add(new Player(user3.getId(), 4));
         }
 
@@ -108,22 +108,31 @@ public class GameMenuController {
 
     public static Result nextTurn() {
         int index = App.getCurrentGame().getPlayers().indexOf(App.getCurrentGame().getCurrentPlayer());
-        int nextIndex = (index + 1) % App.getCurrentGame().getPlayers().size();
-        if (nextIndex == 0) App.getCurrentGame().getCurrentTime().addHour(1);
-
-        if (App.getCurrentGame().getCurrentTime().getHour() == 24) {
-            NightController.nightControl();
-            return new Result(true, "Shab bekheir...");
+        int totalPlayers = App.getCurrentGame().getPlayers().size();
+        int nextIndex = (index + 1) % totalPlayers;
+        // update time
+        if (nextIndex == 0) {
+            App.getCurrentGame().getCurrentTime().addHour(1);
+            if (App.getCurrentGame().getCurrentTime().getHour() == 24) {
+                NightController.nightControl();
+                return new Result(true, "Shab bekheir...");
+            }
         }
 
-        App.getCurrentGame().setCurrentPlayer(App.getCurrentGame().getPlayers().get(nextIndex));
-        if (App.getCurrentGame().getCurrentPlayer().getEnergy() <= 0) {
-            nextIndex = (index + 1) % App.getCurrentGame().getPlayers().size();
-            App.getCurrentGame().setCurrentPlayer(App.getCurrentGame().getPlayers().get(nextIndex));
-        }
+        // skip players with 0 energy:
+        int startingIndex = nextIndex;
+        do {
+            Player candidate = App.getCurrentGame().getPlayers().get(nextIndex);
+            if (candidate.getEnergy() > 0) {
+                App.getCurrentGame().setCurrentPlayer(candidate);
+                App.getCurrentGame().getCurrentPlayer().resetMovesThisTurn();
+                return new Result(true, "Now it's " + candidate.getUsername() + "'s turn.");
+            }
+            nextIndex = (nextIndex + 1) % totalPlayers;
+        } while (nextIndex != startingIndex);
 
-        App.getCurrentGame().getCurrentPlayer().resetMovesThisTurn();
-        return new Result(true, "Now it's " +App.getCurrentGame().getCurrentPlayer().getUsername() + "'s turn.");
+        NightController.nightControl();
+        return new Result(true, "Nobody had energy. Skipping to night.");
     }
 
     public static Result currentMenu () {
@@ -131,7 +140,7 @@ public class GameMenuController {
     }
 
     public static Result currentPlayer() {
-        return new Result(true, App.getCurrentGame().getCurrentPlayer().getUsername());
+        return new Result(true, App.getCurrentGame().getCurrentPlayer().toString());
     }
 
     public static Tile getTileByDirection (String direction) {

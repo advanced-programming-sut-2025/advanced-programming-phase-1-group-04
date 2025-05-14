@@ -13,7 +13,7 @@ public interface Shop {
     public String showAllProducts();
     public String showAvailableProducts();
 
-    public Result buy (String productName, int number);
+    public Result buy (String productName, int number, String animalName);
 
     public void resetStock();
 }

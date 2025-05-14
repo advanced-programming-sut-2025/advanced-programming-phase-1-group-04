@@ -114,7 +114,7 @@ public class BlackSmith implements Shop {
     }
 
     @Override
-    public Result buy(String productName, int number) {
+    public Result buy(String productName, int number, String animalName) {
         if (productName == null) {
             return new Result(false, "invalid product name!");
         }

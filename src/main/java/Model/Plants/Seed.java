@@ -12,6 +12,11 @@ public class Seed implements Item, Plant {
     private final SeedType seedType;
     private final boolean purposelyPlanted;
 
+    public Seed (SeedType seedType) {
+        this.seedType = seedType;
+        this.purposelyPlanted = true;
+    }
+
     public Seed (SeedType seedType, boolean purposelyPlanted) {
         this.seedType = seedType;
         this.purposelyPlanted = purposelyPlanted;

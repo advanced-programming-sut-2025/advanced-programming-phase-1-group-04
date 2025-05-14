@@ -1,38 +1,34 @@
-package Model.Shop.JojaMart;
+package Model.Shop.MarniesRanch;
 
-import Model.Shop.ProductInterface;
-
-public enum WinterStock implements ProductInterface {
-    PowdermelonSeeds("This special melon grows in the winter. Takes 7 days to grow." , "Powdermelon Seeds" , 20 , 10);
+public enum MarniesInventory {
+    Hay("Dried grass used as animal food." , "Hay" , 50 , Integer.MAX_VALUE),
+    MilkPail("Gather milk from your animals." , "Milk Pail" , 1000 , 1),
+    Shears("Use this to collect wool from sheep" , "Shears" , 1000 , 1);
 
     private final String description;
     private final String name;
     private final int price;
     private final int dailyLimit;
 
-    WinterStock(String description, String name, int price, int dailyLimit) {
+    MarniesInventory(String description, String name, int price, int dailyLimit) {
         this.description = description;
         this.name = name;
         this.price = price;
         this.dailyLimit = dailyLimit;
     }
 
-    @Override
     public String getDescription() {
         return description;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public int getPrice() {
         return price;
     }
 
-    @Override
     public int getDailyLimit() {
         return dailyLimit;
     }

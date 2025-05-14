@@ -48,8 +48,8 @@ public enum SeedType implements Forageable, PlantType {
     RareSeed("Rare Seed", new ArrayList<>(List.of(Season.Fall)), CropType.SweetGemBerry),
     PowdermelonSeeds("Powdermelon Seeds", new ArrayList<>(List.of(Season.Winter)), CropType.Powdermelon),
     AncientSeeds("Ancient Seeds", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall)), CropType.AncientFruit),
-    MixedSeeds("Mixed Seeds", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), CropType.Mixed);
-
+    MixedSeeds("Mixed Seeds", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), CropType.Mixed),
+    GrassStarter("Grass Starter", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), CropType.Grass);
 
     private final String name;
     private final ArrayList<Season> seasons;

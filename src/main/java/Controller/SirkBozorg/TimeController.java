@@ -1,5 +1,6 @@
 package Controller.SirkBozorg;
 
+import Controller.GameMenuController;
 import Model.App;
 import Model.Map.Coordinate;
 import Model.Result;
@@ -7,6 +8,10 @@ import Model.Time.Weather;
 
 public class TimeController {
     public static Result time(String command) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         String time = String.format("Time: %02d:00", App.getCurrentGame().getCurrentTime().getHour());
         String day = "Date: " + App.getCurrentGame().getCurrentTime().getDay();
         return switch (command) {
@@ -44,14 +49,26 @@ public class TimeController {
     }
 
     public static Result season() {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         return new Result(true, App.getCurrentGame().getCurrentTime().getSeason().name());
     }
 
     public static Result weather() {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         return new Result(true, App.getCurrentGame().getCurrentTime().getWeather().name());
     }
 
     public static Result weatherForecast() {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         return new Result(true, App.getCurrentGame().getTomorrowWeather().name());
     }
 

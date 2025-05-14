@@ -6,6 +6,7 @@ import Model.Map.Item;
 import Model.Time.DateAndTime;
 import Model.Time.Season;
 import Model.Game;
+import Model.Time.Weather;
 
 import java.util.ArrayList;
 
@@ -13,14 +14,21 @@ public class Tree implements Item, Plant {
 
     private final TreeType type;
     private boolean isBurned;
-    private DateAndTime plantingDate;
+    private final DateAndTime plantingDate;
     private DateAndTime lastTimeHarvested;
     private final boolean purposelyPlanted;
 
     //constructor:
-    public Tree (TreeType type, DateAndTime plantingDate, boolean purposelyPlanted) {
+    public Tree (TreeType type, DateAndTime t, boolean purposelyPlanted) {
         this.type = type;
-        this.plantingDate = plantingDate;
+        this.plantingDate = new DateAndTime(t.getHour(), t.getDay(), t.getWeather());
+        isBurned = false;
+        lastTimeHarvested = null;
+        this.purposelyPlanted = purposelyPlanted;
+    }
+    public Tree (TreeType type, boolean purposelyPlanted) {
+        this.type = type;
+        this.plantingDate = new DateAndTime(9, 1, Weather.Sunny);
         isBurned = false;
         lastTimeHarvested = null;
         this.purposelyPlanted = purposelyPlanted;
@@ -112,9 +120,9 @@ public class Tree implements Item, Plant {
         isBurned = true;
     }
 
-    public void setPlantingDate(DateAndTime plantingDate) {
-        this.plantingDate = plantingDate;
-    } //TODO: in bashe? ya final konim?
+//    public void setPlantingDate(DateAndTime plantingDate) {
+//        this.plantingDate = plantingDate;
+//    } //TODO: in bashe? ya final konim?
 
     public void setLastTimeHarvested(DateAndTime lastTimeHarvested) {
         this.lastTimeHarvested = lastTimeHarvested;

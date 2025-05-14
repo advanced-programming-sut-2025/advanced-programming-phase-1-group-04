@@ -39,6 +39,11 @@ public class Sapling implements Item, Plant {
 
     @Override
     public String showPlantInfo() {
-        return "sapling info:\nname: " + getName() + "\ntree type: " + getTreeType();
+        return "sapling info:\nname: " + getName() + "\ntree type: " + getTreeType() + "\nisForageable: " +
+                !purposelyPlanted;
+    }
+
+    public boolean isPurposelyPlanted() {
+        return purposelyPlanted;
     }
 }

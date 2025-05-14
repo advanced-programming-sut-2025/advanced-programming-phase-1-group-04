@@ -77,6 +77,9 @@ public class ToolController {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
+        if (App.getCurrentGame().getCurrentPlayer().getCurrentTool() == null) {
+            return new Result (false, "you are not equipped with any tool yet!");
+        }
         return App.getCurrentGame().getCurrentPlayer().getCurrentTool().
                 use(GameMenuController.getTileByDirection(direction));
     }

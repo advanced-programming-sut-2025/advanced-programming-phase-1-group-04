@@ -38,7 +38,7 @@ public class Fruit implements Item, Plant {
 
     @Override
     public String showPlantInfo() {
-        return "fruit info:\nname: " + getName() + "\nis forageable: " + purposelyPlanted;
+        return "fruit info:\nname: " + getName() + "\nis forageable: " + !purposelyPlanted;
     }
 
     public boolean isPurposelyPlanted() {

@@ -6,6 +6,7 @@ import Model.Map.Item;
 import Model.Time.DateAndTime;
 import Model.Time.Season;
 import Model.Game;
+import Model.Time.Weather;
 
 import java.util.ArrayList;
 
@@ -18,8 +19,14 @@ public class Crop implements Item, Plant {
 
 
     //constructor:
-    public Crop(DateAndTime plantingDate, CropType type, boolean purposelyPlanted) {
-        this.plantingDate = plantingDate;
+    public Crop(DateAndTime t, CropType type, boolean purposelyPlanted) {
+        this.plantingDate = new DateAndTime(t.getHour(), t.getDay(), t.getWeather());
+        this.type = type;
+        this.purposelyPlanted = purposelyPlanted;
+    }
+    public Crop(CropType type, boolean purposelyPlanted) {
+        this.plantingDate = new DateAndTime(App.getCurrentGame().getCurrentTime().getHour(),
+                App.getCurrentGame().getCurrentTime().getDay(), App.getCurrentGame().getCurrentTime().getWeather());
         this.type = type;
         this.purposelyPlanted = purposelyPlanted;
     }
@@ -127,7 +134,7 @@ public class Crop implements Item, Plant {
         return "crop info:\nname: " + getName() + "\ntotal harvest time: " + getHarvestTime() + "\ndate of planting: " +
                 plantingDate.getSeason().name() + " " + plantingDate.getDay() + "th\nstages: " +
                 PlantController.stagesToString(getStages()) + "\ncurrent stage: " + getCurrentStage() + "\nis foraging: " +
-                purposelyPlanted;
+                !purposelyPlanted;
     }
 
     public boolean isPurposelyPlanted() {

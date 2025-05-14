@@ -2,7 +2,7 @@ package Model.Shop.FishShop;
 
 import Model.Shop.ProductInterface;
 
-public enum Stock implements ProductInterface {
+public enum FishShopStock implements ProductInterface {
     FishSmoker("A recipe to make Fish Smoker" , "Fish Smoker (Recipe)" , 10000 , 0 , 1),
     TroutSoup("Pretty salty." , "Trout Soup" , 250 , 0 , 1),
     BambooPole("Use in the water to catch fish." , "Bamboo Pole" , 500 , 0 , 1),
@@ -16,7 +16,7 @@ public enum Stock implements ProductInterface {
     private final int fishingSkill;
     private final int dailyLimit;
 
-    Stock(String description, String name, int price, int fishingSkill, int dailyLimit) {
+    FishShopStock(String description, String name, int price, int fishingSkill, int dailyLimit) {
         this.description = description;
         this.name = name;
         this.price = price;

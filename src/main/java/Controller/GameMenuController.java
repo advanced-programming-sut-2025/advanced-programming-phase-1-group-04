@@ -145,7 +145,8 @@ public class GameMenuController {
 
     public static Tile getTileByDirection (String direction) {
         direction = direction.toLowerCase();
-        Coordinate coordinate = App.getCurrentGame().getCurrentPlayer().getCoordinate();
+        Coordinate coordinate = new Coordinate(App.getCurrentGame().getCurrentPlayer().getCoordinate().getX(),
+                App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
         if (coordinate == null) {
             return null;
         }

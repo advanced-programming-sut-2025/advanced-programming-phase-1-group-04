@@ -71,7 +71,10 @@ public enum FoodType {
     MinersTreat ("Miner's Treat", FoodRecipe.MinersTreat, 125, player -> {
         player.addSkillBuff(Skill.Mining, 5);
     },
-            (HashMap<Skill, Integer>) Map.of(Skill.Mining, 1), null, 200);
+            (HashMap<Skill, Integer>) Map.of(Skill.Mining, 1), null, 200),
+
+    TroutSoup ("Trout Soup", FoodRecipe.TroutSoup, 100, player -> {}, null,
+            ShopType.FishShop, 250);
 
 
     private final String name;

@@ -1,27 +1,19 @@
 package Model.Shop;
 
-import java.util.ArrayList;
+import Model.Result;
 
-public class Shop {
-    private ShopType shopType;
-    private ArrayList <Product> products = new ArrayList<>();
+public interface Shop {
+    public ShopType getType();
+    public String getName();
+    public String getOwnerName();
+    public int getOpeningTime();
+    public int getClosingTime();
 
-    public void setShopType(ShopType shopType) {
-        this.shopType = shopType;
-    }
+    public String getShopInformation();
+    public String showAllProducts();
+    public String showAvailableProducts();
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
+    public Result buy (String productName, int number);
 
-    public ShopType getShopType() {
-        return shopType;
-    }
-
-    public ArrayList<Product> getProducts() {
-        return products;
-    }
-    public void addProduct(Product product) {
-        products.add(product);
-    }
+    public void resetStock();
 }

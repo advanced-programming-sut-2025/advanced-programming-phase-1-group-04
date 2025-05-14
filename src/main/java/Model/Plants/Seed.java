@@ -46,7 +46,7 @@ public class Seed implements Item, Plant {
 
     @Override
     public String showPlantInfo() {
-        return "seed info:\nname: " + getName() + "\nis forageable: " + isForageable();
+        return "seed info:\nname: " + getName() + "\nis forageable: " + !purposelyPlanted;
     }
 
     public boolean isPurposelyPlanted() {

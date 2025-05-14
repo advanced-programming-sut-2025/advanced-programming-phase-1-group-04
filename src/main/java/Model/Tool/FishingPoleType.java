@@ -1,7 +1,7 @@
 package Model.Tool;
 
 public enum FishingPoleType {
-    Starter (25, 8, 0),
+    Training (25, 8, 0),
     Bamboo (500, 8, 0),
     Fiberglass (1800, 6, 2),
     Iridium (7500, 4, 4);

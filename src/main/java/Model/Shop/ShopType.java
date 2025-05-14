@@ -11,29 +11,29 @@ public enum ShopType {
 
     private final String owner;
     private final String name;
-    private final int startingHour;
-    private final int finishingHour;
+    private final int openingTime;
+    private final int closingTime;
 
-    ShopType(String owner, String name, int startingHour, int finishingHour) {
+    ShopType(String owner, String name, int openingTime, int closingTime) {
         this.owner = owner;
         this.name = name;
-        this.startingHour = startingHour;
-        this.finishingHour = finishingHour;
+        this.openingTime = openingTime;
+        this.closingTime = closingTime;
     }
 
-    public String getOwner() {
+    public String getOwnerName() {
         return owner;
     }
 
-    public String getName() {
+    public String getShopName() {
         return name;
     }
 
-    public int getStartingHour() {
-        return startingHour;
+    public int getOpeningTime() {
+        return openingTime;
     }
 
-    public int getFinishingHour() {
-        return finishingHour;
+    public int getClosingTime() {
+        return closingTime;
     }
 }

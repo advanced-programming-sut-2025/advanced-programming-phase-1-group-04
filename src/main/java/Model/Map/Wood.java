@@ -8,6 +8,6 @@ public class Wood implements Item{
 
     @Override
     public int getPrice() {
-        return 0;
+        return 5;
     }
 }

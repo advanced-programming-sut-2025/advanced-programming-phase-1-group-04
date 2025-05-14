@@ -24,6 +24,7 @@ public enum FoodRecipe {
     DishOTheSea,
     SeaformPudding,
     MinersTreat,
+    TroutSoup;
 
 //  TODO:
 //   private final HashMap <Item, Integer> = new HashMap<>();

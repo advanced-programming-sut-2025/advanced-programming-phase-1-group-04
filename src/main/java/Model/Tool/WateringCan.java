@@ -122,17 +122,19 @@ public class WateringCan implements Tool{
     @Override
     public Result use(Tile tile) {
         App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(true));
-        if (waterAmount == 0) {
-            return new Result(false, "your watering can is out of water!");
-        }
-        else if (tile.getType() == TileType.Ground) {
-            tile.setWatered(true);
-            return new Result(true, "the selected tile is now watered.");
-        }
-        else if (tile.getType() == TileType.Water) {
+        if (tile.getType() == TileType.Water) {
             waterAmount = capacity;
             return new Result(true, "your watering can is now full of water.");
         }
+        else if (tile.getType() == TileType.Ground) {
+            if (waterAmount <= 0) {
+                return new Result(false, "your watering can is out of water!");
+            }
+            tile.setWatered(true);
+            waterAmount--;
+            return new Result(true, "the selected tile is now watered.");
+        }
+
         return new Result(false, "invalid tile!");
     }
 

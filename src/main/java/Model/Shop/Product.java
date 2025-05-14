@@ -1,7 +1,7 @@
 package Model.Shop;
 
 import Model.Animals.AnimalType;
-import Model.Shop.CarpentersShop.FarmBuildings;
+import Model.Shop.CarpentersShop.CarpenterBuildings;
 
 public class Product {
 
@@ -52,7 +52,7 @@ public class Product {
     }
 
     public boolean isFarmBuilding() {
-        for (FarmBuildings building : FarmBuildings.values()) {
+        for (CarpenterBuildings building : CarpenterBuildings.values()) {
             if (this.getProductType().getName().equals(building.getName())) {
                 return true;
             }

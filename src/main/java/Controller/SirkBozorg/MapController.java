@@ -1,5 +1,6 @@
 package Controller.SirkBozorg;
 
+import Controller.GameMenuController;
 import Model.App;
 import Model.Map.*;
 import Model.Player.Player;
@@ -29,6 +30,10 @@ public class MapController {
     }
 
     public static Result printMap(String stringX, String stringY, String stringSize) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         int x = Integer.parseInt(stringX);
         int y = Integer.parseInt(stringY);
         int size = Integer.parseInt(stringSize);
@@ -65,6 +70,10 @@ public class MapController {
     }
 
     public static Result helpMap(){
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         StringBuilder result = new StringBuilder();
         for (Symbols s: Symbols.values()) {
             result.append(s.name()).append(" ").append(s.getColoredSymbol()).append("\n");
@@ -74,6 +83,10 @@ public class MapController {
     }
 
     public static Result walk(String stringX, String stringY) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         int x = Integer.parseInt(stringX);
         int y = Integer.parseInt(stringY);
         Coordinate coordinate = new Coordinate(x, y);
@@ -89,6 +102,10 @@ public class MapController {
     }
 
     public static Result walk(String input, String stringX, String stringY) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         int x = Integer.parseInt(stringX);
         int y = Integer.parseInt(stringY);
         Coordinate coordinate = new Coordinate(x, y);
@@ -104,6 +121,10 @@ public class MapController {
     }
 
     public static Result buildGreenHouse() {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         Player player = App.getCurrentGame().getCurrentPlayer();
         if (player.getCount() < 1000) {
             return new Result(false, "You don't have enough money!(1000 dollars)");

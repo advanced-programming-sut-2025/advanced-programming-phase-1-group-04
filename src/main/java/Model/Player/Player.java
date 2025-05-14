@@ -1,9 +1,7 @@
 package Model.Player;
 
 import Model.Animals.Animal;
-import Model.Animals.AnimalType;
 import Model.Crafting.CraftRecipe;
-import Model.Crafting.CraftType;
 import Model.Map.*;
 
 import Model.Map.Coordinate;
@@ -26,6 +24,7 @@ public class Player {
     private final Coordinate houseCoordinate;
 
     private final List<Animal> myAnimals = new ArrayList<>();
+    private List<FarmBuilding> myFarmBuildings = new ArrayList<>();
 
     private int maxEnergy = 200;
     private int energy = 200;
@@ -47,7 +46,6 @@ public class Player {
 
 
     private Tool currentTool;
-    //List Recipe
 
     //animal friendship
     //player friendship
@@ -294,5 +292,28 @@ public class Player {
             "Moves in this Turn: " + this.movesThisTurn + "\n" +
 
             "Count: " + this.count + "\n";
+    }
+
+    public ArrayList<CraftRecipe> getCraftRecipes() {
+        return craftRecipes;
+    }
+
+    public void addToCraftRecipes(CraftRecipe recipe) {
+        craftRecipes.add(recipe);
+    }
+
+    public List<FarmBuilding> getMyFarmBuildings() {
+        return myFarmBuildings;
+    }
+
+    public void addToFarmBuildings (FarmBuilding building) {
+        for (FarmBuilding b : myFarmBuildings) {
+            if (b.getType().getType() == building.getType().getType()) {
+                myFarmBuildings.remove(b);
+                myFarmBuildings.add(building);
+                return;
+            }
+        }
+        myFarmBuildings.add(building);
     }
 }

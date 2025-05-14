@@ -11,7 +11,7 @@ public class ForagingMineral implements Item, Plant {
     private final ForagingMineralType type;
 
     //constructor:
-    ForagingMineral (ForagingMineralType type) {
+    public ForagingMineral(ForagingMineralType type) {
         this.type = type;
     }
 

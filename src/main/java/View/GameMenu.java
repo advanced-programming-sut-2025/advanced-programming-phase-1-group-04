@@ -233,7 +233,7 @@ public class GameMenu implements AppMenu {
             //TODO Parsa
         }
         else if ((matcher = GameMenuCommand.Fishing.getMatcher(input)) != null) {
-            //TODO Parsa
+            System.out.println("Use use tool command!");
         }
 
 

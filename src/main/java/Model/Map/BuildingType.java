@@ -7,11 +7,7 @@ public enum BuildingType {
     House(4, 5),
 
     Barn(4, 7),
-    BigBarn(4 , 7),
-    DeluxeBarn(4 , 7),
     Coop(6 , 3),
-    BigCoop(6 , 3),
-    DeluxeCoop(6 , 3),
     Well( 3 , 3),
     ShippingBin(1, 1),
 

@@ -73,17 +73,17 @@ public enum GameMenuCommand implements Command {
     Eat("eat\\s+(?<foodName>.+)"),
 
     // Map Controller: Nafiseh
-    Build("build\\s+-a\\s+(?<buildingName>.+?)\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
+    Build("build\\s+-a\\s+(?<name>.+?)\\s+-l\\s+(?<x>\\d+)\\s*,\\s*(?<y>\\d+)"),
 
     // Animal Controller: Parsa -> Nafiseh
     BuyAnimal("buy\\s+animal\\s+-a\\s+(?<animal>.+?)\\s+-n\\s+(?<name>.+)"),
     Pet("pet\\s+-n\\s+(?<name>.+)"),
-    ShowAnimalsInfo("animals"),
+    ShowAnimalsInfo("animals\\s+list"),
     CheatFriendShipAnimal("cheat\\s+set\\s+friendship\\s+-n\\s+(?<animalName>.+?)\\s+-c\\s+(?<amount>\\d+)"),
     ShepherdAnimal("shepherd\\s+animals\\s+-n\\s+(?<animalName>.+?)\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"), // todo
     FeedAnimal("feed\\s+hay\\s+-n\\s+(?<animalName>.+)"),
-    ShowAnimalProduceInfo("produces"),
-    CollectAnimalProduce("collect\\s+produce\\s+-n\\s+(?<name>.+)"),
+    ShowAnimalProduceInfo("animal\\s+produces\\s+list"),
+    CollectAnimalProduce("collect\\s+produce\\s+-n\\s+(?<name>.+?)"),
     SellAnimal("sell\\s+animal\\s+-n\\s+(?<name>.+)"),
 
     Fishing("fishing\\s+-p\\s+(?<fishingPole>.+)"), // todo

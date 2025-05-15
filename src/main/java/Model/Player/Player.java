@@ -185,6 +185,10 @@ public class Player {
         return null;
     }
 
+    public List<Animal> getMyAnimals() {
+        return myAnimals;
+    }
+
     public int getFarm() {
         return farm;
     }

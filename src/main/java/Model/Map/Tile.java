@@ -16,12 +16,12 @@ public class Tile {
     private BuildingType buildingType = null;
 
     private Item item = null;
-    private boolean isPavement = false;
+    private Animal animal = null;
     private NPC npc = null; // TODO: npc nadarim felan dosrost shod add mikonam
 
+    private boolean isPavement = false;
     private boolean isPlowed = false;
     private boolean isWatered = false;
-    private Animal animal = null;
 
     public Tile(TileType type) { // For Water, Mountain, Mine
         this.type = type;
@@ -51,16 +51,8 @@ public class Tile {
                         return Symbols.House.getColoredSymbol();
                     case Barn:
                         return Symbols.Barn.getColoredSymbol();
-                    case BigBarn:
-                        return Symbols.BigBarn.getColoredSymbol();
-                    case DeluxeBarn:
-                        return Symbols.DeluxeBarn.getColoredSymbol();
                     case Coop:
                         return Symbols.Coop.getColoredSymbol();
-                    case BigCoop:
-                        return Symbols.BigCoop.getColoredSymbol();
-                    case DeluxeCoop:
-                        return Symbols.DeluxeCoop.getColoredSymbol();
                     case Well:
                         return Symbols.Well.getColoredSymbol();
                     case ShippingBin:
@@ -189,6 +181,14 @@ public class Tile {
 
     public Item getItem() {
         return item;
+    }
+
+    public NPC getNpc() {
+        return npc;
+    }
+
+    public Animal getAnimal() {
+        return animal;
     }
 
     public void setItem(Item item) {

@@ -5,6 +5,7 @@ import Model.App;
 import Model.Map.*;
 import Model.Player.Player;
 import Model.Result;
+import Model.Shop.ShopType;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -150,6 +151,34 @@ public class MapController {
 
         App.getCurrentGame().getMap().build(x, y, BuildingType.GreenHouserBuild);
         return new Result(true, "Now you have Greenhouse:)");
+    }
+
+    public static Result buildFarmBuilding(String name, String stringX, String stringY){
+        int x = Integer.parseInt(stringX);
+        int y = Integer.parseInt(stringY);
+        Coordinate coordinate = new Coordinate(x, y);
+        BuildingType type = getBuildingType(name);
+        Result result = App.getCurrentGame().getShop(ShopType.CarpentersShop).buy(name, 1, "SOS");
+        // TODO:  goh to in ghesmat!
+        // Map error:
+        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.CarpentersShop) {
+            return new Result(false, "you must be in Carpenter's Shop to be able to build an farm building!");
+        } else if ((x < 0 || x >= 90) || (y < 0 || y >= 120)) {
+            return new Result(false, "Mashti x,y bein (0,0) - (89, 119)");
+        } else if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(coordinate)) {
+            return new Result(false, "You can only build farm buildings on your own farm!");
+        } else if (type == null) {
+            return new Result(false, "Building name is invalid!");
+        } else if (!canBuild(coordinate, type)) {
+            return new Result(false, "You can't build this building here!");
+        }
+        // Shop error:
+        else if (!result.isSuccessful()) {
+            return result;
+        }
+
+        buildInMap(coordinate, type);
+        return result;
     }
 
     /*public static Coordinate getDestination (Coordinate destination) {
@@ -319,5 +348,45 @@ public class MapController {
             return new Coordinate(-1, -1);  // unreachable
         }
         return destination;
+    }
+
+    private static boolean canBuild(Coordinate coordinate, BuildingType type) {
+        Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
+        for (int i = coordinate.getX(); i < type.getW(); i++) {
+            for (int j = coordinate.getY(); j < type.getL(); j++) {
+                Tile tile = fullMap[i][j];
+                switch (tile.getType()) {
+                    case Building, Water, Mountain, Mine:
+                        return false;
+                    case Ground:
+                        if (tile.getNpc() != null || tile.getAnimal() != null || tile.getItem() != null)
+                            return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static void buildInMap(Coordinate coordinate, BuildingType type) {
+        Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
+        for (int i = coordinate.getX(); i < type.getW(); i++) {
+            for (int j = coordinate.getY(); j < type.getL(); j++) {
+                Tile tile = fullMap[i][j];
+                tile.setType(TileType.Building);
+                tile.setBuildingType(type);
+                tile.setWatered(false);
+                tile.setPlowed(false);
+            }
+        }
+    }
+
+    private static BuildingType getBuildingType(String name) {
+        return switch (name.toLowerCase()) {
+            case "barn", "big barn", "deluxe barn" -> BuildingType.Barn;
+            case "coop", "big coop", "deluxe coop" -> BuildingType.Coop;
+            case "well" -> BuildingType.Well;
+            case "shipping bin" -> BuildingType.ShippingBin;
+            default -> null;
+        };
     }
 }

@@ -32,6 +32,7 @@ public enum GameMenuCommand implements Command {
     PrintMap("print\\s+map\\s+-l\\s+(?<x>\\d+)\\s*,\\s*(?<y>\\d+)\\s+-s\\s+(?<size>\\d+)"),
     PrintFarm("print\\s+my\\s+farm"),
     HelpMap("help\\s++map"),
+    //Tile info
 
     // Player Controller: Aynaz
     ShowEnergy("show\\s+energy"),

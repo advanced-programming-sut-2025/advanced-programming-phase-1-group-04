@@ -21,11 +21,14 @@ public class MapController {
         switch (App.getCurrentGame().getCurrentPlayer().getFarm()) {
             case 2:
                 j = 2;
+                break;
             case 3:
                 i = 2;
                 j = 2;
+                break;
             case 4:
                 i = 2;
+                break;
         }
         return new Result(true, App.getCurrentGame().getMap().getRegion(i, j).toString());
     }
@@ -191,7 +194,7 @@ public class MapController {
         }
         return new Result(true, result.toString());
     }
-
+/*
     public static Coordinate getDestination (Coordinate destination) {
         if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(destination))
             return new Coordinate(-2, -2);
@@ -309,8 +312,10 @@ public class MapController {
         }
         return -1;
     }
+*/
 
-    /*public static int getDestinationEnergy(Coordinate destination) {
+    // ChatGPT
+    public static int getDestinationEnergy(Coordinate destination) {
         Coordinate start = App.getCurrentGame().getCurrentPlayer().getCoordinate();
 
         int maxEnergy = App.getCurrentGame().getCurrentPlayer().getEnergy();
@@ -371,7 +376,7 @@ public class MapController {
             return new Coordinate(-1, -1);  // unreachable
         }
         return destination;
-    }*/
+    }
 
     private static boolean canBuild(Coordinate coordinate, BuildingType type) {
         Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();

@@ -24,6 +24,25 @@ change email -e
 change password -p      -o
 
 _______________________________________________________________
+walk to SHOP:
 
-new game -u Parsa Aynaz Sag
+BlackSmith:
+walk -l 34, 46
 
+PierresGeneralStore:
+walk -l 34, 56
+
+MarniesRanch:
+walk -l 45, 45
+
+TheStarDropSaloon:
+walk -l 45, 60
+
+CarpentersShop:
+walk -l 55, 55
+
+JojaMart:
+walk -l 54, 75
+
+FishShop:
+walk -l 32, 75

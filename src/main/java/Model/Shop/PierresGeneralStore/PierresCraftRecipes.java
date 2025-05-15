@@ -1,15 +1,20 @@
 package Model.Shop.PierresGeneralStore;
 
-public enum PierresCraftRecipes {
-    DehydratorRecipe("A recipe to make Dehydrator" , "Dehydrator (Recipe)" , 10000 , 1),
-    GrassStarterRecipe("A recipe to make Grass Starter" , "Grass Starter (Recipe)" , 1000 , 1);
+import Model.Crafting.CraftRecipe;
+import Model.Crafting.CraftType;
 
+public enum PierresCraftRecipes {
+    DehydratorRecipe(CraftRecipe.Dehydrator, "A recipe to make Dehydrator" , "Dehydrator (Recipe)" , 10000 , 1),
+    GrassStarterRecipe(CraftRecipe.GrassStarter, "A recipe to make Grass Starter" , "Grass Starter (Recipe)" , 1000 , 1);
+
+    private final CraftRecipe type;
     private final String description;
     private final String name;
     private final int price;
     private final int dailyLimit;
 
-    PierresCraftRecipes(String description, String name, int price, int dailyLimit) {
+    PierresCraftRecipes(CraftRecipe type, String description, String name, int price, int dailyLimit) {
+        this.type = type;
         this.description = description;
         this.name = name;
         this.price = price;
@@ -36,4 +41,7 @@ public enum PierresCraftRecipes {
         return dailyLimit;
     }
 
+    public CraftRecipe getType() {
+        return type;
+    }
 }

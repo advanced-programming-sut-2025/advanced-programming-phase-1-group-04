@@ -197,14 +197,14 @@ public class MapController {
         int leny = Math.abs(destination.getY() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
         int minx = Math.min(destination.getX(), App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
         int miny = Math.min(destination.getY(), App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
-        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX() - lenx;
-        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY() - leny;
+        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX() - minx;
+        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY() - miny;
         int destx = destination.getX() - minx;
         int desty = destination.getY() - miny;
-        int[][][] dist = new int[lenx][leny][4];
+        int[][][] dist = new int[lenx + 1][leny + 1][4];
         for (int[][] row : dist) {
             for (int[] col : row)
-                Arrays.fill (col , Integer.MAX_VALUE);
+                Arrays.fill(col, Integer.MAX_VALUE);
         }
         final int[] dx = {-1, 1, 0, 0};
         final int[] dy = {0, 0, -1, 1};
@@ -255,14 +255,14 @@ public class MapController {
         int leny = Math.abs(destination.getY() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
         int minx = Math.min(destination.getX(), App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
         int miny = Math.min(destination.getY(), App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
-        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX() - lenx;
-        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY() - leny;
+        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX() - minx;
+        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY() - miny;
         int destx = destination.getX() - minx;
         int desty = destination.getY() - miny;
-        int[][][] dist = new int[lenx][leny][4];
+        int[][][] dist = new int[lenx + 1][leny + 1][4];
         for (int[][] row : dist) {
             for (int[] col : row)
-                Arrays.fill (col , Integer.MAX_VALUE);
+                Arrays.fill(col , Integer.MAX_VALUE);
         }
         final int[] dx = {-1, 1, 0, 0};
         final int[] dy = {0, 0, -1, 1};

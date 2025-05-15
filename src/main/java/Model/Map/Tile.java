@@ -27,7 +27,7 @@ public class Tile {
 
     private DateAndTime lastTimeWatered = null;
     private int fertilize = 0;
-    private Animal animal = null;
+    //private Animal animal = null;
 
 
     public Tile(TileType type) { // For Water, Mountain, Mine

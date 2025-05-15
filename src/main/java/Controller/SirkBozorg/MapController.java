@@ -234,7 +234,7 @@ public class MapController {
             for (int i = 0; i < 4; i++) {
                 int newx = x + dx[i];
                 int newy = y + dy[i];
-                if (newx < 0 || newx >= lenx || newy < 0 || newy >= leny)
+                if (newx < 0 || newx > lenx || newy < 0 || newy > leny)
                     continue;
                 int newCost = cost + 1;
                 if (dir != i)
@@ -294,7 +294,7 @@ public class MapController {
             for (int i = 0; i < 4; i++) {
                 int newx = x + dx[i];
                 int newy = y + dy[i];
-                if (newx < 0 || newx >= lenx || newy < 0 || newy >= leny)
+                if (newx < 0 || newx > lenx || newy < 0 || newy > leny)
                     continue;
                 int newCost = cost + 1;
                 if (dir != i)

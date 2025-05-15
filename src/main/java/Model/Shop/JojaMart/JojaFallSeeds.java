@@ -1,9 +1,8 @@
 package Model.Shop.JojaMart;
 
 import Model.Plants.SeedType;
-import Model.Shop.ProductInterface;
 
-public enum JojaFallSeeds implements ProductInterface {
+public enum JojaFallSeeds {
 
     AncientSeed(SeedType.AncientSeeds, "Could these still grow?" , "Ancient Seed" , 500 , 1),
     GrassStarter(SeedType.GrassStarter, "Place this on your farm to start a new patch of grass." , "Grass Starter" ,125 , Integer.MAX_VALUE),
@@ -38,22 +37,22 @@ public enum JojaFallSeeds implements ProductInterface {
         this.dailyLimit = dailyLimit;
     }
 
-    @Override
+
     public String getDescription() {
         return description;
     }
 
-    @Override
+
     public String getName() {
         return name;
     }
 
-    @Override
+
     public int getPrice() {
         return price;
     }
 
-    @Override
+
     public int getDailyLimit() {
         return dailyLimit;
     }

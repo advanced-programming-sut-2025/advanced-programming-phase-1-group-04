@@ -1,6 +1,7 @@
 package Model.Player;
 
 import Model.Animals.Animal;
+import Model.Cooking.FoodRecipe;
 import Model.Crafting.CraftRecipe;
 import Model.Map.*;
 
@@ -43,6 +44,9 @@ public class Player {
 
     private ArrayList<CraftRecipe> craftRecipes = new ArrayList<>(List.of(CraftRecipe.Furnace,
             CraftRecipe.Scarecrow, CraftRecipe.MayonnaiseMachine));
+
+    private ArrayList<FoodRecipe> foodRecipes = new ArrayList<>(List.of(FoodRecipe.FriedEgg,
+            FoodRecipe.BakedFish, FoodRecipe.Salad));
 
 
     private Tool currentTool;
@@ -298,8 +302,12 @@ public class Player {
         return craftRecipes;
     }
 
-    public void addToCraftRecipes(CraftRecipe recipe) {
+    public boolean addToCraftRecipes(CraftRecipe recipe) {
+        if (craftRecipes.contains(recipe)) {
+            return false;
+        }
         craftRecipes.add(recipe);
+        return true;
     }
 
     public List<FarmBuilding> getMyFarmBuildings() {
@@ -315,5 +323,48 @@ public class Player {
             }
         }
         myFarmBuildings.add(building);
+    }
+
+    public Animal findAnimalByName (String animalName) {
+        for (Animal a : myAnimals) {
+            if (a.getName().equalsIgnoreCase(animalName)) {
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public int getFarmBuildingLevel (BuildingType type) {
+        int max = 1;
+        for (FarmBuilding b : myFarmBuildings) {
+            if (b.getType().getType() == type) {
+                if (b.getCapacity() > max) {
+                    max = b.getCapacity();
+                }
+            }
+        }
+        return max;
+    }
+
+    public int getFarmBuildingCapacity (BuildingType type) {
+        int animalNumber = 0;
+        for (Animal a : myAnimals) {
+            if (a.getType().getFarmBuildingType().getType() == type) {
+                animalNumber++;
+            }
+        }
+        return getFarmBuildingLevel(type) * 4 - animalNumber;
+    }
+
+    public ArrayList<FoodRecipe> getFoodRecipes() {
+        return foodRecipes;
+    }
+
+    public boolean addToFoodRecipes (FoodRecipe recipe) {
+        if (foodRecipes.contains(recipe)) {
+            return false;
+        }
+        foodRecipes.add(recipe);
+        return true;
     }
 }

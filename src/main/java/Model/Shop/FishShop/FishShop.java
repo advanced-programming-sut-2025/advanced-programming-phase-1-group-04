@@ -4,6 +4,7 @@ import Model.App;
 import Model.Cooking.Food;
 import Model.Cooking.FoodType;
 import Model.Crafting.CraftRecipe;
+import Model.Plants.Seed;
 import Model.Result;
 import Model.Shop.Shop;
 import Model.Shop.ShopType;
@@ -88,10 +89,9 @@ public class FishShop implements Shop {
             if (FishShopStock.FishSmoker.getPrice() * number > App.getCurrentGame().getCurrentPlayer().getCount()) {
                 return new Result(false, "you don't have enough money!");
             }
-            if (App.getCurrentGame().getCurrentPlayer().getCraftRecipes().contains(CraftRecipe.FishSmoker)) {
+            if (!App.getCurrentGame().getCurrentPlayer().addToCraftRecipes(CraftRecipe.FishSmoker)) {
                 return new Result(false, "you already have this recipe!");
             }
-            App.getCurrentGame().getCurrentPlayer().addToCraftRecipes(CraftRecipe.FishSmoker);
             App.getCurrentGame().getCurrentPlayer().addCount(-10000);
             stock.put(FishShopStock.FishSmoker, 0);
             return new Result(true, "fish smoker added to your craft recipes.");
@@ -103,7 +103,9 @@ public class FishShop implements Shop {
             if (FishShopStock.TroutSoup.getPrice() * number > App.getCurrentGame().getCurrentPlayer().getCount()) {
                 return new Result(false, "you don't have enough money!");
             }
-            App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Food (FoodType.TroutSoup), 1);
+            if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Food (FoodType.TroutSoup), 1)) {
+                return new Result(false, "you can't add this item to your inventory!");
+            }
             return new Result(true, "Trout soup added to your inventory.");
         }
         if (productName.equalsIgnoreCase("bamboo pole") || productName.equalsIgnoreCase("fiberglass pole") ||

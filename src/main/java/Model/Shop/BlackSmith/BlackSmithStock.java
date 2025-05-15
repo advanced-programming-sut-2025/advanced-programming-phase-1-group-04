@@ -1,9 +1,8 @@
 package Model.Shop.BlackSmith;
 
 import Model.Plants.ForagingMineralType;
-import Model.Shop.ProductInterface;
 
-public enum BlackSmithStock implements ProductInterface {
+public enum BlackSmithStock{
     CopperOre(ForagingMineralType.Copper, "A common ore that can be smelted into bars." , "Copper Ore" , 75 , Integer.MAX_VALUE),
     IronOre(ForagingMineralType.Iron, "A fairly common ore that can be smelted into bars." , "Iron Ore" , 150 , Integer.MAX_VALUE),
     Coal(ForagingMineralType.Coal, "A combustible rock that is useful for crafting and smelting." , "Coal" , 150 , Integer.MAX_VALUE),
@@ -23,22 +22,22 @@ public enum BlackSmithStock implements ProductInterface {
         this.dailyLimit = dailyLimit;
     }
 
-    @Override
+
     public String getDescription() {
         return description;
     }
 
-    @Override
+
     public String getName() {
         return name;
     }
 
-    @Override
+
     public int getPrice() {
         return price;
     }
 
-    @Override
+
     public int getDailyLimit() {
         return dailyLimit;
     }

@@ -1,15 +1,15 @@
 package Model.Shop.PierresGeneralStore;
 
-public enum Backpacks {
-    LargePack("Unlocks the 2nd row of inventory (12 more slots, total 24)." , "Large Pack" , 2000 , 1),
-    DeluxePack("Unlocks the 3rd row of inventory (infinite slots)." , "Deluxe Pack" , 10000 , 1);
+public enum PierresGifts {
+    Bouquet("A gift that shows your romantic interest.\n(Unlocked after reaching level 2 friendship with a player)" , "Bouquet" , 1000 , 2),
+    WeddingRing("It's used to ask for another farmer's hand in marriage.\n(Unlocked after reaching level 3 friendship with a player)" , "Wedding Ring" , 10000 , 2);
 
     private final String description;
     private final String name;
     private final int price;
     private final int dailyLimit;
 
-    Backpacks(String description, String name, int price, int dailyLimit) {
+    PierresGifts(String description, String name, int price, int dailyLimit) {
         this.description = description;
         this.name = name;
         this.price = price;

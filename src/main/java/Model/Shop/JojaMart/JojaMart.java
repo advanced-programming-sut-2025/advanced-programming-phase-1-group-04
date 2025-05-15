@@ -189,7 +189,9 @@ public class JojaMart implements Shop {
                     return new Result(false, "you don't have enough money!\n" + i.getPrice() * number +
                             "g is needed.");
                 }
-                App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Ingredient(i.getType()), number);
+                if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Ingredient(i.getType()), number)) {
+                    return new Result(false, "you can't add this item to your inventory!");
+                }
                 return new Result(true, number + " of " + i.getName() + " added to your inventory.");
             }
         }
@@ -203,7 +205,9 @@ public class JojaMart implements Shop {
                         return new Result(false, "you don't have enough money!\n" + s.getPrice() * number +
                                 "g is needed.");
                     }
-                    App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(s.getSeedType()), number);
+                    if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(s.getSeedType()), number)) {
+                        return new Result(false, "you can't add this item to your inventory!");
+                    }
                     return new Result(true, number + " of " + s.getName() + " added to your inventory.");
                 }
             }
@@ -218,7 +222,9 @@ public class JojaMart implements Shop {
                         return new Result(false, "you don't have enough money!\n" + s.getPrice() * number +
                                 "g is needed.");
                     }
-                    App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(s.getSeedType()), number);
+                    if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(s.getSeedType()), number)) {
+                        return new Result(false, "you can't add this item to your inventory!");
+                    }
                     return new Result(true, number + " of " + s.getName() + " added to your inventory.");
                 }
             }
@@ -233,7 +239,9 @@ public class JojaMart implements Shop {
                         return new Result(false, "you don't have enough money!\n" + s.getPrice() * number +
                                 "g is needed.");
                     }
-                    App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(s.getSeedType()), number);
+                    if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(s.getSeedType()), number)) {
+                        return new Result(false, "you can't add this item to your inventory!");
+                    }
                     return new Result(true, number + " of " + s.getName() + " added to your inventory.");
                 }
             }
@@ -248,7 +256,9 @@ public class JojaMart implements Shop {
                         return new Result(false, "you don't have enough money!\n" + s.getPrice() * number +
                                 "g is needed.");
                     }
-                    App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(s.getSeedType()), number);
+                    if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(s.getSeedType()), number)) {
+                        return new Result(false, "you can't add this item to your inventory!");
+                    }
                     return new Result(true, number + " of " + s.getName() + " added to your inventory.");
                 }
             }

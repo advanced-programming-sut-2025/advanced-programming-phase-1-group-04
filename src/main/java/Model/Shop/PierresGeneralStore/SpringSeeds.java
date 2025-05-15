@@ -2,10 +2,9 @@ package Model.Shop.PierresGeneralStore;
 
 import Model.App;
 import Model.Time.Season;
-import Model.Game;
-import Model.Shop.ProductInterface;
 
-public enum SpringStock implements ProductInterface {
+public enum SpringSeeds {
+    GrassStarter("Place this on your farm to start a new patch of grass." , "Grass Starter" , 100 , Integer.MAX_VALUE),
     ParsnipSeeds("Plant these in the spring. Takes 4 days to mature." , "Parsnip Seeds" , 30 , 5),
     BeanStarter("Plant these in the spring. Takes 10 days to mature, but keeps producing after that. Grows on a trellis." , "Bean Starter" , 90 , 5),
     CauliflowerSeeds("Plant these in the spring. Takes 12 days to produce a large cauliflower." , "Cauliflower Seeds" , 120 , 5),
@@ -21,24 +20,24 @@ public enum SpringStock implements ProductInterface {
     private final int price;
     private final int dailyLimit;
 
-    SpringStock(String description, String name, int price, int dailyLimit) {
+    SpringSeeds(String description, String name, int price, int dailyLimit) {
         this.description = description;
         this.name = name;
         this.price = price;
         this.dailyLimit = dailyLimit;
     }
 
-    @Override
+
     public String getDescription() {
         return description;
     }
 
-    @Override
+
     public String getName() {
         return name;
     }
 
-    @Override
+
     public int getPrice() {
         if (App.getCurrentGame().getCurrentTime().getSeason() == Season.Spring)
             return (price * 2) / 3;
@@ -46,7 +45,7 @@ public enum SpringStock implements ProductInterface {
             return price;
     }
 
-    @Override
+
     public int getDailyLimit() {
         return dailyLimit;
     }

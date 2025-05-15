@@ -2,10 +2,9 @@ package Model.Shop.PierresGeneralStore;
 
 import Model.App;
 import Model.Time.Season;
-import Model.Game;
-import Model.Shop.ProductInterface;
 
-public enum FallStock implements ProductInterface {
+public enum FallSeeds {
+    GrassStarter("Place this on your farm to start a new patch of grass." , "Grass Starter" , 100 , Integer.MAX_VALUE),
     EggplantSeeds("Plant these in the fall. Takes 5 days to mature, and continues to produce after first harvest." , "Eggplant Seeds" , 30 , 5),
     CornSeeds("Plant these in the summer or fall. Takes 14 days to mature, and continues to produce after first harvest." , "Corn Seeds" , 225 , 5),
     PumpkinSeeds("Plant these in the fall. Takes 13 days to mature." , "Pumpkin Seeds" , 150 , 5),
@@ -24,24 +23,24 @@ public enum FallStock implements ProductInterface {
     private final int price;
     private final int dailyLimit;
 
-    FallStock(String description, String name, int price, int dailyLimit) {
+    FallSeeds(String description, String name, int price, int dailyLimit) {
         this.description = description;
         this.name = name;
         this.price = price;
         this.dailyLimit = dailyLimit;
     }
 
-    @Override
+
     public String getDescription() {
         return description;
     }
 
-    @Override
+
     public String getName() {
         return name;
     }
 
-    @Override
+
     public int getPrice() {
         if (App.getCurrentGame().getCurrentTime().getSeason() == Season.Fall)
             return (price * 2) / 3;
@@ -49,7 +48,7 @@ public enum FallStock implements ProductInterface {
             return price;
     }
 
-    @Override
+
     public int getDailyLimit() {
         return dailyLimit;
     }

@@ -5,6 +5,8 @@ import Model.Map.GameMap;
 import Model.Map.Region;
 import Model.Map.Tile;
 import Model.Player.Player;
+import Model.Shop.Shop;
+import Model.Shop.ShopType;
 import Model.Time.Season;
 import Model.Time.Weather;
 import Model.Time.WeekDay;
@@ -23,6 +25,9 @@ public class Game {
 
     private DateAndTime currentTime = new DateAndTime (9, 1, Weather.Sunny);
     private Weather tomorrowWeather;
+
+
+    private ArrayList<Shop> shops = new ArrayList<>();
 
     public Game(ArrayList<Player> players, Player currentPlayer) {
         this.players = players;
@@ -75,5 +80,18 @@ public class Game {
     public Tile getTile(Coordinate coordinate) {
         Tile[][] tiles = this.getMap().getFullMap();
         return tiles[coordinate.getX()][coordinate.getY()];
+    }
+
+    public Shop getShop(ShopType type) {
+        for (Shop s : shops) {
+            if (s.getType() == type) {
+                return s;
+            }
+        }
+        return shops.get(0);
+    }
+
+    public void setShops(ArrayList<Shop> shops) {
+        this.shops = shops;
     }
 }

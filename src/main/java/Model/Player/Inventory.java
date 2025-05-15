@@ -59,7 +59,7 @@ public class Inventory {
         this.capacity = capacity;
     }
 
-    public double getCapacity() {
+    public int getCapacity() {
         return capacity;
     }
 
@@ -114,4 +114,10 @@ public class Inventory {
         return true;
     }
 
+    public int getRemainedCapacity () {
+        if (capacity == Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
+        }
+        return capacity - items.size();
+    }
 }

@@ -173,5 +173,32 @@ public class NightController {
     }
 
 
+    private static void randomForagingMinerals() {
+        foragingMineralsForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
+        if (App.getCurrentGame().getPlayers().size() >= 2) {
+            foragingMineralsForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
+        }
+        if (App.getCurrentGame().getPlayers().size() >= 3) {
+            foragingMineralsForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
+        }
+        if (App.getCurrentGame().getPlayers().size() >= 4) {
+            foragingMineralsForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
+        }
+    }
 
+    private static void foragingMineralsForEachFarm(Coordinate c1, Coordinate c2) {
+        ArrayList<Forageable> listOfMinerals = ForageableFactory.getMineralForageables();
+        for (int x = c1.getX(); x < c2.getX(); x++) {
+            for (int y = c1.getY(); y < c2.getY(); y++) {
+                if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() == null &&
+                App.getCurrentGame().getTile(new Coordinate(x, y)).getType() == TileType.Mine){
+                    if (rand.nextInt(100) == 0 || rand.nextInt(100) == 1) {
+                        App.getCurrentGame().getTile(new Coordinate(x, y)).
+                                setItem(new ForagingMineral((ForagingMineralType) listOfMinerals.get(rand.nextInt(listOfMinerals.size()))));
+
+                    }
+                }
+            }
+        }
+    }
 }

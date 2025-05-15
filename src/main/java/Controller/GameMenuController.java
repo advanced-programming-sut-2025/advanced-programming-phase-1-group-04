@@ -9,9 +9,17 @@ import Model.Map.GameMap;
 import Model.Map.Tile;
 import Model.Player.Player;
 import Model.Result;
+import Model.Shop.BlackSmith.BlackSmith;
+import Model.Shop.CarpentersShop.CarpentersShop;
+import Model.Shop.FishShop.FishShop;
+import Model.Shop.JojaMart.JojaMart;
+import Model.Shop.MarniesRanch.MarniesRanch;
+import Model.Shop.PierresGeneralStore.PierresStore;
+import Model.Shop.TheStardropSaloon.TheStardropSaloon;
 import Model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameMenuController {
     private static final int[] farmSelections = new int[4];
@@ -65,6 +73,8 @@ public class GameMenuController {
         for (int i = App.getCurrentGame().getPlayers().size(); i < 4; i++) {
             farmSelections[i] = 1;
         }
+        App.getCurrentGame().setShops(new ArrayList<>(List.of(new BlackSmith(), new CarpentersShop(), new FishShop(),
+                new JojaMart(), new MarniesRanch(), new PierresStore(), new TheStardropSaloon())));
         App.getCurrentGame().setMap(new GameMap(farmSelections));
         App.getCurrentGame().getMap().setFulMap();
         return new Result(true, "Game loaded. Now you are in the game. Boro eshgh kon.");

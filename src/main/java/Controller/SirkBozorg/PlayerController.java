@@ -108,7 +108,7 @@ public class PlayerController {
         int count = Integer.parseInt(stringCount);
         Item item = getItemByTypeName(type, name);
 
-        if (App.getCurrentGame().getCurrentPlayer().getInventoryCapacity() > count) { // TODO: نمیدونم چطور مشخص میکنی جا داره یا نه ولی ارور مربوطه
+        if (App.getCurrentGame().getCurrentPlayer().getInventory().getRemainedCapacity() > count) { // TODO: نمیدونم چطور مشخص میکنی جا داره یا نه ولی ارور مربوطه
             return new Result(false, "");
         } else if (count < 1) {
             return new Result(false, "Count must be a positive number!");

@@ -206,7 +206,7 @@ public class GameMenu implements AppMenu {
         }
 
         else if ((matcher = GameMenuCommand.BuyAnimal.getMatcher(input)) != null) {
-            //TODO Parsa
+            AnimalController.buyAnimal(matcher.group("animal"), matcher.group("name"));
         }
         else if ((matcher = GameMenuCommand.Pet.getMatcher(input)) != null) {
             //TODO Parsa
@@ -246,13 +246,16 @@ public class GameMenu implements AppMenu {
 
 
         else if (GameMenuCommand.ShowShopProduct.getMatcher(input) != null) {
-            //TODO Parsa
+            System.out.println(ShopController.showAllProducts());
         }
         else if (GameMenuCommand.ShowShopAvailableProduct.getMatcher(input) != null) {
-            //TODO Parsa
+            System.out.println(ShopController.showAvailableProducts());
+        }
+        else if ((matcher = GameMenuCommand.PurchaseWithNumber.getMatcher(input)) != null) {
+            System.out.println(ShopController.purchaseWithNumber(matcher.group("productName"), matcher.group("count")));
         }
         else if ((matcher = GameMenuCommand.Purchase.getMatcher(input)) != null) {
-            //TODO Parsa
+            System.out.println(ShopController.purchaseWithNumber(matcher.group("productName"), "1"));
         }
         else if ((matcher = GameMenuCommand.CheatAddCount.getMatcher(input)) != null) {
             System.out.println(ShopController.cheatAddCount(matcher.group("count")));

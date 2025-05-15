@@ -18,7 +18,7 @@ public class MarniesRanch implements Shop {
     int shearNumber = 1;
     private HashMap<MarniesAnimals, Integer> animals = new HashMap<>();
 
-    MarniesRanch() {
+    public MarniesRanch() {
         type = ShopType.MarniesRanch;
         resetStock();
     }

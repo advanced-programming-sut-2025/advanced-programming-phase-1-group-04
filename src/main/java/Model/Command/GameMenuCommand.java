@@ -95,7 +95,8 @@ public enum GameMenuCommand implements Command {
     // Shop Controller: Parsa -> Nafiseh, Aynaz
     ShowShopProduct("show\\s+all\\s+products"),
     ShowShopAvailableProduct("show\\s+all\\s+available\\s+products"),
-    Purchase("purchase\\s+(?<productName>.+?)\\s+-n\\s+(?<count>\\d+)"),
+    PurchaseWithNumber("purchase\\s+(?<productName>.+?)\\s+-n\\s+(?<count>[-+]?\\d+)"),
+    Purchase("purchase\\s+(?<productName>.+)"),
     CheatAddCount("cheat\\s+add\\s+(?<count>\\d+)\\s+dollars"),
     SellProduct("sell\\s+(?<productName>.+?)\\s+-n\\s+(?<count>\\d+)"),
 

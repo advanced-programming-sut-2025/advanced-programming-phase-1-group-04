@@ -190,7 +190,9 @@ public class MapController {
         return new Result(true, result.toString());
     }
 
-    /*public static Coordinate getDestination (Coordinate destination) {
+    public static Coordinate getDestination (Coordinate destination) {
+        if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(destination))
+            return new Coordinate(-2, -2);
         int lenx = Math.abs(destination.getX() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
         int leny = Math.abs(destination.getY() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
         int minx = Math.min(destination.getX(), App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
@@ -218,12 +220,17 @@ public class MapController {
             int x = cur[1];
             int y = cur[2];
             int dir = cur[3];
+            Coordinate c = new Coordinate(x + minx, y + miny);
+            if (!App.getCurrentGame().getTile(c).isWalkable())
+                continue;
+            if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(c))
+                continue;
             if ((cost / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
-                return last;
+                return new Coordinate(last.getX() + minx, last.getY() + miny);
             last.setX(x);
             last.setY(y);
             if (x == destx && y == desty)
-                return last;
+                return new Coordinate(last.getX() + minx, last.getY() + miny);
             for (int i = 0; i < 4; i++) {
                 int newx = x + dx[i];
                 int newy = y + dy[i];
@@ -272,6 +279,11 @@ public class MapController {
             int x = cur[1];
             int y = cur[2];
             int dir = cur[3];
+            Coordinate c = new Coordinate(x + minx, y + miny);
+            if (!App.getCurrentGame().getTile(c).isWalkable())
+                continue;
+            if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(c))
+                continue;
             if ((cost / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
                 return ans;
             last.setX(x);
@@ -294,9 +306,9 @@ public class MapController {
             }
         }
         return -1;
-    }*/
+    }
 
-    public static int getDestinationEnergy(Coordinate destination) {
+    /*public static int getDestinationEnergy(Coordinate destination) {
         Coordinate start = App.getCurrentGame().getCurrentPlayer().getCoordinate();
 
         int maxEnergy = App.getCurrentGame().getCurrentPlayer().getEnergy();
@@ -357,7 +369,7 @@ public class MapController {
             return new Coordinate(-1, -1);  // unreachable
         }
         return destination;
-    }
+    }*/
 
     private static boolean canBuild(Coordinate coordinate, BuildingType type) {
         Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();

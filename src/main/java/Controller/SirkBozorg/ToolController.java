@@ -16,8 +16,7 @@ public class ToolController {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        List<Tool> tools = extractTools(new ArrayList<>(App.getCurrentGame().getCurrentPlayer().
-                getInventory().getItems().keySet()));
+        List<Tool> tools = extractTools(App.getCurrentGame().getCurrentPlayer().getInventory().getItemList());
         Tool tool = findToolByName(tools, toolName);
         if (tool == null) {
             return new Result(false, "you don't have this tool in your inventory!");
@@ -45,8 +44,7 @@ public class ToolController {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        List<Tool> tools = extractTools(new ArrayList<>(App.getCurrentGame().getCurrentPlayer().
-                getInventory().getItems().keySet()));
+        List<Tool> tools = extractTools(App.getCurrentGame().getCurrentPlayer().getInventory().getItemList());
         String result = "your available tools are:";
         for (Tool tool : tools) {
             result = result + "\n" + tool.getName();
@@ -59,8 +57,7 @@ public class ToolController {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        List<Tool> tools = extractTools(new ArrayList<>(App.getCurrentGame().getCurrentPlayer().
-                getInventory().getItems().keySet()));
+        List<Tool> tools = extractTools(App.getCurrentGame().getCurrentPlayer().getInventory().getItemList());
         Tool tool = findToolByName(tools, toolName);
         if (tool == null) {
             return new Result(false, "you don't have this tool in your inventory!");

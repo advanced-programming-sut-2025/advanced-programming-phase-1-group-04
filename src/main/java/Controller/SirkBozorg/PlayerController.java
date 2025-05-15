@@ -57,8 +57,8 @@ public class PlayerController {
         if (inventory.getItems().isEmpty()) {
             return new Result(true, "hich ani nadari");
         }
-        for (Item item : inventory.getItems().keySet()) {
-            result = result + item.getName() + " : " + inventory.getItems().get(item) + "\n";
+        for (String itemName : inventory.getItems().keySet()) {
+            result = result + itemName + " : " + inventory.getItems().get(itemName).getCount() + "\n";
         }
 
         return new Result(true, result);

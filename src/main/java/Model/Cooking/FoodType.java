@@ -51,27 +51,27 @@ public enum FoodType {
     SalmonDinner ("Salmon Dinner", FoodRecipe.SalmonDinner, 125, player -> {},
             null, null, 300),
     VegetableMedley ("Vegetable Medley", FoodRecipe.VegetableMedley, 165, player -> {},
-            (HashMap<Skill, Integer>) Map.of(Skill.Foraging, 2), null, 120),
+            new HashMap<>(Map.of(Skill.Foraging, 2)), null, 120),
     FarmersLunch ("Farmer's Lunch", FoodRecipe.FarmersLunch, 200, player -> {
         player.addSkillBuff(Skill.Farming, 5);
     },
-            (HashMap<Skill, Integer>) Map.of(Skill.Farming, 1), null, 150),
+            new HashMap<>(Map.of(Skill.Farming, 1)), null, 150),
     SurvivalBurger ("Survival Burger", FoodRecipe.SurvivalBurger, 125, player -> {
         player.addSkillBuff(Skill.Foraging, 5);
     },
-            (HashMap<Skill, Integer>) Map.of(Skill.Foraging, 3), null, 180),
+            new HashMap<>(Map.of(Skill.Foraging, 3)), null, 180),
     DishOTheSea ("Dish O' the Sea", FoodRecipe.DishOTheSea, 150, player -> {
         player.addSkillBuff(Skill.Fishing, 5);
     },
-            (HashMap<Skill, Integer>) Map.of(Skill.Fishing, 2), null, 220),
+            new HashMap<>(Map.of(Skill.Fishing, 2)), null, 220),
     SeaformPudding ("Seaform Pudding", FoodRecipe.SeaformPudding, 175, player -> {
         player.addSkillBuff(Skill.Fishing, 10);
     },
-            (HashMap<Skill, Integer>) Map.of(Skill.Fishing, 3), null, 300),
+            new HashMap<>(Map.of(Skill.Fishing, 3)), null, 300),
     MinersTreat ("Miner's Treat", FoodRecipe.MinersTreat, 125, player -> {
         player.addSkillBuff(Skill.Mining, 5);
     },
-            (HashMap<Skill, Integer>) Map.of(Skill.Mining, 1), null, 200),
+            new HashMap<>(Map.of(Skill.Mining, 1)), null, 200),
 
     TroutSoup ("Trout Soup", FoodRecipe.TroutSoup, 100, player -> {}, null,
             ShopType.FishShop, 250);

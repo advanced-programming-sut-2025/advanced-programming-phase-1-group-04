@@ -13,6 +13,7 @@ import Model.Time.WeekDay;
 import Model.Time.DateAndTime;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
     private final ArrayList<Player> players;
@@ -91,7 +92,8 @@ public class Game {
         return shops.get(0);
     }
 
-    public void setShops(ArrayList<Shop> shops) {
-        this.shops = shops;
+    public void setShops(List<Shop> shops) {
+        this.shops = new ArrayList<>(shops);
     }
+
 }

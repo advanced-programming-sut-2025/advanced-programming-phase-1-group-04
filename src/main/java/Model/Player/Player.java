@@ -137,25 +137,34 @@ public class Player {
         return inventory.addItem(item, quantity);
     }
 
-    public boolean removeItemFromInventory (String itemName, int quantity) {
+
+    public boolean removeItemFromInventory(String itemName, int quantity) {
         int price = 0;
-        if (inventory.hasItemWithName(itemName) != null) {
+        Inventory.ItemStack stack = inventory.getItems().get(itemName.toLowerCase());
+
+        if (stack != null) {
             if (quantity != -1) {
-                price = quantity * inventory.hasItemWithName(itemName).getPrice() *
-                        (inventory.getTrashCanLevel() - 1) * 15 / 100;
+                int removableCount = Math.min(quantity, stack.getCount());
+                for (int i = 0; i < removableCount; i++) {
+                    Item item = stack.getItems().get(stack.getItems().size() - 1 - i);
+                    price += item.getPrice();
+                }
+            } else {
+                for (Item item : stack.getAll()) {
+                    price += item.getPrice();
+                }
             }
-            else {
-                price = inventory.getItems().get(inventory.hasItemWithName(itemName)) *
-                        inventory.hasItemWithName(itemName).getPrice() *
-                        (inventory.getTrashCanLevel() - 1) * 15 / 100;
-            }
+
+            price = price * (inventory.getTrashCanLevel() - 1) * 15 / 100;
         }
+
         boolean result = inventory.removeItem(itemName, quantity);
         if (result) {
             addCount(price);
         }
         return result;
     }
+
 
     public void setInventoryCapacity(int capacity) {
         inventory.setCapacity(capacity);

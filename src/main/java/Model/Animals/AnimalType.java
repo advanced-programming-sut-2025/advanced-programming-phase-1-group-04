@@ -44,4 +44,8 @@ public enum AnimalType {
     public int getPrice() {
         return price;
     }
+
+    public ArrayList<AnimalProductType> getProducts() {
+        return products;
+    }
 }

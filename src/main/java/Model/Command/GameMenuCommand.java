@@ -10,6 +10,7 @@ public enum GameMenuCommand implements Command {
     ExitGame("exit\\s+game"),
     DeleteGame("delete\\s+game"),
     NextTurn("next\\s+turn"),
+    GotoNextDay("go\\s+to\\s+next\\s+day"),
 
     // Time Controller: Nafiseh
     Time("time|date|datetime|day of the week"),

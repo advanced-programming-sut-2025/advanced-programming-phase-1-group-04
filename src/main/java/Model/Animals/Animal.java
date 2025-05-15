@@ -84,12 +84,18 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "Name: " + this.name + "\n" +
+        String result = "Name: " + this.name + "\n" +
             "Type: " + this.type.getName() + "\n" +
             "Description: " + this.type.getDescription() + "\n" +
             "FriendShip: " + this.friendship + "\n" +
             "Has the animal been petted today? " + this.isPetted + "\n" +
-            "Has the animal been fed today? " + this.isFeeded + "\n" +
-            "__________________________________________\n";
+            "Has the animal been fed today? " + this.isFeeded + "\n";
+
+            if (this.coordinate != null)
+                result += "Coordinate: (" + this.coordinate.getX() + ", " + this.coordinate.getY() + ")\n";
+            else
+                result += "Animal is in Coop/Barn:)\n";
+
+            return result + "__________________________________________\n";
     }
 }

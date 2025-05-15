@@ -75,6 +75,7 @@ public enum GameMenuCommand implements Command {
 
     // Map Controller: Nafiseh
     Build("build\\s+-a\\s+(?<name>.+?)\\s+-l\\s+(?<x>\\d+)\\s*,\\s*(?<y>\\d+)"),
+    ShowListFarmBuilding("show\\s+list\\s+farm\\s+building"),
 
     // Animal Controller: Parsa -> Nafiseh
     BuyAnimal("buy\\s+animal\\s+-a\\s+(?<animal>.+?)\\s+-n\\s+(?<name>.+)"),

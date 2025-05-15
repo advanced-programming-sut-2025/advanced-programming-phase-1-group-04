@@ -181,6 +181,15 @@ public class MapController {
         return result;
     }
 
+    public static Result showListFarmBuilding() {
+        StringBuilder result = new StringBuilder();
+        result.append("My Farm Building List:\n").append("_______________________________________\n");
+        for (FarmBuilding farmBuilding: App.getCurrentGame().getCurrentPlayer().getMyFarmBuildings()) {
+            result.append("Name: ").append(farmBuilding.getName()).append("\n");
+        }
+        return new Result(true, result.toString());
+    }
+
     /*public static Coordinate getDestination (Coordinate destination) {
         int lenx = Math.abs(destination.getX() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
         int leny = Math.abs(destination.getY() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());

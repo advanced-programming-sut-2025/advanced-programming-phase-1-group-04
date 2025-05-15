@@ -145,6 +145,11 @@ public class GameMenuController {
         return new Result(true, "Nobody had energy. Skipping to night.");
     }
 
+    public static Result gotoNextDay() {
+        NightController.nightControl();
+        return new Result(true, "Shab bekheir...");
+    }
+
     public static Result currentMenu () {
         return new Result(true, "You are in game menu");
     }

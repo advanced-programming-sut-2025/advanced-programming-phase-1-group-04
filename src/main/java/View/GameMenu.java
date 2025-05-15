@@ -72,6 +72,9 @@ public class GameMenu implements AppMenu {
         else if (GameMenuCommand.NextTurn.getMatcher(input) != null) {
             System.out.println(GameMenuController.nextTurn());
         }
+        else if (GameMenuCommand.GotoNextDay.isMatch(input)) {
+            System.out.println(GameMenuController.gotoNextDay());
+        }
         else if (GameMenuCommand.Time.getMatcher(input) != null) {
             System.out.println(TimeController.time(input));
         }
@@ -204,6 +207,9 @@ public class GameMenu implements AppMenu {
 
         else if ((matcher = GameMenuCommand.Build.getMatcher(input)) != null) {
             System.out.println(MapController.buildFarmBuilding(matcher.group("name"), matcher.group("x"), matcher.group("y")));
+        }
+        else if (GameMenuCommand.ShowListFarmBuilding.isMatch(input)) {
+            System.out.println(MapController.showListFarmBuilding());
         }
 
         else if ((matcher = GameMenuCommand.BuyAnimal.getMatcher(input)) != null) {

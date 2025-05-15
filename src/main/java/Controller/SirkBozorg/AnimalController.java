@@ -30,7 +30,7 @@ public class AnimalController {
 
         animal.addFriendship(15);
         animal.setPetted(true);
-        return new Result(true, "");
+        return new Result(true, "Aghoda che sahebe mehraboni *_*");
     }
 
     public static Result showListAnimals() {
@@ -71,8 +71,8 @@ public class AnimalController {
         }
 
         // Go out:
-        if (!tile.getBuildingType().equals(BuildingType.Barn) &&
-            !tile.getBuildingType().equals(BuildingType.Coop)) {
+        BuildingType type = tile.getBuildingType();
+        if (type == null || (!type.equals(BuildingType.Barn) && !type.equals(BuildingType.Coop))) {
             if (!App.getCurrentGame().getCurrentTime().getWeather().equals(Weather.Sunny)) {
                 return new Result(false, "Animals can only go out in sunny weather!");
             }
@@ -85,9 +85,13 @@ public class AnimalController {
         }
         // Go inside:
         else {
-            App.getCurrentGame().getTile(animal.getCoordinate()).setAnimal(null);
-            animal.setCoordinate(null);
-            return new Result(true,  name + " successfully entered.");
+            if (animal.getCoordinate() != null) {
+                App.getCurrentGame().getTile(animal.getCoordinate()).setAnimal(null);
+                animal.setCoordinate(null);
+                return new Result(true,  name + " successfully entered.");
+            } else {
+                return new Result(true,  "همین الانشم توعه بس!");
+            }
         }
     }
 
@@ -95,7 +99,7 @@ public class AnimalController {
         Animal animal = getAnimalByName(name);
         if (animal == null) {
             return new Result(false, "You don't have a pet with that name!");
-        } else if (App.getCurrentGame().getCurrentPlayer().getInventory().removeItem("hay", 1)) {
+        } else if (!App.getCurrentGame().getCurrentPlayer().getInventory().removeItem("hay", 1)) {
             return new Result(false, "You don't have hay!");
         }
 
@@ -138,6 +142,9 @@ public class AnimalController {
 
         App.getCurrentGame().getCurrentPlayer().addCount(animal.getSellPrice());
         App.getCurrentGame().getCurrentPlayer().getMyAnimals().remove(animal);
+        if (animal.getCoordinate() != null) {
+            App.getCurrentGame().getTile(animal.getCoordinate()).setAnimal(null);
+        }
         return new Result(true, "You successfully sold " + animal.getName() + " for " + animal.getSellPrice());
     }
 

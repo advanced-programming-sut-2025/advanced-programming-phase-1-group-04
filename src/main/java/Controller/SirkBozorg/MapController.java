@@ -97,6 +97,7 @@ public class MapController {
 
         return new Result(true, App.getCurrentGame().getTile(coordinate).toString());
     }
+
     public static Result walk(String stringX, String stringY) {
         if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
@@ -391,8 +392,8 @@ public class MapController {
 
     private static boolean canBuild(Coordinate coordinate, BuildingType type) {
         Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
-        for (int i = coordinate.getX(); i < type.getW(); i++) {
-            for (int j = coordinate.getY(); j < type.getL(); j++) {
+        for (int i = coordinate.getX(); i < coordinate.getX() + type.getL(); i++) {
+            for (int j = coordinate.getY(); j < coordinate.getY() + type.getW(); j++) {
                 Tile tile = fullMap[i][j];
                 switch (tile.getType()) {
                     case Building, Water, Mountain, Mine:
@@ -408,8 +409,8 @@ public class MapController {
 
     private static void buildInMap(Coordinate coordinate, BuildingType type) {
         Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
-        for (int i = coordinate.getX(); i < type.getW(); i++) {
-            for (int j = coordinate.getY(); j < type.getL(); j++) {
+        for (int i = coordinate.getX(); i < coordinate.getX() + type.getL(); i++) {
+            for (int j = coordinate.getY(); j < coordinate.getY() + type.getW(); j++) {
                 Tile tile = fullMap[i][j];
                 tile.setType(TileType.Building);
                 tile.setBuildingType(type);

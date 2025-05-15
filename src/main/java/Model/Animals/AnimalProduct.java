@@ -16,6 +16,11 @@ public class AnimalProduct implements Item {
         this.quality = (friendship / 1000.0) * (0.5 + 0.5 * R);
     }
 
+    public AnimalProduct(AnimalProductType type) {
+        this.type = type;
+        this.quality = 0;
+    }
+
 
     public AnimalProductType getType() {
         return type;

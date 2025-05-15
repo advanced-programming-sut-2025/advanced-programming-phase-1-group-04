@@ -46,3 +46,27 @@ walk -l 54, 75
 
 FishShop:
 walk -l 32, 75
+
+---------------------------------------------------------------
+Animal Debug:
+
+// build coop for player 1 & game map 1
+walk -l 55, 55
+cheat add 40000 dollars
+cheat add item -t stone -n stone -c 100
+cheat add item -t wood -n wood -c 300
+build -a coop -l 10, 10
+
+// buy animal
+walk -l 45, 45
+buy animal -a chicken -n ali
+
+shepherd animals -n ali -l 15, 15
+shepherd animals -n ali -l 10, 11
+
+feed hay -n ali
+
+walk -l 16, 15
+pet -n ali
+
+sell animal -n ali

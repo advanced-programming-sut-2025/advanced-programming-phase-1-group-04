@@ -13,6 +13,11 @@ public class Fruit implements Item, Plant {
         this.purposelyPlanted = purposelyPlanted;
     }
 
+    public Fruit (FruitType type) {
+        this.type = type;
+        this.purposelyPlanted = true;
+    }
+
     //getters:
     @Override
     public String getName() {

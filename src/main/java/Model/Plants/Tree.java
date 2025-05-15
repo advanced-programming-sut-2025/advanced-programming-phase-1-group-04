@@ -33,6 +33,13 @@ public class Tree implements Item, Plant {
         lastTimeHarvested = null;
         this.purposelyPlanted = purposelyPlanted;
     }
+    public Tree (TreeType type) {
+        this.type = type;
+        this.plantingDate = new DateAndTime(9, 1, Weather.Sunny);
+        isBurned = false;
+        lastTimeHarvested = null;
+        this.purposelyPlanted = true;
+    }
 
     //getters:
     public TreeType getType() {

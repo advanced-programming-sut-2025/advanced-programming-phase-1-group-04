@@ -2,11 +2,16 @@ package Controller.SirkBozorg;
 
 import Controller.GameMenuController;
 import Model.App;
+import Model.Cooking.Food;
+import Model.Cooking.FoodType;
+import Model.Crafting.Craft;
+import Model.Crafting.CraftType;
 import Model.Game;
 import Model.Map.Item;
 import Model.Map.ItemType;
 import Model.Map.Stone;
 import Model.Map.Wood;
+import Model.Plants.*;
 import Model.Player.Inventory;
 import Model.Player.Player;
 import Model.Player.Skill;
@@ -147,12 +152,19 @@ public class PlayerController {
         //TODO: change some constructors and return items for each type
         switch (type) {
             case "tree":
+                return getTree(name);
             case "sapling":
+                return getSapling(name);
             case "crop":
+                return getCrop(name);
             case "fruit":
+                return getFruit(name);
             case "seed":
+                return getSeed(name);
             case "foraging crop":
+                return getForagingCrop(name);
             case "foraging mineral":
+                return getForagingMineral(name);
             case "stone":
                 if (name.equals("stone")) return new Stone();
                 else return null;
@@ -160,11 +172,94 @@ public class PlayerController {
                 if (name.equals("wood")) return new Wood();
                 else return null;
             case "craft":
+                return getCraft(name);
             case "food":
+                return getFood(name);
             case "fish":
             case "animal product":
             default:
                 return null;
         }
+    }
+
+    private static Tree getTree (String name) {
+        for (TreeType t : TreeType.values()) {
+            if (t.getName().equalsIgnoreCase(name)) {
+                return new Tree(t);
+            }
+        }
+        return null;
+    }
+
+    private static Sapling getSapling (String name) {
+        for (SaplingType t : SaplingType.values()) {
+            if (t.getName().equalsIgnoreCase(name)) {
+                return new Sapling(t);
+            }
+        }
+        return null;
+    }
+
+    private static Crop getCrop (String name) {
+        for (CropType t : CropType.values()) {
+            if (t.getName().equalsIgnoreCase(name)) {
+                return new Crop(t);
+            }
+        }
+        return null;
+    }
+
+    private static Fruit getFruit (String name) {
+        for (FruitType t : FruitType.values()) {
+            if (t.getName().equalsIgnoreCase(name)) {
+                return new Fruit(t);
+            }
+        }
+        return null;
+    }
+
+    private static Seed getSeed (String name) {
+        for (SeedType t : SeedType.values()) {
+            if (t.getName().equalsIgnoreCase(name)) {
+                return new Seed(t);
+            }
+        }
+        return null;
+    }
+
+    private static ForagingCrop getForagingCrop (String name) {
+        for (ForagingCropType t : ForagingCropType.values()) {
+            if (t.getName().equalsIgnoreCase(name)) {
+                return new ForagingCrop(t);
+            }
+        }
+        return null;
+    }
+
+    private static ForagingMineral getForagingMineral (String name) {
+        for (ForagingMineralType t : ForagingMineralType.values()) {
+            if (t.getName().equalsIgnoreCase(name)) {
+                return new ForagingMineral(t);
+            }
+        }
+        return null;
+    }
+
+    private static Food getFood (String name) {
+        for (FoodType t : FoodType.values()) {
+            if (t.getName().equalsIgnoreCase(name)) {
+                return new Food(t);
+            }
+        }
+        return null;
+    }
+
+    private static Craft getCraft (String name) {
+        for (CraftType t : CraftType.values()) {
+            if (t.getName().equalsIgnoreCase(name)) {
+                return new Craft(t);
+            }
+        }
+        return null;
     }
 }

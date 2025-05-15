@@ -14,6 +14,10 @@ public class Sapling implements Item, Plant {
         this.saplingType =saplingType;
         this.purposelyPlanted = purposelyPlanted;
     }
+    public Sapling (SaplingType saplingType) {
+        this.saplingType =saplingType;
+        this.purposelyPlanted = true;
+    }
 
     @Override
     public String getName() {

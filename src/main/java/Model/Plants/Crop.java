@@ -30,6 +30,12 @@ public class Crop implements Item, Plant {
         this.type = type;
         this.purposelyPlanted = purposelyPlanted;
     }
+    public Crop(CropType type) {
+        this.plantingDate = new DateAndTime(App.getCurrentGame().getCurrentTime().getHour(),
+                App.getCurrentGame().getCurrentTime().getDay(), App.getCurrentGame().getCurrentTime().getWeather());
+        this.type = type;
+        this.purposelyPlanted = true;
+    }
 
 
     //getters:

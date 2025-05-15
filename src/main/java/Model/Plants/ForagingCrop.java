@@ -1,6 +1,7 @@
 package Model.Plants;
 
 import Controller.SirkBozorg.PlantController;
+import Model.App;
 import Model.Map.Item;
 import Model.Time.DateAndTime;
 import Model.Time.Season;
@@ -16,14 +17,20 @@ public class ForagingCrop implements Item, Plant {
     public ForagingCrop (ForagingCropType type, boolean purposelyPlanted) {
         this.type = type;
         this.purposelyPlanted = purposelyPlanted;
-        plantingDate = new DateAndTime(9, 1, Weather.Sunny);
+        plantingDate = new DateAndTime(App.getCurrentGame().getCurrentTime().getHour(),
+                App.getCurrentGame().getCurrentTime().getDay(), App.getCurrentGame().getCurrentTime().getWeather());
     }
     public ForagingCrop (DateAndTime t, ForagingCropType type, boolean purposelyPlanted) {
         this.type = type;
         this.purposelyPlanted = purposelyPlanted;
-        plantingDate = new DateAndTime(t.getHour(), t.getDay(), Weather.Sunny);
+        plantingDate = new DateAndTime(t.getHour(), t.getDay(), t.getWeather());
     }
-
+    public ForagingCrop (ForagingCropType type) {
+        this.type = type;
+        this.purposelyPlanted = false;
+        plantingDate = new DateAndTime(App.getCurrentGame().getCurrentTime().getHour(),
+                App.getCurrentGame().getCurrentTime().getDay(), App.getCurrentGame().getCurrentTime().getWeather());
+    }
 
     @Override
     public String getName() {

@@ -2,18 +2,37 @@ package Model.Animals;
 
 import Model.Map.Item;
 
+import java.util.Random;
+
 public class AnimalProduct implements Item {
     private final AnimalProductType type;
     private final double quality;
 
-    public AnimalProduct(AnimalProductType type, int quality) {
+    public AnimalProduct(AnimalProductType type, int friendship) {
         this.type = type;
-        this.quality = quality;
+
+        Random random = new Random();
+        double R = random.nextDouble();
+        this.quality = (friendship / 1000.0) * (0.5 + 0.5 * R);
     }
 
 
     public AnimalProductType getType() {
         return type;
+    }
+
+    public String getQualityString() {
+        if (this.quality < 0.5) {
+            return "Regular";
+        } else if (this.quality < 0.7) {
+            return "Steel";
+        } else if (this.quality < 0.9) {
+            return "Gold";
+        } else if (this.quality >= 0.9) {
+            return "Iridium";
+        } else {
+            return "Invalid quality!";
+        }
     }
 
     @Override
@@ -23,6 +42,14 @@ public class AnimalProduct implements Item {
 
     @Override
     public int getPrice() {
-        return type.getPrice();
+        double coefficient = 1;
+        if (this.quality < 0.7) {
+            coefficient = 1.25;
+        } else if (this.quality < 0.9) {
+            coefficient = 1.5;
+        } else if (this.quality >= 0.9) {
+            coefficient = 2;
+        }
+        return (int) (type.getPrice() * coefficient);
     }
 }

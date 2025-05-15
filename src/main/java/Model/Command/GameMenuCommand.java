@@ -79,14 +79,14 @@ public enum GameMenuCommand implements Command {
     BuyAnimal("buy\\s+animal\\s+-a\\s+(?<animal>.+?)\\s+-n\\s+(?<name>.+)"),
     Pet("pet\\s+-n\\s+(?<name>.+)"),
     ShowAnimalsInfo("animals\\s+list"),
-    CheatFriendShipAnimal("cheat\\s+set\\s+friendship\\s+-n\\s+(?<animalName>.+?)\\s+-c\\s+(?<amount>\\d+)"),
-    ShepherdAnimal("shepherd\\s+animals\\s+-n\\s+(?<animalName>.+?)\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"), // todo
-    FeedAnimal("feed\\s+hay\\s+-n\\s+(?<animalName>.+)"),
+    CheatFriendShipAnimal("cheat\\s+set\\s+friendship\\s+-n\\s+(?<name>.+?)\\s+-c\\s+(?<amount>\\d+)"),
+    ShepherdAnimal("shepherd\\s+animals\\s+-n\\s+(?<name>.+?)\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"), // todo
+    FeedAnimal("feed\\s+hay\\s+-n\\s+(?<name>.+)"),
     ShowAnimalProduceInfo("animal\\s+produces\\s+list"),
     CollectAnimalProduce("collect\\s+produce\\s+-n\\s+(?<name>.+?)"),
     SellAnimal("sell\\s+animal\\s+-n\\s+(?<name>.+)"),
 
-    Fishing("fishing\\s+-p\\s+(?<fishingPole>.+)"), // todo
+    Fishing("fishing\\s+-p\\s+(?<fishingPole>.+)"), // todo -> use tool
 
     // Artisan Controller: Aynaz (optional)
     ArtisanUse("artisan\\s+use\\s+-a\\s+(?<artisanName>.+?)\\s+-i\\s+(?<item1Name>.+)"),

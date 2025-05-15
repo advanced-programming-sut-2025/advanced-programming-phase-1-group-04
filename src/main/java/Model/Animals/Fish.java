@@ -4,7 +4,7 @@ import Model.Map.Item;
 import Model.Time.Season;
 
 public class Fish implements Item {
-    private FishType type;
+    private final FishType type;
 
     public Fish(FishType type) {
         this.type = type;

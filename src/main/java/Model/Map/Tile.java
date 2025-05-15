@@ -167,6 +167,10 @@ public class Tile {
         this.buildingType = buildingType;
     }
 
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
+    }
+
     public void setPlowed(boolean plowed) {
         isPlowed = plowed;
     }

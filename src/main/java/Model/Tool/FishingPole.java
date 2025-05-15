@@ -1,7 +1,9 @@
 package Model.Tool;
 
+import Model.App;
 import Model.Map.Tile;
 import Model.Result;
+import Model.Time.Weather;
 
 public class FishingPole implements Tool{
     private FishingPoleType type;
@@ -25,6 +27,12 @@ public class FishingPole implements Tool{
 
     @Override
     public int getEnergyConsumption(boolean useSuccess) {
+        if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Rain) {
+            return (int) (type.getEnergyConsumption() * 1.5);
+        }
+        else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
+            return type.getEnergyConsumption() * 2;
+        }
         return type.getEnergyConsumption();
     }
 

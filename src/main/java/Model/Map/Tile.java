@@ -3,10 +3,12 @@ package Model.Map;
 import Model.Animals.Animal;
 import Model.Animals.AnimalProduct;
 import Model.Animals.Fish;
+import Model.App;
 import Model.Cooking.Food;
 import Model.Crafting.Craft;
 import Model.NPC.NPC;
 import Model.Plants.*;
+import Model.Time.DateAndTime;
 
 
 public class Tile {
@@ -21,6 +23,8 @@ public class Tile {
 
     private boolean isPlowed = false;
     private boolean isWatered = false;
+    private DateAndTime lastTimeWatered = null;
+    private int fertilize = 0;
     private Animal animal = null;
 
     public Tile(TileType type) { // For Water, Mountain, Mine
@@ -185,6 +189,8 @@ public class Tile {
 
     public void setWatered(boolean watered) {
         isWatered = watered;
+        lastTimeWatered = new DateAndTime(App.getCurrentGame().getCurrentTime().getHour(),
+                App.getCurrentGame().getCurrentTime().getDay(), App.getCurrentGame().getCurrentTime().getWeather());
     }
 
     public Item getItem() {
@@ -201,5 +207,25 @@ public class Tile {
 
     public BuildingType getBuildingType() {
         return buildingType;
+    }
+
+    public boolean isWatered() {
+        return isWatered;
+    }
+
+    public DateAndTime getLastTimeWatered() {
+        return lastTimeWatered;
+    }
+
+    public void setLastTimeWatered(DateAndTime lastTimeWatered) {
+        this.lastTimeWatered = lastTimeWatered;
+    }
+
+    public int getFertilize() {
+        return fertilize;
+    }
+
+    public void setFertilize(int fertilize) {
+        this.fertilize = fertilize;
     }
 }

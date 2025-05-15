@@ -5,6 +5,7 @@ import Model.Map.BuildingType;
 import Model.Map.Tile;
 import Model.Map.TileType;
 import Model.Result;
+import Model.Time.Weather;
 
 public class Hoe implements Tool{
     private ToolLevel level;
@@ -118,19 +119,29 @@ public class Hoe implements Tool{
 
     @Override
     public int getEnergyConsumption(boolean useSuccess) {
+        int base = 0;
         if (level == ToolLevel.Starter) {
-            return 5;
+            base = 5;
         }
         else if (level == ToolLevel.Copper) {
-            return 4;
+            base = 4;
         }
         else if (level == ToolLevel.Steel) {
-            return 3;
+            base = 3;
         }
         else if (level == ToolLevel.Gold) {
-            return 2;
+            base = 2;
         }
-        return 1;
+        else {
+            base = 1;
+        }
+        if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Rain) {
+            return (int) (base * 1.5);
+        }
+        else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
+            return base * 2;
+        }
+        return base;
     }
 
     @Override

@@ -24,9 +24,10 @@ public class Inventory {
     //TODO: we have maxint as infinite capacity
 
     public boolean addItem (Item item, int quantity) {
-        if (items.containsKey(item)) {
-            int newQuantity = items.get(item) + quantity;
-            items.put(item, newQuantity);
+        Item i = hasItemWithName(item.getName());
+        if (i != null) {
+            int newQuantity = items.get(i) + quantity;
+            items.put(i, newQuantity);
             return true;
         }
         if (items.size() < capacity) {
@@ -120,4 +121,13 @@ public class Inventory {
         }
         return capacity - items.size();
     }
+
+//    public boolean include (Item item) {
+//        for (Item i : items.keySet()) {
+//            if (i.getName().equalsIgnoreCase(item.getName())) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 }

@@ -8,6 +8,7 @@ import Model.Plants.ForagingMineral;
 import Model.Plants.ForagingMineralType;
 import Model.Player.Skill;
 import Model.Result;
+import Model.Time.Weather;
 
 public class Pickaxe implements Tool {
     private ToolLevel level;
@@ -131,70 +132,86 @@ public class Pickaxe implements Tool {
 
     @Override
     public int getEnergyConsumption(boolean useSuccess) {
+        int base = 0;
         if (useSuccess) {
             if (4 == App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Mining)) {
                 if (level == ToolLevel.Starter) {
-                    return 4;
+                    base = 4;
                 }
                 else if (level == ToolLevel.Copper) {
-                    return 3;
+                    base = 3;
                 }
                 else if (level == ToolLevel.Steel) {
-                    return 2;
+                    base = 2;
                 }
                 else if (level == ToolLevel.Gold) {
-                    return 1;
+                    base = 1;
                 }
-                return 0;
+                else {
+                    base = 0;
+                }
             }
             else {
                 if (level == ToolLevel.Starter) {
-                    return 5;
+                    base = 5;
                 }
                 else if (level == ToolLevel.Copper) {
-                    return 4;
+                    base = 4;
                 }
                 else if (level == ToolLevel.Steel) {
-                    return 3;
+                    base = 3;
                 }
                 else if (level == ToolLevel.Gold) {
-                    return 2;
+                    base = 2;
                 }
-                return 1;
+                else {
+                    base = 1;
+                }
             }
         }
         else {
             if (4 == App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Mining)) {
                 if (level == ToolLevel.Starter) {
-                    return 3;
+                    base = 3;
                 }
                 else if (level == ToolLevel.Copper) {
-                    return 2;
+                    base = 2;
                 }
                 else if (level == ToolLevel.Steel) {
-                    return 1;
+                    base = 1;
                 }
                 else if (level == ToolLevel.Gold) {
-                    return 0;
+                    base = 0;
                 }
-                return 0;
+                else {
+                    base = 0;
+                }
             }
             else {
                 if (level == ToolLevel.Starter) {
-                    return 4;
+                    base = 4;
                 }
                 else if (level == ToolLevel.Copper) {
-                    return 3;
+                    base = 3;
                 }
                 else if (level == ToolLevel.Steel) {
-                    return 2;
+                    base = 2;
                 }
                 else if (level == ToolLevel.Gold) {
-                    return 1;
+                    base = 1;
                 }
-                return 0;
+                else {
+                    base = 0;
+                }
             }
         }
+        if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Rain) {
+            return (int) (base * 1.5);
+        }
+        else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
+            return base * 2;
+        }
+        return base;
     }
 
     @Override

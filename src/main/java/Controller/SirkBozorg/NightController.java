@@ -9,7 +9,6 @@ import Model.Player.Player;
 import Model.Time.DateAndTime;
 import Model.Time.Season;
 import Model.Time.Weather;
-import com.sun.source.tree.Tree;
 
 import java.util.*;
 
@@ -20,16 +19,20 @@ public class NightController {
     public static void nightControl() {
         // Map:
         //TODO: aynaz asar abiari tamam tile pakshe(loop all tile)
+        //Time:
+        setWeather();
+        setTomorrowWeather();
+        goToNextDay();
+
         rainyWeatherEffect();
         randomForagingPlants();
+        randomForagingMinerals();
         thorEffect();
         // Player:(and its animals)
         movePlayers();
-        // Time:
-        setWeather();
-        setTomorrowWeather();
 
-        goToNextDay();
+
+
     }
 
     private static void randomForagingPlants() {
@@ -50,8 +53,8 @@ public class NightController {
                 getCurrentTime().getSeason());
         for (int x = c1.getX(); x < c2.getX(); x++) {
             for (int y = c1.getY(); y < c2.getY(); y++) {
-                if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() == null ){
-                       // App.getCurrentGame().getTile(new Coordinate(x, y)).isPlowed()) {
+                if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() == null &&
+                        App.getCurrentGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground){
                     if (rand.nextInt(100) == 0) {
                         plantForageable(App.getCurrentGame().getTile(new Coordinate(x, y)),
                                 listOfPlants.get(rand.nextInt(listOfPlants.size())));
@@ -96,8 +99,8 @@ public class NightController {
     private static void thorEffect() {
         if (thorCoordinate != null) {
             Tile tile = App.getCurrentGame().getTile(thorCoordinate);
-            if (tile instanceof Tree) {
-                //tile.setItem(); TODO: zoghal sang
+            if (tile.getItem() instanceof Tree tree) {
+                tree.burn();
             } else {
                 tile.setItem(null);
             }
@@ -105,8 +108,8 @@ public class NightController {
         } else {
             if (App.getCurrentGame().getTomorrowWeather().equals(Weather.Storm)) {
                 for (Tile tile: getRandomTilesFromFarm(1, 3)) {
-                    if (tile instanceof Tree) {
-                        //tile.setItem(); TODO: zoghal sang
+                    if (tile.getItem() instanceof Tree tree) {
+                        tree.burn();
                     } else {
                         tile.setItem(null);
                     }
@@ -117,11 +120,13 @@ public class NightController {
 
     private static void movePlayers() {
         for (Player player : App.getCurrentGame().getPlayers()) {
-            if (MapController.getDestinationEnergy(player.getHouseCoordinate()) > player.getEnergy() &&
+            if (MapController.getDestinationEnergy(player.getHouseCoordinate()) <= player.getEnergy() &&
                 MapController.getDestinationEnergy(player.getHouseCoordinate()) != -1) {
                 player.setCoordinate(player.getHouseCoordinate());
+                player.setEnergy(200);
             } else {
                 //TODO: Aynaz 75% energy rozane az dast mide
+                player.setEnergy(150);
             }
         }
     }
@@ -192,7 +197,7 @@ public class NightController {
             for (int y = c1.getY(); y < c2.getY(); y++) {
                 if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() == null &&
                 App.getCurrentGame().getTile(new Coordinate(x, y)).getType() == TileType.Mine){
-                    if (rand.nextInt(100) == 0 || rand.nextInt(100) == 1) {
+                    if (rand.nextInt(100) < 5) {
                         App.getCurrentGame().getTile(new Coordinate(x, y)).
                                 setItem(new ForagingMineral((ForagingMineralType) listOfMinerals.get(rand.nextInt(listOfMinerals.size()))));
 

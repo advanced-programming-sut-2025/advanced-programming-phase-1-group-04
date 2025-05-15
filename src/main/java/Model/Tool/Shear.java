@@ -1,7 +1,9 @@
 package Model.Tool;
 
+import Model.App;
 import Model.Map.Tile;
 import Model.Result;
+import Model.Time.Weather;
 
 public class Shear implements Tool {
 
@@ -17,6 +19,12 @@ public class Shear implements Tool {
 
     @Override
     public int getEnergyConsumption(boolean useSuccess) {
+        if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Rain) {
+            return 6;
+        }
+        else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
+            return 8;
+        }
         return 4;
     }
 

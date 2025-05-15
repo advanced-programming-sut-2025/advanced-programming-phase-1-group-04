@@ -117,7 +117,18 @@ public class PlantController {
             return new Result(false, "this tile is empty!");
         }
         else if (item instanceof Plant) {
-            return new Result(true, ((Plant) item).showPlantInfo());
+            String result = ((Plant) item).showPlantInfo() + "\nis watered: " +
+                    App.getCurrentGame().getTile(new Coordinate(x, y)).isWatered() + "\nfertilize: ";
+            if (App.getCurrentGame().getTile(new Coordinate(x, y)).getFertilize() == 0) {
+                result = result + "no";
+            }
+            else if (App.getCurrentGame().getTile(new Coordinate(x, y)).getFertilize() == 0) {
+                result = result + "retaining soil";
+            }
+            else if (App.getCurrentGame().getTile(new Coordinate(x, y)).getFertilize() == 0) {
+                result = result + "speed-gro";
+            }
+            return new Result(true, result);
         }
         return new Result(false, "no plants in this tile!");
     }

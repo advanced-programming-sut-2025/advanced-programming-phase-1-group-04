@@ -122,6 +122,9 @@ public class GameMenu implements AppMenu {
         else if (GameMenuCommand.HelpMap.getMatcher(input) != null) {
             System.out.println(MapController.helpMap());
         }
+        else if ((matcher = GameMenuCommand.TileInfo.getMatcher(input)) != null) {
+            System.out.println(MapController.tileInfo(matcher.group("x"), matcher.group("y")));
+        }
 
         else if (GameMenuCommand.ShowEnergy.isMatch(input)) {
             System.out.println(PlayerController.showEnergy());

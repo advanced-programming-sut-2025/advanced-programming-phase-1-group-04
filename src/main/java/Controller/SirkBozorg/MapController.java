@@ -86,6 +86,17 @@ public class MapController {
         return new Result(true, result.toString());
     }
 
+    public static Result tileInfo(String stringX, String stringY) {
+        int x = Integer.parseInt(stringX);
+        int y = Integer.parseInt(stringY);
+        Coordinate coordinate = new Coordinate(x, y);
+
+        if ((x < 0 || x >= 90) || (y < 0 || y >= 120)) {
+            return new Result(false, "Mashti x,y bein (0,0) - (89, 119)");
+        }
+
+        return new Result(true, App.getCurrentGame().getTile(coordinate).toString());
+    }
     public static Result walk(String stringX, String stringY) {
         if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");

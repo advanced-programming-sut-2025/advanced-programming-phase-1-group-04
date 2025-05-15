@@ -234,4 +234,28 @@ public class Tile {
     public void setFertilize(int fertilize) {
         this.fertilize = fertilize;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Type: ").append(type).append("\n");
+
+        if (buildingType != null)
+            sb.append("Building Type: ").append(buildingType.name()).append("\n");
+
+        if (item != null)
+            sb.append("Item: ").append(item.getName()).append("\n");
+
+        if (animal != null)
+            sb.append("Animal: ").append(animal).append("\n");
+
+        if (npc != null)
+            sb.append("NPC: ").append(npc).append("\n");
+
+        sb.append("isPlowed: ").append(isPlowed).append("\n");
+        sb.append("isWatered: ").append(isWatered);
+
+        return sb.toString();
+    }
+
 }

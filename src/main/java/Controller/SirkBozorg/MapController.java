@@ -95,8 +95,10 @@ public class MapController {
 
         if ((x < 0 || x >= 90) || (y < 0 || y >= 120)) {
             return new Result(false, "Mashti x,y bein (0,0) - (89, 119)!");
-        } else if (energy < 0) {
+        } else if (energy == -1) {
             return new Result(false, "You can't go there!");
+        } else if (energy == -2) {
+            return new Result(false, "You can't go in others farm!");   //TODO: marry
         }
 
         return new Result(true, "Required Energy: " + energy + "\nDo you want to go?");

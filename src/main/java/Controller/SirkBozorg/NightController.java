@@ -31,7 +31,7 @@ public class NightController {
         randomForagingPlants();
         randomForagingMinerals();
         thorEffect();
-        // Player:(and its animals)
+        // Player:
         movePlayers();
 
 

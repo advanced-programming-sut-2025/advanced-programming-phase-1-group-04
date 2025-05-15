@@ -1,6 +1,7 @@
 package Model.Player;
 
 import Model.Animals.Animal;
+import Model.App;
 import Model.Cooking.FoodRecipe;
 import Model.Crafting.CraftRecipe;
 import Model.Map.*;
@@ -194,6 +195,10 @@ public class Player {
         return null;
     }
 
+    public List<Animal> getMyAnimals() {
+        return myAnimals;
+    }
+
     public int getFarm() {
         return farm;
     }
@@ -375,5 +380,29 @@ public class Player {
         }
         foodRecipes.add(recipe);
         return true;
+    }
+
+    public boolean isShippingBinAroundMe() {
+        Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
+
+        int x = this.coordinate.getX();
+        int y = this.coordinate.getY();
+
+        int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
+        int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};
+
+        for (int i = 0; i < 8; i++) {
+            int newX = x + dx[i];
+            int newY = y + dy[i];
+
+            if ((newX < 0 || newX >= 90) || (newY < 0 || newY >= 120)) continue;
+
+            Tile tile = fullMap[newX][newY];
+            if (tile.getType().equals(TileType.Building) && tile.getBuildingType().equals(BuildingType.ShippingBin)) {
+                    return true;
+            }
+        }
+
+        return false;
     }
 }

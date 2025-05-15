@@ -3,6 +3,7 @@ package View;
 import Controller.GameMenuController;
 
 import Controller.SirkBozorg.*;
+import Model.Animals.Animal;
 import Model.App;
 
 import Model.Command.GameMenuCommand;
@@ -70,6 +71,9 @@ public class GameMenu implements AppMenu {
         }
         else if (GameMenuCommand.NextTurn.getMatcher(input) != null) {
             System.out.println(GameMenuController.nextTurn());
+        }
+        else if (GameMenuCommand.GotoNextDay.isMatch(input)) {
+            System.out.println(GameMenuController.gotoNextDay());
         }
         else if (GameMenuCommand.Time.getMatcher(input) != null) {
             System.out.println(TimeController.time(input));
@@ -202,38 +206,42 @@ public class GameMenu implements AppMenu {
         }
 
         else if ((matcher = GameMenuCommand.Build.getMatcher(input)) != null) {
-            //TODO Nafiseh
+            System.out.println(MapController.buildFarmBuilding(matcher.group("name"), matcher.group("x"), matcher.group("y")));
+        }
+        else if (GameMenuCommand.ShowListFarmBuilding.isMatch(input)) {
+            System.out.println(MapController.showListFarmBuilding());
         }
 
         else if ((matcher = GameMenuCommand.BuyAnimal.getMatcher(input)) != null) {
-            AnimalController.buyAnimal(matcher.group("animal"), matcher.group("name"));
+            System.out.println(AnimalController.buyAnimal(matcher.group("animal"), matcher.group("name")));
         }
         else if ((matcher = GameMenuCommand.Pet.getMatcher(input)) != null) {
-            //TODO Parsa
+            System.out.println(AnimalController.pet(matcher.group("name")));
         }
         else if (GameMenuCommand.ShowAnimalsInfo.getMatcher(input) != null) {
-            //TODO Parsa
+            System.out.println(AnimalController.showListAnimals());
         }
         else if ((matcher = GameMenuCommand.CheatFriendShipAnimal.getMatcher(input)) != null) {
-            //TODO Parsa
+            System.out.println(AnimalController.cheatFriendShipAnimal(matcher.group("name"), matcher.group("amount")));
         }
         else if ((matcher = GameMenuCommand.ShepherdAnimal.getMatcher(input)) != null) {
-            //TODO Parsa
+            System.out.println(AnimalController.shepherdAnimal(matcher.group("name"), matcher.group("x"), matcher.group("y")));
         }
         else if ((matcher = GameMenuCommand.FeedAnimal.getMatcher(input)) != null) {
-            //TODO Parsa
+            System.out.println(AnimalController.feedAnimal(matcher.group("name")));
         }
         else if (GameMenuCommand.ShowAnimalProduceInfo.getMatcher(input) != null) {
-            //TODO Parsa
+            System.out.println(AnimalController.showListProductAnimals());
         }
         else if ((matcher = GameMenuCommand.CollectAnimalProduce.getMatcher(input)) != null) {
-            //TODO Parsa
+            System.out.println(AnimalController.collectAnimalProduce(matcher.group("name")));
         }
         else if ((matcher = GameMenuCommand.SellAnimal.getMatcher(input)) != null) {
-            //TODO Parsa
+            System.out.println(AnimalController.sellAnimal(matcher.group("name")));
         }
-        else if ((matcher = GameMenuCommand.Fishing.getMatcher(input)) != null) {
-            //TODO Parsa
+        else if (GameMenuCommand.Fishing.isMatch(input)) {
+            // TODO: tool use & Aynaz
+            System.out.println("Use use tool command!");
         }
 
 

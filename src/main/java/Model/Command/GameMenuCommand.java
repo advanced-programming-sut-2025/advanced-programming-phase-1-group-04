@@ -10,6 +10,7 @@ public enum GameMenuCommand implements Command {
     ExitGame("exit\\s+game"),
     DeleteGame("delete\\s+game"),
     NextTurn("next\\s+turn"),
+    GotoNextDay("go\\s+to\\s+next\\s+day"),
 
     // Time Controller: Nafiseh
     Time("time|date|datetime|day of the week"),
@@ -73,20 +74,21 @@ public enum GameMenuCommand implements Command {
     Eat("eat\\s+(?<foodName>.+)"),
 
     // Map Controller: Nafiseh
-    Build("build\\s+-a\\s+(?<buildingName>.+?)\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"),
+    Build("build\\s+-a\\s+(?<name>.+?)\\s+-l\\s+(?<x>\\d+)\\s*,\\s*(?<y>\\d+)"),
+    ShowListFarmBuilding("show\\s+list\\s+farm\\s+building"),
 
     // Animal Controller: Parsa -> Nafiseh
     BuyAnimal("buy\\s+animal\\s+-a\\s+(?<animal>.+?)\\s+-n\\s+(?<name>.+)"),
     Pet("pet\\s+-n\\s+(?<name>.+)"),
-    ShowAnimalsInfo("animals"),
-    CheatFriendShipAnimal("cheat\\s+set\\s+friendship\\s+-n\\s+(?<animalName>.+?)\\s+-c\\s+(?<amount>\\d+)"),
-    ShepherdAnimal("shepherd\\s+animals\\s+-n\\s+(?<animalName>.+?)\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"), // todo
-    FeedAnimal("feed\\s+hay\\s+-n\\s+(?<animalName>.+)"),
-    ShowAnimalProduceInfo("produces"),
-    CollectAnimalProduce("collect\\s+produce\\s+-n\\s+(?<name>.+)"),
+    ShowAnimalsInfo("animals\\s+list"),
+    CheatFriendShipAnimal("cheat\\s+set\\s+friendship\\s+-n\\s+(?<name>.+?)\\s+-c\\s+(?<amount>\\d+)"),
+    ShepherdAnimal("shepherd\\s+animals\\s+-n\\s+(?<name>.+?)\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"), // todo
+    FeedAnimal("feed\\s+hay\\s+-n\\s+(?<name>.+)"),
+    ShowAnimalProduceInfo("animal\\s+produces\\s+list"),
+    CollectAnimalProduce("collect\\s+produce\\s+-n\\s+(?<name>.+?)"),
     SellAnimal("sell\\s+animal\\s+-n\\s+(?<name>.+)"),
 
-    Fishing("fishing\\s+-p\\s+(?<fishingPole>.+)"), // todo
+    Fishing("fishing\\s+-p\\s+(?<fishingPole>.+)"), // todo -> use tool
 
     // Artisan Controller: Aynaz (optional)
     ArtisanUse("artisan\\s+use\\s+-a\\s+(?<artisanName>.+?)\\s+-i\\s+(?<item1Name>.+)"),

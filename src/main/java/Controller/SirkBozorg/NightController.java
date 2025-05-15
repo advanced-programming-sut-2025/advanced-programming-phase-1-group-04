@@ -1,5 +1,8 @@
 package Controller.SirkBozorg;
 
+import Model.Animals.Animal;
+import Model.Animals.AnimalProduct;
+import Model.Animals.AnimalProductType;
 import Model.App;
 import Model.Map.Coordinate;
 import Model.Map.Tile;
@@ -32,7 +35,9 @@ public class NightController {
         movePlayers();
 
 
-
+        // Animal:
+        calculateFriendshipAnimal();
+        resetAnimals();
     }
 
     private static void randomForagingPlants() {
@@ -206,4 +211,53 @@ public class NightController {
             }
         }
     }
+
+    private static void calculateFriendshipAnimal() {
+        for (Player player: App.getCurrentGame().getPlayers()) {
+            for (Animal animal: player.getMyAnimals()) {
+                if (!animal.isPetted())
+                    animal.addFriendship(-10);
+                if (!animal.isFeeded())
+                    animal.addFriendship(-20);
+                if (animal.getCoordinate() !=  null)
+                    animal.addFriendship(-20);
+            }
+        }
+    }
+
+    private static void resetAnimals() {
+        for (Player player: App.getCurrentGame().getPlayers()) {
+            for (Animal animal: player.getMyAnimals()) {
+                animal.setFeeded(false);
+                animal.setPetted(false);
+                setAnimalProduct(animal);
+            }
+        }
+    }
+
+    private static void setAnimalProduct(Animal animal) {
+        if (!animal.isFeeded()) {
+            animal.setProduct(null);
+            return;
+        }
+
+        ArrayList<AnimalProductType> productTypes = animal.getType().getProducts();
+        AnimalProductType selectedProductType;
+
+        if (productTypes.size() == 1 || animal.getFriendship() < 100) {
+            selectedProductType = productTypes.get(0);
+        } else {
+            double random = 0.5 + Math.random();
+            double chance = (animal.getFriendship() + (150 * random)) / 1500.0;
+
+            if (chance >= 1) {
+                selectedProductType = productTypes.get(1);
+            } else {
+                selectedProductType = productTypes.get(0);
+            }
+        }
+
+        animal.setProduct(new AnimalProduct(selectedProductType, animal.getFriendship()));
+    }
+
 }

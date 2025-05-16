@@ -23,6 +23,7 @@ public class NightController {
     public static void nightControl() {
         // Map:
         waterControl();
+
         //Time:
         setWeather();
         setTomorrowWeather();
@@ -32,6 +33,7 @@ public class NightController {
         randomForagingPlants();
         randomForagingMinerals();
         thorEffect();
+
         // Player:
         movePlayers();
 
@@ -241,14 +243,15 @@ public class NightController {
     private static void resetAnimals() {
         for (Player player: App.getCurrentGame().getPlayers()) {
             for (Animal animal: player.getMyAnimals()) {
+                setAnimalProduct(animal);
                 animal.setFeeded(false);
                 animal.setPetted(false);
-                setAnimalProduct(animal);
             }
         }
     }
 
     private static void setAnimalProduct(Animal animal) {
+        //TODO:  یببینننن هر چند روز یه بار میزاد رو هندل نکردم تو داکم نبود هر شب میزاد این
         if (!animal.isFeeded()) {
             animal.setProduct(null);
             return;

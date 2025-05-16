@@ -126,7 +126,7 @@ public class AnimalController {
         result.append("My Animal's products List:\n").append("_______________________________________\n");
         for (Animal animal: App.getCurrentGame().getCurrentPlayer().getMyAnimals()) {
             if (animal.getProduct() != null) {
-                result.append("Name: ").append(animal.getName()).append("\n");
+                result.append("Animal mame: ").append(animal.getName()).append("\n").append("Animal type: "). append(animal.getType()).append("\n");
                 result.append(animal.getProductString());
             }
         }
@@ -139,10 +139,16 @@ public class AnimalController {
             return new Result(false, "You don't have a pet with that name!");
         } else if (animal.getProduct() == null) {
             return new Result(false, name + " doesn't have any product to harvest!"); // TODO: harvest?
+        } else if (toolHandleCollect(animal) != null) {
+            return toolHandleCollect(animal);
         }
 
-        // TODO: tool use & Aynaz
-        return new Result(true, "");
+        if (!App.getCurrentGame().getCurrentPlayer().getInventory().addItem(animal.getProduct())) {
+            return new Result(true, "Inventory is full. You picked up the product, ama be che gheimati?");
+        }
+
+        animal.setProduct(null);
+        return new Result(true, "You successfully collect " + animal.getName() + "'s produce.");
     }
 
     public static Result sellAnimal(String name) {
@@ -178,7 +184,7 @@ public class AnimalController {
             }
         }
         // location error:
-        else if (!isWaterBesideMe()) {
+        if (!isWaterBesideMe()) {
             return new Result(false, "You have to be near the water to fishing!");
         }
 
@@ -188,11 +194,12 @@ public class AnimalController {
 
         result.append("You caught ").append(fishes.size()).append(" fish").append(fishes.size() > 1 ? "es" : "").append(":\n");
 
-        // TODO: capacity inventory
         for (Fish fish : fishes) {
             result.append("- ").append(fish.getName())
-                    .append(" (quality: ").append(String.format("%.2f", fish.getQuality())).append(" ").append(fish.getQualityString());
-            player.getInventory().addItem(fish);
+                    .append(" quality: ").append(String.format("(%.2f)", fish.getQuality())).append(fish.getQualityString()).append("\n");
+            if (!player.getInventory().addItem(fish)) {
+                return new Result(false, "Inventory is full!");
+            }
         }
 
         return new Result(true, result.toString());
@@ -239,6 +246,15 @@ public class AnimalController {
         }
 
         return result;
+    }
+
+    private static FishingPoleType getFishingPoleTypeByName(String name) {
+        for (FishingPoleType f: FishingPoleType.values()) {
+            if (f.getName().equalsIgnoreCase(name)) {
+                return f;
+            }
+        }
+        return null;
     }
 
     private static Animal getAnimalByName(String name) {
@@ -291,20 +307,36 @@ public class AnimalController {
             if ((newX < 0 || newX >= 90) || (newY < 0 || newY >= 120)) continue;
 
             Tile tile = fullMap[newX][newY];
-            if (tile != null && tile.getType().equals(TileType.Water)) {
-                    return true;
+            if (tile.getType().equals(TileType.Water)) {
+                return true;
             }
         }
 
         return false;
     }
 
-    private static FishingPoleType getFishingPoleTypeByName(String name) {
-        for (FishingPoleType f: FishingPoleType.values()) {
-            if (f.getName().equalsIgnoreCase(name)) {
-                return f;
-            }
+    private static Result toolHandleCollect(Animal animal) {
+        switch (animal.getType()) {
+            case Cow, Goat:
+                if (App.getCurrentGame().getCurrentPlayer().getCurrentTool().getType().equals(ToolType.MilkPail)) {
+                    return null;
+                } else {
+                    return new Result(false, "For collect goat/cow product, you need milk pail tool!");
+                }
+            case Sheep:
+                if (App.getCurrentGame().getCurrentPlayer().getCurrentTool().getType().equals(ToolType.Shear)) {
+                    return null;
+                } else {
+                    return new Result(false, "For collect sheep product, you need shear tool!");
+                }
+            case Pig:
+                if (animal.getCoordinate() != null) {
+                    return null;
+                } else {
+                    return new Result(false, "For collect pig product, it should be outside!");
+                }
+            default:
+                return null;
         }
-        return null;
     }
 }

@@ -22,7 +22,11 @@ change username -u
 change nickname -u
 change email -e
 change password -p      -o
-
+_______________________________________________________________
+Walk: (player 1, map 1)
+walk -l 10, 10
+cheat set energy -v 4
+walk -l 45, 45
 _______________________________________________________________
 walk to SHOP:
 //Green house player 1:
@@ -66,6 +70,7 @@ buy animal -a chicken -n ali
 shepherd animals -n ali -l 15, 15
 shepherd animals -n ali -l 10, 11
 
+cheat add item -t ingredient -n hay -c 20
 feed hay -n ali
 
 walk -l 16, 15
@@ -73,8 +78,17 @@ pet -n ali
 
 sell animal -n ali
 
+animal produces list
+cheat set friendship -n ali -c 1000
+collect produce -n ali
+
 --------------------------------------------------------------
 Fishing:
 
 walk -l 32, 75
 cheat add 8000 dollars
+purchase Training Rod
+tools equip fishing pole
+walk -l 32, 71
+fishing -p training rod
+

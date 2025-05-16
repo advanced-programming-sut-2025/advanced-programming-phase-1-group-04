@@ -268,7 +268,7 @@ public class MapController {
         int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY();
         int destx = destination.getX();
         int desty = destination.getY();
-        int[][][] dist = new int[lenx + 1][leny + 1][4];
+        int[][][] dist = new int[lenx][leny][4];
         for (int[][] row : dist) {
             for (int[] col : row)
                 Arrays.fill(col , Integer.MAX_VALUE);
@@ -291,8 +291,6 @@ public class MapController {
             Coordinate c = new Coordinate(x, y);
             if (!App.getCurrentGame().getTile(c).isWalkable())
                 continue;
-            if (((cost + 19) / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
-                return ans;
             last.setX(x);
             last.setY(y);
             ans = (cost + 19) / 20;
@@ -301,7 +299,7 @@ public class MapController {
             for (int i = 0; i < 4; i++) {
                 int newx = x + dx[i];
                 int newy = y + dy[i];
-                if (newx < 0 || newx > lenx || newy < 0 || newy > leny)
+                if (newx < 0 || newx >= lenx || newy < 0 || newy >= leny)
                     continue;
                 int newCost = cost + 1;
                 if (dir != i)

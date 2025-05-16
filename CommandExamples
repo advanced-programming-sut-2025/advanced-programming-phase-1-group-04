@@ -66,12 +66,16 @@ buy animal -a chicken -n ali
 shepherd animals -n ali -l 15, 15
 shepherd animals -n ali -l 10, 11
 
+cheat add item -t ingredient -n hay -c 20
 feed hay -n ali
 
 walk -l 16, 15
 pet -n ali
 
 sell animal -n ali
+
+animal produces list
+cheat set friendship -n ali -c 1000
 
 --------------------------------------------------------------
 Fishing:

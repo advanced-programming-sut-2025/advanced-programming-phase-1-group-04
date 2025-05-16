@@ -73,10 +73,16 @@ public class GameMenuController {
         for (int i = App.getCurrentGame().getPlayers().size(); i < 4; i++) {
             farmSelections[i] = 1;
         }
+
         App.getCurrentGame().setShops(new ArrayList<>(List.of(new BlackSmith(), new CarpentersShop(), new FishShop(),
                 new JojaMart(), new MarniesRanch(), new PierresStore(), new TheStardropSaloon())));
+
         App.getCurrentGame().setMap(new GameMap(farmSelections));
         App.getCurrentGame().getMap().setFulMap();
+
+        NightController.foragingPlantsForEachFarm(new Coordinate(0, 0), new Coordinate(89, 119));
+        NightController.randomForagingMinerals();
+
         return new Result(true, "Game loaded. Now you are in the game. Boro eshgh kon.");
     }
 

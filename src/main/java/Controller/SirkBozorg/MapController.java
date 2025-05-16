@@ -5,6 +5,7 @@ import Model.App;
 import Model.Map.*;
 import Model.Player.Player;
 import Model.Result;
+import Model.Shop.CarpentersShop.CarpentersShop;
 import Model.Shop.ShopType;
 
 import java.util.Arrays;
@@ -114,6 +115,8 @@ public class MapController {
             return new Result(false, "You can't go there!");
         } else if (getFarmId(coordinate) != -1 && App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(coordinate)) {   // TODO: if when married
             return new Result(false, "You can't go in others farm!");
+        } else if (handleWorkingHours(coordinate) != null) {
+            return handleWorkingHours(coordinate);
         }
 
         return new Result(true, "Required Energy: " + energy + "\nDo you want to go?");
@@ -382,6 +385,58 @@ public class MapController {
         }
         return destination;
     }*/
+
+    private static Result handleWorkingHours(Coordinate coordinate) {
+        BuildingType buildingType = App.getCurrentGame().getTile(coordinate).getBuildingType();
+        int h = App.getCurrentGame().getCurrentTime().getHour();
+
+        switch (buildingType) {
+            case Blacksmith:
+                if (ShopType.Blacksmith.getOpeningTime() <=  h && h >= ShopType.Blacksmith.getClosingTime()) {
+                    return null;
+                } else {
+                    return new Result(false, ShopType.Blacksmith.getShopName() + " shop working hours " + ShopType.Blacksmith.getOpeningTime() +"-" + ShopType.Blacksmith.getClosingTime());
+                }
+            case JojaMart:
+                if (ShopType.JojaMart.getOpeningTime() <=  h && h >= ShopType.JojaMart.getClosingTime()) {
+                    return null;
+                } else {
+                    return new Result(false, ShopType.JojaMart.getShopName() + " shop working hours " + ShopType.JojaMart.getOpeningTime() +"-" + ShopType.JojaMart.getClosingTime());
+                }
+            case PierresGeneralStore:
+                if (ShopType.PierresGeneralStore.getOpeningTime() <=  h && h >= ShopType.PierresGeneralStore.getClosingTime()) {
+                    return null;
+                } else {
+                    return new Result(false, ShopType.PierresGeneralStore.getShopName() + " shop working hours " + ShopType.PierresGeneralStore.getOpeningTime() +"-" + ShopType.PierresGeneralStore.getClosingTime());
+                }
+            case CarpentersShop:
+                if (ShopType.CarpentersShop.getOpeningTime() <=  h && h >= ShopType.CarpentersShop.getClosingTime()) {
+                    return null;
+                } else {
+                    return new Result(false, ShopType.CarpentersShop.getShopName() + " shop working hours " + ShopType.CarpentersShop.getOpeningTime() +"-" + ShopType.CarpentersShop.getClosingTime());
+                }
+            case FishShop:
+                if (ShopType.FishShop.getOpeningTime() <=  h && h >= ShopType.FishShop.getClosingTime()) {
+                    return null;
+                } else {
+                    return new Result(false, ShopType.FishShop.getShopName() + " shop working hours " + ShopType.FishShop.getOpeningTime() +"-" + ShopType.FishShop.getClosingTime());
+                }
+            case MarniesRanch:
+                if (ShopType.MarniesRanch.getOpeningTime() <=  h && h >= ShopType.MarniesRanch.getClosingTime()) {
+                    return null;
+                } else {
+                    return new Result(false, ShopType.MarniesRanch.getShopName() + " shop working hours " + ShopType.MarniesRanch.getOpeningTime() +"-" + ShopType.MarniesRanch.getClosingTime());
+                }
+            case TheStarDropSaloon:
+                if (ShopType.TheStarDropSaloon.getOpeningTime() <=  h && h >= ShopType.TheStarDropSaloon.getClosingTime()) {
+                    return null;
+                } else {
+                    return new Result(false, ShopType.TheStarDropSaloon.getShopName() + " shop working hours " + ShopType.TheStarDropSaloon.getOpeningTime() +"-" + ShopType.TheStarDropSaloon.getClosingTime());
+                }
+            default:
+                return null;
+        }
+    }
 
     private static int getFarmId(Coordinate coordinate) {
         int x = coordinate.getX();

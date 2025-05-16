@@ -29,7 +29,7 @@ public class Inventory {
         ItemStack stack = items.getOrDefault(name, new ItemStack());
 
         for (int i = 0; i < quantity; i++) {
-            stack.add(item); // اضافه کردن instance مجزا برای کیفیت متفاوت
+            stack.add(item);
         }
 
         if (!items.containsKey(name)) {

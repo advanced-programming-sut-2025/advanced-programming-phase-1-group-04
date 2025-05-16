@@ -11,6 +11,7 @@ import Model.Result;
 import Model.Time.Weather;
 
 public class Pickaxe implements Tool {
+    ToolType type = ToolType.Pickaxe;
     private ToolLevel level;
     int price;
 
@@ -231,5 +232,10 @@ public class Pickaxe implements Tool {
 
     public ToolLevel getLevel() {
         return level;
+    }
+
+    @Override
+    public ToolType getType() {
+        return type;
     }
 }

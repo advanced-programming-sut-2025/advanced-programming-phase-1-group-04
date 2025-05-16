@@ -18,6 +18,10 @@ public class ShopController {
     }
 
     public static Result showAllProducts () {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getType() != TileType.Building) {
             return new Result (false, "you must be in a shop to use this command!");
         }
@@ -46,6 +50,10 @@ public class ShopController {
     }
 
     public static Result showAvailableProducts() {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getType() != TileType.Building) {
             return new Result (false, "you must be in a shop to use this command!");
         }
@@ -74,6 +82,10 @@ public class ShopController {
     }
 
     public static Result purchaseWithNumber (String productName, String count) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         int number;
         if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getType() != TileType.Building) {
             return new Result (false, "you must be in a shop to use this command!");

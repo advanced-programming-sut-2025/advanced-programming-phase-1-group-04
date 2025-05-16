@@ -8,6 +8,7 @@ import Model.Result;
 import Model.Time.Weather;
 
 public class Hoe implements Tool{
+    ToolType type = ToolType.Hoe;
     private ToolLevel level;
     int price;
 
@@ -161,5 +162,10 @@ public class Hoe implements Tool{
 
     public ToolLevel getLevel() {
         return level;
+    }
+
+    @Override
+    public ToolType getType() {
+        return type;
     }
 }

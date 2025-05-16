@@ -149,6 +149,7 @@ public class CarpentersShop implements Shop {
                         return new Result(false, "you already have this building!");
                     }
                 }
+                // TODO: Aynaz بهت زنگ میزنم تهخ
                 App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * s.getCost());
                 App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("stone", s.getStonesCost() * number);
                 App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("wood", s.getWoodCost() * number);

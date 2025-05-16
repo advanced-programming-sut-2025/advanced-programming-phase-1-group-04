@@ -154,8 +154,14 @@ public class PierresStore implements Shop {
             result = result + "* Spring products:\n\n";
             for (SpringSeeds a : springSeeds.keySet()) {
                 if (springSeeds.get(a) > 0) {
-                    result = result + "+" + a.getName() + ":\ndescription: " + a.getDescription() +
-                            "\nprice: " + a.getPrice() + "\ndaily limit: " + a.getDailyLimit() + "\n\n";
+                    if (a != SpringSeeds.GrassStarter) {
+                        result = result + "+" + a.getName() + ":\ndescription: " + a.getDescription() +
+                                "\nprice: " + a.getPrice() + "\ndaily limit: " + a.getDailyLimit() + "\n\n";
+                    }
+                    else {
+                        result = result + "+" + a.getName() + ":\ndescription: " + a.getDescription() +
+                                "\nprice: " + a.getPrice() + "\ndaily limit: unlimited\n\n";
+                    }
                 }
             }
         }
@@ -163,8 +169,14 @@ public class PierresStore implements Shop {
             result = result + "* Summer products:\n\n";
             for (SummerSeeds a : summerSeeds.keySet()) {
                 if (summerSeeds.get(a) > 0) {
-                    result = result + "+" + a.getName() + ":\ndescription: " + a.getDescription() +
-                            "\nprice: " + a.getPrice() + "\ndaily limit: " + a.getDailyLimit() + "\n\n";
+                    if (a != SummerSeeds.GrassStarter) {
+                        result = result + "+" + a.getName() + ":\ndescription: " + a.getDescription() +
+                                "\nprice: " + a.getPrice() + "\ndaily limit: " + a.getDailyLimit() + "\n\n";
+                    }
+                    else {
+                        result = result + "+" + a.getName() + ":\ndescription: " + a.getDescription() +
+                                "\nprice: " + a.getPrice() + "\ndaily limit: unlimited\n\n";
+                    }
                 }
             }
         }
@@ -172,8 +184,14 @@ public class PierresStore implements Shop {
             result = result + "* Fall products:\n\n";
             for (FallSeeds a : fallSeeds.keySet()) {
                 if (fallSeeds.get(a) > 0) {
-                    result = result + "+" + a.getName() + ":\ndescription: " + a.getDescription() +
-                            "\nprice: " + a.getPrice() + "\ndaily limit: " + a.getDailyLimit() + "\n\n";
+                    if (a != FallSeeds.GrassStarter) {
+                        result = result + "+" + a.getName() + ":\ndescription: " + a.getDescription() +
+                                "\nprice: " + a.getPrice() + "\ndaily limit: " + a.getDailyLimit() + "\n\n";
+                    }
+                    else {
+                        result = result + "+" + a.getName() + ":\ndescription: " + a.getDescription() +
+                                "\nprice: " + a.getPrice() + "\ndaily limit: unlimited\n\n";
+                    }
                 }
             }
         }
@@ -182,7 +200,7 @@ public class PierresStore implements Shop {
             for (WinterSeeds a : winterSeeds.keySet()) {
                 if (winterSeeds.get(a) > 0) {
                     result = result + "+" + a.getName() + ":\ndescription: " + a.getDescription() +
-                            "\nprice: " + a.getPrice() + "\ndaily limit: " + a.getDailyLimit() + "\n\n";
+                            "\nprice: " + a.getPrice() + "\ndaily limit: unlimited\n\n";
                 }
             }
         }

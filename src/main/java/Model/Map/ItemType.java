@@ -14,6 +14,10 @@ public enum ItemType {
     Food("food"),
     Fish("fish"),
     AnimalProduct("animal product"),
+
+    Ingredients("ingredient"),
+    Fertilizer("fertilizer"),
+    Gift("gift")
     ;
 
     private final String name;

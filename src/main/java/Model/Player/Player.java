@@ -1,5 +1,6 @@
 package Model.Player;
 
+import Controller.GameMenuController;
 import Model.Animals.Animal;
 import Model.App;
 import Model.Cooking.FoodRecipe;
@@ -20,7 +21,7 @@ import java.util.Map;
 
 public class Player {
     private final int id;
-    private final int farm;
+    private final int farm; // Farm id 1-4
 
     private Coordinate coordinate;
     private final Coordinate houseCoordinate;
@@ -30,7 +31,7 @@ public class Player {
 
     private int maxEnergy = 200;
     private int energy = 200;
-    private int maxMovesInTurn = 15; //TODO: ????????????????????????????
+    private int maxMovesInTurn = 15;
     private int movesThisTurn = 0;
 
     private Inventory inventory = new Inventory(12, 1);
@@ -140,6 +141,11 @@ public class Player {
 
 
     public boolean removeItemFromInventory(String itemName, int quantity) {
+        boolean result = inventory.removeItem(itemName, quantity);
+        return result;
+    }
+
+    public boolean moveItemFromInventoryToTrash(String itemName, int quantity) {
         int price = 0;
         Inventory.ItemStack stack = inventory.getItems().get(itemName.toLowerCase());
 
@@ -337,15 +343,6 @@ public class Player {
             }
         }
         myFarmBuildings.add(building);
-    }
-
-    public Animal findAnimalByName (String animalName) {
-        for (Animal a : myAnimals) {
-            if (a.getName().equalsIgnoreCase(animalName)) {
-                return a;
-            }
-        }
-        return null;
     }
 
     public int getFarmBuildingLevel (BuildingType type) {

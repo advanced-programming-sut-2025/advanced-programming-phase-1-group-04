@@ -112,17 +112,14 @@ public class MapController {
             return new Result(false, "Mashti x,y bein (0,0) - (89, 119)!");
         } else if (energy == -1) {
             return new Result(false, "You can't go there!");
-        } else if (energy == -2) {
-            return new Result(false, "You can't go in others farm!");   //TODO: marry
+        } else if (getFarmId(coordinate) != -1 && App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(coordinate)) {   // TODO: if when married
+            return new Result(false, "You can't go in others farm!");
         }
 
         return new Result(true, "Required Energy: " + energy + "\nDo you want to go?");
     }
 
     public static Result walk(String input, String stringX, String stringY) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
-            return new Result (false, "you have no more moves! enter next turn!");
-        }
         GameMenuController.moveControl();
         int x = Integer.parseInt(stringX);
         int y = Integer.parseInt(stringY);
@@ -206,10 +203,8 @@ public class MapController {
         }
         return new Result(true, result.toString());
     }
-/*
+
     public static Coordinate getDestination (Coordinate destination) {
-        if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(destination))
-            return new Coordinate(-2, -2);
         int lenx = Math.abs(destination.getX() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
         int leny = Math.abs(destination.getY() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
         int minx = Math.min(destination.getX(), App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
@@ -240,7 +235,7 @@ public class MapController {
             Coordinate c = new Coordinate(x + minx, y + miny);
             if (!App.getCurrentGame().getTile(c).isWalkable())
                 continue;
-            if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(c))
+            if (getFarmId(c) != -1 && App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(c)) // TODO: if when married
                 continue;
             if ((cost / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
                 return new Coordinate(last.getX() + minx, last.getY() + miny);
@@ -251,7 +246,7 @@ public class MapController {
             for (int i = 0; i < 4; i++) {
                 int newx = x + dx[i];
                 int newy = y + dy[i];
-                if (newx < 0 || newx >= lenx || newy < 0 || newy >= leny)
+                if (newx < 0 || newx > lenx || newy < 0 || newy > leny)
                     continue;
                 int newCost = cost + 1;
                 if (dir != i)
@@ -299,7 +294,7 @@ public class MapController {
             Coordinate c = new Coordinate(x + minx, y + miny);
             if (!App.getCurrentGame().getTile(c).isWalkable())
                 continue;
-            if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(c))
+            if (getFarmId(c) != -1 && App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(c)) // TODO: if when married
                 continue;
             if ((cost / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
                 return ans;
@@ -311,7 +306,7 @@ public class MapController {
             for (int i = 0; i < 4; i++) {
                 int newx = x + dx[i];
                 int newy = y + dy[i];
-                if (newx < 0 || newx >= lenx || newy < 0 || newy >= leny)
+                if (newx < 0 || newx > lenx || newy < 0 || newy > leny)
                     continue;
                 int newCost = cost + 1;
                 if (dir != i)
@@ -324,9 +319,7 @@ public class MapController {
         }
         return -1;
     }
-*/
-
-    // ChatGPT
+/* // ChatGPT
     public static int getDestinationEnergy(Coordinate destination) {
         Coordinate start = App.getCurrentGame().getCurrentPlayer().getCoordinate();
 
@@ -388,6 +381,22 @@ public class MapController {
             return new Coordinate(-1, -1);  // unreachable
         }
         return destination;
+    }*/
+
+    private static int getFarmId(Coordinate coordinate) {
+        int x = coordinate.getX();
+        int y = coordinate.getY();
+        if (x >= 0 && x < 30 && y >= 0 && y < 40) {
+            return 1;
+        } else if (x >= 60 && x < 90 && y >= 0 && y < 40) {
+            return 4;
+        } else if (x >= 0 && x < 30 && y >= 80 && y < 120) {
+            return 2;
+        } else if (x >= 60 && x < 90 && y >= 80 && y < 120) {
+            return 3;
+        } else {
+            return -1; // isn't farm
+        }
     }
 
     private static boolean canBuild(Coordinate coordinate, BuildingType type) {

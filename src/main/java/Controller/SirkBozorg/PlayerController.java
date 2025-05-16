@@ -285,7 +285,7 @@ public class PlayerController {
     private static Fish getFish (String name) {
         for (FishType f : FishType.values()) {
             if (f.getName().equalsIgnoreCase(name)) {
-                return new Fish(f);
+                return new Fish(f, 0);
             }
         }
         return null;

@@ -1,20 +1,28 @@
 package Controller.SirkBozorg;
 
 import Model.Animals.Animal;
+import Model.Animals.Fish;
+import Model.Animals.FishType;
 import Model.App;
 import Model.Map.BuildingType;
 import Model.Map.Coordinate;
 import Model.Map.Tile;
+import Model.Player.Skill;
 import Model.Result;
 import Model.Shop.ShopType;
 import Model.Time.Weather;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class AnimalController {
     public static Result buyAnimal (String animal, String name) {
         if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.MarniesRanch) {
             return new Result(false, "you must be in Marnie's Ranch to be able to buy an animal!");
         } else if (getAnimalByName(name) != null) {
-            return new Result(false, "Pet names should be different!");
+            return new Result(false, "Pet names should be unique!");
         }
 
         return App.getCurrentGame().getShop(ShopType.MarniesRanch).buy(animal, 1, name);
@@ -146,6 +154,57 @@ public class AnimalController {
             App.getCurrentGame().getTile(animal.getCoordinate()).setAnimal(null);
         }
         return new Result(true, "You successfully sold " + animal.getName() + " for " + animal.getSellPrice());
+    }
+
+    public static Result fishing(String fishingPole) {
+        // TODO: Aynaz tool & errors???
+        return new Result(true, "Nazadam");
+    }
+
+    private static List<Fish> getFishes() {
+        // number of fishes:
+        Random random = new Random();
+        double M;
+        switch (App.getCurrentGame().getCurrentTime().getWeather()) {
+            case Sunny: M = 1.5; break;
+            case Rain: M = 1.2; break;
+            case Storm: M = 0.5; break;
+            default: M = 1.0; break;
+        }
+
+        double R = random.nextDouble();
+        int fishCount = (int) Math.ceil(R * M * (App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Fishing) + 2));
+        fishCount = Math.min(6, fishCount);
+
+        // type of fishes:
+        List<FishType> seasonalFishesTypes = new ArrayList<>();
+
+        for (FishType fish : FishType.values()) {
+            if (fish.getSeason().equals(App.getCurrentGame().getCurrentTime().getSeason())) {
+                if (!fish.isLegendary())
+                    seasonalFishesTypes.add(fish);
+                else {
+                    if (App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Fishing) == 4) { // TODO: Aynaz الاترین 4؟
+                        seasonalFishesTypes.add(fish);
+                    }
+                }
+            }
+        }
+        Collections.shuffle(seasonalFishesTypes);
+
+        // quality:
+        R = random.nextDouble();
+        //BUG: ثاثیر چوب ماهیگیری؟ Aynaz
+        double quality = 0;
+        //double quality = R * (App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Fishing) + 2) * poleType.getFactor() / (7 - M);
+
+        List<Fish> result = new ArrayList<>();
+        int count = Math.min(fishCount, seasonalFishesTypes.size());
+        for (int i = 0; i < count; i++) {
+            result.add(new Fish(seasonalFishesTypes.get(i), quality));
+        }
+
+        return result;
     }
 
     private static Animal getAnimalByName(String name) {

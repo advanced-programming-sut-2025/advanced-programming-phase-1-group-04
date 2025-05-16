@@ -37,4 +37,8 @@ public class ForagingMineral implements Item, Plant {
     public String showPlantInfo() {
         return "foraging mineral info:\nname: " + getName();
     }
+
+    public ForagingMineralType getType() {
+        return type;
+    }
 }

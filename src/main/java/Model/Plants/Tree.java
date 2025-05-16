@@ -120,7 +120,7 @@ public class Tree implements Item, Plant {
                 return true;
             }
         }
-        if (getCurrentStage() == 5) {
+        if (App.getCurrentGame().getCurrentTime().getDay() - plantingDate.getDay() >= totalHarvestTime) {
             return true;
         }
         return false;

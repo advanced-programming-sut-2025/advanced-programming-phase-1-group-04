@@ -6,9 +6,13 @@ import Model.Map.Stone;
 import Model.Map.Tile;
 import Model.Plants.ForagingMineral;
 import Model.Plants.ForagingMineralType;
+import Model.Player.Player;
 import Model.Player.Skill;
 import Model.Result;
 import Model.Time.Weather;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Pickaxe implements Tool {
     ToolType type = ToolType.Pickaxe;
@@ -107,27 +111,59 @@ public class Pickaxe implements Tool {
 
     @Override
     public Result use(Tile tile) {
+        Player player = App.getCurrentGame().getCurrentPlayer();
         if (tile.isPlowed()) {
+            tile.setItem(null);
             tile.setPlowed(false);
-            App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(true));
+            player.addEnergy(-1 * getEnergyConsumption(true));
             return new Result(true, "the selected tile is no longer plowed.");
         }
-        if (tile.getItem() instanceof Stone) {
+        if (tile.getItem() != null && tile.getItem() instanceof Stone) {
+            if (player.getAbilityLevel(Skill.Mining) >= 2) {
+                if (!player.addItemToInventory(new Stone(), 2)) {
+                    player.addEnergy(-1 * getEnergyConsumption(false));
+                    return new Result(false, "can't add the stone to inventory!");
+                }
+                player.addEnergy(-1 * getEnergyConsumption(false));
+                player.addAbility(Skill.Mining, 10);
+                player.addAbility(Skill.Foraging, 10);
+                tile.setItem(null);
+                return new Result(true, "you destroyed a stone.\ndue to your mining ability level, 2 stones are added to inventory.");
+            }
+
+            if (!player.addItemToInventory(new Stone(), 1)) {
+                player.addEnergy(-1 * getEnergyConsumption(false));
+                return new Result(false, "can't add the stone to inventory!");
+            }
+            player.addEnergy(-1 * getEnergyConsumption(false));
+            player.addAbility(Skill.Mining, 10);
+            player.addAbility(Skill.Foraging, 10);
             tile.setItem(null);
-            App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(true));
-            App.getCurrentGame().getCurrentPlayer().addAbility(Skill.Mining, 10);
-            App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Stone(), 1);
             return new Result(true, "you destroyed a stone.");
         }
-        if (tile.getItem() instanceof ForagingMineral) {
+        if (tile.getItem() != null && tile.getItem() instanceof ForagingMineral) {
+            if (!allowedMinerals().contains(((ForagingMineral) tile.getItem()).getType())) {
+                player.addEnergy(-1 * getEnergyConsumption(false));
+                return new Result(false, "your current pickaxe is not able to break this mineral!");
+            }
+
             tile.setItem(null);
-            App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(true));
-            App.getCurrentGame().getCurrentPlayer().addAbility(Skill.Mining, 10);
-            App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Stone(), 1);
+            player.addEnergy(-1 * getEnergyConsumption(true));
+            player.addAbility(Skill.Mining, 10);
+            player.addAbility(Skill.Foraging, 10);
+            if (player.getAbilityLevel(Skill.Mining) >= 2) {
+                player.addItemToInventory(new Stone(), 1);
+                return new Result(true, "you destroyed a " + tile.getItem().getName() +
+                        "\ndue to your mining skill level, 2 " + tile.getItem().getName() + "s are added to inventory.");
+            }
+            player.addItemToInventory(new Stone(), 1);
             return new Result(true, "you destroyed a " + tile.getItem().getName());
         }
-
-        App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(false));
+        if (tile.getItem() != null) {
+            tile.setItem(null);
+            return new Result(true, "the item is no longer on the tile.");
+        }
+        player.addEnergy(-1 * getEnergyConsumption(false));
         return new Result(false, "nothing can be done on the selected tile!");
     }
 
@@ -237,5 +273,29 @@ public class Pickaxe implements Tool {
     @Override
     public ToolType getType() {
         return type;
+    }
+
+    private ArrayList<ForagingMineralType> allowedMinerals () {
+        ArrayList<ForagingMineralType> minerals = new ArrayList<>();
+        if (level == ToolLevel.Starter) {
+            minerals.add(ForagingMineralType.Copper);
+            minerals.add(ForagingMineralType.Coal);
+        }
+        else if (level == ToolLevel.Copper) {
+            minerals.add(ForagingMineralType.Copper);
+            minerals.add(ForagingMineralType.Coal);
+            minerals.add(ForagingMineralType.Iron);
+        }
+        else if (level == ToolLevel.Steel) {
+            for (ForagingMineralType m : ForagingMineralType.values()) {
+                if (m != ForagingMineralType.Iriduim) {
+                    minerals.add(m);
+                }
+            }
+        }
+        else {
+            Collections.addAll(minerals, ForagingMineralType.values());
+        }
+        return minerals;
     }
 }

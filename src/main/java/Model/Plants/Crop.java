@@ -16,6 +16,7 @@ public class Crop implements Item, Plant {
     private final CropType type;
     private final boolean purposelyPlanted;
     private int totalHarvestTime;
+    private double qualityConst = 1;
     //TODO: isGiant?
 
 
@@ -39,6 +40,15 @@ public class Crop implements Item, Plant {
         this.type = type;
         this.purposelyPlanted = true;
         totalHarvestTime = type.getHarvestTime();
+    }
+
+    public Crop(CropType type, double qualityConst) {
+        this.plantingDate = new DateAndTime(App.getCurrentGame().getCurrentTime().getHour(),
+                App.getCurrentGame().getCurrentTime().getDay(), App.getCurrentGame().getCurrentTime().getWeather());
+        this.type = type;
+        this.purposelyPlanted = true;
+        totalHarvestTime = type.getHarvestTime();
+        this.qualityConst = qualityConst;
     }
 
 
@@ -70,7 +80,7 @@ public class Crop implements Item, Plant {
 
     @Override
     public int getPrice() {
-        return type.getBaseSellPrice();
+        return (int) (type.getBaseSellPrice() * qualityConst);
     }
 
     public boolean isEdible() {
@@ -128,20 +138,38 @@ public class Crop implements Item, Plant {
         return 1;
     }
 
+    public CropType getType() {
+        return type;
+    }
 
     //setters:
-    public void setPlantingDate(DateAndTime plantingDate) {
-        this.plantingDate = plantingDate;
+    public void setPlantingDate(DateAndTime t) {
+        this.plantingDate = new DateAndTime(t.getHour(), t.getDay(), t.getWeather());
     } //TODO: in bashe ya na?
 
-    public void setLastTimeHarvested(DateAndTime lastTimeHarvested) {
-        this.lastTimeHarvested = lastTimeHarvested;
+    public void setLastTimeHarvested(DateAndTime t) {
+        this.lastTimeHarvested = new DateAndTime(t.getHour(), t.getDay(), t.getWeather());
     }
 
     public void setTotalHarvestTime (int t) {
         this.totalHarvestTime = t;
     }
 
+    public boolean isHarvestable () {
+        if (isOneTime()) {
+            return true;
+        }
+        if (lastTimeHarvested == null) {
+            if (App.getCurrentGame().getCurrentTime().getDay() - plantingDate.getDay() >= totalHarvestTime) {
+                return true;
+            }
+            return false;
+        }
+        if (lastTimeHarvested.getDay() - plantingDate.getDay() >= 0) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public String showPlantInfo() {
@@ -158,5 +186,12 @@ public class Crop implements Item, Plant {
         return purposelyPlanted;
     }
 
+    public double getQualityConst() {
+        return qualityConst;
+    }
+
+    public void setQualityConst(double qualityConst) {
+        this.qualityConst = qualityConst;
+    }
 
 }

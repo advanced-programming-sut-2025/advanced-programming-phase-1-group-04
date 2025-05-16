@@ -6,6 +6,7 @@ import Model.Map.Item;
 public class Fruit implements Item, Plant {
     private final FruitType type;
     private final boolean purposelyPlanted;
+    private double qualityConst = 1;
 
     //constructor:
     public Fruit (FruitType type, boolean purposelyPlanted) {
@@ -17,6 +18,11 @@ public class Fruit implements Item, Plant {
         this.type = type;
         this.purposelyPlanted = true;
     }
+    public Fruit (FruitType type, double qualityConst) {
+        this.type = type;
+        this.purposelyPlanted = true;
+        this.qualityConst = qualityConst;
+    }
 
     //getters:
     @Override
@@ -26,7 +32,7 @@ public class Fruit implements Item, Plant {
 
     @Override
     public int getPrice() {
-        return type.getBaseSellPrice();
+        return (int) (type.getBaseSellPrice() * qualityConst);
     }
 
     public boolean isEdible() {
@@ -48,5 +54,14 @@ public class Fruit implements Item, Plant {
 
     public boolean isPurposelyPlanted() {
         return purposelyPlanted;
+    }
+
+
+    public double getQualityConst() {
+        return qualityConst;
+    }
+
+    public void setQualityConst(double qualityConst) {
+        this.qualityConst = qualityConst;
     }
 }

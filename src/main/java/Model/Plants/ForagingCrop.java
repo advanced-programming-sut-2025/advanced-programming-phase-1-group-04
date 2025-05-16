@@ -13,6 +13,7 @@ public class ForagingCrop implements Item, Plant {
     private final ForagingCropType type;
     private final boolean purposelyPlanted;
     private final DateAndTime plantingDate;
+    private double qualityConst = 1;
 
     public ForagingCrop (ForagingCropType type, boolean purposelyPlanted) {
         this.type = type;
@@ -43,7 +44,7 @@ public class ForagingCrop implements Item, Plant {
 
     @Override
     public int getPrice() {
-        return type.getBaseSellPrice();
+        return (int) (qualityConst * type.getBaseSellPrice());
     }
 
     public int getEnergy() {
@@ -61,5 +62,21 @@ public class ForagingCrop implements Item, Plant {
 
     public boolean isPurposelyPlanted() {
         return purposelyPlanted;
+    }
+
+    public double getQualityConst() {
+        return qualityConst;
+    }
+
+    public void setQualityConst(double qualityConst) {
+        this.qualityConst = qualityConst;
+    }
+
+    public DateAndTime getPlantingDate() {
+        return plantingDate;
+    }
+
+    public ForagingCropType getType() {
+        return type;
     }
 }

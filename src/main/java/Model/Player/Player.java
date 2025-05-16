@@ -402,4 +402,13 @@ public class Player {
 
         return false;
     }
+
+//    public boolean getCraftRecipe (String craftRecipe) {
+//        for (CraftRecipe r : CraftRecipe.values()) {
+//            if (r.getName().equalsIgnoreCase(craftRecipe)) {
+//                return r;
+//            }
+//        }
+//
+//    }
 }

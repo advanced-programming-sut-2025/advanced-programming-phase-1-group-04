@@ -1,6 +1,7 @@
 package Model.Tool;
 
 import Model.App;
+import Model.Crafting.Craft;
 import Model.Map.BuildingType;
 import Model.Map.Stone;
 import Model.Map.Tile;
@@ -159,7 +160,16 @@ public class Pickaxe implements Tool {
             player.addItemToInventory(new Stone(), 1);
             return new Result(true, "you destroyed a " + tile.getItem().getName());
         }
+        if (tile.getItem() != null && tile.getItem() instanceof Craft craft) {
+            if (!player.addItemToInventory(craft, 1)) {
+                return new Result(false, "your inventory doesn't have enough capacity!");
+            }
+            player.addEnergy(-1 * getEnergyConsumption(true));
+            tile.setItem(null);
+            return new Result(true, craft.getName() + " added to inventory.");
+        }
         if (tile.getItem() != null) {
+            player.addEnergy(-1 * getEnergyConsumption(true));
             tile.setItem(null);
             return new Result(true, "the item is no longer on the tile.");
         }

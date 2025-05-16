@@ -205,15 +205,13 @@ public class MapController {
     }
 
     public static Coordinate getDestination (Coordinate destination) {
-        int lenx = Math.abs(destination.getX() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
-        int leny = Math.abs(destination.getY() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
-        int minx = Math.min(destination.getX(), App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
-        int miny = Math.min(destination.getY(), App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
-        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX() - minx;
-        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY() - miny;
-        int destx = destination.getX() - minx;
-        int desty = destination.getY() - miny;
-        int[][][] dist = new int[lenx + 1][leny + 1][4];
+        int lenx = 90;
+        int leny = 120;
+        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX();
+        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY();
+        int destx = destination.getX();
+        int desty = destination.getY();
+        int[][][] dist = new int[lenx][leny][4];
         for (int[][] row : dist) {
             for (int[] col : row)
                 Arrays.fill(col, Integer.MAX_VALUE);
@@ -232,21 +230,19 @@ public class MapController {
             int x = cur[1];
             int y = cur[2];
             int dir = cur[3];
-            Coordinate c = new Coordinate(x + minx, y + miny);
+            Coordinate c = new Coordinate(x, y);
             if (!App.getCurrentGame().getTile(c).isWalkable())
                 continue;
-            if (getFarmId(c) != -1 && App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(c)) // TODO: if when married
-                continue;
-            if ((cost / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
-                return new Coordinate(last.getX() + minx, last.getY() + miny);
+            if (((cost + 19) / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
+                return last;
             last.setX(x);
             last.setY(y);
             if (x == destx && y == desty)
-                return new Coordinate(last.getX() + minx, last.getY() + miny);
+                return last;
             for (int i = 0; i < 4; i++) {
                 int newx = x + dx[i];
                 int newy = y + dy[i];
-                if (newx < 0 || newx > lenx || newy < 0 || newy > leny)
+                if (newx < 0 || newx >= lenx || newy < 0 || newy >= leny)
                     continue;
                 int newCost = cost + 1;
                 if (dir != i)
@@ -263,15 +259,13 @@ public class MapController {
     }
 
     public static int getDestinationEnergy (Coordinate destination) {
-        int lenx = Math.abs(destination.getX() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
-        int leny = Math.abs(destination.getY() - App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
-        int minx = Math.min(destination.getX(), App.getCurrentGame().getCurrentPlayer().getCoordinate().getX());
-        int miny = Math.min(destination.getY(), App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
-        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX() - minx;
-        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY() - miny;
-        int destx = destination.getX() - minx;
-        int desty = destination.getY() - miny;
-        int[][][] dist = new int[lenx + 1][leny + 1][4];
+        int lenx = 90;
+        int leny = 120;
+        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX();
+        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY();
+        int destx = destination.getX();
+        int desty = destination.getY();
+        int[][][] dist = new int[lenx][leny][4];
         for (int[][] row : dist) {
             for (int[] col : row)
                 Arrays.fill(col , Integer.MAX_VALUE);
@@ -291,22 +285,20 @@ public class MapController {
             int x = cur[1];
             int y = cur[2];
             int dir = cur[3];
-            Coordinate c = new Coordinate(x + minx, y + miny);
+            Coordinate c = new Coordinate(x, y);
             if (!App.getCurrentGame().getTile(c).isWalkable())
                 continue;
-            if (getFarmId(c) != -1 && App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(c)) // TODO: if when married
-                continue;
-            if ((cost / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
+            if (((cost + 19) / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
                 return ans;
             last.setX(x);
             last.setY(y);
-            ans = cost / 20;
+            ans = (cost + 19) / 20;
             if (x == destx && y == desty)
                 return ans;
             for (int i = 0; i < 4; i++) {
                 int newx = x + dx[i];
                 int newy = y + dy[i];
-                if (newx < 0 || newx > lenx || newy < 0 || newy > leny)
+                if (newx < 0 || newx >= lenx || newy < 0 || newy >= leny)
                     continue;
                 int newCost = cost + 1;
                 if (dir != i)

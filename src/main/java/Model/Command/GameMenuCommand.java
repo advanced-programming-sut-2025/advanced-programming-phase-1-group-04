@@ -32,10 +32,11 @@ public enum GameMenuCommand implements Command {
     PrintMap("print\\s+map\\s+-l\\s+(?<x>\\d+)\\s*,\\s*(?<y>\\d+)\\s+-s\\s+(?<size>\\d+)"),
     PrintFarm("print\\s+my\\s+farm"),
     HelpMap("help\\s++map"),
+    TileInfo("tile\\s+info\\s+-l\\s+(?<x>\\d+)\\s*,\\s*(?<y>\\d+)"),
 
     // Player Controller: Aynaz
     ShowEnergy("show\\s+energy"),
-    CheatEnergy("cheat\\s+energy\\s+set\\s+-v\\s+(?<value>[-+]?\\d+)"),
+    CheatEnergy("cheat\\s+set\\s+energy\\s+-v\\s+(?<value>[-+]?\\d+)"),
     CheatUnlimitedEnergy("unlimited\\s+energy"),
 
     // Player Controller: Aynaz
@@ -82,7 +83,7 @@ public enum GameMenuCommand implements Command {
     Pet("pet\\s+-n\\s+(?<name>.+)"),
     ShowAnimalsInfo("animals\\s+list"),
     CheatFriendShipAnimal("cheat\\s+set\\s+friendship\\s+-n\\s+(?<name>.+?)\\s+-c\\s+(?<amount>\\d+)"),
-    ShepherdAnimal("shepherd\\s+animals\\s+-n\\s+(?<name>.+?)\\s+-l\\s+<(?<x>\\d+)\\s*,\\s*(?<y>\\d+)>"), // todo
+    ShepherdAnimal("shepherd\\s+animals\\s+-n\\s+(?<name>.+?)\\s+-l\\s+(?<x>\\d+)\\s*,\\s*(?<y>\\d+)"), // todo
     FeedAnimal("feed\\s+hay\\s+-n\\s+(?<name>.+)"),
     ShowAnimalProduceInfo("animal\\s+produces\\s+list"),
     CollectAnimalProduce("collect\\s+produce\\s+-n\\s+(?<name>.+?)"),

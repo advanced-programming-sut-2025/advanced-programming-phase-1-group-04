@@ -31,7 +31,7 @@ public class NightController {
         randomForagingPlants();
         randomForagingMinerals();
         thorEffect();
-        // Player:(and its animals)
+        // Player:
         movePlayers();
 
 
@@ -104,10 +104,12 @@ public class NightController {
     private static void thorEffect() {
         if (thorCoordinate != null) {
             Tile tile = App.getCurrentGame().getTile(thorCoordinate);
-            if (tile.getItem() instanceof Tree tree) {
-                tree.burn();
-            } else {
-                tile.setItem(null);
+            if (tile.getType().equals(TileType.Ground)) {
+                if (tile.getItem() instanceof Tree tree) {
+                    tree.burn();
+                } else {
+                    tile.setItem(null);
+                }
             }
             thorCoordinate = null;
         } else {
@@ -131,6 +133,7 @@ public class NightController {
                 player.setEnergy(200);
             } else {
                 //TODO: Aynaz 75% energy rozane az dast mide
+                player.setCoordinate(MapController.getDestination(player.getHouseCoordinate()));
                 player.setEnergy(150);
             }
         }

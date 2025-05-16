@@ -1,9 +1,15 @@
 package Controller.SirkBozorg;
 
 import Controller.GameMenuController;
+import Model.Animals.AnimalProduct;
+import Model.Animals.AnimalProductType;
+import Model.Animals.Fish;
+import Model.Animals.FishType;
 import Model.App;
 import Model.Cooking.Food;
 import Model.Cooking.FoodType;
+import Model.Cooking.Ingredient;
+import Model.Cooking.IngredientType;
 import Model.Crafting.Craft;
 import Model.Crafting.CraftType;
 import Model.Game;
@@ -12,9 +18,7 @@ import Model.Map.ItemType;
 import Model.Map.Stone;
 import Model.Map.Wood;
 import Model.Plants.*;
-import Model.Player.Inventory;
-import Model.Player.Player;
-import Model.Player.Skill;
+import Model.Player.*;
 import Model.Result;
 
 public class PlayerController {
@@ -113,7 +117,7 @@ public class PlayerController {
         int count = Integer.parseInt(stringCount);
         Item item = getItemByTypeName(type, name);
 
-        if (App.getCurrentGame().getCurrentPlayer().getInventory().getRemainedCapacity() > count) { // TODO: نمیدونم چطور مشخص میکنی جا داره یا نه ولی ارور مربوطه
+        if (App.getCurrentGame().getCurrentPlayer().getInventory().getRemainedCapacity() < 1) { // TODO: Aynaz نمیدونم چطور مشخص میکنی جا داره یا نه ولی ارور مربوطه
             return new Result(false, "");
         } else if (count < 1) {
             return new Result(false, "Count must be a positive number!");
@@ -176,7 +180,16 @@ public class PlayerController {
             case "food":
                 return getFood(name);
             case "fish":
+                return getFish(name);
             case "animal product":
+                return getAnimalProduct(name);
+                //TODO: Aynaz check
+            case "ingredient":
+                return getIngredient(name);
+            case "fertilize":
+                return getFertilizer(name);
+            case "gift":
+                return getGift(name);
             default:
                 return null;
         }
@@ -258,6 +271,51 @@ public class PlayerController {
         for (CraftType t : CraftType.values()) {
             if (t.getName().equalsIgnoreCase(name)) {
                 return new Craft(t);
+            }
+        }
+        return null;
+    }
+
+    private static Fish getFish (String name) {
+        for (FishType f : FishType.values()) {
+            if (f.getName().equalsIgnoreCase(name)) {
+                return new Fish(f);
+            }
+        }
+        return null;
+    }
+
+    private static AnimalProduct getAnimalProduct (String name) {
+        for (AnimalProductType a : AnimalProductType.values()) {
+            if (a.getName().equalsIgnoreCase(name)) {
+                return new AnimalProduct(a);
+            }
+        }
+        return null;
+    }
+
+    private static Ingredient getIngredient (String name) {
+        for (IngredientType i : IngredientType.values()) {
+            if (i.getName().equalsIgnoreCase(name)) {
+                return new Ingredient(i);
+            }
+        }
+        return null;
+    }
+
+    private static Gift getGift (String name) {
+        for (GiftType i : GiftType.values()) {
+            if (i.getName().equalsIgnoreCase(name)) {
+                return new Gift(i);
+            }
+        }
+        return null;
+    }
+
+    private static Fertilizer getFertilizer (String name) {
+        for (FertilizerType i : FertilizerType.values()) {
+            if (i.getName().equalsIgnoreCase(name)) {
+                return new Fertilizer(i);
             }
         }
         return null;

@@ -117,6 +117,7 @@ public class GameMenuController {
     }
 
     public static Result nextTurn() {
+        //Bug: وقتی نفر اخر انرژیش صفر شه  هیچ موقع نمیره ساعت بعدی.....
         int index = App.getCurrentGame().getPlayers().indexOf(App.getCurrentGame().getCurrentPlayer());
         int totalPlayers = App.getCurrentGame().getPlayers().size();
         int nextIndex = (index + 1) % totalPlayers;

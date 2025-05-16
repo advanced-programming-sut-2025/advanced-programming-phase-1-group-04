@@ -272,6 +272,9 @@ public class PlantController {
         if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouserBuild))) {
             return new Result(false, "you must plant on the ground or in the greenhouse!");
         }
+        if (!seed.getSeasons().contains(App.getCurrentGame().getCurrentTime().getSeason()) && tile.getType() == TileType.Ground) {
+            return new Result(false, "this plant can't get planted outside of the greenhouse in this season!");
+        }
         if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(coordinate)) {
             return new Result(false, "you are not allowed to plant here!");
         }
@@ -305,6 +308,9 @@ public class PlantController {
         if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouserBuild))) {
             return new Result(false, "you must plant on the ground or in the greenhouse!");
         }
+        if (!sapling.getSeasons().contains(App.getCurrentGame().getCurrentTime().getSeason()) && tile.getType() == TileType.Ground) {
+            return new Result(false, "this plant can't get planted outside of the greenhouse in this season!");
+        }
         if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(coordinate)) {
             return new Result(false, "you are not allowed to plant here!");
         }
@@ -320,5 +326,17 @@ public class PlantController {
         }
         tile.setItem(tree);
         return new Result(true, sapling.getName() + " is now planted in selected tile.");
+    }
+
+
+
+    public static ArrayList<SeedType> getSeasonSeeds (Season s) {
+        ArrayList<SeedType> seeds = new ArrayList<>();
+        for (SeedType seed : SeedType.values()) {
+            if (seed.getSeasons().contains(s)) {
+                seeds.add(seed);
+            }
+        }
+        return seeds;
     }
 }

@@ -10,6 +10,7 @@ public enum IngredientType {
     Rice ("Rice", 125),
     Oil ("Oil", 100),
     Vinegar ("Vinegar", 100),
+    Fiber ("fiber", 20)
     ;
 
     private final String name;

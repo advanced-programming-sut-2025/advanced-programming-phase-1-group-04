@@ -14,6 +14,7 @@ public class ForageableFactory {
     private static final ArrayList<Forageable> winterPlantForageables = new ArrayList<>();
     private static final ArrayList<Forageable> mineralForageables = new ArrayList<>();
 
+
     public static ArrayList<Forageable> getAllForageables() {
         allForageables.addAll(Arrays.asList(ForagingCropType.values()));
         allForageables.addAll(Arrays.asList(SeedType.values()));

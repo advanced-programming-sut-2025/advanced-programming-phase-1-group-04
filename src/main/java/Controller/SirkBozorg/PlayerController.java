@@ -124,7 +124,7 @@ public class PlayerController {
         Item item = getItemByTypeName(type, name);
 
         if (App.getCurrentGame().getCurrentPlayer().getInventory().getRemainedCapacity() < 1) { // TODO: Aynaz نمیدونم چطور مشخص میکنی جا داره یا نه ولی ارور مربوطه
-            return new Result(false, "");
+            return new Result(false, "no space");
         } else if (count < 1) {
             return new Result(false, "Count must be a positive number!");
         } else if (!isTypeValid(type)) {

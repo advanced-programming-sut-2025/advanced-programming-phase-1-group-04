@@ -12,7 +12,6 @@ import Model.Cooking.Ingredient;
 import Model.Cooking.IngredientType;
 import Model.Crafting.Craft;
 import Model.Crafting.CraftType;
-import Model.Game;
 import Model.Map.Item;
 import Model.Map.ItemType;
 import Model.Map.Stone;
@@ -309,10 +308,10 @@ public class PlayerController {
         return null;
     }
 
-    private static Gift getGift (String name) {
+    private static GiftItem getGift (String name) {
         for (GiftType i : GiftType.values()) {
             if (i.getName().equalsIgnoreCase(name)) {
-                return new Gift(i);
+                return new GiftItem(i);
             }
         }
         return null;

@@ -346,7 +346,7 @@ public class Player {
     }
 
     public int getFarmBuildingLevel (BuildingType type) {
-        int max = 1;
+        int max = 0;
         for (FarmBuilding b : myFarmBuildings) {
             if (b.getType().getType() == type) {
                 if (b.getCapacity() > max) {
@@ -364,7 +364,7 @@ public class Player {
                 animalNumber++;
             }
         }
-        return getFarmBuildingLevel(type) * 4 - animalNumber;
+        return Math.max(0, getFarmBuildingLevel(type) * 4 - animalNumber);
     }
 
     public ArrayList<FoodRecipe> getFoodRecipes() {

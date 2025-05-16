@@ -22,8 +22,7 @@ public class FishingPole implements Tool{
 
     @Override
     public Result use(Tile tile) {
-        return new Result(false, "TODO");
-        //TODO
+        return new Result(false, "this command doesn't work for fishing pole!");
     }
 
     @Override

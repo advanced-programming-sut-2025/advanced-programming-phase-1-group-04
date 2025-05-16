@@ -34,6 +34,7 @@ public class Scythe implements Tool {
                 }
                 player.addAbility(Skill.Foraging, 10);
                 player.addAbility(Skill.Farming, 5);
+                tile.setPlowed(false);
                 return new Result(true, "coal added to inventory.");
             }
             else if (tree.hasFruit()) {
@@ -44,6 +45,7 @@ public class Scythe implements Tool {
                     player.addAbility(Skill.Foraging, 10);
                 }
                 player.addAbility(Skill.Farming, 5);
+                tile.setPlowed(false);
                 return new Result(true, tree.getFruitType().getName() + " added to inventory.");
             }
             return new Result(false, "this tree is not ready to get harvested yet!");
@@ -56,6 +58,7 @@ public class Scythe implements Tool {
                 }
                 player.addAbility(Skill.Foraging, 10);
                 player.addAbility(Skill.Farming, 5);
+                tile.setPlowed(false);
                 return new Result(true, "fiber added to inventory.");
 
             }
@@ -74,6 +77,7 @@ public class Scythe implements Tool {
                     player.addAbility(Skill.Foraging, 10);
                 }
                 player.addAbility(Skill.Farming, 5);
+                tile.setPlowed(false);
                 return new Result(true, crop.getName() + " added to inventory.");
             }
             return new Result(false, "this crop is not ready to get harvested yet!");
@@ -91,6 +95,7 @@ public class Scythe implements Tool {
                 player.addAbility(Skill.Foraging, 10);
             }
             player.addAbility(Skill.Farming, 5);
+            tile.setPlowed(false);
             return new Result(true, crop.getName() + " added to inventory.");
         }
 

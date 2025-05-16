@@ -130,6 +130,9 @@ public class CarpentersShop implements Shop {
             }
             return new Result(true, number + " wood added to inventory.");
         }
+        if (animalName == null) {
+            return new Result(false, "use build command for buildings!");
+        }
         for (CarpenterBuildings s : buildings.keySet()) {
             if (productName.equalsIgnoreCase(s.getName())) {
                 if (buildings.get(s) <= 0 || number != 1) {
@@ -151,8 +154,8 @@ public class CarpentersShop implements Shop {
                 }
                 // TODO: Aynaz بهت زنگ میزنم تهخ
                 App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * s.getCost());
-                App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("stone", s.getStonesCost() * number);
-                App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("wood", s.getWoodCost() * number);
+                App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("stone", s.getStonesCost());
+                App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("wood", s.getWoodCost());
                 App.getCurrentGame().getCurrentPlayer().addToFarmBuildings(new FarmBuilding(s.getType()));
                 return new Result(true, s.getName() + " added to farm buildings");
             }

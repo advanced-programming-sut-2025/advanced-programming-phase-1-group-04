@@ -43,7 +43,11 @@ public class TimeController {
         if (date < 1) {
             return new Result(false, "Date should be greater than 1");
         }
-        // TODO: night controller
+
+        // TODO: night controller (skim)
+        for (int i = 0; i < date; i++) {
+            NightController.nightControl();
+        }
         App.getCurrentGame().getCurrentTime().addDay(date);
         return new Result(true, "Date successfully changed to " + App.getCurrentGame().getCurrentTime().getDay());
     }

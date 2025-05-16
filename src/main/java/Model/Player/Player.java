@@ -1,5 +1,6 @@
 package Model.Player;
 
+import Controller.GameMenuController;
 import Model.Animals.Animal;
 import Model.App;
 import Model.Cooking.FoodRecipe;
@@ -140,6 +141,11 @@ public class Player {
 
 
     public boolean removeItemFromInventory(String itemName, int quantity) {
+        boolean result = inventory.removeItem(itemName, quantity);
+        return result;
+    }
+
+    public boolean moveItemFromInventoryToTrash(String itemName, int quantity) {
         int price = 0;
         Inventory.ItemStack stack = inventory.getItems().get(itemName.toLowerCase());
 

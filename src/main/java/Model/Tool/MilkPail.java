@@ -6,6 +6,7 @@ import Model.Result;
 import Model.Time.Weather;
 
 public class MilkPail implements Tool{
+    ToolType type = ToolType.MilkPail;
     @Override
     public Result upgrade() {
         return new Result(false, "milk pail can't get upgraded!");
@@ -40,5 +41,10 @@ public class MilkPail implements Tool{
     @Override
     public int getPrice() {
         return 1000;
+    }
+
+    @Override
+    public ToolType getType() {
+        return type;
     }
 }

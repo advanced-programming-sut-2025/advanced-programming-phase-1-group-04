@@ -15,6 +15,7 @@ public class Crop implements Item, Plant {
     private DateAndTime lastTimeHarvested;
     private final CropType type;
     private final boolean purposelyPlanted;
+    private int totalHarvestTime;
     //TODO: isGiant?
 
 
@@ -23,18 +24,21 @@ public class Crop implements Item, Plant {
         this.plantingDate = new DateAndTime(t.getHour(), t.getDay(), t.getWeather());
         this.type = type;
         this.purposelyPlanted = purposelyPlanted;
+        totalHarvestTime = type.getHarvestTime();
     }
     public Crop(CropType type, boolean purposelyPlanted) {
         this.plantingDate = new DateAndTime(App.getCurrentGame().getCurrentTime().getHour(),
                 App.getCurrentGame().getCurrentTime().getDay(), App.getCurrentGame().getCurrentTime().getWeather());
         this.type = type;
         this.purposelyPlanted = purposelyPlanted;
+        totalHarvestTime = type.getHarvestTime();
     }
     public Crop(CropType type) {
         this.plantingDate = new DateAndTime(App.getCurrentGame().getCurrentTime().getHour(),
                 App.getCurrentGame().getCurrentTime().getDay(), App.getCurrentGame().getCurrentTime().getWeather());
         this.type = type;
         this.purposelyPlanted = true;
+        totalHarvestTime = type.getHarvestTime();
     }
 
 
@@ -53,7 +57,7 @@ public class Crop implements Item, Plant {
     }
 
     public int getHarvestTime() {
-        return type.getHarvestTime();
+        return totalHarvestTime;
     }
 
     public boolean isOneTime() {
@@ -134,10 +138,17 @@ public class Crop implements Item, Plant {
         this.lastTimeHarvested = lastTimeHarvested;
     }
 
+    public void setTotalHarvestTime (int t) {
+        this.totalHarvestTime = t;
+    }
+
 
     @Override
     public String showPlantInfo() {
-        return "crop info:\nname: " + getName() + "\ntotal harvest time: " + getHarvestTime() + "\ndate of planting: " +
+        if (getName().equalsIgnoreCase("mixed seeds")) {
+            return "crop info:\nname: mixed";
+        }
+        return "crop info:\nname: " + getName() + "\ntotal harvest time: " + totalHarvestTime + "\ndate of planting: " +
                 plantingDate.getSeason().name() + " " + plantingDate.getDay() + "th\nstages: " +
                 PlantController.stagesToString(getStages()) + "\ncurrent stage: " + getCurrentStage() + "\nis foraging: " +
                 !purposelyPlanted;

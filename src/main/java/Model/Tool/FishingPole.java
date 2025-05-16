@@ -6,10 +6,11 @@ import Model.Result;
 import Model.Time.Weather;
 
 public class FishingPole implements Tool{
-    private FishingPoleType type;
+    ToolType type = ToolType.FishingPole;
+    private FishingPoleType level;
 
     public FishingPole (FishingPoleType type) {
-        this.type = type;
+        this.level = type;
     }
 
     @Override
@@ -28,17 +29,17 @@ public class FishingPole implements Tool{
     @Override
     public int getEnergyConsumption(boolean useSuccess) {
         if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Rain) {
-            return (int) (type.getEnergyConsumption() * 1.5);
+            return (int) (level.getEnergyConsumption() * 1.5);
         }
         else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
-            return type.getEnergyConsumption() * 2;
+            return level.getEnergyConsumption() * 2;
         }
-        return type.getEnergyConsumption();
+        return level.getEnergyConsumption();
     }
 
     @Override
     public String getLevelString() {
-        return type.name();
+        return level.name();
     }
 
     @Override
@@ -48,6 +49,11 @@ public class FishingPole implements Tool{
 
     @Override
     public int getPrice() {
-        return type.getPrice();
+        return level.getPrice();
+    }
+
+    @Override
+    public ToolType getType() {
+        return type;
     }
 }

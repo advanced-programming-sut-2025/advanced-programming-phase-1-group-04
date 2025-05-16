@@ -17,6 +17,7 @@ public class Tree implements Item, Plant {
     private final DateAndTime plantingDate;
     private DateAndTime lastTimeHarvested;
     private final boolean purposelyPlanted;
+    private int totalHarvestTime;
 
     //constructor:
     public Tree (TreeType type, DateAndTime t, boolean purposelyPlanted) {
@@ -25,6 +26,7 @@ public class Tree implements Item, Plant {
         isBurned = false;
         lastTimeHarvested = null;
         this.purposelyPlanted = purposelyPlanted;
+        totalHarvestTime = type.getTotalHarvestTime();
     }
     public Tree (TreeType type, boolean purposelyPlanted) {
         this.type = type;
@@ -32,6 +34,7 @@ public class Tree implements Item, Plant {
         isBurned = false;
         lastTimeHarvested = null;
         this.purposelyPlanted = purposelyPlanted;
+        totalHarvestTime = type.getTotalHarvestTime();
     }
     public Tree (TreeType type) {
         this.type = type;
@@ -39,6 +42,7 @@ public class Tree implements Item, Plant {
         isBurned = false;
         lastTimeHarvested = null;
         this.purposelyPlanted = true;
+        totalHarvestTime = type.getTotalHarvestTime();
     }
 
     //getters:
@@ -66,7 +70,7 @@ public class Tree implements Item, Plant {
     }
 
     public int getTotalHarvestTime() {
-        return type.getTotalHarvestTime();
+        return totalHarvestTime;
     }
 
     public FruitType getFruitType() {
@@ -137,12 +141,16 @@ public class Tree implements Item, Plant {
 
     @Override
     public String showPlantInfo() {
-        return "crop info:\nname: " + getName() + "\ntotal harvest time: " + getTotalHarvestTime() + "\ndate of planting: " +
+        return "crop info:\nname: " + getName() + "\ntotal harvest time: " + totalHarvestTime + "\ndate of planting: " +
                 plantingDate.getSeason().name() + " " + plantingDate.getDay() + "th\nstages: " +
                 PlantController.stagesToString(getStages()) + "\ncurrent stage: " + getCurrentStage();
     }
 
     public boolean isPurposelyPlanted() {
         return purposelyPlanted;
+    }
+
+    public void setTotalHarvestTime(int totalHarvestTime) {
+        this.totalHarvestTime = totalHarvestTime;
     }
 }

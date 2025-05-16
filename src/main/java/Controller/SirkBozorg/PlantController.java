@@ -2,9 +2,7 @@ package Controller.SirkBozorg;
 
 import Controller.GameMenuController;
 import Model.App;
-import Model.Map.Coordinate;
-import Model.Map.Item;
-import Model.Map.Tile;
+import Model.Map.*;
 import Model.Plants.*;
 import Model.Result;
 import Model.Time.DateAndTime;
@@ -91,11 +89,16 @@ public class PlantController {
         if ((seedType = getSeedTypeByName(seedName)) == null && saplingType == null) {
             return new Result(false, "invalid seed/ sapling name!");
         }
+        if (App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithName(seedName) == null) {
+            return new Result(false, "you don't have " + seedName + " in your inventory!");
+        }
         if (seedType != null) {
-            return plantInTile(new Seed(seedType, true), GameMenuController.getTileByDirection(direction),
+            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
+            return plantInTile(GameMenuController.getCoordinateByDirection(direction), new Seed(seedType, true), GameMenuController.getTileByDirection(direction),
                     App.getCurrentGame().getCurrentTime());
         }
-        return plantInTile(new Sapling(saplingType, true), GameMenuController.getTileByDirection(direction),
+        App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
+        return plantInTile(GameMenuController.getCoordinateByDirection(direction), new Sapling(saplingType, true), GameMenuController.getTileByDirection(direction),
                 App.getCurrentGame().getCurrentTime());
     }
 
@@ -112,20 +115,39 @@ public class PlantController {
         if (x >= 90 || x < 0 || y >= 120 || y < 0) {
             return new Result(false, "invalid coordinate!");
         }
-        Item item = App.getCurrentGame().getTile(new Coordinate(x, y)).getItem();
+        Tile tile = App.getCurrentGame().getTile(new Coordinate(x, y));
+        if (tile == null) {
+            return new Result(false, "invalid tile!");
+        }
+        Item item = tile.getItem();
         if (item == null) {
             return new Result(false, "this tile is empty!");
         }
         else if (item instanceof Plant) {
-            String result = ((Plant) item).showPlantInfo() + "\nis watered: " +
-                    App.getCurrentGame().getTile(new Coordinate(x, y)).isWatered() + "\nfertilize: ";
-            if (App.getCurrentGame().getTile(new Coordinate(x, y)).getFertilize() == 0) {
-                result = result + "no";
+            String result = ((Plant) item).showPlantInfo() + "\nlast time watered: ";
+            if (tile.getLastTimeWatered() == null) {
+                result = result + "this plant has never been watered!\nfertilize: ";
             }
-            else if (App.getCurrentGame().getTile(new Coordinate(x, y)).getFertilize() == 0) {
+            else if (tile.getLastTimeWatered().getDay() == 1) {
+                result = result + "the 1st day\nfertilize: ";
+            }
+            else if (tile.getLastTimeWatered().getDay() == 2) {
+                result = result + "the 2nd day\nfertilize: ";
+            }
+            else if (tile.getLastTimeWatered().getDay() == 3) {
+                result = result + "the 3rd day\nfertilize: ";
+            }
+            else {
+                result = result + "the " + tile.getLastTimeWatered().getDay() + "th day\nfertilize: ";
+            }
+
+            if (App.getCurrentGame().getTile(new Coordinate(x, y)).getFertilize() == 0) {
+                result = result + "not fertilized";
+            }
+            else if (App.getCurrentGame().getTile(new Coordinate(x, y)).getFertilize() == 1) {
                 result = result + "retaining soil";
             }
-            else if (App.getCurrentGame().getTile(new Coordinate(x, y)).getFertilize() == 0) {
+            else if (App.getCurrentGame().getTile(new Coordinate(x, y)).getFertilize() == 2) {
                 result = result + "speed-gro";
             }
             return new Result(true, result);
@@ -138,7 +160,33 @@ public class PlantController {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        return new Result(false, "NOT COMPLETED/ TODO"); //TODO
+        Tile tile = GameMenuController.getTileByDirection(direction);
+        if (tile == null) {
+            return new Result(false, "invalid direction!");
+        }
+        if (tile.getItem() != null) {
+            return new Result(false, "the selected tile is not empty!\nyou must fertilize tiles before planting.");
+        }
+        if (!tile.isPlowed()) {
+            return new Result(false, "the selected tile is not plowed!\n");
+        }
+        if (fertilizer == null) {
+            return new Result(false, "invalid fertilizer name!");
+        }
+        if (tile.getFertilize() != 0) {
+            return new Result(false, "the selected tile has already been fertilized!");
+        }
+        if (fertilizer.equalsIgnoreCase("deluxe relating soil") || fertilizer.equalsIgnoreCase("basic relating soil") ||
+                fertilizer.equalsIgnoreCase("quality relating soil") || fertilizer.equalsIgnoreCase("relating soil")) {
+
+            tile.setFertilize(1);
+            return new Result(true, "the selected tile is now fertilized with " + fertilizer);
+        }
+        if (fertilizer.equalsIgnoreCase("speed-gro") || fertilizer.equalsIgnoreCase("speed gro")) {
+            tile.setFertilize(2);
+            return new Result(true, "the selected tile is now fertilized with " + fertilizer);
+        }
+        return new Result(false, "invalid fertilizer name!");
     }
 
     public static Result howMuchWater () {
@@ -217,24 +265,48 @@ public class PlantController {
         return null;
     }
 
-    public static Result plantInTile (Seed seed, Tile tile, DateAndTime time) {
+    public static Result plantInTile (Coordinate coordinate, Seed seed, Tile tile, DateAndTime time) {
         if (tile == null) {
             return new Result(false, "invalid tile!");
         }
+        if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouserBuild))) {
+            return new Result(false, "you must plant on the ground or in the greenhouse!");
+        }
+        if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(coordinate)) {
+            return new Result(false, "you are not allowed to plant here!");
+        }
         if (tile.getItem() != null) {
-            return new Result(false, "tile isn't empty!");
+            return new Result(false, "the selected tile isn't empty!");
         }
         if (!tile.isPlowed()) {
             return new Result(false, "this tile has not been plowed");
         }
-        Crop crop = new Crop (time, seed.getCrop(), true);
+        Crop crop;
+        if (seed.getName().equalsIgnoreCase("Mixed Seeds")) {
+            Seed randomSeed = new Seed(SeedType.values()[NightController.rand.nextInt(35)]);
+            crop = new Crop(time, randomSeed.getCrop(),true);
+        }
+        else {
+            crop = new Crop (time, seed.getCrop(), true);
+        }
+        if (tile.getFertilize() == 2) {
+            if (!crop.getName().equalsIgnoreCase("grass")) {
+                crop.setTotalHarvestTime(crop.getHarvestTime() - 1);
+            }
+        }
         tile.setItem(crop);
-        return new Result(true, seed.getName() + " is planted in selected tile.");
+        return new Result(true, seed.getName() + " is now planted in selected tile.");
     }
 
-    public static Result plantInTile (Sapling sapling, Tile tile, DateAndTime time) {
+    public static Result plantInTile (Coordinate coordinate, Sapling sapling, Tile tile, DateAndTime time) {
         if (tile == null) {
             return new Result(false, "invalid tile!");
+        }
+        if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouserBuild))) {
+            return new Result(false, "you must plant on the ground or in the greenhouse!");
+        }
+        if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(coordinate)) {
+            return new Result(false, "you are not allowed to plant here!");
         }
         if (tile.getItem() != null) {
             return new Result(false, "tile isn't empty!");
@@ -243,7 +315,10 @@ public class PlantController {
             return new Result(false, "this tile has not been plowed");
         }
         Tree tree = new Tree(sapling.getTreeType(), time, true);
+        if (tile.getFertilize() == 2) {
+            tree.setTotalHarvestTime(tree.getTotalHarvestTime() - 1);
+        }
         tile.setItem(tree);
-        return new Result(true, sapling.getName() + " is planted in selected tile.");
+        return new Result(true, sapling.getName() + " is now planted in selected tile.");
     }
 }

@@ -92,6 +92,10 @@ public class Game {
         return shops.get(0);
     }
 
+    public ArrayList<Shop> getShops () {
+        return shops;
+    }
+
     public void setShops(List<Shop> shops) {
         this.shops = new ArrayList<>(shops);
     }

@@ -117,7 +117,8 @@ public class GameMenuController {
     }
 
     public static Result nextTurn() {
-        //Bug: وقتی نفر اخر انرژیش صفر شه  هیچ موقع نمیره ساعت بعدی.....
+        // Bug: وقتی نفر اخر انرژیش صفر شه  هیچ موقع نمیره ساعت بعدی.....
+        // BUG: نکست ترن زد و شب شد باید بره نفر بعدی که نمیره
         int index = App.getCurrentGame().getPlayers().indexOf(App.getCurrentGame().getCurrentPlayer());
         int totalPlayers = App.getCurrentGame().getPlayers().size();
         int nextIndex = (index + 1) % totalPlayers;

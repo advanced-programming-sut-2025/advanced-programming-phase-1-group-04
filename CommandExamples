@@ -25,6 +25,8 @@ change password -p      -o
 
 _______________________________________________________________
 walk to SHOP:
+//Green house player 1:
+walk -l 5, 8
 
 BlackSmith:
 walk -l 34, 46

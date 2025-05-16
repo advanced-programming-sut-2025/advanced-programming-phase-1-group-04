@@ -124,6 +124,7 @@ public class FishShop implements Shop {
                 return new Result(false, "you don't have enough money!");
             }
             App.getCurrentGame().getCurrentPlayer().addItemToInventory(new FishingPole(FishingPoleType.Training), 1);
+            return new Result(true, "training rod added successfully.");
         }
         return new Result(false, "invalid product name!");
     }

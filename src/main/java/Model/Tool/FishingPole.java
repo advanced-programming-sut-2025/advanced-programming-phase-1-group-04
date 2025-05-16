@@ -37,6 +37,10 @@ public class FishingPole implements Tool{
         return level.getEnergyConsumption();
     }
 
+    public FishingPoleType getFishingPoleType() {
+        return level;
+    }
+
     @Override
     public String getLevelString() {
         return level.name();

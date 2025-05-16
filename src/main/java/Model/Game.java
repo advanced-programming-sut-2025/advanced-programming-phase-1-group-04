@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.SirkBozorg.NightController;
 import Model.Map.Coordinate;
 import Model.Map.GameMap;
 import Model.Map.Region;

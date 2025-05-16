@@ -25,6 +25,23 @@ public class Fish implements Item {
         return (int) (type.getBasePrice() * coefficient);
     }
 
+    public double getQuality() {
+        return quality;
+    }
+
+    public String getQualityString() {
+        if (this.quality < 0.5) {
+            return "Regular";
+        } else if (this.quality < 0.7) {
+            return "Steel";
+        } else if (this.quality < 0.9) {
+            return "Gold";
+        } else if (this.quality >= 0.9) {
+            return "Iridium";
+        } else {
+            return "Invalid quality!";
+        }
+    }
     public Season getSeason() {
         return type.getSeason();
     }

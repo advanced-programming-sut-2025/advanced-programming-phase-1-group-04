@@ -17,7 +17,8 @@ public enum BuildingType {
     CarpentersShop(4 , 6),
     FishShop(4 , 5),
     MarniesRanch(3 , 5),
-    TheStarDropSaloon(4, 7);
+    TheStarDropSaloon(4, 7)
+    ;
 
     private int w;
     private int l;

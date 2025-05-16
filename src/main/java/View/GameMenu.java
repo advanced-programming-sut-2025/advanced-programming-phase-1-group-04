@@ -3,7 +3,6 @@ package View;
 import Controller.GameMenuController;
 
 import Controller.SirkBozorg.*;
-import Model.Animals.Animal;
 import Model.App;
 
 import Model.Command.GameMenuCommand;
@@ -242,9 +241,8 @@ public class GameMenu implements AppMenu {
         else if ((matcher = GameMenuCommand.SellAnimal.getMatcher(input)) != null) {
             System.out.println(AnimalController.sellAnimal(matcher.group("name")));
         }
-        else if (GameMenuCommand.Fishing.isMatch(input)) {
-            // TODO: tool use & Aynaz
-            System.out.println("Use use tool command!");
+        else if ((matcher = GameMenuCommand.Fishing.getMatcher(input)) != null) {
+            System.out.println(AnimalController.fishing(matcher.group("fishingPole")));
         }
 
 

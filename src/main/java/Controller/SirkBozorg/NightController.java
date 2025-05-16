@@ -56,7 +56,7 @@ public class NightController {
         }
     }
 
-    private static void foragingPlantsForEachFarm(Coordinate c1, Coordinate c2) {
+    public static void foragingPlantsForEachFarm(Coordinate c1, Coordinate c2) {
         ArrayList<Forageable> listOfPlants = ForageableFactory.getSeasonPlantForageables(App.getCurrentGame().
                 getCurrentTime().getSeason());
         for (int x = c1.getX(); x < c2.getX(); x++) {
@@ -196,7 +196,7 @@ public class NightController {
     }
 
 
-    private static void randomForagingMinerals() {
+    public static void randomForagingMinerals() {
         foragingMineralsForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
         if (App.getCurrentGame().getPlayers().size() >= 2) {
             foragingMineralsForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));

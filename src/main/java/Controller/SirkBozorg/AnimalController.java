@@ -4,13 +4,16 @@ import Model.Animals.Animal;
 import Model.Animals.Fish;
 import Model.Animals.FishType;
 import Model.App;
-import Model.Map.BuildingType;
-import Model.Map.Coordinate;
-import Model.Map.Tile;
+import Model.Map.*;
+import Model.Player.Player;
 import Model.Player.Skill;
 import Model.Result;
 import Model.Shop.ShopType;
 import Model.Time.Weather;
+import Model.Tool.FishingPole;
+import Model.Tool.FishingPoleType;
+import Model.Tool.Tool;
+import Model.Tool.ToolType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -157,20 +160,53 @@ public class AnimalController {
     }
 
     public static Result fishing(String fishingPole) {
-        // TODO: Aynaz tool & errors???
-        return new Result(true, "Nazadam");
+        Tool currentTool = App.getCurrentGame().getCurrentPlayer().getCurrentTool();
+        FishingPoleType type = getFishingPoleTypeByName(fishingPole);
+
+        // Tool error:
+        if (currentTool == null || !currentTool.getType().equals(ToolType.FishingPole)) {
+            return new Result(false, "Your current tool isn't fishing pole!");
+        } else if (type == null) {
+            StringBuilder valid = new StringBuilder();
+            for (FishingPoleType f: FishingPoleType.values()) {
+                valid.append(f.getName()).append(" ");
+            }
+            return new Result(false, "Invalid fishing pole name! Valid names: {" + valid + "}");
+        } else if (currentTool instanceof FishingPole playerPole) {
+            if (!playerPole.getFishingPoleType().equals(type)) {
+                return new Result(false, "Your fishing pole type isn't the same with your current tool type!");
+            }
+        }
+        // location error:
+        else if (!isWaterBesideMe()) {
+            return new Result(false, "You have to be near the water to fishing!");
+        }
+
+        StringBuilder result = new StringBuilder();
+        List<Fish> fishes = getFishes(type);
+        Player player = App.getCurrentGame().getCurrentPlayer();
+
+        result.append("You caught ").append(fishes.size()).append(" fish").append(fishes.size() > 1 ? "es" : "").append(":\n");
+
+        // TODO: capacity inventory
+        for (Fish fish : fishes) {
+            result.append("- ").append(fish.getName())
+                    .append(" (quality: ").append(String.format("%.2f", fish.getQuality())).append(" ").append(fish.getQualityString());
+            player.getInventory().addItem(fish);
+        }
+
+        return new Result(true, result.toString());
     }
 
-    private static List<Fish> getFishes() {
+    private static List<Fish> getFishes(FishingPoleType poleType) {
         // number of fishes:
         Random random = new Random();
-        double M;
-        switch (App.getCurrentGame().getCurrentTime().getWeather()) {
-            case Sunny: M = 1.5; break;
-            case Rain: M = 1.2; break;
-            case Storm: M = 0.5; break;
-            default: M = 1.0; break;
-        }
+        double M = switch (App.getCurrentGame().getCurrentTime().getWeather()) { //TODO: add to weather field
+            case Sunny -> 1.5;
+            case Rain -> 1.2;
+            case Storm -> 0.5;
+            default -> 1.0;
+        };
 
         double R = random.nextDouble();
         int fishCount = (int) Math.ceil(R * M * (App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Fishing) + 2));
@@ -184,7 +220,7 @@ public class AnimalController {
                 if (!fish.isLegendary())
                     seasonalFishesTypes.add(fish);
                 else {
-                    if (App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Fishing) == 4) { // TODO: Aynaz الاترین 4؟
+                    if (App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Fishing) == 4) {
                         seasonalFishesTypes.add(fish);
                     }
                 }
@@ -194,9 +230,7 @@ public class AnimalController {
 
         // quality:
         R = random.nextDouble();
-        //BUG: ثاثیر چوب ماهیگیری؟ Aynaz
-        double quality = 0;
-        //double quality = R * (App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Fishing) + 2) * poleType.getFactor() / (7 - M);
+        double quality = R * (App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Fishing) + 2) * poleType.getFishingFactor() / (7 - M);
 
         List<Fish> result = new ArrayList<>();
         int count = Math.min(fishCount, seasonalFishesTypes.size());
@@ -239,5 +273,38 @@ public class AnimalController {
         }
 
         return false;
+    }
+
+    private static boolean isWaterBesideMe () {
+        Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
+
+        int x = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX();
+        int y = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY();
+
+        int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
+        int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};
+
+        for (int i = 0; i < 8; i++) {
+            int newX = x + dx[i];
+            int newY = y + dy[i];
+
+            if ((newX < 0 || newX >= 90) || (newY < 0 || newY >= 120)) continue;
+
+            Tile tile = fullMap[newX][newY];
+            if (tile != null && tile.getType().equals(TileType.Water)) {
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static FishingPoleType getFishingPoleTypeByName(String name) {
+        for (FishingPoleType f: FishingPoleType.values()) {
+            if (f.getName().equalsIgnoreCase(name)) {
+                return f;
+            }
+        }
+        return null;
     }
 }

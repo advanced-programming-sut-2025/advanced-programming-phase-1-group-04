@@ -6,6 +6,7 @@ import Model.Result;
 import Model.Time.Weather;
 
 public class Shear implements Tool {
+    ToolType type = ToolType.Shear;
 
     @Override
     public Result upgrade() {
@@ -41,5 +42,10 @@ public class Shear implements Tool {
     @Override
     public int getPrice() {
         return 1000;
+    }
+
+    @Override
+    public ToolType getType() {
+        return type;
     }
 }

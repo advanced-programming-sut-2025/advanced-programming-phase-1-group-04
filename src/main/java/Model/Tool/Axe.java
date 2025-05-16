@@ -11,6 +11,7 @@ import Model.Plants.*;
 import Model.Time.Weather;
 
 public class Axe implements Tool{
+    ToolType type = ToolType.Axe;
     private ToolLevel level;
     int price;
 
@@ -218,6 +219,11 @@ public class Axe implements Tool{
     @Override
     public String getLevelString() {
         return level.name();
+    }
+
+    @Override
+    public ToolType getType() {
+        return type;
     }
 
     @Override

@@ -77,14 +77,17 @@ public class PlayerController {
         if (!isParsableInt(number) || (quantity = Integer.parseInt(number)) <= 0) {
             return new Result(false, "number must be positive!");
         }
-        else if (!App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(itemName, quantity)) {
+        if (itemName == null) {
+            return new Result(false, "invalid item name!");
+        }
+        else if (!App.getCurrentGame().getCurrentPlayer().moveItemFromInventoryToTrash(itemName, quantity)) {
             return new Result(false, "you don't have this amount of " +
                     itemName + " in your inventory!");
         }
         if (quantity == 1) {
             return new Result(true, "one " + itemName.toLowerCase() + " has been removed from inventory.");
         }
-        return  new Result(false, quantity + " " + itemName.toLowerCase() + "s have been remove from inventory.");
+        return  new Result(true, quantity + " " + itemName.toLowerCase() + "s have been removed from inventory.");
     }
 
     public static Result inventoryTrashWithoutNumber (String itemName) {
@@ -92,11 +95,14 @@ public class PlayerController {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        if (!App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(itemName, -1)) {
+        if (itemName == null) {
+            return new Result(false, "invalid item name!");
+        }
+        if (!App.getCurrentGame().getCurrentPlayer().moveItemFromInventoryToTrash(itemName, -1)) {
             return new Result(false, "you don't have " +
                     itemName + " in your inventory!");
         }
-        return new Result(false,  itemName.toLowerCase() + " has been completely remove from inventory.");
+        return new Result(true,  itemName.toLowerCase() + " has been completely removed from inventory.");
     }
 
     public static Result showAbility() {

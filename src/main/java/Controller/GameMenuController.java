@@ -227,6 +227,82 @@ public class GameMenuController {
         return App.getCurrentGame().getTile(coordinate);
     }
 
+    public static Coordinate getCoordinateByDirection (String direction) {
+        direction = direction.toLowerCase();
+        Coordinate coordinate = new Coordinate(App.getCurrentGame().getCurrentPlayer().getCoordinate().getX(),
+                App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
+        if (coordinate == null) {
+            return null;
+        }
+        int x = coordinate.getX();
+        int y = coordinate.getY();
+        switch (direction) {
+            case "n":
+                if (x > 0) {
+                    coordinate.setX(x - 1);
+                } else {
+                    return null;
+                }
+                break;
+            case "s":
+                if (x < 89) {
+                    coordinate.setX(x + 1);
+                } else {
+                    return null;
+                }
+                break;
+            case "e":
+                if (y < 119) {
+                    coordinate.setY(y + 1);
+                } else {
+                    return null;
+                }
+                break;
+            case "w":
+                if (y > 0) {
+                    coordinate.setY(y - 1);
+                } else {
+                    return null;
+                }
+                break;
+            case "ne":
+                if (x > 0 && y < 119) {
+                    coordinate.setX(x - 1);
+                    coordinate.setY(y + 1);
+                } else {
+                    return null;
+                }
+                break;
+            case "nw":
+                if (x > 0 && y > 0) {
+                    coordinate.setX(x - 1);
+                    coordinate.setY(y - 1);
+                } else {
+                    return null;
+                }
+                break;
+            case "se":
+                if (x < 89 && y < 119) {
+                    coordinate.setX(x + 1);
+                    coordinate.setY(y + 1);
+                } else {
+                    return null;
+                }
+                break;
+            case "sw":
+                if (x < 89 && y > 0) {
+                    coordinate.setX(x + 1);
+                    coordinate.setY(y - 1);
+                } else {
+                    return null;
+                }
+                break;
+            default:
+                return null;
+        }
+        return coordinate;
+    }
+
     public static void moveControl () {
         App.getCurrentGame().getCurrentPlayer().addMovesThisTurn();
     }

@@ -9,6 +9,7 @@ import Model.Result;
 import Model.Time.Weather;
 
 public class WateringCan implements Tool{
+    ToolType type = ToolType.WateringCan;
     private int capacity;
     private ToolLevel level;
     private int waterAmount;
@@ -205,6 +206,11 @@ public class WateringCan implements Tool{
 
     public int getWaterAmount() {
         return waterAmount;
+    }
+
+    @Override
+    public ToolType getType() {
+        return type;
     }
 
 }

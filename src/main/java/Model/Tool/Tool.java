@@ -9,4 +9,5 @@ public interface Tool extends Item {
     public Result use (Tile tile);
     public int getEnergyConsumption(boolean useSuccess);
     public String getLevelString ();
+    public ToolType getType();
 }

@@ -6,6 +6,7 @@ import Model.Result;
 import Model.Time.Weather;
 
 public class Scythe implements Tool {
+    ToolType type = ToolType.Scythe;
 
     @Override
     public Result upgrade() {
@@ -41,5 +42,10 @@ public class Scythe implements Tool {
     @Override
     public int getPrice() {
         return 0;
+    }
+
+    @Override
+    public ToolType getType() {
+        return type;
     }
 }

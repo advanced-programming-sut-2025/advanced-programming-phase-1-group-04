@@ -9,6 +9,7 @@ import Model.Map.Tile;
 import Model.Map.TileType;
 import Model.Plants.*;
 import Model.Player.Player;
+import Model.Shop.Shop;
 import Model.Time.DateAndTime;
 import Model.Time.Season;
 import Model.Time.Weather;
@@ -16,12 +17,12 @@ import Model.Time.Weather;
 import java.util.*;
 
 public class NightController {
-    private static Random rand = new Random();
+    public static Random rand = new Random();
     private static Coordinate thorCoordinate = null;
 
     public static void nightControl() {
         // Map:
-        //TODO: aynaz asar abiari tamam tile pakshe(loop all tile)
+        waterControl();
         //Time:
         setWeather();
         setTomorrowWeather();
@@ -34,6 +35,8 @@ public class NightController {
         // Player:
         movePlayers();
 
+        //Shops:
+        shopStockReset();
 
         // Animal:
         calculateFriendshipAnimal();
@@ -60,7 +63,7 @@ public class NightController {
             for (int y = c1.getY(); y < c2.getY(); y++) {
                 if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() == null &&
                         App.getCurrentGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground){
-                    if (rand.nextInt(100) == 0) {
+                    if (rand.nextInt(100) < 5) {
                         plantForageable(App.getCurrentGame().getTile(new Coordinate(x, y)),
                                 listOfPlants.get(rand.nextInt(listOfPlants.size())));
                     }
@@ -74,8 +77,15 @@ public class NightController {
             tile.setItem(new ForagingCrop((ForagingCropType) plantType, false));
         }
         else if (plantType instanceof SeedType) {
-            tile.setItem(new Crop(App.getCurrentGame().getCurrentTime(), ((SeedType) plantType).getCrop(),
-                    false));
+            Crop crop;
+            if (((SeedType) plantType).getName().equalsIgnoreCase("Mixed Seeds")) {
+                Seed randomSeed = new Seed(SeedType.values()[NightController.rand.nextInt(42)]);
+                crop = new Crop(randomSeed.getCrop(),false);
+            }
+            else {
+                crop = new Crop (((SeedType) plantType).getCrop(), false);
+            }
+            tile.setItem(crop);
         }
     }
 
@@ -263,4 +273,46 @@ public class NightController {
         animal.setProduct(new AnimalProduct(selectedProductType, animal.getFriendship()));
     }
 
+    private static void waterControl () {
+        waterControlForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
+        if (App.getCurrentGame().getPlayers().size() >= 2) {
+            waterControlForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
+        }
+        if (App.getCurrentGame().getPlayers().size() >= 3) {
+            waterControlForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
+        }
+        if (App.getCurrentGame().getPlayers().size() >= 4) {
+            waterControlForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
+        }
+    }
+
+    private static void waterControlForEachFarm (Coordinate c1, Coordinate c2) {
+        for (int x = c1.getX(); x < c2.getX(); x++) {
+            for (int y = c1.getY(); y < c2.getY(); y++) {
+                Tile tile = App.getCurrentGame().getTile(new Coordinate(x, y));
+                if (tile.getItem() == null || !(tile.getItem() instanceof Plant)) {
+                    tile.setWatered(false);
+                    continue;
+                }
+                if (tile.getFertilize() == 1) {
+                    tile.setWatered(false);
+                    continue;
+                }
+                if (tile.getLastTimeWatered() == null) {
+                    tile.setItem(null);
+                    tile.setWatered(false);
+                }
+                else if (App.getCurrentGame().getCurrentTime().getDay() - tile.getLastTimeWatered().getDay() >= 2) {
+                    tile.setItem(null);
+                    tile.setWatered(false);
+                }
+            }
+        }
+    }
+
+    private static void shopStockReset () {
+        for (Shop shop : App.getCurrentGame().getShops()) {
+            shop.resetStock();
+        }
+    }
 }

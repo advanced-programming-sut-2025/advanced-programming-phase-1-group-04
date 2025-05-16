@@ -143,9 +143,12 @@ public class AnimalController {
             return toolHandleCollect(animal);
         }
 
-        App.getCurrentGame().getCurrentPlayer().getInventory().addItem(animal.getProduct());
+        if (!App.getCurrentGame().getCurrentPlayer().getInventory().addItem(animal.getProduct())) {
+            return new Result(true, "Inventory is full. You picked up the product, ama be che gheimati?");
+        }
+
         animal.setProduct(null);
-        return new Result(true, "");
+        return new Result(true, "You successfully collect " + animal.getName() + "'s produce.");
     }
 
     public static Result sellAnimal(String name) {
@@ -181,7 +184,7 @@ public class AnimalController {
             }
         }
         // location error:
-        else if (!isWaterBesideMe()) {
+        if (!isWaterBesideMe()) {
             return new Result(false, "You have to be near the water to fishing!");
         }
 
@@ -191,11 +194,12 @@ public class AnimalController {
 
         result.append("You caught ").append(fishes.size()).append(" fish").append(fishes.size() > 1 ? "es" : "").append(":\n");
 
-        // TODO: capacity inventory
         for (Fish fish : fishes) {
             result.append("- ").append(fish.getName())
-                    .append(" (quality: ").append(String.format("%.2f", fish.getQuality())).append(" ").append(fish.getQualityString());
-            player.getInventory().addItem(fish);
+                    .append(" quality: ").append(String.format("(%.2f)", fish.getQuality())).append(fish.getQualityString()).append("\n");
+            if (!player.getInventory().addItem(fish)) {
+                return new Result(false, "Inventory is full!");
+            }
         }
 
         return new Result(true, result.toString());
@@ -303,8 +307,8 @@ public class AnimalController {
             if ((newX < 0 || newX >= 90) || (newY < 0 || newY >= 120)) continue;
 
             Tile tile = fullMap[newX][newY];
-            if (tile != null && tile.getType().equals(TileType.Water)) {
-                    return true;
+            if (tile.getType().equals(TileType.Water)) {
+                return true;
             }
         }
 

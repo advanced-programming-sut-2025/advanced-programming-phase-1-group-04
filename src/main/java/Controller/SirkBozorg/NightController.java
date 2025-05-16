@@ -23,6 +23,7 @@ public class NightController {
     public static void nightControl() {
         // Map:
         waterControl();
+
         //Time:
         setWeather();
         setTomorrowWeather();
@@ -32,6 +33,7 @@ public class NightController {
         randomForagingPlants();
         randomForagingMinerals();
         thorEffect();
+
         // Player:
         movePlayers();
 

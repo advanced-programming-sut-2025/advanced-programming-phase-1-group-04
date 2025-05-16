@@ -176,7 +176,8 @@ public class MapController {
         Coordinate coordinate = new Coordinate(x, y);
         BuildingType type = getBuildingType(name);
         Result result = App.getCurrentGame().getShop(ShopType.CarpentersShop).buy(name, 1, "SOS");
-        // TODO:  goh to in ghesmat!
+        //TODO: #buy Aynaz
+
         // Map error:
         if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.CarpentersShop) {
             return new Result(false, "you must be in Carpenter's Shop to be able to build an farm building!");
@@ -186,9 +187,10 @@ public class MapController {
             return new Result(false, "You can only build farm buildings on your own farm!");
         } else if (type == null) {
             return new Result(false, "Building name is invalid!");
-        } else if (!canBuild(coordinate, type)) {
+        } else if (!hasThisBuildingType(type) && !canBuild(coordinate, type)) {
             return new Result(false, "You can't build this building here!");
         }
+
         // Shop error:
         else if (!result.isSuccessful()) {
             return result;
@@ -463,13 +465,15 @@ public class MapController {
 
     private static void buildInMap(Coordinate coordinate, BuildingType type) {
         Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
-        for (int i = coordinate.getX(); i < coordinate.getX() + type.getL(); i++) {
-            for (int j = coordinate.getY(); j < coordinate.getY() + type.getW(); j++) {
-                Tile tile = fullMap[i][j];
-                tile.setType(TileType.Building);
-                tile.setBuildingType(type);
-                tile.setWatered(false);
-                tile.setPlowed(false);
+        if (!hasThisBuildingType(type)) {
+            for (int i = coordinate.getX(); i < coordinate.getX() + type.getL(); i++) {
+                for (int j = coordinate.getY(); j < coordinate.getY() + type.getW(); j++) {
+                    Tile tile = fullMap[i][j];
+                    tile.setType(TileType.Building);
+                    tile.setBuildingType(type);
+                    tile.setWatered(false);
+                    tile.setPlowed(false);
+                }
             }
         }
     }
@@ -482,5 +486,14 @@ public class MapController {
             case "shipping bin" -> BuildingType.ShippingBin;
             default -> null;
         };
+    }
+
+    private static boolean hasThisBuildingType(BuildingType type)  {
+        for (FarmBuilding farmBuilding: App.getCurrentGame().getCurrentPlayer().getMyFarmBuildings()) {
+            if (farmBuilding.getType().getType().equals(type)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -40,6 +40,20 @@ public class Inventory {
         return true;
     }
 
+    public boolean addItem(Item item) {
+        String name = item.getName().toLowerCase();
+        ItemStack stack = items.getOrDefault(name, new ItemStack());
+
+            stack.add(item);
+
+        if (!items.containsKey(name)) {
+            if (items.size() >= capacity) return false;
+            items.put(name, stack);
+        }
+
+        return true;
+    }
+
 
     public boolean removeItem(String itemName, int quantity) {
         String name = itemName.toLowerCase();

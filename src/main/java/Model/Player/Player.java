@@ -312,7 +312,7 @@ public class Player {
             "Farm id: " + this.farm + "\n" +
             "Coordinate: (" + this.coordinate.getX() + ", " + this.coordinate.getY() + ")\n" +
 
-            "Max moves in this turn: " + this.maxMovesInTurn + "\n" +
+            //"Max moves in this turn: " + this.maxMovesInTurn + "\n" +
             "Moves in this Turn: " + this.movesThisTurn + "\n" +
 
             "Count: " + this.count + "\n";

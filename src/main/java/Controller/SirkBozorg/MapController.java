@@ -133,8 +133,8 @@ public class MapController {
             return new Result(false, "Fekresho nemikardi na?");
         }
 
-        App.getCurrentGame().getCurrentPlayer().addEnergy(-energy);
         App.getCurrentGame().getCurrentPlayer().setCoordinate(getDestination(coordinate));
+        App.getCurrentGame().getCurrentPlayer().addEnergy(-energy);
         return new Result(true, "You successfully go to (" + x +", " + y + ")");
     }
 

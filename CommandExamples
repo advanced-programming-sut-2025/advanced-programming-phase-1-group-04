@@ -72,3 +72,9 @@ walk -l 16, 15
 pet -n ali
 
 sell animal -n ali
+
+--------------------------------------------------------------
+Fishing:
+
+walk -l 32, 75
+cheat add 8000 dollars

@@ -137,7 +137,7 @@ public class AnimalController {
         if (animal == null) {
             return new Result(false, "You don't have a pet with that name!");
         } else if (animal.getProduct() == null) {
-            return new Result(false, name + " doesn't have any product to harvest!"); // TODO: harvest?
+            return new Result(false, name + " doesn't have any product to harvest!");
         } else if (toolHandleCollect(animal) != null) {
             return toolHandleCollect(animal);
         }
@@ -163,10 +163,6 @@ public class AnimalController {
         }
         return new Result(true, "You successfully sold " + animal.getName() + " for " + animal.getSellPrice());
     }
-
-
-    //TODO -> Nafiseh : Lotfan in khat ro be har jayee ke taraf movafagh mishe mahi begireh ezafeh con:
-    // App.getCurrentGame().getCurrentPlayer().addAbility(Skill.Fishing, 5);
 
     public static Result fishing(String fishingPole) {
         Tool currentTool = App.getCurrentGame().getCurrentPlayer().getCurrentTool();
@@ -204,7 +200,7 @@ public class AnimalController {
                 return new Result(false, "Inventory is full!");
             }
         }
-
+        App.getCurrentGame().getCurrentPlayer().addAbility(Skill.Fishing, 5);
         return new Result(true, result.toString());
     }
 

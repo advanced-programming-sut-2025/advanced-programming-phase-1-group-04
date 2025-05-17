@@ -290,7 +290,7 @@ public class Pickaxe implements Tool {
 
     @Override
     public int getPrice() {
-        return price;
+        return 0;
     }
 
     public ToolLevel getLevel() {

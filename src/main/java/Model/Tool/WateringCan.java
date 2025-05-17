@@ -211,7 +211,7 @@ public class WateringCan implements Tool{
 
     @Override
     public int getPrice() {
-        return price;
+        return 0;
     }
 
     public int getCapacity() {

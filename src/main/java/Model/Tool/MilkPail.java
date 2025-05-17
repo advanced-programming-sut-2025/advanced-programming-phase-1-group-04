@@ -70,7 +70,7 @@ public class MilkPail implements Tool{
 
     @Override
     public int getPrice() {
-        return 1000;
+        return 0;
     }
 
     @Override

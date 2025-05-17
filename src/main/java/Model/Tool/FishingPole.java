@@ -109,7 +109,7 @@ public class FishingPole implements Tool{
 
     @Override
     public int getPrice() {
-        return level.getPrice();
+        return 0;
     }
 
     @Override

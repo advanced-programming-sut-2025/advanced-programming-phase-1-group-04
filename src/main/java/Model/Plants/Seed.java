@@ -45,8 +45,8 @@ public class Seed implements Item, Plant {
 
     @Override
     public int getPrice() {
-        //TODO: check shop
-        return 0;
+        //TODO: check shop shit
+        return 10;
     }
 
     @Override

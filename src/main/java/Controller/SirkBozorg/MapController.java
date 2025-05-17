@@ -7,6 +7,7 @@ import Model.Player.Player;
 import Model.Result;
 import Model.Shop.ShopType;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -130,8 +131,8 @@ public class MapController {
             return new Result(false, "Fekresho nemikardi na?");
         }
 
-        App.getCurrentGame().getCurrentPlayer().addEnergy(-energy);
         App.getCurrentGame().getCurrentPlayer().setCoordinate(getDestination(coordinate));
+        App.getCurrentGame().getCurrentPlayer().addEnergy(-energy);
         return new Result(true, "You successfully go to (" + x +", " + y + ")");
     }
 
@@ -212,10 +213,15 @@ public class MapController {
         int destx = destination.getX();
         int desty = destination.getY();
         int[][][] dist = new int[lenx][leny][4];
+        Coordinate[][][] parent = new Coordinate[lenx][leny][4];
         for (int[][] row : dist) {
             for (int[] col : row)
                 Arrays.fill(col, Integer.MAX_VALUE);
         }
+        parent[sourcex][sourcey][0] = new Coordinate(-1, -1);
+        parent[sourcex][sourcey][1] = new Coordinate(-1, -1);
+        parent[sourcex][sourcey][2] = new Coordinate(-1, -1);
+        parent[sourcex][sourcey][3] = new Coordinate(-1, -1);
         final int[] dx = {-1, 1, 0, 0};
         final int[] dy = {0, 0, -1, 1};
         PriorityQueue <int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
@@ -233,12 +239,10 @@ public class MapController {
             Coordinate c = new Coordinate(x, y);
             if (!App.getCurrentGame().getTile(c).isWalkable())
                 continue;
-            if (((cost + 19) / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
-                return last;
             last.setX(x);
             last.setY(y);
             if (x == destx && y == desty)
-                return last;
+                break;
             for (int i = 0; i < 4; i++) {
                 int newx = x + dx[i];
                 int newy = y + dy[i];
@@ -248,13 +252,39 @@ public class MapController {
                 if (dir != i)
                     newCost += 10;
                 if (newCost < dist[newx][newy][i]) {
+                    parent[newx][newy][i] = new Coordinate(last.getX(), last.getY());
                     dist[newx][newy][i] = newCost;
                     pq.offer(new int[]{newCost, newx, newy, i});
                 }
             }
         }
-        last.setX(-1);
-        last.setY(-1);
+        if (dist[destx][desty][0] == Integer.MAX_VALUE && dist[destx][desty][1] == Integer.MAX_VALUE
+                && dist[destx][desty][2] == Integer.MAX_VALUE && dist[destx][desty][3] == Integer.MAX_VALUE) {
+            last.setX(-1);
+            last.setY(-1);
+        }
+        else {
+            Coordinate c = new Coordinate(destx, desty);
+            while (c.getX() != sourcex || c.getY() != sourcey) {
+                int minimumEnergy = Math.min(Math.min(dist[c.getX()][c.getY()][0], dist[c.getX()][c.getY()][1]),
+                        Math.min(dist[c.getX()][c.getY()][2], dist[c.getX()][c.getY()][3]));
+                if ((minimumEnergy + 19) / 20 <= App.getCurrentGame().getCurrentPlayer().getEnergy())
+                    break;
+                if (minimumEnergy == dist[c.getX()][c.getY()][0]) {
+                    c = parent[c.getX()][c.getY()][0];
+                }
+                else if (minimumEnergy == dist[c.getX()][c.getY()][1]) {
+                    c = parent[c.getX()][c.getY()][1];
+                }
+                else if (minimumEnergy == dist[c.getX()][c.getY()][2]) {
+                    c = parent[c.getX()][c.getY()][2];
+                }
+                else if (minimumEnergy == dist[c.getX()][c.getY()][3]) {
+                    c = parent[c.getX()][c.getY()][3];
+                }
+            }
+            last = c;
+        }
         return last;
     }
 
@@ -288,8 +318,6 @@ public class MapController {
             Coordinate c = new Coordinate(x, y);
             if (!App.getCurrentGame().getTile(c).isWalkable())
                 continue;
-            if (((cost + 19) / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
-                return ans;
             last.setX(x);
             last.setY(y);
             ans = (cost + 19) / 20;

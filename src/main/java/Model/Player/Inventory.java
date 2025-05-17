@@ -23,8 +23,10 @@ public class Inventory {
         addItem(new MilkPail(), 1);
     }
 
-
     public boolean addItem(Item item, int quantity) {
+        if (item == null) {
+            return false;
+        }
         String name = item.getName().toLowerCase();
         ItemStack stack = items.getOrDefault(name, new ItemStack());
 
@@ -40,8 +42,27 @@ public class Inventory {
         return true;
     }
 
+    public boolean addItem(Item item) {
+        if (item == null) {
+            return false;
+        }
+        String name = item.getName().toLowerCase();
+        ItemStack stack = items.getOrDefault(name, new ItemStack());
+        stack.add(item);
+
+        if (!items.containsKey(name)) {
+            if (items.size() >= capacity) return false;
+            items.put(name, stack);
+        }//TODO Aynaz
+
+        return true;
+    }
+
 
     public boolean removeItem(String itemName, int quantity) {
+        if (itemName == null) {
+            return false;
+        }
         String name = itemName.toLowerCase();
         ItemStack stack = items.get(name);
         if (stack == null) {
@@ -60,7 +81,6 @@ public class Inventory {
         }
         return true;
     }
-
 
 
     public void setCapacity(int capacity) {
@@ -99,12 +119,18 @@ public class Inventory {
     }
 
     public Item hasItemWithName(String itemName) {
+        if (itemName == null) {
+            return null;
+        }
         ItemStack stack = items.get(itemName.toLowerCase());
         if (stack == null || stack.items.isEmpty()) return null;
         return stack.items.get(0);
     }
 
     public boolean hasItemWithNumber(String itemName, int number) {
+        if (itemName == null) {
+            return false;
+        }
         ItemStack stack = items.get(itemName.toLowerCase());
         return stack != null && stack.getCount() >= number;
     }
@@ -123,6 +149,48 @@ public class Inventory {
         return itemList;
     }
 
+    public int getItemQuantity (Item item) {
+        if (item == null) {
+            return -1;
+        }
+        String name = item.getName();
+        if (items.get(name.toLowerCase()) == null) {
+            return -1;
+        }
+        if (items.get(name.toLowerCase()).getCount() == 0) {
+            return -1;
+        }
+        return items.get(name.toLowerCase()).getCount();
+    }
+
+
+    public ArrayList<Item> getAndRemoveItems (int n, String itemName) {
+        ArrayList<Item> i = new ArrayList<>();
+        if (itemName == null) {
+            return i;
+        }
+        String name = itemName.toLowerCase();
+        ItemStack stack = items.get(name);
+        if (stack == null) {
+            items.remove(name);
+            return i;
+        }
+        if (stack.getCount() < n) return i;
+
+        if (n == -1 || n == stack.getCount()) {
+            i.addAll(stack.getItems());
+            items.remove(name);
+            return i;
+        }
+
+        for (int j = 0; j < n; j++) {
+            if (!stack.items.isEmpty()){
+                i.add(stack.items.get(0));
+                stack.items.remove(0);
+            }
+        }
+        return i;
+    }
 
     public static class ItemStack {
 

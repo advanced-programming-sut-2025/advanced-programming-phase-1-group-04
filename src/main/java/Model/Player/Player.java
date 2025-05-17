@@ -3,9 +3,13 @@ package Model.Player;
 import Controller.GameMenuController;
 import Model.Animals.Animal;
 import Model.App;
+import Model.Cooking.Food;
 import Model.Cooking.FoodRecipe;
 import Model.Crafting.CraftRecipe;
+import Model.Interaction.Friend;
+import Model.Interaction.Trade;
 import Model.Map.*;
+import Model.Interaction.Gift;
 
 import Model.Map.Coordinate;
 import Model.Tool.Tool;
@@ -53,10 +57,13 @@ public class Player {
 
     private Tool currentTool;
 
-    //animal friendship
-    //player friendship
-    //NPC friendship
-
+    private ArrayList<Friend> friends = new ArrayList<>();
+    private ArrayList<String> notifications = new ArrayList<>();
+    private ArrayList<Gift> gifts = new ArrayList<>();
+    private int numberOfGiftsSent = 0;
+    private int partnerID = -1;
+    private ArrayList<Trade> sentTrades = new ArrayList<>();
+    private ArrayList<Trade> receivedTrades = new ArrayList<>();
     //gift list
     //ask marriage list?
     //trade list
@@ -278,11 +285,39 @@ public class Player {
     }
 
     public void addCount(int count) {
+        addPartnerCount(count);
         this.count += count;
     }
 
+    public void addPartnerCount(int count) {
+        if (partnerID == -1)
+            return;
+        Player partner = App.getCurrentGame().getPlayerByID(partnerID);
+        partner.count += count;
+    }
+
     public boolean isMyFarm(Coordinate coordinate) {
+        if (isMyPartnerFarm(coordinate)) {
+            return true;
+        }
         return switch (farm) {
+            case 1 -> coordinate.getX() < 30 && coordinate.getY() < 40
+                    && coordinate.getX() >= 0 && coordinate.getY() >= 0;
+            case 2 -> coordinate.getX() < 30 && coordinate.getY() < 120
+                    && coordinate.getX() >= 0 && coordinate.getY() >= 80;
+            case 3 -> coordinate.getX() < 90 && coordinate.getY() < 120
+                    && coordinate.getX() >= 60 && coordinate.getY() >= 80;
+            case 4 -> coordinate.getX() < 90 && coordinate.getY() < 40
+                    && coordinate.getX() >= 60 && coordinate.getY() >= 0;
+            default -> throw new IllegalArgumentException("Invalid player farm");
+        };
+    }
+
+    public boolean isMyPartnerFarm(Coordinate coordinate) {
+        if (partnerID == -1)
+            return false;
+        Player partner = App.getCurrentGame().getPlayerByID(partnerID);
+        return switch (partner.getFarm()) {
             case 1 -> coordinate.getX() < 30 && coordinate.getY() < 40
                     && coordinate.getX() >= 0 && coordinate.getY() >= 0;
             case 2 -> coordinate.getX() < 30 && coordinate.getY() < 120
@@ -401,5 +436,67 @@ public class Player {
         }
 
         return false;
+    }
+
+    public ArrayList<Friend> getFriends() {
+        return friends;
+    }
+
+    public void addNotification (String message) {
+        this.notifications.add(message);
+    }
+
+    public ArrayList<String> getNotifications() {
+        return notifications;
+    }
+
+    public void setNumberOfGiftsSent(int numberOfGiftsSent) {
+        this.numberOfGiftsSent = numberOfGiftsSent;
+    }
+
+    public void setPartnerID(int partnerID) {
+        this.partnerID = partnerID;
+    }
+
+    public int getNumberOfGiftsSent() {
+        return numberOfGiftsSent;
+    }
+
+    public ArrayList<Item> getAndRemoveItemsFromInventory (int n, String itemName) {
+        return inventory.getAndRemoveItems(n, itemName);
+    }
+
+    public void addGiftToGifts (Gift gift) {
+        gifts.add(gift);
+    }
+
+    public void addGiftToInventory (Gift gift) {
+        for (Item item : gift.getGift()) {
+            this.addItemToInventory(item, 1);
+        }
+    }
+
+    public ArrayList<Gift> getGifts() {
+        return gifts;
+    }
+
+    public int getPartnerID() {
+        return partnerID;
+    }
+
+    public void addSentTrade (Trade trade) {
+        sentTrades.add(trade);
+    }
+
+    public void addReceivedTrade (Trade trade) {
+        receivedTrades.add(trade);
+    }
+
+    public ArrayList<Trade> getSentTrades() {
+        return sentTrades;
+    }
+
+    public ArrayList<Trade> getReceivedTrades() {
+        return receivedTrades;
     }
 }

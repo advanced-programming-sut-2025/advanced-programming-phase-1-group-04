@@ -504,7 +504,7 @@ public class MapController {
 
     private static void buildInMap(Coordinate coordinate, BuildingType type) {
         Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
-        if (!hasThisBuildingType(type)) {
+        //if (!hasThisBuildingType(type)) {
             for (int i = coordinate.getX(); i < coordinate.getX() + type.getL(); i++) {
                 for (int j = coordinate.getY(); j < coordinate.getY() + type.getW(); j++) {
                     Tile tile = fullMap[i][j];
@@ -514,7 +514,7 @@ public class MapController {
                     tile.setPlowed(false);
                 }
             }
-        }
+        //}
     }
 
     private static BuildingType getBuildingType(String name) {

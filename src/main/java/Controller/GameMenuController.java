@@ -1,6 +1,7 @@
 package Controller;
 
 import Controller.SirkBozorg.NightController;
+import Controller.SirkBozorg.TimeController;
 import Model.App;
 import Model.Command.Menu;
 import Model.Cooking.FoodType;
@@ -164,6 +165,7 @@ public class GameMenuController {
         int nextIndex = (index + 1) % totalPlayers;
         // update time
         if (nextIndex == 0) {
+
             App.getCurrentGame().getCurrentTime().addHour(1);
             if (App.getCurrentGame().getCurrentTime().getHour() == 24) {
                 NightController.nightControl();

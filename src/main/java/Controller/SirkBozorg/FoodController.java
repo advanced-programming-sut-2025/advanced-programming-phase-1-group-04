@@ -20,6 +20,10 @@ import Model.Result;
 
 public class FoodController {
     public static Result refrigeratorPick (String itemName) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         Player player = App.getCurrentGame().getCurrentPlayer();
         Item item;
         if (itemName == null) {
@@ -35,6 +39,10 @@ public class FoodController {
     }
 
     public static Result refrigeratorPut (String itemName) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         Player player = App.getCurrentGame().getCurrentPlayer();
         Item item;
         if (itemName == null) {
@@ -55,6 +63,10 @@ public class FoodController {
     }
 
     public static Result showRecipes () {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         String result = "Cooking recipes:\n";
         for (FoodRecipe r : App.getCurrentGame().getCurrentPlayer().getFoodRecipes()) {
             result = result + r.getName() + ": " + r.getRecipeString() + "\n";
@@ -63,6 +75,10 @@ public class FoodController {
     }
 
     public static Result cook (String foodName) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         Player player = App.getCurrentGame().getCurrentPlayer();
         if (App.getCurrentGame().getTile(player.getCoordinate()).getBuildingType() != BuildingType.House) {
             return new Result(false, "you must be at home for using this command!");
@@ -102,6 +118,10 @@ public class FoodController {
     }
 
     public static Result eat (String foodName) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         Player player = App.getCurrentGame().getCurrentPlayer();
         if (foodName == null) {
             return new Result(false, "invalid food name!");

@@ -173,6 +173,10 @@ public class MapController {
     }
 
     public static Result buildFarmBuilding(String name, String stringX, String stringY){
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         int x = Integer.parseInt(stringX);
         int y = Integer.parseInt(stringY);
         Coordinate coordinate = new Coordinate(x, y);
@@ -203,6 +207,10 @@ public class MapController {
     }
 
     public static Result showListFarmBuilding() {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         StringBuilder result = new StringBuilder();
         result.append("My Farm Building List:\n").append("_______________________________________\n");
         for (FarmBuilding farmBuilding: App.getCurrentGame().getCurrentPlayer().getMyFarmBuildings()) {

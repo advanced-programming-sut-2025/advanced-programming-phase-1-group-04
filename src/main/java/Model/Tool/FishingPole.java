@@ -5,6 +5,7 @@ import Model.Map.BuildingType;
 import Model.Map.Coordinate;
 import Model.Map.Tile;
 import Model.Player.Player;
+import Model.Player.Skill;
 import Model.Result;
 import Model.Time.Weather;
 
@@ -79,13 +80,17 @@ public class FishingPole implements Tool{
 
     @Override
     public int getEnergyConsumption(boolean useSuccess) {
+        int base = 0;
         if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Rain) {
-            return (int) (level.getEnergyConsumption() * 1.5);
+            base = (int) (level.getEnergyConsumption() * 1.5);
         }
         else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
-            return level.getEnergyConsumption() * 2;
+            base = level.getEnergyConsumption() * 2;
         }
-        return level.getEnergyConsumption();
+        if (App.getCurrentGame().getCurrentPlayer().isBuffed(Skill.Fishing)) {
+            base = Math.max(base - 1, 0);
+        }
+        return base;
     }
 
     public FishingPoleType getFishingPoleType() {

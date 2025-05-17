@@ -3,9 +3,13 @@ package Controller;
 import Controller.SirkBozorg.NightController;
 import Model.App;
 import Model.Command.Menu;
+import Model.Cooking.FoodType;
+import Model.Crafting.CraftRecipe;
+import Model.Crafting.CraftType;
 import Model.Game;
 import Model.Map.*;
 import Model.Player.Player;
+import Model.Player.Skill;
 import Model.Result;
 import Model.Shop.BlackSmith.BlackSmith;
 import Model.Shop.CarpentersShop.CarpentersShop;
@@ -459,5 +463,34 @@ public class GameMenuController {
             }
         }
         return true;
+    }
+
+    public static void hourControl () {
+        Player player = App.getCurrentGame().getCurrentPlayer();
+        player.reduceBuff(1);
+
+        outer:
+        for (CraftType r : CraftType.values()) {
+            if (player.getCraftRecipes().contains(r.getIngredient())) continue;
+            if (r.getLevel() == null) continue;
+            for (Skill s : r.getLevel().keySet()) {
+                if (player.getAbilityLevel(s) < r.getLevel().get(s)) {
+                    continue outer;
+                }
+            }
+            player.addToCraftRecipes(r.getIngredient());
+        }
+
+        outer:
+        for (FoodType r : FoodType.values()) {
+            if (player.getFoodRecipes().contains(r.getRecipe())) continue;
+            if (r.getLevel() == null) continue;
+            for (Skill s : r.getLevel().keySet()) {
+                if (player.getAbilityLevel(s) < r.getLevel().get(s)) {
+                    continue outer;
+                }
+            }
+            player.addToFoodRecipes(r.getRecipe());
+        }
     }
 }

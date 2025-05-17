@@ -271,6 +271,10 @@ public class Pickaxe implements Tool {
         else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
             return base * 2;
         }
+
+        if (App.getCurrentGame().getCurrentPlayer().isBuffed(Skill.Mining)) {
+            base = Math.max(base - 1, 0);
+        }
         return base;
     }
 

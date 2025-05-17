@@ -229,6 +229,9 @@ public class Axe implements Tool{
         else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
             return base * 2;
         }
+        if (App.getCurrentGame().getCurrentPlayer().isBuffed(Skill.Foraging)) {
+            base = Math.max(base - 1, 0);
+        }
         return base;
     }
 

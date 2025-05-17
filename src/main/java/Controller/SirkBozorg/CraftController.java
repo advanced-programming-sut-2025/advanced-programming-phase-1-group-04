@@ -11,6 +11,10 @@ import Model.Result;
 
 public class CraftController {
     public static Result showRecipes () {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         String result = "Crafting recipes:\n";
         for (CraftRecipe r : App.getCurrentGame().getCurrentPlayer().getCraftRecipes()) {
             result = result + r.getName() + ": " + r.getRecipeString() + "\n";
@@ -25,6 +29,10 @@ public class CraftController {
     }
 
     public static Result makeCraft (String craftName) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.House) {
             return new Result(false, "you must be at home for using this command!");
         }
@@ -58,6 +66,10 @@ public class CraftController {
     }
 
     public static Result placeCraft (String craftName, String direction) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         Player player = App.getCurrentGame().getCurrentPlayer();
         Tile tile = GameMenuController.getTileByDirection(direction);
         Item i;

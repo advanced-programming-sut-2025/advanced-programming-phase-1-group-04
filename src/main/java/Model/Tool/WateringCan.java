@@ -192,6 +192,10 @@ public class WateringCan implements Tool{
         else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
             return base * 2;
         }
+
+        if (App.getCurrentGame().getCurrentPlayer().isBuffed(Skill.Farming)) {
+            base = Math.max(base - 1, 0);
+        }
         return base;
     }
 

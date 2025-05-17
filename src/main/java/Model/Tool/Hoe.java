@@ -5,6 +5,7 @@ import Model.Map.BuildingType;
 import Model.Map.Coordinate;
 import Model.Map.Tile;
 import Model.Map.TileType;
+import Model.Player.Skill;
 import Model.Result;
 import Model.Time.Weather;
 
@@ -154,6 +155,9 @@ public class Hoe implements Tool{
         }
         else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
             return base * 2;
+        }
+        if (App.getCurrentGame().getCurrentPlayer().isBuffed(Skill.Farming)) {
+            base = Math.max(base - 1, 0);
         }
         return base;
     }

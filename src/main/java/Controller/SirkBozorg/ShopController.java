@@ -117,6 +117,10 @@ public class ShopController {
     }
 
     public static Result sell(String type, String name, String stringCount) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         int count = (stringCount == null ) ? -1 : Integer.parseInt(stringCount);
         Item item = PlayerController.getItemByTypeName(type, name);
         int inventoryCount = App.getCurrentGame().getCurrentPlayer().getInventory().getItemQuantity(item);

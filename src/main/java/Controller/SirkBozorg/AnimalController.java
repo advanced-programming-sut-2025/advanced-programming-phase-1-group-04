@@ -1,5 +1,6 @@
 package Controller.SirkBozorg;
 
+import Controller.GameMenuController;
 import Model.Animals.Animal;
 import Model.Animals.Fish;
 import Model.Animals.FishType;
@@ -18,7 +19,10 @@ import java.util.List;
 import java.util.Random;
 
 public class AnimalController {
-    public static Result buyAnimal (String animal, String name) {
+    public static Result buyAnimal (String animal, String name) {if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        return new Result (false, "you have no more moves! enter next turn!");
+    }
+        GameMenuController.moveControl();
         if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.MarniesRanch) {
             return new Result(false, "you must be in Marnie's Ranch to be able to buy an animal!");
         } else if (getAnimalByName(name) != null) {
@@ -29,6 +33,10 @@ public class AnimalController {
     }
 
     public static Result pet(String name) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         Animal animal = getAnimalByName(name);
         if (animal == null) {
             return new Result(false, "You don't have a pet with that name!");
@@ -42,6 +50,10 @@ public class AnimalController {
     }
 
     public static Result showListAnimals() {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         StringBuilder result = new StringBuilder();
         result.append("My Animals List:\n").append("_______________________________________\n");
         for (Animal animal: App.getCurrentGame().getCurrentPlayer().getMyAnimals()) {
@@ -64,6 +76,10 @@ public class AnimalController {
     }
 
     public static Result shepherdAnimal(String name, String stringX, String stringY)  {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         int x = Integer.parseInt(stringX);
         int y = Integer.parseInt(stringY);
         Coordinate coordinate = new Coordinate(x, y);
@@ -104,6 +120,10 @@ public class AnimalController {
     }
 
     public static Result feedAnimal(String name) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         Animal animal = getAnimalByName(name);
         if (animal == null) {
             return new Result(false, "You don't have a pet with that name!");
@@ -119,6 +139,10 @@ public class AnimalController {
     }
 
     public static Result showListProductAnimals() {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         StringBuilder result = new StringBuilder();
         result.append("My Animal's products List:\n").append("_______________________________________\n");
         for (Animal animal: App.getCurrentGame().getCurrentPlayer().getMyAnimals()) {
@@ -131,6 +155,10 @@ public class AnimalController {
     }
 
     public static Result collectAnimalProduce(String name) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * MilkPail.getEnergyForAnimals());
         App.getCurrentGame().getCurrentPlayer().addAbility(Skill.Farming, 5);
         Animal animal = getAnimalByName(name);
@@ -151,6 +179,10 @@ public class AnimalController {
     }
 
     public static Result sellAnimal(String name) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         Animal animal = getAnimalByName(name);
         if (animal == null) {
             return new Result(false, "You don't have a pet with that name!");
@@ -165,6 +197,10 @@ public class AnimalController {
     }
 
     public static Result fishing(String fishingPole) {
+        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
         Tool currentTool = App.getCurrentGame().getCurrentPlayer().getCurrentTool();
         FishingPoleType type = getFishingPoleTypeByName(fishingPole);
 
@@ -205,6 +241,7 @@ public class AnimalController {
     }
 
     private static List<Fish> getFishes(FishingPoleType poleType) {
+
         // number of fishes:
         Random random = new Random();
         double M = switch (App.getCurrentGame().getCurrentTime().getWeather()) { //TODO: add to weather field

@@ -384,7 +384,7 @@ public class Player {
     public void addItemToShippingBin(Item item, int count) {
         this.shippingBin.add(item, count);
     }
-<<<<<<< HEAD
+
 
     public int getInventoryItemCount (Item item) {
         return inventory.getItemQuantity(item);
@@ -400,6 +400,4 @@ public class Player {
 //
 //    }
 }
-=======
-}
->>>>>>> origin/menu
+

@@ -110,8 +110,8 @@ public class Hoe implements Tool{
         if (tile == null) {
             return new Result(false, "invalid direction!");
         }
-        if (tile.getType() != TileType.Ground) {
-            return new Result(false, "the selected tile is not a ground tile!");
+        if (tile.getType() != TileType.Ground && tile.getBuildingType() != BuildingType.GreenHouserBuild) {
+            return new Result(false, "the selected tile is not a ground or greenhouse tile!");
         }
         if (tile.getItem() != null) {
             return new Result (false, "the selected tile is not empty!");

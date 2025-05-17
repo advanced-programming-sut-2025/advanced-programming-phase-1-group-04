@@ -210,6 +210,7 @@ public class Tile {
     }
 
     public boolean isPlowed() {
+//        if (buildingType == BuildingType.GreenHouserBuild) isPlowed = true;
         return isPlowed;
     }
 

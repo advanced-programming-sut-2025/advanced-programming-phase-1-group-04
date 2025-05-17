@@ -54,7 +54,7 @@ public enum SeedType implements Forageable, PlantType {
 
     private final String name;
     private final ArrayList<Season> seasons;
-    private final CropType crop;
+    private CropType crop;
 
     SeedType (String name, ArrayList<Season> seasons, CropType crop) {
         this.name = name;

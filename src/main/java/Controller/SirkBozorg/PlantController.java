@@ -269,7 +269,7 @@ public class PlantController {
         if (tile == null) {
             return new Result(false, "invalid tile!");
         }
-        if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouserBuild))) {
+        if (!(tile.getType() == TileType.Ground || ((tile.getType() == TileType.Building) && (tile.getBuildingType() == BuildingType.GreenHouserBuild)))) {
             return new Result(false, "you must plant on the ground or in the greenhouse!");
         }
         if (!seed.getSeasons().contains(App.getCurrentGame().getCurrentTime().getSeason()) && tile.getType() == TileType.Ground) {
@@ -287,9 +287,19 @@ public class PlantController {
         Crop crop;
         if (seed.getName().equalsIgnoreCase("Mixed Seeds")) {
             Seed randomSeed = new Seed(SeedType.values()[NightController.rand.nextInt(35)]);
+            if (randomSeed == null) {
+                return new Result(false, "shash1");
+            }
+            if (randomSeed.getCrop() == null) {
+                return new Result(false, "shash2");
+            }
             crop = new Crop(time, randomSeed.getCrop(),true);
+
         }
         else {
+            if (seed.getCrop() == null) {
+                return new Result(false, "shash4");
+            }
             crop = new Crop (time, seed.getCrop(), true);
         }
         if (tile.getFertilize() == 2) {

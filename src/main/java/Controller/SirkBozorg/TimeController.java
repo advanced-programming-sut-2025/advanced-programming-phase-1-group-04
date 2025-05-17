@@ -48,7 +48,7 @@ public class TimeController {
         for (int i = 0; i < date; i++) {
             NightController.nightControl();
         }
-        App.getCurrentGame().getCurrentTime().addDay(date);
+        //App.getCurrentGame().getCurrentTime().addDay(date);
         return new Result(true, "Date successfully changed to " + App.getCurrentGame().getCurrentTime().getDay());
     }
 

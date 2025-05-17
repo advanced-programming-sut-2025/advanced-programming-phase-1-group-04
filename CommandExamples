@@ -44,7 +44,7 @@ walk -l 34, 56
 MarniesRanch:
 walk -l 45, 45
 
-TheStarDropSaloon:
+TheStarDropSaloon: // working hour open 12am
 walk -l 45, 60
 
 CarpentersShop:
@@ -69,7 +69,6 @@ build -a coop -l 10, 10
 // buy animal
 walk -l 45, 45
 buy animal -a chicken -n ali
-buy animal -a
 
 shepherd animals -n ali -l 15, 15
 shepherd animals -n ali -l 10, 11
@@ -101,3 +100,9 @@ Sell:
 walk -l 4, 35
 cheat add item -t stone -n stone -c 10
 sell -t stone -n stone
+
+--------------------------------------------------------------
+Weather:
+cheat weather set  rain
+go to next day
+tile info -l 10, 10

@@ -112,6 +112,7 @@ public class GameMenuController {
             return new Result(false, "Sorry something went wrong!");
         }
         App.getCurrentGame().setMainPlayer(player);
+        App.getCurrentGame().getMap().setFulMap();
         return new Result(true, "Game successfully loaded.");
     }
 

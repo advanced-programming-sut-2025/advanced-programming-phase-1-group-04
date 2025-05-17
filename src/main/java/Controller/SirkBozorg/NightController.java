@@ -29,13 +29,8 @@ public class NightController {
         //Time:
         setWeather();
         setTomorrowWeather();
-        goToNextDay();
 
-        rainyWeatherEffect();
-        randomForagingPlants();
-        randomForagingMinerals();
         thorEffect();
-        crowControl();
 
         // Player:
         movePlayers();
@@ -47,6 +42,12 @@ public class NightController {
         // Animal:
         calculateFriendshipAnimal();
         resetAnimals();
+
+        goToNextDay();
+        rainyWeatherEffect();
+        randomForagingPlants();
+        randomForagingMinerals();
+        crowControl();
     }
 
     private static void randomForagingPlants() {
@@ -111,7 +112,7 @@ public class NightController {
     }
 
     private static void rainyWeatherEffect() {
-        if (App.getCurrentGame().getTomorrowWeather().equals(Weather.Rain) || App.getCurrentGame().getTomorrowWeather().equals(Weather.Storm)) {
+        if (App.getCurrentGame().getCurrentTime().getWeather().equals(Weather.Rain) || App.getCurrentGame().getCurrentTime().getWeather().equals(Weather.Storm)) {
             Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
             for (int i = 0; i < 90; i++) {
                 for (int j = 0; j < 120; j++) {
@@ -134,7 +135,7 @@ public class NightController {
             }
             thorCoordinate = null;
         } else {
-            if (App.getCurrentGame().getTomorrowWeather().equals(Weather.Storm)) {
+            if (App.getCurrentGame().getCurrentTime().getWeather().equals(Weather.Storm)) {
                 for (Tile tile: getRandomTilesFromFarm(1, 3)) {
                     if (tile.getItem() instanceof Tree tree) {
                         tree.burn();

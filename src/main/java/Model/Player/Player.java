@@ -314,17 +314,42 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player Info:\n" +
-            "________________________________\n" +
-            "Username: " + getUsername() + "\n" +
-            "Id: " + this.id + "\n" +
-            "Farm id: " + this.farm + "\n" +
-            "Coordinate: (" + this.coordinate.getX() + ", " + this.coordinate.getY() + ")\n" +
+        String result = "Player Info:\n" +
+                "________________________________\n" +
+                "Username: " + getUsername() + "\n" +
+                "Id: " + this.id + "\n" +
+                "Farm id: " + this.farm + "\n" +
+                "Coordinate: (" + this.coordinate.getX() + ", " + this.coordinate.getY() + ")\n" +
 
-            //"Max moves in this turn: " + this.maxMovesInTurn + "\n" +
-            "Moves in this Turn: " + this.movesThisTurn + "\n" +
+                //"Max moves in this turn: " + this.maxMovesInTurn + "\n" +
+                "Moves in this Turn: " + this.movesThisTurn + "\nmax moves in a turn: ";
 
-            "Count: " + this.count + "\n";
+        if (maxMovesInTurn >= Integer.MAX_VALUE - 200) {
+            result = result + "unlimited";
+        }
+        else {
+            result = result + maxMovesInTurn;
+        }
+
+        result = result + "\nCount: " + this.count + "\n" +
+
+                "Energy: " + this.energy + "\nEnergy limit: ";
+        if (maxEnergy == Integer.MAX_VALUE) {
+            result = result + "unlimited";
+        }
+        else {
+            result = result + maxEnergy;
+        }
+        if (maxEnergyBuff > 0) {
+            result = result + "\nmax energy buff is activated.";
+        }
+        for (Skill s : Skill.values()) {
+            if (isBuffed(s)) {
+                result = result + "\n" + s.name() + " buff is activated.";
+            }
+        }
+
+        return result;
     }
 
     public ArrayList<CraftRecipe> getCraftRecipes() {

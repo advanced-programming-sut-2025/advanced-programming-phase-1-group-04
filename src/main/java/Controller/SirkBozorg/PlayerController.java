@@ -274,7 +274,7 @@ public class PlayerController {
         return null;
     }
 
-    private static Craft getCraft (String name) {
+    public static Craft getCraft (String name) {
         for (CraftType t : CraftType.values()) {
             if (t.getName().equalsIgnoreCase(name)) {
                 return new Craft(t);

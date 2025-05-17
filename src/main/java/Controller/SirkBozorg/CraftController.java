@@ -71,21 +71,25 @@ public class CraftController {
         }
         GameMenuController.moveControl();
         Player player = App.getCurrentGame().getCurrentPlayer();
+        if (direction == null) {
+            return new Result(false, "invalid direction!");
+        }
         Tile tile = GameMenuController.getTileByDirection(direction);
-        Item i;
+        Craft craft;
+
         if (tile == null) {
             return new Result(false, "invalid direction!");
+        }
+        if (tile.getType() != TileType.Ground) {
+            return new Result(false, "the selected tile is not ground!");
         }
         if (craftName == null) {
             return new Result(false, "invalid craft name!");
         }
-        if (findCraftTypeFromAllRecipes(craftName) == null) {
+        if ((craft = PlayerController.getCraft(craftName)) == null) {
             return new Result(false, "there's no such craft!");
         }
-        if ((i = player.getInventory().hasItemWithName(craftName)) == null) {
-            return new Result(false, "you don't have this craft in your inventory!");
-        }
-        if (!(i instanceof Craft craft)) {
+        if ((player.getInventory().hasItemWithName(craftName)) == null) {
             return new Result(false, "you don't have this craft in your inventory!");
         }
         if (tile.getItem() != null) {

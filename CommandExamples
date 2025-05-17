@@ -106,3 +106,74 @@ Weather:
 cheat weather set  rain
 go to next day
 tile info -l 10, 10
+
+
+---------------------------------------------------------------
+tools:
+
+tools equip hoe
+show energy
+tools use -d w
+show energy
+
+tools equip pickaxe
+show energy
+tools use -d w
+show energy
+
+print my farm
+walk -l .......... mine
+show energy
+tools use -d w
+show energy
+
+tools equip watering can
+walk -l 12, 34
+tools use -d w
+tools use -d n
+
+
+tools equip fishing pole
+walk -l 32, 75
+purchase training rod
+tools equip fishing pole
+tools upgrade fishing pole
+walk -l 12, 34
+print my farm
+tools upgrade fishing pole
+fishing -p training rod
+
+
+print my farm
+walk -l 18, 35 .......
+print my farm
+tools equip scythe
+tools use -d e
+
+tools equip milk pail
+walk -l 45, 45
+purchase milk pail
+tools use -d w
+
+tools equip milk pail
+walk -l 45, 45
+purchase milk pail
+tools use -d w
+
+
+
+show inventory
+cheat add item -t seed -n coffee bean -c 10
+cheat add item -t seed -n tomato seeds -c 10
+cheat add item -t seed -n poppy seeds -c 10
+cheat add item -t seed -n corn seeds -c 10
+cheat add item -t seed -n kale seeds -c 10
+cheat add item -t seed -n melon seeds -c 10
+cheat add item -t seed -n pepper seeds -c 10
+
+
+show current player
+inventory trash -i coffee bean
+walk -l 34, 56
+show all available products
+purchase Large Pack

@@ -42,6 +42,8 @@ public class Player {
 
     private int count;
 
+    private Inventory refrigerator = new Inventory(Integer.MAX_VALUE, 1);
+
     private HashMap<Skill, Integer> skillBuff = new HashMap<>(Map.of(Skill.Mining, 0, Skill.Foraging, 0,
             Skill.Fishing, 0, Skill.Farming, 0));
     private int maxEnergyBuff = 0;
@@ -143,8 +145,11 @@ public class Player {
 
 
     public boolean removeItemFromInventory(String itemName, int quantity) {
-        boolean result = inventory.removeItem(itemName, quantity);
-        return result;
+        return inventory.removeItem(itemName, quantity);
+    }
+
+    public boolean removeItemFromRefrigerator(String itemName, int quantity) {
+        return refrigerator.removeItem(itemName, quantity);
     }
 
     public boolean moveItemFromInventoryToTrash(String itemName, int quantity) {
@@ -222,7 +227,7 @@ public class Player {
             skillBuff.put(s, 0);
         }
         maxEnergy = 200;
-        myAbility.put(skill, value);
+        skillBuff.put(skill, value);
     }
 
     public void reduceBuff (int value) {
@@ -236,6 +241,10 @@ public class Player {
             maxEnergy = 200;
             maxEnergyBuff = 0;
         }
+    }
+
+    public boolean isBuffed (Skill s) {
+        return (skillBuff.get(s) > 0);
     }
 
     public void addMaxEnergyBuff (int time, int value){
@@ -391,13 +400,7 @@ public class Player {
         // if isn't available returns -1
     }
 
-//    public boolean getCraftRecipe (String craftRecipe) {
-//        for (CraftRecipe r : CraftRecipe.values()) {
-//            if (r.getName().equalsIgnoreCase(craftRecipe)) {
-//                return r;
-//            }
-//        }
-//
-//    }
+    public Inventory getRefrigerator() {
+        return refrigerator;
+    }
 }
-

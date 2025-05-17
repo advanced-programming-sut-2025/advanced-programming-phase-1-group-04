@@ -4,6 +4,8 @@ import Model.Animals.Animal;
 import Model.Animals.AnimalProduct;
 import Model.Animals.AnimalProductType;
 import Model.App;
+import Model.Crafting.Craft;
+import Model.Crafting.CraftType;
 import Model.Map.Coordinate;
 import Model.Map.Tile;
 import Model.Map.TileType;
@@ -317,4 +319,71 @@ public class NightController {
             shop.resetStock();
         }
     }
+
+    private static void crowControl () {
+
+    }
+
+    private static void crowControlForEachFarm (Coordinate c1, Coordinate c2) {
+        int numberOfPlants = 0;
+        int[][] scared = new int[90][120];
+
+
+        for (int x = c1.getX(); x < c2.getX(); x++) {
+            for (int y = c1.getY(); y < c2.getY(); y++) {
+                if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() != null &&
+                        App.getCurrentGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground) {
+
+                    if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() instanceof Plant) {
+                        numberOfPlants++;
+                    }
+                    else if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() instanceof Craft craft) {
+                        if (craft.getType() == CraftType.Scarecrow) {
+                            for (int i = Math.max(0, x - 8); i < Math.min(89, x + 8); i++) {
+                                for (int j = Math.max(0, y - 8); i < Math.min(119, y + 8); i++) {
+                                    scared[i][j] = 1;
+                                }
+                            }
+                        }
+                        else if (craft.getType() == CraftType.DeluxeScarecrow) {
+                            for (int i = Math.max(0, x - 12); i < Math.min(89, x + 12); i++) {
+                                for (int j = Math.max(0, y - 12); i < Math.min(119, y + 12); i++) {
+                                    scared[i][j] = 1;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        if (rand.nextInt(100) < (numberOfPlants / 16) * 25) {
+            for (int x = c1.getX(); x < c2.getX(); x++) {
+                for (int y = c1.getY(); y < c2.getY(); y++) {
+                    if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() != null &&
+                            App.getCurrentGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground &&
+                            App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() instanceof Plant plant){
+                        if (scared[x][y] != 1) {
+                            if (plant instanceof Tree tree) {
+                                tree.setLastTimeHarvested(App.getCurrentGame().getCurrentTime());
+                            }
+                            else if (plant instanceof Crop crop) {
+                                if (crop.isOneTime()) {
+                                    App.getCurrentGame().getTile(new Coordinate(x, y)).setItem(null);
+                                }
+                                else {
+                                    crop.setLastTimeHarvested(App.getCurrentGame().getCurrentTime());
+                                }
+                            }
+                            else {
+                                App.getCurrentGame().getTile(new Coordinate(x, y)).setItem(null);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }

@@ -24,6 +24,9 @@ public class Inventory {
     }
 
     public boolean addItem(Item item, int quantity) {
+        if (item == null) {
+            return false;
+        }
         String name = item.getName().toLowerCase();
         ItemStack stack = items.getOrDefault(name, new ItemStack());
 
@@ -40,10 +43,12 @@ public class Inventory {
     }
 
     public boolean addItem(Item item) {
+        if (item == null) {
+            return false;
+        }
         String name = item.getName().toLowerCase();
         ItemStack stack = items.getOrDefault(name, new ItemStack());
-
-            stack.add(item);
+        stack.add(item);
 
         if (!items.containsKey(name)) {
             if (items.size() >= capacity) return false;
@@ -55,6 +60,9 @@ public class Inventory {
 
 
     public boolean removeItem(String itemName, int quantity) {
+        if (itemName == null) {
+            return false;
+        }
         String name = itemName.toLowerCase();
         ItemStack stack = items.get(name);
         if (stack == null) {
@@ -111,12 +119,18 @@ public class Inventory {
     }
 
     public Item hasItemWithName(String itemName) {
+        if (itemName == null) {
+            return null;
+        }
         ItemStack stack = items.get(itemName.toLowerCase());
         if (stack == null || stack.items.isEmpty()) return null;
         return stack.items.get(0);
     }
 
     public boolean hasItemWithNumber(String itemName, int number) {
+        if (itemName == null) {
+            return false;
+        }
         ItemStack stack = items.get(itemName.toLowerCase());
         return stack != null && stack.getCount() >= number;
     }

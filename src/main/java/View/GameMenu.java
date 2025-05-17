@@ -189,22 +189,22 @@ public class GameMenu implements AppMenu {
             System.out.println(CraftController.placeCraft(matcher.group("craftName"), matcher.group("direction")));
         }
         else if ((matcher = GameMenuCommand.CheatCrafting.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(CraftController.cheatAddItem(matcher.group("itemName"), matcher.group("count"), matcher.group("type")));
         }
         else if ((matcher = GameMenuCommand.PutRefrigerator.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(FoodController.refrigeratorPut(matcher.group("item")));
         }
         else if ((matcher = GameMenuCommand.PickRefrigerator.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(FoodController.refrigeratorPick(matcher.group("item")));
         }
         else if (GameMenuCommand.ShowCookingRecipes.getMatcher(input) != null) {
-            //TODO Aynaz
+            System.out.println(FoodController.showRecipes());
         }
         else if ((matcher = GameMenuCommand.Cooking.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(FoodController.cook(matcher.group("recipeName")));
         }
         else if ((matcher = GameMenuCommand.Eat.getMatcher(input)) != null) {
-            //TODO Aynaz
+            System.out.println(FoodController.eat(matcher.group("foodName")));
         }
 
         else if ((matcher = GameMenuCommand.Build.getMatcher(input)) != null) {

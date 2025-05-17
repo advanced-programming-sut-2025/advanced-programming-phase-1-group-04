@@ -12,6 +12,11 @@ public class Fish implements Item {
         this.quality = quality;
     }
 
+    public Fish(FishType type) {
+        this.type = type;
+        this.quality = 1;
+    }
+
     @Override
     public int getPrice() {
         double coefficient = 1;

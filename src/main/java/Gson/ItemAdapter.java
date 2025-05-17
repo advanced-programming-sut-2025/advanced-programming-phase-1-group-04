@@ -10,7 +10,7 @@ import Model.Map.Stone;
 import Model.Map.Wood;
 import Model.Plants.*;
 import Model.Player.GiftItem;
-import Model.Tool.Tool;
+import Model.Tool.*;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
@@ -39,9 +39,9 @@ public class ItemAdapter implements JsonSerializer<Item>, JsonDeserializer<Item>
                 return context.deserialize(jsonObject.get("data"), Crop.class);
             case "Fruit":
                 return context.deserialize(jsonObject.get("data"), Fruit.class);
-            case "Foraging mineral":
+            case "ForagingMineral":
                 return context.deserialize(jsonObject.get("data"), ForagingMineral.class);
-            case "Foraging Crop":
+            case "ForagingCrop":
                 return context.deserialize(jsonObject.get("data"), ForagingCrop.class);
             case "Seed":
                 return context.deserialize(jsonObject.get("data"), Seed.class);
@@ -58,7 +58,7 @@ public class ItemAdapter implements JsonSerializer<Item>, JsonDeserializer<Item>
 
             case "Fish":
                 return context.deserialize(jsonObject.get("data"), Fish.class);
-            case "Animal Produce":
+            case "AnimalProduce":
                 return context.deserialize(jsonObject.get("data"), AnimalProduct.class);
 
             case "Ingredient":
@@ -70,6 +70,22 @@ public class ItemAdapter implements JsonSerializer<Item>, JsonDeserializer<Item>
             case "Tool":
                 return context.deserialize(jsonObject.get("data"), Tool.class);
 
+            case "Axe":
+                return context.deserialize(jsonObject.get("data"), Axe.class);
+            case "FishingPole":
+                return context.deserialize(jsonObject.get("data"), FishingPole.class);
+            case "Hoe":
+                return context.deserialize(jsonObject.get("data"), Hoe.class);
+            case "MilkPail":
+                return context.deserialize(jsonObject.get("data"), MilkPail.class);
+            case "Pickaxe":
+                return context.deserialize(jsonObject.get("data"), Pickaxe.class);
+            case "Scythe":
+                return context.deserialize(jsonObject.get("data"), Scythe.class);
+            case "Shear":
+                return context.deserialize(jsonObject.get("data"), Shear.class);
+            case "WateringCan":
+                return context.deserialize(jsonObject.get("data"), WateringCan.class);
 
             default:
                 throw new JsonParseException("Unknown type: " + type);

@@ -149,7 +149,7 @@ public class PlayerController {
         }
     }
 
-    private static boolean isTypeValid(String type) {
+    public static boolean isTypeValid(String type) {
         for (ItemType itemType: ItemType.values()) {
             if (itemType.getName().equals(type))
                 return true;
@@ -157,7 +157,7 @@ public class PlayerController {
         return false;
     }
 
-    private static Item getItemByTypeName(String type, String name) {
+    public static Item getItemByTypeName(String type, String name) {
         //TODO: change some constructors and return items for each type
         switch (type) {
             case "tree":

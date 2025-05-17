@@ -1,23 +1,26 @@
 package Model.Map;
 
 public enum ItemType {
-    Tree("tree"),
-    Sapling("sapling"),
-    Crop("crop"),
-    Fruit("fruit"),
-    Seed("seed"),
-    ForagingCrop("foraging crop"),
-    ForagingMineral("foraging mineral"),
-    Stone("stone"),
-    Wood("wood"),
-    Craft("craft"),
-    Food("food"),
-    Fish("fish"),
-    AnimalProduct("animal product"),
+    Tree("tree"), // !price, !quality
+    Sapling("sapling"), // !price, !quality
+    Crop("crop"), // basePrice, quality?
+    Fruit("fruit"), // basePrice, quality?
+    Seed("seed"), // shopPrice, !quality?
+    ForagingCrop("foraging crop"), // basePrice, quality?
+    ForagingMineral("foraging mineral"), // sellPrice, quality?
 
-    Ingredients("ingredient"),
-    Fertilizer("fertilizer"),
-    Gift("gift")
+    Stone("stone"), // shopPrice
+    Wood("wood"), // shopPrice
+
+    Craft("craft"), // price, quality?
+    Food("food"), // price, quality?
+
+    Fish("fish"), // price, quality
+    AnimalProduct("animal product"), // price, quality
+
+    Ingredients("ingredient"), // price, quality?
+    Fertilizer("fertilizer"), // price, quality?
+    Gift("gift") // price
     ;
 
     private final String name;

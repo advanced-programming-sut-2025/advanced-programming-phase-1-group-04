@@ -164,6 +164,34 @@ public class Inventory {
     }
 
 
+    public ArrayList<Item> getAndRemoveItems (int n, String itemName) {
+        ArrayList<Item> i = new ArrayList<>();
+        if (itemName == null) {
+            return i;
+        }
+        String name = itemName.toLowerCase();
+        ItemStack stack = items.get(name);
+        if (stack == null) {
+            items.remove(name);
+            return i;
+        }
+        if (stack.getCount() < n) return i;
+
+        if (n == -1 || n == stack.getCount()) {
+            i.addAll(stack.getItems());
+            items.remove(name);
+            return i;
+        }
+
+        for (int j = 0; j < n; j++) {
+            if (!stack.items.isEmpty()){
+                i.add(stack.items.get(0));
+                stack.items.remove(0);
+            }
+        }
+        return i;
+    }
+
     public static class ItemStack {
 
         private List<Item> items = new ArrayList<>();

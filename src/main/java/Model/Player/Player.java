@@ -406,4 +406,8 @@ public class Player {
     public Inventory getRefrigerator() {
         return refrigerator;
     }
+
+    public ArrayList<Item> getAndRemoveItemsFromInventory (int n, String itemName) {
+        return inventory.getAndRemoveItems(n, itemName);
+    }
 }

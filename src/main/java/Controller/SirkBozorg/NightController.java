@@ -79,17 +79,22 @@ public class NightController {
     }
 
     private static void plantForageable (Tile tile, Forageable plantType) {
+        if (tile == null) return;
+        if (plantType == null) return;
         if (plantType instanceof ForagingCropType) {
             tile.setItem(new ForagingCrop((ForagingCropType) plantType, false));
         }
-        else if (plantType instanceof SeedType) {
+        else if (plantType instanceof SeedType seedType) {
+            if (seedType == null) return;
+            if (seedType.getCrop() == null) return;
             Crop crop;
+
             if (((SeedType) plantType).getName().equalsIgnoreCase("Mixed Seeds")) {
-                Seed randomSeed = new Seed(SeedType.values()[NightController.rand.nextInt(42)]);
+                Seed randomSeed = new Seed(SeedType.values()[NightController.rand.nextInt(SeedType.values().length - 5)]);
                 crop = new Crop(randomSeed.getCrop(),false);
             }
             else {
-                crop = new Crop (((SeedType) plantType).getCrop(), false);
+                crop = new Crop (seedType.getCrop(), false);
             }
             tile.setItem(crop);
         }

@@ -1,5 +1,7 @@
 package Model.Map;
 
+import Model.Shop.CarpentersShop.CarpenterStock;
+
 public class Wood implements Item{
     @Override
     public String getName() {
@@ -8,6 +10,6 @@ public class Wood implements Item{
 
     @Override
     public int getPrice() {
-        return 5;
+        return CarpenterStock.Wood.getPrice() / 2;
     }
 }

@@ -89,6 +89,8 @@ public class MakeRegionJson {
                 return new Tile(TileType.Building, BuildingType.CarpentersShop);
             case 'K':
                 return new Tile(TileType.Building, BuildingType.TheStarDropSaloon);
+            case '0':
+                return new Tile(TileType.Building, BuildingType.ShippingBin);
 
             default:
                 System.out.println("Unknown symbol: '" + symbol + "'");

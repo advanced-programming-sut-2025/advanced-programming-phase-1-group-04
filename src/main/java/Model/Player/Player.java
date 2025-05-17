@@ -26,6 +26,8 @@ public class Player {
     private Coordinate coordinate;
     private final Coordinate houseCoordinate;
 
+    private ShippingBin shippingBin;
+
     private final List<Animal> myAnimals = new ArrayList<>();
     private List<FarmBuilding> myFarmBuildings = new ArrayList<>();
 
@@ -379,27 +381,7 @@ public class Player {
         return true;
     }
 
-    public boolean isShippingBinAroundMe() {
-        Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
-
-        int x = this.coordinate.getX();
-        int y = this.coordinate.getY();
-
-        int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
-        int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};
-
-        for (int i = 0; i < 8; i++) {
-            int newX = x + dx[i];
-            int newY = y + dy[i];
-
-            if ((newX < 0 || newX >= 90) || (newY < 0 || newY >= 120)) continue;
-
-            Tile tile = fullMap[newX][newY];
-            if (tile.getType().equals(TileType.Building) && tile.getBuildingType().equals(BuildingType.ShippingBin)) {
-                    return true;
-            }
-        }
-
-        return false;
+    public void addItemToShippingBin(Item item, int count) {
+        this.shippingBin.add(item, count);
     }
 }

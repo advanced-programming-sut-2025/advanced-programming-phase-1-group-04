@@ -139,13 +139,12 @@ public class NightController {
 
     private static void movePlayers() {
         for (Player player : App.getCurrentGame().getPlayers()) {
-            if (MapController.getDestinationEnergy(player.getHouseCoordinate()) <= player.getEnergy() &&
-                MapController.getDestinationEnergy(player.getHouseCoordinate()) != -1) {
+            if (MapController.getDestinationEnergy(player, player.getHouseCoordinate()) <= player.getEnergy() &&
+                MapController.getDestinationEnergy(player, player.getHouseCoordinate()) != -1) {
                 player.setCoordinate(player.getHouseCoordinate());
                 player.setEnergy(200);
             } else {
-                //TODO: Aynaz 75% energy rozane az dast mide
-                player.setCoordinate(MapController.getDestination(player.getHouseCoordinate()));
+                player.setCoordinate(MapController.getDestination(player, player.getHouseCoordinate()));
                 player.setEnergy(150);
             }
         }

@@ -101,7 +101,7 @@ public enum GameMenuCommand implements Command {
     PurchaseWithNumber("purchase\\s+(?<productName>.+?)\\s+-n\\s+(?<count>[-+]?\\d+)"),
     Purchase("purchase\\s+(?<productName>.+)"),
     CheatAddCount("cheat\\s+add\\s+(?<count>\\d+)\\s+dollars"),
-    SellProduct("sell\\s+(?<productName>.+?)\\s+-n\\s+(?<count>\\d+)"),
+    SellProduct("sell\\s+-t\\s+(?<type>.+?)\\s+-n\\s+(?<name>.+?)(?:\\s+-c\\s+(?<count>\\d+))?"),
 
     // Relation Controller: Parsa
     FriendsShipPlayerList("friendships"),

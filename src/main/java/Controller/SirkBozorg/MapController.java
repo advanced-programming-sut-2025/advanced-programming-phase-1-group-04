@@ -107,7 +107,7 @@ public class MapController {
         int x = Integer.parseInt(stringX);
         int y = Integer.parseInt(stringY);
         Coordinate coordinate = new Coordinate(x, y);
-        int energy = getDestinationEnergy(coordinate);
+        int energy = getDestinationEnergy(App.getCurrentGame().getCurrentPlayer(),coordinate);
 
         if ((x < 0 || x >= 90) || (y < 0 || y >= 120)) {
             return new Result(false, "Mashti x,y bein (0,0) - (89, 119)!");
@@ -127,15 +127,17 @@ public class MapController {
         int x = Integer.parseInt(stringX);
         int y = Integer.parseInt(stringY);
         Coordinate coordinate = new Coordinate(x, y);
-        int energy = getDestinationEnergy(coordinate);
+        Player player = App.getCurrentGame().getCurrentPlayer();
+        int energy = getDestinationEnergy(player, coordinate);
 
         if (!input.toLowerCase().contains("yes")) {
             return new Result(false, "Fekresho nemikardi na?");
         }
 
-        App.getCurrentGame().getCurrentPlayer().setCoordinate(getDestination(coordinate));
+        Coordinate newCoordinate = getDestination(player, coordinate);
+        App.getCurrentGame().getCurrentPlayer().setCoordinate(newCoordinate);
         App.getCurrentGame().getCurrentPlayer().addEnergy(-energy);
-        return new Result(true, "You successfully go to (" + x +", " + y + ")");
+        return new Result(true, "You successfully go to (" + newCoordinate.getX() +", " + newCoordinate.getY() + ")");
     }
 
     public static Result buildGreenHouse() {
@@ -209,18 +211,23 @@ public class MapController {
         return new Result(true, result.toString());
     }
 
-    public static Coordinate getDestination (Coordinate destination) {
-        int lenx = 89;
-        int leny = 119;
-        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX();
-        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY();
+    public static Coordinate getDestination (Player player, Coordinate destination) {
+        int lenx = 90;
+        int leny = 120;
+        int sourcex = player.getCoordinate().getX();
+        int sourcey = player.getCoordinate().getY();
         int destx = destination.getX();
         int desty = destination.getY();
-        int[][][] dist = new int[lenx + 1][leny + 1][4];
+        int[][][] dist = new int[lenx][leny][4];
+        Coordinate[][][] parent = new Coordinate[lenx][leny][4];
         for (int[][] row : dist) {
             for (int[] col : row)
                 Arrays.fill(col, Integer.MAX_VALUE);
         }
+        parent[sourcex][sourcey][0] = new Coordinate(-1, -1);
+        parent[sourcex][sourcey][1] = new Coordinate(-1, -1);
+        parent[sourcex][sourcey][2] = new Coordinate(-1, -1);
+        parent[sourcex][sourcey][3] = new Coordinate(-1, -1);
         final int[] dx = {-1, 1, 0, 0};
         final int[] dy = {0, 0, -1, 1};
         PriorityQueue <int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
@@ -238,36 +245,60 @@ public class MapController {
             Coordinate c = new Coordinate(x, y);
             if (!App.getCurrentGame().getTile(c).isWalkable())
                 continue;
-            if (((cost + 19) / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
-                return last;
             last.setX(x);
             last.setY(y);
             if (x == destx && y == desty)
-                return last;
+                break;
             for (int i = 0; i < 4; i++) {
                 int newx = x + dx[i];
                 int newy = y + dy[i];
-                if (newx < 0 || newx > lenx || newy < 0 || newy > leny)
+                if (newx < 0 || newx >= lenx || newy < 0 || newy >= leny)
                     continue;
                 int newCost = cost + 1;
                 if (dir != i)
                     newCost += 10;
                 if (newCost < dist[newx][newy][i]) {
+                    parent[newx][newy][i] = new Coordinate(last.getX(), last.getY());
                     dist[newx][newy][i] = newCost;
                     pq.offer(new int[]{newCost, newx, newy, i});
                 }
             }
         }
-        last.setX(-1);
-        last.setY(-1);
+        if (dist[destx][desty][0] == Integer.MAX_VALUE && dist[destx][desty][1] == Integer.MAX_VALUE
+                && dist[destx][desty][2] == Integer.MAX_VALUE && dist[destx][desty][3] == Integer.MAX_VALUE) {
+            last.setX(-1);
+            last.setY(-1);
+        }
+        else {
+            Coordinate c = new Coordinate(destx, desty);
+            while (c.getX() != sourcex || c.getY() != sourcey) {
+                int minimumEnergy = Math.min(Math.min(dist[c.getX()][c.getY()][0], dist[c.getX()][c.getY()][1]),
+                        Math.min(dist[c.getX()][c.getY()][2], dist[c.getX()][c.getY()][3]));
+                if ((minimumEnergy + 19) / 20 <= player.getEnergy())
+                    break;
+                if (minimumEnergy == dist[c.getX()][c.getY()][0]) {
+                    c = parent[c.getX()][c.getY()][0];
+                }
+                else if (minimumEnergy == dist[c.getX()][c.getY()][1]) {
+                    c = parent[c.getX()][c.getY()][1];
+                }
+                else if (minimumEnergy == dist[c.getX()][c.getY()][2]) {
+                    c = parent[c.getX()][c.getY()][2];
+                }
+                else if (minimumEnergy == dist[c.getX()][c.getY()][3]) {
+                    c = parent[c.getX()][c.getY()][3];
+                }
+            }
+            last = c;
+        }
         return last;
     }
 
-    public static int getDestinationEnergy (Coordinate destination) {
-        int lenx = 89;
-        int leny = 119;
-        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX();
-        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY();
+    public static int getDestinationEnergy (Player player, Coordinate destination) {
+        int lenx = 90;
+        int leny = 120;
+        int sourcex = player.getCoordinate().getX();
+        int sourcey = player.getCoordinate().getY();
         int destx = destination.getX();
         int desty = destination.getY();
         int[][][] dist = new int[lenx][leny][4];

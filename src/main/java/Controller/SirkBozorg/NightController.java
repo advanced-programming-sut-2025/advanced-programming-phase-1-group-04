@@ -35,9 +35,11 @@ public class NightController {
         randomForagingPlants();
         randomForagingMinerals();
         thorEffect();
+        crowControl();
 
         // Player:
         movePlayers();
+        shippingBinControl();
 
         //Shops:
         shopStockReset();
@@ -320,8 +322,18 @@ public class NightController {
         }
     }
 
-    private static void crowControl () {
 
+    private static void crowControl () {
+        crowControlForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
+        if (App.getCurrentGame().getPlayers().size() >= 2) {
+            crowControlForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
+        }
+        if (App.getCurrentGame().getPlayers().size() >= 3) {
+            crowControlForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
+        }
+        if (App.getCurrentGame().getPlayers().size() >= 4) {
+            crowControlForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
+        }
     }
 
     private static void crowControlForEachFarm (Coordinate c1, Coordinate c2) {
@@ -386,4 +398,11 @@ public class NightController {
         }
     }
 
+
+    private static void shippingBinControl() {
+        for (Player player: App.getCurrentGame().getPlayers()) {
+            player.addCount(player.getShippingBin().getPrices());
+            player.getShippingBin().clear();
+        }
+     }
 }

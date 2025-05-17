@@ -4,9 +4,7 @@ import Controller.SirkBozorg.NightController;
 import Model.App;
 import Model.Command.Menu;
 import Model.Game;
-import Model.Map.Coordinate;
-import Model.Map.GameMap;
-import Model.Map.Tile;
+import Model.Map.*;
 import Model.Player.Player;
 import Model.Result;
 import Model.Shop.BlackSmith.BlackSmith;
@@ -15,9 +13,17 @@ import Model.Shop.FishShop.FishShop;
 import Model.Shop.JojaMart.JojaMart;
 import Model.Shop.MarniesRanch.MarniesRanch;
 import Model.Shop.PierresGeneralStore.PierresStore;
+import Model.Shop.Shop;
 import Model.Shop.TheStardropSaloon.TheStardropSaloon;
 import Model.User;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import Gson.*;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +32,9 @@ public class GameMenuController {
     private static final boolean[] deleteGame = new boolean[4];
 
     public static Result newGame(String username1, String username2, String username3) {
-        if (App.getCurrentGame() != null) {
+        if (hasSavedGame(App.getCurrentUser().getId())) {
+            return new Result(false, "You have a saved game. You can't create new one!");
+        } else if (App.getCurrentGame() != null) {
             return new Result(false, "You are in game. Boro khodeto siah kon");
         }
         Player currentPlayer = new Player(App.getCurrentUser().getId(), 1);
@@ -87,18 +95,38 @@ public class GameMenuController {
     }
 
     public static Result loadGame() {
-        // TODO: save & load game
-        return new Result(true, "tekh rakab");
+        int id = App.getCurrentUser().getId();
+        if (!hasSavedGame(id)) {
+            return new Result(false, "You don't have any saved game to load!");
+        }
+
+        Game game = getGameById(id);
+        App.setCurrentGame(game);
+        Player player = getPlayer(id);
+        if (player == null) {
+            return new Result(false, "Sorry something went wrong!");
+        }
+        App.getCurrentGame().setMainPlayer(player);
+        return new Result(true, "Game successfully loaded.");
     }
 
     public static Result exitGame() {
-        if (App.getCurrentGame().getCurrentPlayer().getId() != App.getCurrentGame().getMainPlayer().getId()) {
+        if (App.getCurrentGame() == null) {
+            return new Result(false, "You should be in a game!");
+        } else if (App.getCurrentGame().getCurrentPlayer().getId() != App.getCurrentGame().getMainPlayer().getId()) {
             return new Result(false, "Just main player(who created the game or last loaded it) can use the following command!");
         }
 
-        // TODO: save games
+        StringBuilder name = new StringBuilder();
+        for(Player player: App.getCurrentGame().getPlayers())
+            name.append(player.getId()).append("_");
+        if (!name.isEmpty()) name.deleteCharAt(name.length() - 1);
+
+        saveGame(name.toString());
+
         App.setCurrentGame(null);
         App.setCurrentMenu(Menu.MainMenu);
+
         return new Result(true, "Game saved successfully. Now you are in Main menu");
     }
 
@@ -113,7 +141,9 @@ public class GameMenuController {
 
     public static Result resultDeleteGame() {
         if (allPlayersVotedYes()) {
-            // TODO:  check saved games in games folder and delete them
+
+            deleteGame(App.getCurrentGame().getCurrentPlayer().getId());
+
             App.setCurrentGame(null);
             App.setCurrentMenu(Menu.MainMenu);
             return new Result(true, "Bazi hazf shod. Mobarak kheilia");
@@ -170,9 +200,6 @@ public class GameMenuController {
         direction = direction.toLowerCase();
         Coordinate coordinate = new Coordinate(App.getCurrentGame().getCurrentPlayer().getCoordinate().getX(),
                 App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
-        if (coordinate == null) {
-            return null;
-        }
         int x = coordinate.getX();
         int y = coordinate.getY();
         switch (direction) {
@@ -231,9 +258,6 @@ public class GameMenuController {
         direction = direction.toLowerCase();
         Coordinate coordinate = new Coordinate(App.getCurrentGame().getCurrentPlayer().getCoordinate().getX(),
                 App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
-        if (coordinate == null) {
-            return null;
-        }
         int x = coordinate.getX();
         int y = coordinate.getY();
         switch (direction) {
@@ -301,6 +325,126 @@ public class GameMenuController {
                 return null;
         }
         return coordinate;
+    }
+
+    private static void saveGame(String name) {
+        File fileName = new File("games/" + name + ".json");
+
+        try (FileWriter writer = new FileWriter(fileName)) {
+            Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Item.class, new ItemAdapter())
+                .registerTypeAdapter(Shop.class, new ShopAdapter())
+                .setPrettyPrinting()
+                .create();
+            gson.toJson(App.getCurrentGame(), writer);
+        } catch (IOException e) {
+            System.err.println("Error saving game: " + e.getMessage());
+        }
+    }
+
+    private static Game getGameById(int id) {
+        File folder = new File("games");
+        if (!folder.exists() || !folder.isDirectory()) {
+            System.out.println("Games folder not found!");
+            return null;
+        }
+
+        File[] files = folder.listFiles((dir, name) -> name.endsWith(".json"));
+        if (files == null) return null;
+
+        for (File file : files) {
+            String fileName = file.getName();
+            String baseName = fileName.substring(0, fileName.length() - 5); // delete json
+            String[] ids = baseName.split("_");
+
+            for (String sId : ids) {
+                try {
+                    int fileId = Integer.parseInt(sId);
+                    if (fileId == id) {
+                        Gson gson = new GsonBuilder()
+                            .registerTypeAdapter(Item.class, new ItemAdapter())
+                            .registerTypeAdapter(Shop.class, new ShopAdapter())
+                            .create();
+                        try (FileReader reader = new FileReader(file)) {
+                            return gson.fromJson(reader, Game.class);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                   System.out.println("اکهی");
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private static boolean hasSavedGame(int id) {
+        File folder = new File("games");
+        if (!folder.exists() || !folder.isDirectory()) {
+            System.out.println("Games folder not found!");
+            return false;
+        }
+
+        File[] files = folder.listFiles((dir, name) -> name.endsWith(".json"));
+        if (files == null) return false;
+
+        for (File file : files) {
+            String fileName = file.getName();
+            String baseName = fileName.substring(0, fileName.length() - 5); // delete json
+            String[] ids = baseName.split("_");
+
+            for (String sId : ids) {
+                try {
+                    int fileId = Integer.parseInt(sId);
+                    if (fileId == id) {
+                        return true;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("اکهی");
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static void deleteGame(int playerId) {
+        File gamesFolder = new File("games");
+        if (!gamesFolder.exists() || !gamesFolder.isDirectory()) {
+            return;
+        }
+
+        File[] files = gamesFolder.listFiles();
+        if (files == null) return;
+
+        for (File file : files) {
+            String filename = file.getName(); //format: id1_id2_id3.json
+            String nameWithoutExtension = filename.contains(".") ? filename.substring(0, filename.lastIndexOf('.')) : filename;
+            String[] ids = nameWithoutExtension.split("_");
+
+            for (String idStr : ids) {
+                try {
+                    int id = Integer.parseInt(idStr);
+                    if (id == playerId) {
+                        file.delete();
+                        return;
+                    }
+                } catch (NumberFormatException ignored) {
+                    System.out.println("اکهی پسر");
+                }
+            }
+        }
+    }
+
+    public static Player getPlayer(int id) {
+        for (Player player: App.getCurrentGame().getPlayers()) {
+            if (player.getId() == id)
+                return player;
+        }
+        return null;
     }
 
     public static void moveControl () {

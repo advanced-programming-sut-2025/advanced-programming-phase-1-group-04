@@ -66,6 +66,7 @@ build -a coop -l 10, 10
 // buy animal
 walk -l 45, 45
 buy animal -a chicken -n ali
+buy animal -a
 
 shepherd animals -n ali -l 15, 15
 shepherd animals -n ali -l 10, 11
@@ -92,3 +93,8 @@ tools equip fishing pole
 walk -l 32, 71
 fishing -p training rod
 
+--------------------------------------------------------------
+Sell:
+walk -l 4, 35
+cheat add item -t stone -n stone -c 10
+sell -t stone -n stone

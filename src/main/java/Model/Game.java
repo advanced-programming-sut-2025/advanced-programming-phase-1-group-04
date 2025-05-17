@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Interaction.Friend;
 import Model.Interaction.Talk;
 import Model.Map.Coordinate;
 import Model.Map.GameMap;
@@ -39,8 +40,15 @@ public class Game {
         this.players = players;
         this.mainPlayer = currentPlayer;
         this.currentPlayer = currentPlayer;
-
         this.tomorrowWeather = Weather.Sunny;
+
+        for (Player player : this.players) {
+            for (Player player2 : this.players) {
+                if (player.getId() == player2.getId())
+                    continue;
+                player.getFriends().add(new Friend(player2.getId()));
+            }
+        }
     }
 
     public void setMap(GameMap map) {

@@ -22,7 +22,7 @@ public enum ItemType {
     Fertilizer("fertilizer"), // price, quality?
     Gift("gift"), // price
 
-    Toll("tool"),
+    Tool("tool"),
     ;
 
     private final String name;

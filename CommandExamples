@@ -66,6 +66,7 @@ build -a coop -l 10, 10
 // buy animal
 walk -l 45, 45
 buy animal -a chicken -n ali
+buy animal -a
 
 shepherd animals -n ali -l 15, 15
 shepherd animals -n ali -l 10, 11

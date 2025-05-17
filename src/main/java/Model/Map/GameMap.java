@@ -12,8 +12,7 @@ import Gson.ItemAdapter;
 
 public class GameMap {
     private Region[][] region = new Region[3][3];
-    private Tile[][] fullMap;
-    //private Region[] mine = new Region[4];
+    private transient Tile[][] fullMap;
 
     public GameMap(int[] farmSelection) {
         region[0][0] = loadRegionJson("Farming"  + farmSelection[0]);

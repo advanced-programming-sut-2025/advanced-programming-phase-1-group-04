@@ -4,9 +4,7 @@ import Controller.SirkBozorg.NightController;
 import Model.App;
 import Model.Command.Menu;
 import Model.Game;
-import Model.Map.Coordinate;
-import Model.Map.GameMap;
-import Model.Map.Tile;
+import Model.Map.*;
 import Model.Player.Player;
 import Model.Result;
 import Model.Shop.BlackSmith.BlackSmith;
@@ -17,7 +15,14 @@ import Model.Shop.MarniesRanch.MarniesRanch;
 import Model.Shop.PierresGeneralStore.PierresStore;
 import Model.Shop.TheStardropSaloon.TheStardropSaloon;
 import Model.User;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import Gson.ItemAdapter;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,13 +97,22 @@ public class GameMenuController {
     }
 
     public static Result exitGame() {
-        if (App.getCurrentGame().getCurrentPlayer().getId() != App.getCurrentGame().getMainPlayer().getId()) {
+        if (App.getCurrentGame() == null) {
+            return new Result(false, "You should be in a game!");
+        } else if (App.getCurrentGame().getCurrentPlayer().getId() != App.getCurrentGame().getMainPlayer().getId()) {
             return new Result(false, "Just main player(who created the game or last loaded it) can use the following command!");
         }
 
-        // TODO: save games
+        StringBuilder name = new StringBuilder();
+        for(Player player: App.getCurrentGame().getPlayers())
+            name.append(player.getId()).append("_");
+        if (!name.isEmpty()) name.deleteCharAt(name.length() - 1);
+
+        saveGame(name.toString());
+
         App.setCurrentGame(null);
         App.setCurrentMenu(Menu.MainMenu);
+
         return new Result(true, "Game saved successfully. Now you are in Main menu");
     }
 
@@ -170,9 +184,6 @@ public class GameMenuController {
         direction = direction.toLowerCase();
         Coordinate coordinate = new Coordinate(App.getCurrentGame().getCurrentPlayer().getCoordinate().getX(),
                 App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
-        if (coordinate == null) {
-            return null;
-        }
         int x = coordinate.getX();
         int y = coordinate.getY();
         switch (direction) {
@@ -231,9 +242,6 @@ public class GameMenuController {
         direction = direction.toLowerCase();
         Coordinate coordinate = new Coordinate(App.getCurrentGame().getCurrentPlayer().getCoordinate().getX(),
                 App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
-        if (coordinate == null) {
-            return null;
-        }
         int x = coordinate.getX();
         int y = coordinate.getY();
         switch (direction) {
@@ -303,6 +311,19 @@ public class GameMenuController {
         return coordinate;
     }
 
+    public static void saveGame(String name) {
+        File fileName = new File("games/" + name + ".json");
+
+        try (FileWriter writer = new FileWriter(fileName)) {
+            Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Item.class, new ItemAdapter())
+                .setPrettyPrinting()
+                .create();
+            gson.toJson(App.getCurrentGame(), writer);
+        } catch (IOException e) {
+            System.err.println("Error saving game: " + e.getMessage());
+        }
+    }
     public static void moveControl () {
         App.getCurrentGame().getCurrentPlayer().addMovesThisTurn();
     }

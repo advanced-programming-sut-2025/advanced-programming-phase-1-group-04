@@ -1,6 +1,7 @@
 package Model;
 
-import Controller.SirkBozorg.NightController;
+import Model.Interaction.Friend;
+import Model.Interaction.Talk;
 import Model.Map.Coordinate;
 import Model.Map.GameMap;
 import Model.Map.Region;
@@ -31,12 +32,23 @@ public class Game {
 
     private ArrayList<Shop> shops = new ArrayList<>();
 
+    private ArrayList<Talk> talks = new ArrayList<>();
+
+    private int tradeAmount;
+
     public Game(ArrayList<Player> players, Player currentPlayer) {
         this.players = players;
         this.mainPlayer = currentPlayer;
         this.currentPlayer = currentPlayer;
-
         this.tomorrowWeather = Weather.Sunny;
+
+        for (Player player : this.players) {
+            for (Player player2 : this.players) {
+                if (player.getId() == player2.getId())
+                    continue;
+                player.getFriends().add(new Friend(player2.getId()));
+            }
+        }
     }
 
     public void setMap(GameMap map) {
@@ -53,6 +65,10 @@ public class Game {
 
     public void setTomorrowWeather(Weather tomorrowWeather) {
         this.tomorrowWeather = tomorrowWeather;
+    }
+
+    public void setTradeAmount(int tradeAmount) {
+        this.tradeAmount = tradeAmount;
     }
 
     public Weather getTomorrowWeather() {
@@ -101,4 +117,24 @@ public class Game {
         this.shops = new ArrayList<>(shops);
     }
 
+    public void addTalk(Talk talk) {
+        this.talks.add(talk);
+    }
+
+    public ArrayList<Talk> getTalks() {
+        return this.talks;
+    }
+
+    public Player getPlayerByID(int id) {
+        for (Player player : this.players) {
+            if (player.getId() == id) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public int getTradeAmount() {
+        return tradeAmount;
+    }
 }

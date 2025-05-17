@@ -1,8 +1,6 @@
 package Model.Player;
 
-import Controller.GameMenuController;
 import Model.Animals.Animal;
-import Model.App;
 import Model.Cooking.FoodRecipe;
 import Model.Crafting.CraftRecipe;
 import Model.Map.*;
@@ -26,10 +24,10 @@ public class Player {
     private Coordinate coordinate;
     private final Coordinate houseCoordinate;
 
-    private ShippingBin shippingBin = new ShippingBin();
+    private final ShippingBin shippingBin = new ShippingBin();
 
     private final List<Animal> myAnimals = new ArrayList<>();
-    private List<FarmBuilding> myFarmBuildings = new ArrayList<>();
+    private final List<FarmBuilding> myFarmBuildings = new ArrayList<>();
 
     private int maxEnergy = 200;
     private int energy = 200;

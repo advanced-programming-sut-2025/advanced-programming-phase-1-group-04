@@ -76,7 +76,7 @@ public class ToolController {
             return new Result (false, "you are not equipped with any tool yet!");
         }
         return App.getCurrentGame().getCurrentPlayer().getCurrentTool().
-                use(GameMenuController.getTileByDirection(direction));
+                use(GameMenuController.getCoordinateByDirection(direction));
     }
 
 

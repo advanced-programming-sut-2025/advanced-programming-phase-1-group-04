@@ -2,6 +2,7 @@ package Model.Tool;
 
 import Model.App;
 import Model.Map.BuildingType;
+import Model.Map.Coordinate;
 import Model.Map.Tile;
 import Model.Map.TileType;
 import Model.Result;
@@ -105,6 +106,9 @@ public class Hoe implements Tool{
     @Override
     public Result use(Tile tile) {
         App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(true));
+        if (tile == null) {
+            return new Result(false, "invalid direction!");
+        }
         if (tile.getType() != TileType.Ground) {
             return new Result(false, "the selected tile is not a ground tile!");
         }
@@ -116,6 +120,15 @@ public class Hoe implements Tool{
         }
         tile.setPlowed(true);
         return new Result(true, "the selected tile is now plowed and ready to get planted.");
+    }
+
+    @Override
+    public Result use(Coordinate c) {
+        if (c == null) {
+            return new Result(false, "invalid coordinate!");
+        }
+        Tile t = App.getCurrentGame().getTile(c);
+        return use(t);
     }
 
     @Override

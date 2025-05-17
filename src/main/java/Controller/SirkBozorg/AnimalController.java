@@ -10,10 +10,7 @@ import Model.Player.Skill;
 import Model.Result;
 import Model.Shop.ShopType;
 import Model.Time.Weather;
-import Model.Tool.FishingPole;
-import Model.Tool.FishingPoleType;
-import Model.Tool.Tool;
-import Model.Tool.ToolType;
+import Model.Tool.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -134,6 +131,8 @@ public class AnimalController {
     }
 
     public static Result collectAnimalProduce(String name) {
+        App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * MilkPail.getEnergyForAnimals());
+        App.getCurrentGame().getCurrentPlayer().addAbility(Skill.Farming, 5);
         Animal animal = getAnimalByName(name);
         if (animal == null) {
             return new Result(false, "You don't have a pet with that name!");
@@ -164,6 +163,10 @@ public class AnimalController {
         }
         return new Result(true, "You successfully sold " + animal.getName() + " for " + animal.getSellPrice());
     }
+
+
+    //TODO -> Nafiseh : Lotfan in khat ro be har jayee ke taraf movafagh mishe mahi begireh ezafeh con:
+    // App.getCurrentGame().getCurrentPlayer().addAbility(Skill.Fishing, 5);
 
     public static Result fishing(String fishingPole) {
         Tool currentTool = App.getCurrentGame().getCurrentPlayer().getCurrentTool();

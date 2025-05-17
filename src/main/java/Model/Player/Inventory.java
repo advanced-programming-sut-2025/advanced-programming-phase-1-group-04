@@ -135,6 +135,20 @@ public class Inventory {
         return itemList;
     }
 
+    public int getItemQuantity (Item item) {
+        if (item == null) {
+            return -1;
+        }
+        String name = item.getName();
+        if (items.get(name.toLowerCase()) == null) {
+            return -1;
+        }
+        if (items.get(name.toLowerCase()).getCount() == 0) {
+            return -1;
+        }
+        return items.get(name.toLowerCase()).getCount();
+    }
+
 
     public static class ItemStack {
 

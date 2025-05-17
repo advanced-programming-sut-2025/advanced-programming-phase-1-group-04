@@ -403,6 +403,11 @@ public class Player {
         return false;
     }
 
+    public int getInventoryItemCount (Item item) {
+        return inventory.getItemQuantity(item);
+        // if isn't available returns -1
+    }
+
 //    public boolean getCraftRecipe (String craftRecipe) {
 //        for (CraftRecipe r : CraftRecipe.values()) {
 //            if (r.getName().equalsIgnoreCase(craftRecipe)) {

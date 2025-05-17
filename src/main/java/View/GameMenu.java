@@ -270,7 +270,7 @@ public class GameMenu implements AppMenu {
             System.out.println(ShopController.cheatAddCount(matcher.group("count")));
         }
         else if ((matcher = GameMenuCommand.SellProduct.getMatcher(input)) != null) {
-            //TODO Parsa
+            System.out.println(ShopController.sell(matcher.group("type"), matcher.group("name"), matcher.group("count")));
         }
 
         else if (GameMenuCommand.FriendsShipPlayerList.getMatcher(input) != null) {

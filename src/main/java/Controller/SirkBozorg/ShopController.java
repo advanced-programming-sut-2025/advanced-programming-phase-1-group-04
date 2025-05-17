@@ -131,14 +131,21 @@ public class ShopController {
             return new Result(false, "Type is invalid. Valid types: {" + validType + "}");
         } else if (item == null) {
             return new Result(false, "Name is invalid!");
+        } else if (item.getPrice() == 0) {
+            return new Result(false, "You can't sell this item!");
         }
         // inventory error:
         // location error:
         else if (!isShippingBinAroundMe()) {
             return new Result(false, "To sell an item, you need to be within 8 tiles of shipping bin!");
         }
-        App.getCurrentGame().getCurrentPlayer().getInventory().addItem(item, count);
-        return new Result(true, "Now you have " + count +" of " + name + " in your inventory");
+
+        App.getCurrentGame().getCurrentPlayer().addItemToShippingBin(item, count);
+        if (!App.getCurrentGame().getCurrentPlayer().getInventory().removeItem(item.getName(), count)) {
+            return new Result(false, "Oh shit here we go again(you can't remove this item from your inventory)");
+        }
+
+        return new Result(true, "Now you send this item to hell(shipping bin). Tomorrow به حسابت زده میشه");
     }
 
     private static boolean isShippingBinAroundMe() {

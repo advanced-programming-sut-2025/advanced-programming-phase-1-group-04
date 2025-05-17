@@ -64,8 +64,8 @@ public enum GameMenuCommand implements Command {
     // Craft Controller: Aynaz
     ShowCraftingRecipes("crafting\\s+show\\s+recipes"),
     Crafting("crafting\\s+craft\\s+(?<itemName>.+)"),
-    PlaceItem("place\\s+item\\s+-n\\s+(?<itemName>.+?)\\s+-d\\s+(?<direction>\\S+)"), // todo
-    CheatCrafting("cheat\\s+add\\s+item\\s+-n\\s+(?<itemName>.+?)\\s+-c\\s+(?<count>\\d+)"),
+    PlaceItem("place\\s+item\\s+-n\\s+(?<itemName>.+?)\\s+-d\\s+(?<direction>\\S+)"),
+    CheatCrafting("cheat\\s+add\\s+item\\s+-n\\s+(?<itemName>.+?)\\s+-c\\s+(?<count>\\d+)\\s+(?<type>.+?)"),
 
     // Food Controller: Aynaz
     PutRefrigerator("cooking\\s+refrigerator\\s+put\\s+(?<item>.+)"),

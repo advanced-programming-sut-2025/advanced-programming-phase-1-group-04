@@ -1,10 +1,8 @@
 package Model.Tool;
 
+import Controller.GameMenuController;
 import Model.App;
-import Model.Map.BuildingType;
-import Model.Map.Stone;
-import Model.Map.Tile;
-import Model.Map.Wood;
+import Model.Map.*;
 import Model.Player.Player;
 import Model.Player.Skill;
 import Model.Result;
@@ -110,6 +108,9 @@ public class Axe implements Tool{
     @Override
     public Result use(Tile tile) {
         Player player = App.getCurrentGame().getCurrentPlayer();
+        if (tile == null) {
+            return new Result(false, "invalid direction!");
+        }
         if (tile.getItem() == null) {
             return new Result(false, "this tile is empty!");
         }
@@ -136,6 +137,15 @@ public class Axe implements Tool{
 
         }
         return new Result(false, "TODO");
+    }
+
+    @Override
+    public Result use(Coordinate c) {
+        if (c == null) {
+            return new Result(false, "invalid coordinate!");
+        }
+        Tile t = App.getCurrentGame().getTile(c);
+        return use(t);
     }
 
     @Override

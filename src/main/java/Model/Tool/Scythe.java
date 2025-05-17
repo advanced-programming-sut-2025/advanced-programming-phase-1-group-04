@@ -4,6 +4,7 @@ import Controller.SirkBozorg.NightController;
 import Model.App;
 import Model.Cooking.Ingredient;
 import Model.Cooking.IngredientType;
+import Model.Map.Coordinate;
 import Model.Map.Tile;
 import Model.Plants.*;
 import Model.Player.Player;
@@ -24,6 +25,9 @@ public class Scythe implements Tool {
     public Result use(Tile tile) {
         Player player = App.getCurrentGame().getCurrentPlayer();
         player.addEnergy(-1 * getEnergyConsumption(true));
+        if (tile == null) {
+            return new Result(false, "invalid direction!");
+        }
         if (tile.getItem() == null) {
             return new Result(false, "the selected tile is empty!");
         }
@@ -34,6 +38,7 @@ public class Scythe implements Tool {
                 }
                 player.addAbility(Skill.Foraging, 10);
                 player.addAbility(Skill.Farming, 5);
+                tile.setPlowed(false);
                 return new Result(true, "coal added to inventory.");
             }
             else if (tree.hasFruit()) {
@@ -44,6 +49,7 @@ public class Scythe implements Tool {
                     player.addAbility(Skill.Foraging, 10);
                 }
                 player.addAbility(Skill.Farming, 5);
+                tile.setPlowed(false);
                 return new Result(true, tree.getFruitType().getName() + " added to inventory.");
             }
             return new Result(false, "this tree is not ready to get harvested yet!");
@@ -56,6 +62,7 @@ public class Scythe implements Tool {
                 }
                 player.addAbility(Skill.Foraging, 10);
                 player.addAbility(Skill.Farming, 5);
+                tile.setPlowed(false);
                 return new Result(true, "fiber added to inventory.");
 
             }
@@ -74,6 +81,7 @@ public class Scythe implements Tool {
                     player.addAbility(Skill.Foraging, 10);
                 }
                 player.addAbility(Skill.Farming, 5);
+                tile.setPlowed(false);
                 return new Result(true, crop.getName() + " added to inventory.");
             }
             return new Result(false, "this crop is not ready to get harvested yet!");
@@ -91,10 +99,20 @@ public class Scythe implements Tool {
                 player.addAbility(Skill.Foraging, 10);
             }
             player.addAbility(Skill.Farming, 5);
+            tile.setPlowed(false);
             return new Result(true, crop.getName() + " added to inventory.");
         }
 
         return new Result(false, "TODO"); //TODO
+    }
+
+    @Override
+    public Result use(Coordinate c) {
+        if (c == null) {
+            return new Result(false, "invalid coordinate!");
+        }
+        Tile t = App.getCurrentGame().getTile(c);
+        return use(t);
     }
 
     @Override

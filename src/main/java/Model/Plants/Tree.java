@@ -143,7 +143,8 @@ public class Tree implements Item, Plant {
     public String showPlantInfo() {
         return "crop info:\nname: " + getName() + "\ntotal harvest time: " + totalHarvestTime + "\ndate of planting: " +
                 plantingDate.getSeason().name() + " " + plantingDate.getDay() + "th\nstages: " +
-                PlantController.stagesToString(getStages()) + "\ncurrent stage: " + getCurrentStage();
+                PlantController.stagesToString(getStages()) + "\ncurrent stage: " + getCurrentStage() +
+                "\nhas been burned " + isBurned;
     }
 
     public boolean isPurposelyPlanted() {

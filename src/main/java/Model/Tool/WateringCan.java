@@ -2,6 +2,7 @@ package Model.Tool;
 
 import Model.App;
 import Model.Map.BuildingType;
+import Model.Map.Coordinate;
 import Model.Map.Tile;
 import Model.Map.TileType;
 import Model.Player.Skill;
@@ -124,10 +125,14 @@ public class WateringCan implements Tool{
     @Override
     public Result use(Tile tile) {
         App.getCurrentGame().getCurrentPlayer().addEnergy(-1 * getEnergyConsumption(true));
-        if (tile.getType() == TileType.Water) {
+        if (tile == null) {
+            return new Result(false, "invalid direction!");
+        }
+        if (tile.getType() == TileType.Water || tile.getBuildingType() == BuildingType.Well) {
             waterAmount = capacity;
             return new Result(true, "your watering can is now full of water.");
         }
+
         else if (tile.getType() == TileType.Ground) {
             if (waterAmount <= 0) {
                 return new Result(false, "your watering can is out of water!");
@@ -138,6 +143,15 @@ public class WateringCan implements Tool{
         }
 
         return new Result(false, "invalid tile!");
+    }
+
+    @Override
+    public Result use(Coordinate c) {
+        if (c == null) {
+            return new Result(false, "invalid coordinate!");
+        }
+        Tile t = App.getCurrentGame().getTile(c);
+        return use(t);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package Model.Tool;
 
 import Model.App;
+import Model.Crafting.Craft;
 import Model.Map.BuildingType;
+import Model.Map.Coordinate;
 import Model.Map.Stone;
 import Model.Map.Tile;
 import Model.Plants.ForagingMineral;
@@ -112,6 +114,9 @@ public class Pickaxe implements Tool {
     @Override
     public Result use(Tile tile) {
         Player player = App.getCurrentGame().getCurrentPlayer();
+        if (tile == null) {
+            return new Result(false, "invalid direction!");
+        }
         if (tile.isPlowed()) {
             tile.setItem(null);
             tile.setPlowed(false);
@@ -159,12 +164,30 @@ public class Pickaxe implements Tool {
             player.addItemToInventory(new Stone(), 1);
             return new Result(true, "you destroyed a " + tile.getItem().getName());
         }
+        if (tile.getItem() != null && tile.getItem() instanceof Craft craft) {
+            if (!player.addItemToInventory(craft, 1)) {
+                return new Result(false, "your inventory doesn't have enough capacity!");
+            }
+            player.addEnergy(-1 * getEnergyConsumption(true));
+            tile.setItem(null);
+            return new Result(true, craft.getName() + " added to inventory.");
+        }
         if (tile.getItem() != null) {
+            player.addEnergy(-1 * getEnergyConsumption(true));
             tile.setItem(null);
             return new Result(true, "the item is no longer on the tile.");
         }
         player.addEnergy(-1 * getEnergyConsumption(false));
         return new Result(false, "nothing can be done on the selected tile!");
+    }
+
+    @Override
+    public Result use(Coordinate c) {
+        if (c == null) {
+            return new Result(false, "invalid coordinate!");
+        }
+        Tile t = App.getCurrentGame().getTile(c);
+        return use(t);
     }
 
     @Override

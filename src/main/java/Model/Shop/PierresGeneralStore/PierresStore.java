@@ -2,12 +2,10 @@ package Model.Shop.PierresGeneralStore;
 
 import Model.App;
 import Model.Cooking.Ingredient;
-import Model.Crafting.Craft;
-import Model.Crafting.CraftRecipe;
 import Model.Plants.Fertilizer;
 import Model.Plants.Sapling;
 import Model.Plants.Seed;
-import Model.Player.Gift;
+import Model.Player.GiftItem;
 import Model.Result;
 import Model.Shop.Shop;
 import Model.Shop.ShopType;
@@ -235,7 +233,7 @@ public class PierresStore implements Shop {
                     return new Result (false, "you don't have enough money!\n" +
                             number * a.getPrice() + "g is needed.");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Gift(a.getType()), number)) {
+                if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new GiftItem(a.getType()), number)) {
                     return new Result (false, "you can't add this item(s) to your inventory!");
                 }
                 int newNumber = gifts.get(a) - number;

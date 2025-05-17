@@ -156,8 +156,7 @@ public class MarniesRanch implements Shop {
                 }
                 //TODO: Aynaz اقا قبلش چک کن ببین اصلا قفس یا طویله داره یا نه بعد لولش جک کن
                 if (App.getCurrentGame().getCurrentPlayer().getFarmBuildingLevel(a.getBuildingType().getType()) < a.getBuildingType().getLevel()) {
-                    return new Result(false, "you must upgrade your " + a.getBuildingType().getType().name() +
-                            " first!\n" + a.getBuildingType().getName() + " is needed.");
+                    return new Result(false,  a.getBuildingType().getName() + " or a better version is needed!");
                 }
                 if (App.getCurrentGame().getCurrentPlayer().getFarmBuildingCapacity(a.getBuildingType().getType()) <= 0) {
                     return new Result(false, "you don't have enough capacity!");

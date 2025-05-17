@@ -2,10 +2,10 @@ package Model.Player;
 
 import Model.Map.Item;
 
-public class Gift implements Item {
+public class GiftItem implements Item {
     private final GiftType type;
 
-    public Gift (GiftType type) {
+    public GiftItem(GiftType type) {
         this.type = type;
     }
 

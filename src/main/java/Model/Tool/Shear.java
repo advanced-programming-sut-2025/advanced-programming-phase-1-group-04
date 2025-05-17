@@ -1,6 +1,10 @@
 package Model.Tool;
 
+import Controller.SirkBozorg.AnimalController;
+import Model.Animals.Animal;
+import Model.Animals.AnimalType;
 import Model.App;
+import Model.Map.Coordinate;
 import Model.Map.Tile;
 import Model.Result;
 import Model.Time.Weather;
@@ -15,7 +19,20 @@ public class Shear implements Tool {
 
     @Override
     public Result use(Tile tile) {
-        return new Result(false, "TODO"); //TODO
+        return new Result(false, "TODO");
+    }
+
+    @Override
+    public Result use(Coordinate c) {
+        if (c == null) {
+            return new Result(false, "invalid coordinate!");
+        }
+        for (Animal a : App.getCurrentGame().getCurrentPlayer().getMyAnimals()) {
+            if (c.equals(a.getCoordinate()) && a.getType() == AnimalType.Sheep) {
+                return AnimalController.collectAnimalProduce(a.getName());
+            }
+        }
+        return new Result(false, "there's no sheep in this tile!");
     }
 
     @Override

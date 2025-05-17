@@ -23,7 +23,6 @@ public class Inventory {
         addItem(new MilkPail(), 1);
     }
 
-
     public boolean addItem(Item item, int quantity) {
         String name = item.getName().toLowerCase();
         ItemStack stack = items.getOrDefault(name, new ItemStack());
@@ -49,7 +48,7 @@ public class Inventory {
         if (!items.containsKey(name)) {
             if (items.size() >= capacity) return false;
             items.put(name, stack);
-        }
+        }//TODO Aynaz
 
         return true;
     }
@@ -74,7 +73,6 @@ public class Inventory {
         }
         return true;
     }
-
 
 
     public void setCapacity(int capacity) {
@@ -135,6 +133,20 @@ public class Inventory {
             itemList.add(items.get(s).peekLast());
         }
         return itemList;
+    }
+
+    public int getItemQuantity (Item item) {
+        if (item == null) {
+            return -1;
+        }
+        String name = item.getName();
+        if (items.get(name.toLowerCase()) == null) {
+            return -1;
+        }
+        if (items.get(name.toLowerCase()).getCount() == 0) {
+            return -1;
+        }
+        return items.get(name.toLowerCase()).getCount();
     }
 
 

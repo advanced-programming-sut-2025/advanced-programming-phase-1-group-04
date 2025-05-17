@@ -348,7 +348,7 @@ public class Player {
     }
 
     public int getFarmBuildingLevel (BuildingType type) {
-        int max = 1;
+        int max = 0;
         for (FarmBuilding b : myFarmBuildings) {
             if (b.getType().getType() == type) {
                 if (b.getCapacity() > max) {
@@ -366,7 +366,7 @@ public class Player {
                 animalNumber++;
             }
         }
-        return getFarmBuildingLevel(type) * 4 - animalNumber;
+        return Math.max(0, getFarmBuildingLevel(type) * 4 - animalNumber);
     }
 
     public ArrayList<FoodRecipe> getFoodRecipes() {
@@ -384,4 +384,20 @@ public class Player {
     public void addItemToShippingBin(Item item, int count) {
         this.shippingBin.add(item, count);
     }
+
+
+    public int getInventoryItemCount (Item item) {
+        return inventory.getItemQuantity(item);
+        // if isn't available returns -1
+    }
+
+//    public boolean getCraftRecipe (String craftRecipe) {
+//        for (CraftRecipe r : CraftRecipe.values()) {
+//            if (r.getName().equalsIgnoreCase(craftRecipe)) {
+//                return r;
+//            }
+//        }
+//
+//    }
 }
+

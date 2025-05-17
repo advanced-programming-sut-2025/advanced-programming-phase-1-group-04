@@ -220,7 +220,7 @@ public class PlayerController {
         return null;
     }
 
-    private static Crop getCrop (String name) {
+    public static Crop getCrop (String name) {
         for (CropType t : CropType.values()) {
             if (t.getName().equalsIgnoreCase(name)) {
                 return new Crop(t);

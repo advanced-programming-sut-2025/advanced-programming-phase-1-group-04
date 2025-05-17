@@ -284,19 +284,27 @@ public class PlantController {
         if (!tile.isPlowed()) {
             return new Result(false, "this tile has not been plowed");
         }
-        Crop crop;
-        if (seed.getName().equalsIgnoreCase("Mixed Seeds")) {
-            Seed randomSeed = new Seed(SeedType.values()[NightController.rand.nextInt(35)]);
-            crop = new Crop(time, randomSeed.getCrop(),true);
+//        Crop crop;
+//        if (seed.getSeedType().getCropName().equalsIgnoreCase("Mixed")) {
+//            Seed randomSeed = new Seed(SeedType.values()[NightController.rand.nextInt(35)]);
+//            crop = new Crop(time, randomSeed.getCrop(),true);
+//        }
+//        else {
+//            crop = new Crop (time, seed.getCrop(), true);
+//        }
+
+        Crop crop = PlayerController.getCrop(seed.getSeedType().getCropName());
+
+        if (crop == null) {
+            return new Result(false, "seed type invalid!");
         }
-        else {
-            crop = new Crop (time, seed.getCrop(), true);
-        }
+
         if (tile.getFertilize() == 2) {
             if (!crop.getName().equalsIgnoreCase("grass")) {
                 crop.setTotalHarvestTime(crop.getHarvestTime() - 1);
             }
         }
+
         tile.setItem(crop);
         return new Result(true, seed.getName() + " is now planted in selected tile.");
     }

@@ -35,8 +35,9 @@ public class Crop implements Item, Plant {
         totalHarvestTime = type.getHarvestTime();
     }
     public Crop(CropType type) {
-        this.plantingDate = new DateAndTime(App.getCurrentGame().getCurrentTime().getHour(),
-                App.getCurrentGame().getCurrentTime().getDay(), App.getCurrentGame().getCurrentTime().getWeather());
+//        this.plantingDate = new DateAndTime(App.getCurrentGame().getCurrentTime().getHour(),
+//                App.getCurrentGame().getCurrentTime().getDay(), App.getCurrentGame().getCurrentTime().getWeather());
+        this.plantingDate = new DateAndTime(9, 1, Weather.Sunny);
         this.type = type;
         this.purposelyPlanted = true;
         totalHarvestTime = type.getHarvestTime();

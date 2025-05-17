@@ -119,9 +119,16 @@ public class ShopController {
     public static Result sell(String type, String name, String stringCount) {
         int count = (stringCount == null ) ? -1 : Integer.parseInt(stringCount);
         Item item = PlayerController.getItemByTypeName(type, name);
+        int inventoryCount = App.getCurrentGame().getCurrentPlayer().getInventory().getItemQuantity(item);
+
+
+        // location error:
+        if (!isShippingBinAroundMe()) {
+            return new Result(false, "To sell an item, you need to be within 8 tiles of shipping bin!");
+        }
 
         // item error
-        if (count < 1 && count != -1) {
+        else if (count < 1 && count != -1) {
             return new Result(false, "Count must be a positive number!");
         } else if (!PlayerController.isTypeValid(type)) {
             StringBuilder validType = new StringBuilder();
@@ -129,17 +136,22 @@ public class ShopController {
                 validType.append(itemType.getName()).append(" ");
             }
             return new Result(false, "Type is invalid. Valid types: {" + validType + "}");
+        } else if (type.equals("tool")) {
+            return new Result(false, "You can't sell tools!");
         } else if (item == null) {
             return new Result(false, "Name is invalid!");
         } else if (item.getPrice() == 0) {
             return new Result(false, "You can't sell this item!");
         }
+
         // inventory error:
-        // location error:
-        else if (!isShippingBinAroundMe()) {
-            return new Result(false, "To sell an item, you need to be within 8 tiles of shipping bin!");
+        else if (inventoryCount == -1) {
+            return new Result(false, "You don't have this item in your inventory!");
+        } else if (count != -1 && inventoryCount < count) {
+            return new Result(false, "You don't have " + count +" of this item in your inventory!");
         }
 
+        if (count == -1) count = inventoryCount;
         App.getCurrentGame().getCurrentPlayer().addItemToShippingBin(item, count);
         if (!App.getCurrentGame().getCurrentPlayer().getInventory().removeItem(item.getName(), count)) {
             return new Result(false, "Oh shit here we go again(you can't remove this item from your inventory)");

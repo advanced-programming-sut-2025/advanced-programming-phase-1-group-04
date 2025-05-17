@@ -20,7 +20,9 @@ public enum ItemType {
 
     Ingredients("ingredient"), // price, quality?
     Fertilizer("fertilizer"), // price, quality?
-    Gift("gift") // price
+    Gift("gift"), // price
+
+    Toll("tool"),
     ;
 
     private final String name;

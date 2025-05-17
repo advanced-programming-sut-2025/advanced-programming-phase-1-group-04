@@ -19,6 +19,8 @@ import Model.Map.Wood;
 import Model.Plants.*;
 import Model.Player.*;
 import Model.Result;
+import Model.Tool.Tool;
+import Model.Tool.ToolType;
 
 public class PlayerController {
 

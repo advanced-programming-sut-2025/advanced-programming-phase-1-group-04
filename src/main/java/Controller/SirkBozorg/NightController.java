@@ -36,6 +36,7 @@ public class NightController {
 
         // Player:
         movePlayers();
+        shippingBinControl();
 
         //Shops:
         shopStockReset();
@@ -317,4 +318,11 @@ public class NightController {
             shop.resetStock();
         }
     }
+
+    private static void shippingBinControl() {
+        for (Player player: App.getCurrentGame().getPlayers()) {
+            player.addCount(player.getShippingBin().getPrices());
+            player.getShippingBin().clear();
+        }
+     }
 }

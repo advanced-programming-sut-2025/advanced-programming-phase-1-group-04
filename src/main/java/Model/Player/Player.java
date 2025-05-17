@@ -26,7 +26,7 @@ public class Player {
     private Coordinate coordinate;
     private final Coordinate houseCoordinate;
 
-    private ShippingBin shippingBin;
+    private ShippingBin shippingBin = new ShippingBin();
 
     private final List<Animal> myAnimals = new ArrayList<>();
     private List<FarmBuilding> myFarmBuildings = new ArrayList<>();
@@ -385,6 +385,9 @@ public class Player {
         this.shippingBin.add(item, count);
     }
 
+    public ShippingBin getShippingBin() {
+        return shippingBin;
+    }
 
     public int getInventoryItemCount (Item item) {
         return inventory.getItemQuantity(item);

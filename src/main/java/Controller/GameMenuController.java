@@ -53,12 +53,18 @@ public class GameMenuController {
         User user1 = App.getUserByUsername(username1);
         if (user1 == null)
             return new Result(false, username1 + " not found!");
+        if (hasSavedGame(user1.getId())) {
+            return new Result(false, username1 + " have a saved game. You can't create new one!");
+        }
         players.add(new Player(user1.getId(), 2));
 
         if (username2 != null) {
             User user2 = App.getUserByUsername(username2);
             if (user2 == null)
                 return new Result(false, username2 + " not found!");
+            if (hasSavedGame(user2.getId())) {
+                return new Result(false, username2 + " have a saved game. You can't create new one!");
+            }
             players.add(new Player(user2.getId(), 3));
         }
 
@@ -66,6 +72,9 @@ public class GameMenuController {
             User user3 = App.getUserByUsername(username3);
             if (user3 == null)
                 return new Result(false, username3 + " not found!");
+            if (hasSavedGame(user3.getId())) {
+                return new Result(false, username3 + " have a saved game. You can't create new one!");
+            }
             players.add(new Player(user3.getId(), 4));
         }
 

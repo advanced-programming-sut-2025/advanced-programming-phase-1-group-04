@@ -12,7 +12,6 @@ public class Friend {
     private ArrayList<Gift> sentGifts;
     private ArrayList<Trade> trades;
     private boolean talkedToday;
-    private boolean tradedToday;
     private boolean giftedToday;
     private boolean huggedToday;
 
@@ -23,25 +22,20 @@ public class Friend {
         this.sentGifts = new ArrayList<>();
         this.trades = new ArrayList<>();
         this.talkedToday = false;
-        this.tradedToday = false;
         this.giftedToday = false;
         this.huggedToday = false;
     }
 
-    public void setTalkedToday() {
-        this.talkedToday = true;
+    public void setTalkedToday(boolean talkedToday) {
+        this.talkedToday = talkedToday;
     }
 
-    public void setTradedToday() {
-        this.tradedToday = true;
+    public void setGiftedToday(boolean giftedToday) {
+        this.giftedToday = giftedToday;
     }
 
-    public void setGiftedToday() {
-        this.giftedToday = true;
-    }
-
-    public void setHuggedToday() {
-        this.huggedToday = true;
+    public void setHuggedToday(boolean huggedToday) {
+        this.huggedToday = huggedToday;
     }
 
     public void nextLevel() {
@@ -65,7 +59,8 @@ public class Friend {
         this.xp += xp;
         if (this.xp < 0) {
             this.level--;
-            this.xp = (this.level + 1) * 100 - 10;
+            this.xp += ((this.level + 1) * 100);
+            this.level = Math.max(0, this.level);
         }
         else {
             this.xp = Math.min(this.xp, (this.level + 1) * 100);
@@ -90,10 +85,6 @@ public class Friend {
 
     public boolean isTalkedToday() {
         return talkedToday;
-    }
-
-    public boolean isTradedToday() {
-        return tradedToday;
     }
 
     public boolean isGiftedToday() {

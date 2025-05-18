@@ -4,6 +4,7 @@ import Model.*;
 import Model.Interaction.*;
 import Model.Map.Coordinate;
 import Model.Map.Item;
+import Model.Player.GiftItem;
 import Model.Player.GiftType;
 import Model.Player.Player;
 
@@ -43,7 +44,7 @@ public class InteractionController {
         for (Friend friend : currentPlayer.getFriends()) {
             if (friend.getFriendId() == friendId) {
                 if (!friend.isTalkedToday()) {
-                    friend.setTalkedToday();
+                    friend.setTalkedToday(true);
                     friend.addXP(20);
                     friend.updateLevel();
                 }
@@ -55,7 +56,7 @@ public class InteractionController {
                 for (Friend friend : currentPlayer.getFriends()) {
                     if (friend.getFriendId() == currentPlayer.getId()) {
                         if (!friend.isTalkedToday()) {
-                            friend.setTalkedToday();
+                            friend.setTalkedToday(true);
                             friend.addXP(20);
                             friend.updateLevel();
                         }
@@ -142,7 +143,7 @@ public class InteractionController {
         for (Friend friend : currentPlayer.getFriends()) {
             if (friend.getFriendId() == friendId) {
                 if (!friend.isGiftedToday()) {
-                    friend.setGiftedToday();
+                    friend.setGiftedToday(true);
                     friend.addXP(50);
                     friend.updateLevel();
                 }
@@ -156,7 +157,7 @@ public class InteractionController {
                 for (Friend friend : player.getFriends()) {
                     if (friend.getFriendId() == currentPlayer.getId()) {
                         if (!friend.isGiftedToday()) {
-                            friend.setGiftedToday();
+                            friend.setGiftedToday(true);
                             friend.addXP(50);
                             friend.updateLevel();
                         }
@@ -317,7 +318,7 @@ public class InteractionController {
                 for (Friend friend : player.getFriends()) {
                     if (friend.getFriendId() == friendID) {
                         if (!friend.isHuggedToday()) {
-                            friend.setHuggedToday();
+                            friend.setHuggedToday(true);
                             friend.addXP(60);
                             friend.updateLevel();
                         }
@@ -328,7 +329,7 @@ public class InteractionController {
                 for (Friend friend : player.getFriends()) {
                     if (friend.getFriendId() == currentPlayer.getId()) {
                         if (!friend.isHuggedToday()) {
-                            friend.setHuggedToday();
+                            friend.setHuggedToday(true);
                             friend.addXP(60);
                             friend.updateLevel();
                         }
@@ -379,7 +380,7 @@ public class InteractionController {
         currentPlayer.removeItemFromInventory("Bouquet" , 1);
         for (Player player : App.getCurrentGame().getPlayers()) {
             if (player.getId() == friendID) {
-                player.addItemToInventory(new Model.Player.Gift(GiftType.Bouquet), 1);
+                player.addItemToInventory(new GiftItem(GiftType.Bouquet), 1);
             }
         }
         for (Player player : App.getCurrentGame().getPlayers()) {
@@ -439,7 +440,7 @@ public class InteractionController {
             return new Result(false, "Boro ring bekhar esfahani ahmagh.");
         for (Player player : App.getCurrentGame().getPlayers()) {
             if (player.getId() == friendID) {
-                player.addItemToInventory(new Model.Player.Gift(GiftType.WeddingRing), 1);
+                player.addItemToInventory(new GiftItem(GiftType.WeddingRing), 1);
                 player.addNotification("You've received a marriage request from " + currentPlayer.getUsername() + "!");
                 break;
             }

@@ -1,6 +1,7 @@
 package Controller.SirkBozorg;
 
 import Model.App;
+import Model.Interaction.Friend;
 import Model.Interaction.Trade;
 import Model.Map.Item;
 import Model.Player.Player;
@@ -179,6 +180,16 @@ public class TradeController {
             if (trade.getId() == tradeID) {
                 if (response.equals("reject")) {
                     trade.setIsAccepted(0);
+                    for (Friend friend : currentPlayer.getFriends()) {
+                        if (friend.getFriendId() == trade.getSenderID()) {
+                            friend.addXP(-30);
+                        }
+                    }
+                    for (Friend friend : App.getCurrentGame().getPlayerByID(trade.getSenderID()).getFriends()) {
+                        if (friend.getFriendId() == currentPlayer.getId()) {
+                            friend.addXP(-30);
+                        }
+                    }
                     return new Result(true, "Rejected trade successfully.");
                 }
                 else if (response.equals("accept")) {
@@ -198,6 +209,16 @@ public class TradeController {
                         }
                         trade.setIsAccepted(1);
                         currentPlayer.addCount(-trade.getAmount());
+                        for (Friend friend : currentPlayer.getFriends()) {
+                            if (friend.getFriendId() == trade.getSenderID()) {
+                                friend.addXP(50);
+                            }
+                        }
+                        for (Friend friend : App.getCurrentGame().getPlayerByID(trade.getSenderID()).getFriends()) {
+                            if (friend.getFriendId() == currentPlayer.getId()) {
+                                friend.addXP(50);
+                            }
+                        }
                         break;
                     }
                     else {
@@ -217,11 +238,22 @@ public class TradeController {
                         }
                         trade.setIsAccepted(1);
                         currentPlayer.getInventory().addItem(trade.getItem(), trade.getAmount());
+                        for (Friend friend : currentPlayer.getFriends()) {
+                            if (friend.getFriendId() == trade.getSenderID()) {
+                                friend.addXP(50);
+                            }
+                        }
+                        for (Friend friend : App.getCurrentGame().getPlayerByID(trade.getSenderID()).getFriends()) {
+                            if (friend.getFriendId() == currentPlayer.getId()) {
+                                friend.addXP(50);
+                            }
+                        }
                         break;
                     }
                 }
             }
         }
+
         return new Result(true, "Accepted trade successfully.");
     }
 

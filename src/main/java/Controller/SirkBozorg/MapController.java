@@ -217,7 +217,7 @@ public class MapController {
         return new Result(true, result.toString());
     }
 
-    public static Coordinate getDestination (Coordinate destination) {
+    public static Coordinate getDestination (Player player, Coordinate destination) {
         int lenx = 90;
         int leny = 120;
         int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX();
@@ -251,10 +251,12 @@ public class MapController {
             Coordinate c = new Coordinate(x, y);
             if (!App.getCurrentGame().getTile(c).isWalkable())
                 continue;
-            if (getFarmId(c) != -1 && App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(c)) // TODO: if when married
+            int id = App.getCurrentGame().getCurrentPlayer().getPartnerID();
+            if (getFarmId(c) != -1 && (App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(c)
+                    || (id != -1 && App.getCurrentGame().getPlayerByID(id).getFarm() != getFarmId(c))))
                 continue;
             if ((cost / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
-                return new Coordinate(last.getX() + minx, last.getY() + miny);
+                return new Coordinate(last.getX(), last.getY());
             last.setX(x);
             last.setY(y);
             if (x == destx && y == desty)
@@ -304,7 +306,7 @@ public class MapController {
         return last;
     }
 
-    public static int getDestinationEnergy (Coordinate destination) {
+    public static int getDestinationEnergy (Player player, Coordinate destination) {
         int lenx = 90;
         int leny = 120;
         int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX();
@@ -334,7 +336,9 @@ public class MapController {
             Coordinate c = new Coordinate(x, y);
             if (!App.getCurrentGame().getTile(c).isWalkable())
                 continue;
-            if (getFarmId(c) != -1 && App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(c)) // TODO: if when married
+            int id = App.getCurrentGame().getCurrentPlayer().getPartnerID();
+            if (getFarmId(c) != -1 && (App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(c)
+                    || (id != -1 && App.getCurrentGame().getPlayerByID(id).getFarm() != getFarmId(c))))
                 continue;
             if ((cost / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
                 return ans;

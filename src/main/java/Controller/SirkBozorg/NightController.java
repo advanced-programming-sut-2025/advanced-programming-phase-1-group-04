@@ -6,6 +6,7 @@ import Model.Animals.AnimalProductType;
 import Model.App;
 import Model.Crafting.Craft;
 import Model.Crafting.CraftType;
+import Model.Interaction.Friend;
 import Model.Map.Coordinate;
 import Model.Map.Tile;
 import Model.Map.TileType;
@@ -42,6 +43,9 @@ public class NightController {
         // Animal:
         calculateFriendshipAnimal();
         resetAnimals();
+
+        // Interaction
+        resetFriends();
 
         goToNextDay();
         rainyWeatherEffect();
@@ -410,5 +414,18 @@ public class NightController {
             player.addCount(player.getShippingBin().getPrices());
             player.getShippingBin().clear();
         }
-     }
+    }
+
+    private static void resetFriends() {
+        for (Player player : App.getCurrentGame().getPlayers()) {
+            for (Friend friend : player.getFriends()) {
+                if (!friend.isGiftedToday() && !friend.isHuggedToday() && !friend.isTalkedToday()) {
+                    friend.addXP(-10);
+                }
+                friend.setHuggedToday(false);
+                friend.setTalkedToday(false);
+                friend.setGiftedToday(false);
+            }
+        }
+    }
 }

@@ -121,7 +121,7 @@ public enum GameMenuCommand implements Command {
     TradeMenu("start\\s+trade"),
 
     // NPC Controller: Parsa -> Nafiseh
-    MeetNPC("meet\\s+NPC\\s+(?<npcName>.+)"),
+    MeetNPC("meet\\s+NPC\\s+(?<npcName>.+)\\s+-m\\s+(?<message>.*)"),
     GiftNPC("gift\\s+NPC\\s+(?<npcName>.+?)\\s+-i\\s+(?<item>.+)"),
     FriendShipNPCList("friendship\\s+NPC\\s+list"),
     QuestList("quests\\s+list"),

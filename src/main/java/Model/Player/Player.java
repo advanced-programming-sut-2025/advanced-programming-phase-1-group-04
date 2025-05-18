@@ -442,10 +442,6 @@ public class Player {
         return refrigerator;
     }
 
-    public ArrayList<Item> getAndRemoveItemsFromInventory (int n, String itemName) {
-        return inventory.getAndRemoveItems(n, itemName);
-    }
-
     public ArrayList<Friend> getFriends() {
         return friends;
     }

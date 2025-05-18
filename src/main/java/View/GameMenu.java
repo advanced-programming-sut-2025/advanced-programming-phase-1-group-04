@@ -71,6 +71,7 @@ public class GameMenu implements AppMenu {
         }
         else if (GameMenuCommand.NextTurn.getMatcher(input) != null) {
             System.out.println(GameMenuController.nextTurn());
+            GameMenuController.printMessagesReceived();
         }
         else if (GameMenuCommand.GotoNextDay.isMatch(input)) {
             System.out.println(GameMenuController.gotoNextDay());
@@ -317,16 +318,16 @@ public class GameMenu implements AppMenu {
         }
 
         else if ((matcher = GameMenuCommand.MeetNPC.getMatcher(input)) != null) {
-            //TODO
+            System.out.println(npcController.meetNPC(matcher.group("npcName"), matcher.group("message")));
         }
         else if ((matcher = GameMenuCommand.GiftNPC.getMatcher(input)) != null) {
-            //TODO
+            System.out.println(npcController.giftNPC(matcher.group("npcName"), matcher.group("item")));
         }
         else if (GameMenuCommand.FriendShipNPCList.getMatcher(input) != null) {
-            //TODO
+            System.out.println(npcController.friendshipNPCList());
         }
         else if (GameMenuCommand.QuestList.getMatcher(input) != null) {
-            //TODO
+            System.out.println(npcController.questList());
         }
         else if ((matcher = GameMenuCommand.QuestFinish.getMatcher(input)) != null) {
             //TODO

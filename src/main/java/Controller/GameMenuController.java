@@ -1,11 +1,9 @@
 package Controller;
 
 import Controller.SirkBozorg.NightController;
-import Controller.SirkBozorg.TimeController;
 import Model.App;
 import Model.Command.Menu;
 import Model.Cooking.FoodType;
-import Model.Crafting.CraftRecipe;
 import Model.Crafting.CraftType;
 import Model.Game;
 import Model.Map.*;
@@ -101,6 +99,8 @@ public class GameMenuController {
 
         App.getCurrentGame().setMap(new GameMap(farmSelections));
         App.getCurrentGame().getMap().setFulMap();
+        App.getCurrentGame().setNPCs();
+        App.getCurrentGame().setFriends();
 
         NightController.foragingPlantsForEachFarm(new Coordinate(0, 0), new Coordinate(89, 119));
         NightController.randomForagingMinerals();
@@ -173,6 +173,7 @@ public class GameMenuController {
         int index = App.getCurrentGame().getPlayers().indexOf(App.getCurrentGame().getCurrentPlayer());
         int totalPlayers = App.getCurrentGame().getPlayers().size();
         int nextIndex = (index + 1) % totalPlayers;
+
         // update time
         if (nextIndex == 0) {
 
@@ -504,5 +505,22 @@ public class GameMenuController {
             }
             player.addToFoodRecipes(r.getRecipe());
         }
+    }
+
+    public static void printMessagesReceived() {
+        ArrayList<String> messages = App.getCurrentGame().getCurrentPlayer().getNotifications();
+        if (messages.isEmpty()) {
+            System.out.println("You have not received any notifications!");
+            return;
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append("You have received ").append(messages.size()).append(" notifications!\n\n");
+        builder.append("Messages:\n\n");
+        int counter = 0;
+        for (String notification : messages) {
+            counter++;
+            builder.append("\t").append(counter).append("- ").append(notification).append("\n");
+        }
+        System.out.println(builder.toString());
     }
 }

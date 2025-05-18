@@ -193,7 +193,7 @@ public class PlayerController {
                 //TODO: Aynaz check
             case "ingredient":
                 return getIngredient(name);
-            case "fertilize":
+            case "fertilizer":
                 return getFertilizer(name);
             case "gift":
                 return getGift(name);

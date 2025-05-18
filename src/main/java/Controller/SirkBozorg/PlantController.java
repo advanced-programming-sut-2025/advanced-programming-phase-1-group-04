@@ -86,6 +86,9 @@ public class PlantController {
         GameMenuController.moveControl();
         SeedType seedType;
         SaplingType saplingType = getSaplingTypeByName(seedName);
+        if (seedName == null) {
+            return new Result(false, "invalid seed/ sapling name!");
+        }
         if ((seedType = getSeedTypeByName(seedName)) == null && saplingType == null) {
             return new Result(false, "invalid seed/ sapling name!");
         }
@@ -93,6 +96,11 @@ public class PlantController {
             return new Result(false, "you don't have " + seedName + " in your inventory!");
         }
         if (seedType != null) {
+            if (seedName.equalsIgnoreCase("mixed seeds")) {
+                App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
+                return plantInTile(GameMenuController.getCoordinateByDirection(direction), new Seed(getRandomSeed(), true), GameMenuController.getTileByDirection(direction),
+                        App.getCurrentGame().getCurrentTime());
+            }
             App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
             return plantInTile(GameMenuController.getCoordinateByDirection(direction), new Seed(seedType, true), GameMenuController.getTileByDirection(direction),
                     App.getCurrentGame().getCurrentTime());
@@ -346,5 +354,11 @@ public class PlantController {
             }
         }
         return seeds;
+    }
+
+    private static SeedType getRandomSeed () {
+        int size = getSeasonSeeds(App.getCurrentGame().getCurrentTime().getSeason()).size();
+        int index = NightController.rand.nextInt(Math.max(0, size -1));
+        return getSeasonSeeds(App.getCurrentGame().getCurrentTime().getSeason()).get(index);
     }
 }

@@ -177,3 +177,40 @@ inventory trash -i coffee bean
 walk -l 34, 56
 show all available products
 purchase Large Pack
+
+
+
+go to game menu
+new game -u Aynaz Parsa
+game map 1
+game map 2
+game map 1
+unlimited  energy
+cheat add item -t craft -n scarecrow -c 100
+place item -n scarecrow -d w
+
+cheat add item -t seed -n mixed seeds -c 100
+cheat add item -t seed -n jazz seeds -c 100
+tools equip hoe
+walk -l 15, 15
+cheat add item -t fertilizer -n deluxe retaining soil -c 100
+print my farm
+tools use -d w
+tools use -d e
+tools use -d s
+tools use -d n
+fertilize -f deluxe relating soil -d w
+fertilize -f deluxe relating soil -d e
+plant -s jazz seeds -d b
+plant -s jazz seeds -d w
+plant -s mixed seeds -d e
+plant -s mixed seeds -d n
+plant -s mixed seeds -d s
+print my farm
+place item -n scarecrow -d ne
+print my farm
+help map
+cheat date 1d
+print my farm
+cheat date 1d
+print my farm

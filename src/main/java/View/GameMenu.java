@@ -6,6 +6,7 @@ import Controller.SirkBozorg.*;
 import Model.App;
 
 import Model.Command.GameMenuCommand;
+import Model.Command.Menu;
 import Model.Player.Player;
 import Model.Result;
 
@@ -70,6 +71,7 @@ public class GameMenu implements AppMenu {
         }
         else if (GameMenuCommand.NextTurn.getMatcher(input) != null) {
             System.out.println(GameMenuController.nextTurn());
+            GameMenuController.printMessagesReceived();
         }
         else if (GameMenuCommand.GotoNextDay.isMatch(input)) {
             System.out.println(GameMenuController.gotoNextDay());
@@ -274,65 +276,58 @@ public class GameMenu implements AppMenu {
         }
 
         else if (GameMenuCommand.FriendsShipPlayerList.getMatcher(input) != null) {
-            //TODO
+            System.out.println(InteractionController.showFriendships());
         }
         else if ((matcher = GameMenuCommand.Talk.getMatcher(input)) != null) {
-            //TODO
+            System.out.println(InteractionController.talk(matcher.group("username"), matcher.group("message")));
         }
         else if ((matcher = GameMenuCommand.TalkHistory.getMatcher(input)) != null) {
-            //TODO
+            System.out.println(InteractionController.showTalkHistory(matcher.group("username")));
         }
         else if ((matcher = GameMenuCommand.Gift.getMatcher(input)) != null) {
-            //TODO
+            System.out.println(InteractionController.gift(matcher.group("username"),
+                    matcher.group("item"), matcher.group("amount")));
         }
         else if (GameMenuCommand.GiftList.getMatcher(input) != null) {
-            //TODO
+            System.out.println(InteractionController.giftList());
         }
         else if ((matcher = GameMenuCommand.GiftRate.getMatcher(input)) != null) {
-            //TODO
+            System.out.println(InteractionController.rateGift(matcher.group("giftNumber"), matcher.group("rate")));
         }
         else if ((matcher = GameMenuCommand.GiftHistory.getMatcher(input)) != null) {
-            //TODO
+            System.out.println(InteractionController.giftHistory(matcher.group("username")));
         }
         else if ((matcher = GameMenuCommand.Hug.getMatcher(input)) != null) {
-            //TODO
+            System.out.println(InteractionController.hug(matcher.group("username")));
         }
         else if ((matcher = GameMenuCommand.Flower.getMatcher(input)) != null) {
-            //TODO
+            System.out.println(InteractionController.giveFlower(matcher.group("username")));
         }
         else if ((matcher = GameMenuCommand.AskMarriage.getMatcher(input)) != null) {
-            //TODO
+            System.out.println(InteractionController.askMarriage(matcher.group("username")));
         }
-        else if ((matcher = GameMenuCommand.RespondMarriage.getMatcher(input)) != null) {
-            //TODO
+        else if ((matcher = GameMenuCommand.RespondMarriageAccept.getMatcher(input)) != null) {
+            System.out.println(InteractionController.respondMarriage("accept", matcher.group("username")));
+        }
+        else if ((matcher = GameMenuCommand.RespondMarriageReject.getMatcher(input)) != null) {
+            System.out.println(InteractionController.respondMarriage("reject", matcher.group("username")));
         }
 
         else if (GameMenuCommand.TradeMenu.getMatcher(input) != null) {
-            //TODO
+            App.setCurrentMenu(Menu.TradeMenu);
         }
-        else if ((matcher = GameMenuCommand.Trade.getMatcher(input)) != null) {
-            //TODO
-        }
-        else if (GameMenuCommand.TradeLIst.getMatcher(input) != null) {
-            //TODO
-        }
-        else if ((matcher = GameMenuCommand.TradeRespond.getMatcher(input)) != null) {
-            //TODO
-        }
-        else if (GameMenuCommand.TradeHistory.getMatcher(input) != null) {
-            //TODO
-        }
+
         else if ((matcher = GameMenuCommand.MeetNPC.getMatcher(input)) != null) {
-            //TODO
+            System.out.println(npcController.meetNPC(matcher.group("npcName"), matcher.group("message")));
         }
         else if ((matcher = GameMenuCommand.GiftNPC.getMatcher(input)) != null) {
-            //TODO
+            System.out.println(npcController.giftNPC(matcher.group("npcName"), matcher.group("item")));
         }
         else if (GameMenuCommand.FriendShipNPCList.getMatcher(input) != null) {
-            //TODO
+            System.out.println(npcController.friendshipNPCList());
         }
         else if (GameMenuCommand.QuestList.getMatcher(input) != null) {
-            //TODO
+            System.out.println(npcController.questList());
         }
         else if ((matcher = GameMenuCommand.QuestFinish.getMatcher(input)) != null) {
             //TODO

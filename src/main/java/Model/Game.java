@@ -1,10 +1,14 @@
 package Model;
 
 import Controller.SirkBozorg.NightController;
+import Model.Interaction.Friend;
+import Model.Interaction.Talk;
 import Model.Map.Coordinate;
 import Model.Map.GameMap;
 import Model.Map.Region;
 import Model.Map.Tile;
+import Model.NPC.NPC;
+import Model.NPC.NPCType;
 import Model.Player.Player;
 import Model.Shop.Shop;
 import Model.Shop.ShopType;
@@ -31,6 +35,12 @@ public class Game {
 
     private ArrayList<Shop> shops = new ArrayList<>();
 
+    private ArrayList<NPC> npcs = new ArrayList<>();
+
+    private ArrayList<Talk> talks = new ArrayList<>();
+
+    private int tradeAmount;
+
     public Game(ArrayList<Player> players, Player currentPlayer) {
         this.players = players;
         this.mainPlayer = currentPlayer;
@@ -53,6 +63,10 @@ public class Game {
 
     public void setTomorrowWeather(Weather tomorrowWeather) {
         this.tomorrowWeather = tomorrowWeather;
+    }
+
+    public void setTradeAmount(int tradeAmount) {
+        this.tradeAmount = tradeAmount;
     }
 
     public Weather getTomorrowWeather() {
@@ -101,4 +115,57 @@ public class Game {
         this.shops = new ArrayList<>(shops);
     }
 
+    public void setNPCs() {
+        for (NPCType type : NPCType.values()) {
+            int x;
+            int y;
+            NPC npc;
+            while (true) {
+                x = NightController.rand.nextInt(30, 60);
+                y = NightController.rand.nextInt(40, 80);
+                Coordinate c = new Coordinate(x, y);
+                if (App.getCurrentGame().getTile(c).isWalkable()) {
+                    npc = new NPC(type, c);
+                    App.getCurrentGame().getTile(c).setNpc(npc);
+                    break;
+                }
+            }
+            npcs.add(npc);
+        }
+    }
+
+    public void setFriends() {
+        for (Player player : this.players) {
+            for (Player player2 : this.players) {
+                if (player.getId() == player2.getId())
+                    continue;
+                player.getFriends().add(new Friend(player2.getId()));
+            }
+        }
+    }
+
+    public void addTalk(Talk talk) {
+        this.talks.add(talk);
+    }
+
+    public ArrayList<Talk> getTalks() {
+        return this.talks;
+    }
+
+    public Player getPlayerByID(int id) {
+        for (Player player : this.players) {
+            if (player.getId() == id) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public int getTradeAmount() {
+        return tradeAmount;
+    }
+
+    public ArrayList<NPC> getNPCs() {
+        return npcs;
+    }
 }

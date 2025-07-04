@@ -5,9 +5,9 @@ import Model.App;
 import Model.Map.*;
 import Model.Player.Player;
 import Model.Result;
-import Model.Shop.CarpentersShop.CarpentersShop;
 import Model.Shop.ShopType;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -182,8 +182,7 @@ public class MapController {
         Coordinate coordinate = new Coordinate(x, y);
         BuildingType type = getBuildingType(name);
         Result result = App.getCurrentGame().getShop(ShopType.CarpentersShop).buy(name, 1, "SOS");
-        //TODO: #buy Aynaz
-
+        // TODO:  goh to in ghesmat!
         // Map error:
         if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.CarpentersShop) {
             return new Result(false, "you must be in Carpenter's Shop to be able to build an farm building!");
@@ -196,7 +195,6 @@ public class MapController {
         } else if (!hasThisBuildingType(type) && !canBuild(coordinate, type)) {
             return new Result(false, "You can't build this building here!");
         }
-
         // Shop error:
         else if (!result.isSuccessful()) {
             return result;
@@ -222,8 +220,8 @@ public class MapController {
     public static Coordinate getDestination (Player player, Coordinate destination) {
         int lenx = 90;
         int leny = 120;
-        int sourcex = player.getCoordinate().getX();
-        int sourcey = player.getCoordinate().getY();
+        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX();
+        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY();
         int destx = destination.getX();
         int desty = destination.getY();
         int[][][] dist = new int[lenx][leny][4];
@@ -253,6 +251,12 @@ public class MapController {
             Coordinate c = new Coordinate(x, y);
             if (!App.getCurrentGame().getTile(c).isWalkable())
                 continue;
+            int id = App.getCurrentGame().getCurrentPlayer().getPartnerID();
+            if (getFarmId(c) != -1 && (App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(c)
+                    || (id != -1 && App.getCurrentGame().getPlayerByID(id).getFarm() != getFarmId(c))))
+                continue;
+            if ((cost / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
+                return new Coordinate(last.getX(), last.getY());
             last.setX(x);
             last.setY(y);
             if (x == destx && y == desty)
@@ -282,7 +286,7 @@ public class MapController {
             while (c.getX() != sourcex || c.getY() != sourcey) {
                 int minimumEnergy = Math.min(Math.min(dist[c.getX()][c.getY()][0], dist[c.getX()][c.getY()][1]),
                         Math.min(dist[c.getX()][c.getY()][2], dist[c.getX()][c.getY()][3]));
-                if ((minimumEnergy + 19) / 20 <= player.getEnergy())
+                if ((minimumEnergy + 19) / 20 <= App.getCurrentGame().getCurrentPlayer().getEnergy())
                     break;
                 if (minimumEnergy == dist[c.getX()][c.getY()][0]) {
                     c = parent[c.getX()][c.getY()][0];
@@ -305,8 +309,8 @@ public class MapController {
     public static int getDestinationEnergy (Player player, Coordinate destination) {
         int lenx = 90;
         int leny = 120;
-        int sourcex = player.getCoordinate().getX();
-        int sourcey = player.getCoordinate().getY();
+        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX();
+        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY();
         int destx = destination.getX();
         int desty = destination.getY();
         int[][][] dist = new int[lenx][leny][4];
@@ -332,6 +336,12 @@ public class MapController {
             Coordinate c = new Coordinate(x, y);
             if (!App.getCurrentGame().getTile(c).isWalkable())
                 continue;
+            int id = App.getCurrentGame().getCurrentPlayer().getPartnerID();
+            if (getFarmId(c) != -1 && (App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(c)
+                    || (id != -1 && App.getCurrentGame().getPlayerByID(id).getFarm() != getFarmId(c))))
+                continue;
+            if ((cost / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
+                return ans;
             last.setX(x);
             last.setY(y);
             ans = (cost + 19) / 20;
@@ -504,17 +514,15 @@ public class MapController {
 
     private static void buildInMap(Coordinate coordinate, BuildingType type) {
         Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
-        //if (!hasThisBuildingType(type)) {
-            for (int i = coordinate.getX(); i < coordinate.getX() + type.getL(); i++) {
-                for (int j = coordinate.getY(); j < coordinate.getY() + type.getW(); j++) {
-                    Tile tile = fullMap[i][j];
-                    tile.setType(TileType.Building);
-                    tile.setBuildingType(type);
-                    tile.setWatered(false);
-                    tile.setPlowed(false);
-                }
+        for (int i = coordinate.getX(); i < coordinate.getX() + type.getL(); i++) {
+            for (int j = coordinate.getY(); j < coordinate.getY() + type.getW(); j++) {
+                Tile tile = fullMap[i][j];
+                tile.setType(TileType.Building);
+                tile.setBuildingType(type);
+                tile.setWatered(false);
+                tile.setPlowed(false);
             }
-        //}
+        }
     }
 
     private static BuildingType getBuildingType(String name) {

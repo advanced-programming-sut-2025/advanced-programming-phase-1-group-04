@@ -1,0 +1,16 @@
+package Model.Map;
+
+import Model.Shop.CarpentersShop.CarpenterStock;
+
+public class Coin implements Item {
+    @Override
+    public String getName() {
+        return "Coin";
+    }
+
+    @Override
+    public int getPrice() {
+        return 1;
+    }
+
+}

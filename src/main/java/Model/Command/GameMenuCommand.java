@@ -114,17 +114,14 @@ public enum GameMenuCommand implements Command {
     Hug("hug\\s+-u\\s+(?<username>.+)"),
     Flower("flower\\s+-u\\s+(?<username>.+)"),
     AskMarriage("ask\\s+marriage\\s+-u\\s+(?<username>.+?)\\s+-r\\s+(?<ring>.+)"),
-    RespondMarriage("respond\\s+(–accept|–reject)\\s+-u\\s+(?<username>.+)"),
+    RespondMarriageAccept("respond\\s+-accept\\s+-u\\s+(?<username>.+)"),
+    RespondMarriageReject("respond\\s+-reject\\s+-u\\s+(?<username>.+)"),
 
     // Relation Controller: Parsa
     TradeMenu("start\\s+trade"),
-    Trade("trade\\s+-u\\s+(?<username>.+?)\\s+-t\\s+(?<type>.+?)\\s+-i\\s+(?<item>.+?)\\s+-a\\s+(?<amount>\\d+)\\s+(-p\\s+(?<price>.+)|-ti\\s+(?<targetItem>.+?)\\s+-ta\\s+(?<targetAmount>.+))"),
-    TradeLIst("trade\\s+list"),
-    TradeRespond("trade\\s+response\\s+(–accept|–reject)\\s+-i\\s+(?<id>\\d+)"),
-    TradeHistory("trade\\s+history"),
 
     // NPC Controller: Parsa -> Nafiseh
-    MeetNPC("meet\\s+NPC\\s+(?<npcName>.+)"),
+    MeetNPC("meet\\s+NPC\\s+(?<npcName>.+)\\s+-m\\s+(?<message>.*)"),
     GiftNPC("gift\\s+NPC\\s+(?<npcName>.+?)\\s+-i\\s+(?<item>.+)"),
     FriendShipNPCList("friendship\\s+NPC\\s+list"),
     QuestList("quests\\s+list"),

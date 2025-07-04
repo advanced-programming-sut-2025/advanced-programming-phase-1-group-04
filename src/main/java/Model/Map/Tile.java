@@ -110,7 +110,7 @@ public class Tile {
                 }
 
                 if (this.npc != null) {
-                    return Symbols.Pavement.getColoredSymbol();
+                    return Symbols.NPC.getColoredSymbol();
                 }
 
                 if (this.animal != null) {
@@ -235,6 +235,10 @@ public class Tile {
 
     public void setFertilize(int fertilize) {
         this.fertilize = fertilize;
+    }
+
+    public void setNpc(NPC npc) {
+        this.npc = npc;
     }
 
     @Override

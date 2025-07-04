@@ -8,11 +8,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class ProfileMenu implements AppMenu {
+    //TODO: reload current user to apply changes 
     @Override
     public void check(Scanner scanner) throws IOException {
         String input = scanner.nextLine();
         Matcher matcher;
-        
+
         if ((matcher = ProfileMenuCommand.ChangeUsername.getMatcher(input)) != null) {
             System.out.println(ProfileMenuController.changeUsername(matcher.group("username")));
         } else if ((matcher = ProfileMenuCommand.ChangeNickname.getMatcher(input)) != null) {

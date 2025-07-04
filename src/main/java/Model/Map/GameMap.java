@@ -35,7 +35,7 @@ public class GameMap {
     }
 
     private Region loadRegionJson(String name) {
-        File file = new File("src/main/resources/Maps/" + name + ".json");
+        File file = new File("src/main/resources/Maps/" + name + ".json"); // TODO: این با فایل جر کار نمیکنه
 
         try (FileReader reader = new FileReader(file)) {
             Gson gson = new GsonBuilder()

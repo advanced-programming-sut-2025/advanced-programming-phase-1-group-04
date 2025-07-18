@@ -12,56 +12,72 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.StardewValley;
 
-public class StartMenuScreen implements Screen {
-    private Stage stage;
-    private final Table table;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 
-    private final TextButton signUpButton, loginButton, guestButton, exitButton;
+public class StartMenuScreen implements Screen {
+    private final Stage stage;
+    private final Table mainTable;
+
+    private final TextButton registerButton, loginButton, exitButton;
+    private Image backgroundImage, logoImage;
 
     public StartMenuScreen() {
         Skin skin = StardewValley.getSkin();
 
-        signUpButton = new TextButton("signup", skin);
-        loginButton = new TextButton("login", skin);
-        guestButton = new TextButton("guest", skin);
-        exitButton = new TextButton("exit", skin);
+        registerButton = new TextButton("Register", skin);
+        loginButton = new TextButton("Login", skin);
+        exitButton = new TextButton("Exit", skin);
 
-        table = new Table();
+        Texture backgroundTexture = new Texture(Gdx.files.internal("assets/etc/menu/menu_bg.jpg"));
+        backgroundImage = new Image(backgroundTexture);
+        Texture logoTexture = new Texture(Gdx.files.internal("assets/etc/menu/logo.jpg"));
+        logoImage = new Image(logoTexture);
+
+        mainTable = new Table();
         stage = new Stage(new ScreenViewport());
     }
 
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        table.setFillParent(true);
-        table.center().row();
 
-        table.add(signUpButton).width(200).pad(10).row();
-        table.add(loginButton).width(200).pad(10).row();
-        table.add(guestButton).width(200).pad(10).row();
-        table.add(exitButton).width(150).pad(10);
+        Stack stack = new Stack();
+        stack.setFillParent(true);
+        stack.add(backgroundImage);  // background at bottom
+        stack.add(mainTable);        // UI on top
 
-        stage.addActor(table);
+        stage.addActor(stack);
 
-        signUpButton.addListener(new ClickListener() {
+        mainTable.setFillParent(true);
+        mainTable.center().top().padTop(100);
+
+        // Add logo at the top center
+        mainTable.add(logoImage).center().padBottom(50).row();
+
+        // Horizontal row of buttons
+        Table buttonRow = new Table();
+        buttonRow.add(registerButton).width(150).pad(10);
+        buttonRow.add(loginButton).width(150).pad(10);
+        buttonRow.add(exitButton).width(150).pad(10);
+
+        mainTable.add(buttonRow).center().row();
+
+        registerButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //StardewValley.getGame().setScreen(new SignUpMenu());
+                // StardewValley.getGame().setScreen(new SignUpMenu());
             }
         });
+
         loginButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //StardewValley.getGame().setScreen(new LoginMenu());
+                // StardewValley.getGame().setScreen(new LoginMenu());
             }
         });
-        guestButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //StartMenuController.guestMode();
-                //StardewValley.getGame().setScreen(new MainMenu());
-            }
-        });
+
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -96,3 +112,4 @@ public class StartMenuScreen implements Screen {
         stage.dispose();
     }
 }
+

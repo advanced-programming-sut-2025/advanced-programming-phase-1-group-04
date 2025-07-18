@@ -1,4 +1,7 @@
 etc/icon.png
+etc/menu/logo.png
+etc/menu/menu_bg.png
+etc/menu/shash.jpg
 skin/04B_30__.fnt
 skin/NzSkin.atlas
 skin/NzSkin.json

@@ -2,12 +2,16 @@ package io.Ap.StardewValley.Screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.StardewValley;
@@ -26,14 +30,18 @@ public class StartMenuScreen implements Screen {
     public StartMenuScreen() {
         Skin skin = StardewValley.getSkin();
 
-        registerButton = new TextButton("Register", skin);
-        loginButton = new TextButton("Login", skin);
-        exitButton = new TextButton("Exit", skin);
+        registerButton = new TextButton("Register", skin, "Chicken");
+        loginButton = new TextButton("Login", skin, "Earth");
+        exitButton = new TextButton("Exit", skin, "Plant");
 
-        Texture backgroundTexture = new Texture(Gdx.files.internal("assets/etc/menu/menu_bg.jpg"));
-        backgroundImage = new Image(backgroundTexture);
-        Texture logoTexture = new Texture(Gdx.files.internal("assets/etc/menu/logo.jpg"));
-        logoImage = new Image(logoTexture);
+        Texture backgroundTexture = new Texture(Gdx.files.internal("etc/menu_bg.png"));
+        backgroundImage = new Image(new TextureRegionDrawable(new TextureRegion(backgroundTexture)));
+        Texture logoTexture = new Texture(Gdx.files.internal("etc/logo.png"));
+        logoImage = new Image(new TextureRegionDrawable(new TextureRegion(logoTexture)));
+
+//        Texture avatarTexture = new Texture(Gdx.files.internal("etc/logo.png"));
+//        logoImage = new Image(new TextureRegionDrawable(new TextureRegion(avatarTexture)));
+//        logoImage.setScale(2f);
 
         mainTable = new Table();
         stage = new Stage(new ScreenViewport());

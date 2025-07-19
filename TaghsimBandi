@@ -1,0 +1,73 @@
+phase 2: 1371 (123) -> 432
+90% >>>>> 124 - 75 = 49/3 -> 16 shash
+نوع فولدر بندی توی ویو
+--------------------
+menu: 195 -> (Nafiseh, Aynaz)
+map+weather+time: 168 -> (Nafiseh)
+energy: 45 -> (Nafiseh)
+inventory: 65 (Aynaz)
+plant: 125 -> (Nafiseh, Aynaz)
+tool: 80 -> (Aynaz)
+crafting: 35 -> (Parsa)
+cooking: 95 -> (Aynaz)
+animals: 100 -> (Parsa)
+mini game: 65 -> (Parsa)
+shop: 95 -> (Aynaz)
+npc+interaction: 208 -> (Parsa)
+---------------------
+artisan: 75 <-
+---------------------
+
+
+
+
+
+Phase 3: 1000 (205) -> 268
+75% >>>>> 195 - 145 = 50/3 -> 16 shash
+
+---------------------
+server-client: 130 -> (Parsa)
+hamzaman game: 100
+lobby: 105 -> (Parsa)
+game: 85 (-50)
+DC: 30 (-20)
+register: 20
+sql: (-100)
+reaction: 40
+interaction: 70
+shop: 10
+radio: (-35)
+scoreboard: 60
+npc dialogues+routines: 70 -> (Parsa)
+---------------------
+next day: 15 <-
+quest: 55 <-
+chat: 50 <-
+voting: 25 <-
+---------------------
+
+
+
+
+
+
+
+          >04.05.03<
+-> Parsa : server-client, lobby
+-> Nafiseh: menu, kami map
+-> Aynaz: menu, inventory
+
+          >04.05.10<
+-> Parsa:
+-> Nafiseh:
+-> Aynaz:
+
+          >04.05.17<
+-> Parsa:
+-> Nafiseh:
+-> Aynaz:
+
+          >04.05.20<
+-> Parsa:
+-> Nafiseh:
+-> Aynaz:

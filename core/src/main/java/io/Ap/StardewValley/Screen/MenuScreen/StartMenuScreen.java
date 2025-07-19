@@ -1,8 +1,7 @@
-package io.Ap.StardewValley.Screen;
+package io.Ap.StardewValley.Screen.MenuScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -11,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.StardewValley;
@@ -27,21 +26,22 @@ public class StartMenuScreen implements Screen {
     private final TextButton registerButton, loginButton, exitButton;
     private Image backgroundImage, logoImage;
 
+    private final Array<Texture> cloudTextures = new Array<>();
+    private final Array<CloudActor> cloudActors = new Array<>();
+
     public StartMenuScreen() {
         Skin skin = StardewValley.getSkin();
 
         registerButton = new TextButton("Register", skin, "Chicken");
-        loginButton = new TextButton("Login", skin, "Earth");
+        loginButton = new TextButton("Login", skin, "Strawberry");
         exitButton = new TextButton("Exit", skin, "Plant");
 
-        Texture backgroundTexture = new Texture(Gdx.files.internal("etc/menu_bg.png"));
-        backgroundImage = new Image(new TextureRegionDrawable(new TextureRegion(backgroundTexture)));
-        Texture logoTexture = new Texture(Gdx.files.internal("etc/logo.png"));
-        logoImage = new Image(new TextureRegionDrawable(new TextureRegion(logoTexture)));
 
-//        Texture avatarTexture = new Texture(Gdx.files.internal("etc/logo.png"));
-//        logoImage = new Image(new TextureRegionDrawable(new TextureRegion(avatarTexture)));
-//        logoImage.setScale(2f);
+        backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_start.png")));
+        logoImage = new Image(new Texture(Gdx.files.internal("etc/menu/logo.png")));
+        cloudTextures.add(new Texture(Gdx.files.internal("etc/menu/cloud_1.png")));
+        cloudTextures.add(new Texture(Gdx.files.internal("etc/menu/cloud_2.png")));
+        cloudTextures.add(new Texture(Gdx.files.internal("etc/menu/cloud_3.png")));
 
         mainTable = new Table();
         stage = new Stage(new ScreenViewport());
@@ -66,9 +66,9 @@ public class StartMenuScreen implements Screen {
 
         // Horizontal row of buttons
         Table buttonRow = new Table();
-        buttonRow.add(registerButton).width(150).pad(10);
-        buttonRow.add(loginButton).width(150).pad(10);
-        buttonRow.add(exitButton).width(150).pad(10);
+        buttonRow.add(registerButton).width(222).pad(10);
+        buttonRow.add(loginButton).width(222).pad(10);
+        buttonRow.add(exitButton).width(222).pad(10);
 
         mainTable.add(buttonRow).center().row();
 

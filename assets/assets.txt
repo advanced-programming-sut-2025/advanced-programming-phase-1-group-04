@@ -1,0 +1,22 @@
+defaultAvatar/avatar1.jpg
+defaultAvatar/avatar2.jpg
+defaultAvatar/avatar3.jpg
+defaultAvatar/avatar4.jpg
+defaultAvatar/avatar5.jpg
+defaultAvatar/avatar6.jpg
+defaultAvatar/avatar7.jpg
+defaultAvatar/avatar8.jpg
+etc/avatar8.jpg
+etc/icon.png
+etc/logo.png
+etc/menu_bg.png
+etc/shash.jpg
+skin/04B_30__.fnt
+skin/NzSkin.atlas
+skin/NzSkin.json
+skin/NzSkin.png
+skin/README.md
+skin/impact(1).fnt
+skin/impact(3).fnt
+skin/mac's Extended Minecraft Bold Italic.fnt
+skin/mac's Minecraft(1).fnt

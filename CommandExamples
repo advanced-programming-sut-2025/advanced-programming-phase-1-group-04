@@ -15,7 +15,6 @@ login -u Nafiseh -p Nz8421343* -stay-logged-in
 login -u Radical -p Radical1234# -stay-logged-in
 login -u Sag -p Nz8421343* -stay-logged-in
 login -u Sag -p Nz8421343*
-login -u Padkfjsl -p Nz8421343*
 
 forget password -u VahidiTabar
 
@@ -99,7 +98,7 @@ fishing -p training rod
 Sell:
 walk -l 4, 35
 cheat add item -t stone -n stone -c 10
-sell -t stone -n stone
+sell -t animal product -n egg
 
 --------------------------------------------------------------
 Weather:

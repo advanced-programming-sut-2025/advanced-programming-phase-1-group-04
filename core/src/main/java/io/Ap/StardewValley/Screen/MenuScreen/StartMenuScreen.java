@@ -75,7 +75,7 @@ public class StartMenuScreen implements Screen {
         registerButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // StardewValley.getGame().setScreen(new SignUpMenu());
+                 StardewValley.getGame().setScreen(new SignUpMenuScreen());
             }
         });
 

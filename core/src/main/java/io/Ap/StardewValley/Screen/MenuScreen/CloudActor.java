@@ -5,12 +5,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 class CloudActor extends Image {
-    private float speed;
+    private final float speed;
 
-    public CloudActor(Texture texture, float speed, float startX, float startY) {
+    public CloudActor(Texture texture, float baseSpeed, float startX, float startY, float scaleFactor) {
         super(texture);
-        this.speed = speed;
+
+        float width = getWidth() * scaleFactor;
+        float height = getHeight() * scaleFactor;
+        setSize(width, height);
+
+        setScale(scaleFactor);
+
         setPosition(startX, startY);
+        this.speed = baseSpeed * scaleFactor;
     }
 
     @Override
@@ -18,9 +25,10 @@ class CloudActor extends Image {
         super.act(delta);
         moveBy(-speed * delta, 0);
 
-        // وقتی از صفحه خارج شد، دوباره از راست وارد شود
-        if (getX() + getWidth() < 0) {
-            setX(Gdx.graphics.getWidth());
+        if (getX() + getWidth() + getWidth() < 0) {
+            float newX = Gdx.graphics.getWidth() + getWidth();
+            setX(newX);
         }
     }
 }
+

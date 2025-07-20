@@ -2,7 +2,9 @@ package io.Ap.StardewValley.Screen.MenuScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -19,6 +21,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 
+import java.util.Random;
+
 public class StartMenuScreen implements Screen {
     private final Stage stage;
     private final Table mainTable;
@@ -29,6 +33,9 @@ public class StartMenuScreen implements Screen {
     private final Array<Texture> cloudTextures = new Array<>();
     private final Array<CloudActor> cloudActors = new Array<>();
 
+    private Animation<TextureRegion> birdAnimation;
+    private float animationTime = 0f;
+
     public StartMenuScreen() {
         Skin skin = StardewValley.getSkin();
 
@@ -36,12 +43,19 @@ public class StartMenuScreen implements Screen {
         loginButton = new TextButton("Login", skin, "Strawberry");
         exitButton = new TextButton("Exit", skin, "Plant");
 
-
         backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_start.png")));
         logoImage = new Image(new Texture(Gdx.files.internal("etc/menu/logo.png")));
         cloudTextures.add(new Texture(Gdx.files.internal("etc/menu/cloud_1.png")));
         cloudTextures.add(new Texture(Gdx.files.internal("etc/menu/cloud_2.png")));
         cloudTextures.add(new Texture(Gdx.files.internal("etc/menu/cloud_3.png")));
+
+        Texture birdSheet = new Texture(Gdx.files.internal("etc/menu/bird.png"));
+        TextureRegion[][] tmp = TextureRegion.split(birdSheet, 26, 18);
+        TextureRegion[] birdFrames = new TextureRegion[4];
+        for (int i = 0; i < 4; i++)
+            birdFrames[i] = tmp[0][i];
+
+        birdAnimation = new Animation<>(0.13f, birdFrames);
 
         mainTable = new Table();
         stage = new Stage(new ScreenViewport());
@@ -53,24 +67,47 @@ public class StartMenuScreen implements Screen {
 
         Stack stack = new Stack();
         stack.setFillParent(true);
-        stack.add(backgroundImage);  // background at bottom
-        stack.add(mainTable);        // UI on top
-
         stage.addActor(stack);
+
+        stack.add(backgroundImage);
+
+        Group cloudLayer = new Group();
+        stack.add(cloudLayer);
+
+        stack.add(mainTable);
 
         mainTable.setFillParent(true);
         mainTable.center().top().padTop(100);
 
-        // Add logo at the top center
+        BirdActor bird1 = new BirdActor(birdAnimation, 1920, 375, 3f);
+        BirdActor bird2 = new BirdActor(birdAnimation, 1800, 320, 4f);
+        BirdActor bird3 = new BirdActor(birdAnimation, 1600, 350, 5f);
+        stage.addActor(bird1);
+        stage.addActor(bird2);
+        stage.addActor(bird3);
+
         mainTable.add(logoImage).center().padBottom(50).row();
 
-        // Horizontal row of buttons
         Table buttonRow = new Table();
         buttonRow.add(registerButton).width(222).pad(10);
         buttonRow.add(loginButton).width(222).pad(10);
         buttonRow.add(exitButton).width(222).pad(10);
-
         mainTable.add(buttonRow).center().row();
+
+        Random random = new Random();
+        int numberOfClouds = 8;
+        for (int i = 0; i < numberOfClouds; i++) {
+            Texture cloudTex = cloudTextures.random();
+
+            float startX = random.nextFloat() * Gdx.graphics.getWidth();
+            float startY = 360 + random.nextFloat() * Gdx.graphics.getHeight();
+            float speed = 5 + random.nextFloat() * 15;
+            float scaleFactor = 1.5f + random.nextFloat() * 0.8f;
+
+            CloudActor cloud = new CloudActor(cloudTex, speed, startX, startY, scaleFactor);
+            cloudActors.add(cloud);
+            cloudLayer.addActor(cloud);
+        }
 
         registerButton.addListener(new ClickListener() {
             @Override
@@ -118,6 +155,7 @@ public class StartMenuScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        for (Texture tex : cloudTextures) tex.dispose();
     }
 }
 

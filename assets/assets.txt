@@ -1,5 +1,6 @@
 etc/icon.png
 etc/menu/background_start.png
+etc/menu/bird.png
 etc/menu/cloud_1.png
 etc/menu/cloud_2.png
 etc/menu/cloud_3.png

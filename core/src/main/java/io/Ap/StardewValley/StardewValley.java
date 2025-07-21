@@ -18,7 +18,8 @@ public class StardewValley extends Game {
         game = this;
         batch = new SpriteBatch();
         skin = new Skin(Gdx.files.internal("skin/NzSkin.json"));
-        getGame().setScreen(new MainMenuScreen());
+        getGame().setScreen(new StartMenuScreen());
+        //        getGame().setScreen(new MainMenuScreen());
     }
 
     @Override

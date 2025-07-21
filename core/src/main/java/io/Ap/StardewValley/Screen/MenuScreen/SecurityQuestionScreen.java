@@ -112,7 +112,8 @@ public class SecurityQuestionScreen implements Screen {
                 }
 
                 if (result.isSuccessful()) {
-                    StardewValley.getGame().setScreen(new StartMenuScreen());
+//                    StardewValley.getGame().setScreen(new StartMenuScreen());
+                    StardewValley.getGame().setScreen(new MainMenuScreen());
                 }
                 else {
                     String error = result.toString();
@@ -121,7 +122,7 @@ public class SecurityQuestionScreen implements Screen {
                     errorWindow.setMovable(false);
                     errorWindow.setResizable(false);
                     errorWindow.setSize(700, 150);
-                    errorWindow.setPosition(80, stage.getHeight() - errorWindow.getHeight() - 70); // بالا سمت چپ
+                    errorWindow.setPosition(80, stage.getHeight() - errorWindow.getHeight() - 70);
 
                     Label errorLabel = new Label(error, skin);
                     errorLabel.setWrap(true);

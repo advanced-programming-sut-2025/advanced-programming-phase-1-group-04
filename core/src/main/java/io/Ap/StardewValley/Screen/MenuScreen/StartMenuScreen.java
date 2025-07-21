@@ -118,8 +118,8 @@ public class StartMenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                  StardewValley.getGame().setScreen(new LoginMenuScreen());
-            //    StardewValley.getGame().setScreen(new SecurityQuestionScreen("Aynaz"));
-                // StardewValley.getGame().setScreen(new MainMenuScreen());
+//                StardewValley.getGame().setScreen(new SecurityQuestionScreen("Aynaz"));
+//                StardewValley.getGame().setScreen(new MainMenuScreen());
 
             }
         });

@@ -2,31 +2,23 @@ package io.Ap.StardewValley.Screen.MenuScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.StardewValley;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-
-import java.util.Random;
-
-public class StartMenuScreen implements Screen {
+public class MainMenuScreen implements Screen {
     private final Stage stage;
     private final Table mainTable;
 
-    private final TextButton registerButton, loginButton, exitButton;
+    private final TextButton profileButton, gameButton, exitButton, logoutButton;
     private Image backgroundImage, logoImage;
 
     private final Array<Texture> cloudTextures = new Array<>();
@@ -34,23 +26,29 @@ public class StartMenuScreen implements Screen {
 
     private Animation<TextureRegion> birdAnimation;
 
-    public StartMenuScreen() {
+    public MainMenuScreen() {
         Skin skin = StardewValley.getSkin();
 
-        registerButton = new TextButton("Register", skin, "Chicken");
-        loginButton = new TextButton("Login", skin, "Strawberry");
+        profileButton = new TextButton("Register", skin, "Chicken");
+        gameButton = new TextButton("Login", skin, "Strawberry");
+        logoutButton = new TextButton("Register", skin, "Chicken");
         exitButton = new TextButton("Exit", skin, "Plant");
 
-        backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_start.png")));
+        backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/nimShash.png")));
         logoImage = new Image(new Texture(Gdx.files.internal("etc/menu/logo.png")));
         cloudTextures.add(new Texture(Gdx.files.internal("etc/menu/cloud_1.png")));
         cloudTextures.add(new Texture(Gdx.files.internal("etc/menu/cloud_2.png")));
         cloudTextures.add(new Texture(Gdx.files.internal("etc/menu/cloud_3.png")));
 
-        Texture birdSheet = new Texture(Gdx.files.internal("etc/menu/bird.png"));
-        TextureRegion[][] tmp = TextureRegion.split(birdSheet, 26, 18);
-        TextureRegion[] birdFrames = new TextureRegion[4];
-        System.arraycopy(tmp[0], 0, birdFrames, 0, 4);
+//        Texture birdSheet = new Texture(Gdx.files.internal("etc/gogoli/animations.png"));
+//        TextureRegion[][] tmp = TextureRegion.split(birdSheet, 64, 64);
+//        TextureRegion[] birdFrames = new TextureRegion[8];
+//        System.arraycopy(tmp[17], 0, birdFrames, 0, 8);
+
+        Texture birdSheet = new Texture(Gdx.files.internal("etc/gogoli/companions.png"));
+        TextureRegion[][] tmp = TextureRegion.split(birdSheet, 16, 16);
+        TextureRegion[] birdFrames = new TextureRegion[16];
+        System.arraycopy(tmp[0], 0, birdFrames, 0, 16);
 
         birdAnimation = new Animation<>(0.13f, birdFrames);
 
@@ -68,17 +66,17 @@ public class StartMenuScreen implements Screen {
 
         stack.add(backgroundImage);
 
-        Group cloudLayer = new Group();
-        stack.add(cloudLayer);
+//        Group cloudLayer = new Group();
+//        stack.add(cloudLayer);
 
         stack.add(mainTable);
 
         mainTable.setFillParent(true);
         mainTable.center().top().padTop(100);
 
-        animationActor bird1 = new animationActor(birdAnimation, 1920, 375, 3f, animationActor.MovementType.Liner);
-        animationActor bird2 = new animationActor(birdAnimation, 1800, 320, 4f, animationActor.MovementType.Liner);
-        animationActor bird3 = new animationActor(birdAnimation, 1600, 350, 5f, animationActor.MovementType.Liner);
+        animationActor bird1 = new animationActor(birdAnimation, 1920, 375, 1f, animationActor.MovementType.Random);
+        animationActor bird2 = new animationActor(birdAnimation, 1800, 320, 4f, animationActor.MovementType.Random);
+        animationActor bird3 = new animationActor(birdAnimation, 1600, 350, 3f, animationActor.MovementType.Random);
         stage.addActor(bird1);
         stage.addActor(bird2);
         stage.addActor(bird3);
@@ -86,41 +84,45 @@ public class StartMenuScreen implements Screen {
         mainTable.add(logoImage).center().padBottom(50).row();
 
         Table buttonRow = new Table();
-        buttonRow.add(registerButton).width(222).pad(10);
-        buttonRow.add(loginButton).width(222).pad(10);
+        buttonRow.add(profileButton).width(222).pad(10);
+        buttonRow.add(gameButton).width(222).pad(10);
+        buttonRow.add(logoutButton).width(222).pad(10);
         buttonRow.add(exitButton).width(222).pad(10);
         mainTable.add(buttonRow).center().row();
 
-        Random random = new Random();
-        int numberOfClouds = 8;
-        for (int i = 0; i < numberOfClouds; i++) {
-            Texture cloudTex = cloudTextures.random();
+//        Random random = new Random();
+//        int numberOfClouds = 8;
+//        for (int i = 0; i < numberOfClouds; i++) {
+//            Texture cloudTex = cloudTextures.random();
+//
+//            float startX = random.nextFloat() * Gdx.graphics.getWidth();
+//            float startY = 360 + random.nextFloat() * Gdx.graphics.getHeight();
+//            float speed = 5 + random.nextFloat() * 15;
+//            float scaleFactor = 1.5f + random.nextFloat() * 0.8f;
+//
+//            CloudActor cloud = new CloudActor(cloudTex, speed, startX, startY, scaleFactor);
+//            cloudActors.add(cloud);
+//            cloudLayer.addActor(cloud);
+//        }
 
-            float startX = random.nextFloat() * Gdx.graphics.getWidth();
-            float startY = 360 + random.nextFloat() * Gdx.graphics.getHeight();
-            float speed = 5 + random.nextFloat() * 15;
-            float scaleFactor = 1.5f + random.nextFloat() * 0.8f;
-
-            CloudActor cloud = new CloudActor(cloudTex, speed, startX, startY, scaleFactor);
-            cloudActors.add(cloud);
-            cloudLayer.addActor(cloud);
-        }
-
-        registerButton.addListener(new ClickListener() {
+        profileButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                StardewValley.getGame().setScreen(new SignUpMenuScreen());
-
+                //StardewValley.getGame().setScreen(new Shash());
             }
         });
 
-        loginButton.addListener(new ClickListener() {
+        gameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                 StardewValley.getGame().setScreen(new LoginMenuScreen());
-            //    StardewValley.getGame().setScreen(new SecurityQuestionScreen("Aynaz"));
-                // StardewValley.getGame().setScreen(new MainMenuScreen());
+                // StardewValley.getGame().setScreen(new LoginMenu());
+            }
+        });
 
+        logoutButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                StardewValley.getGame().setScreen(new StartMenuScreen());
             }
         });
 
@@ -159,4 +161,3 @@ public class StartMenuScreen implements Screen {
         for (Texture tex : cloudTextures) tex.dispose();
     }
 }
-

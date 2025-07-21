@@ -4,10 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.*;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.Ap.StardewValley.Controller.LoginMenuController;
+import io.Ap.StardewValley.Model.Result;
 import io.Ap.StardewValley.StardewValley;
 
 
@@ -17,6 +22,13 @@ public class SignUpMenuScreen implements Screen {
     private final Texture backgroundTexture;
     private final Image backgroundImage;
 
+    private TextField usernameField;
+    private TextField passwordField;
+    private TextField confirmPassField;
+    private TextField nicknameField;
+    private TextField emailField;
+    boolean isPassRandom = false;
+
     public SignUpMenuScreen() {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -24,6 +36,12 @@ public class SignUpMenuScreen implements Screen {
         skin = StardewValley.getSkin();
         backgroundTexture = new Texture(Gdx.files.internal("etc/menu/background_start.png"));
         backgroundImage = new Image(backgroundTexture);
+
+        usernameField = new TextField("", skin);
+        passwordField = new TextField("", skin);
+        confirmPassField = new TextField("", skin);
+        nicknameField = new TextField("", skin);
+        emailField = new TextField("", skin);
     }
 
     @Override
@@ -33,7 +51,12 @@ public class SignUpMenuScreen implements Screen {
         stage.addActor(stack);
         stack.add(backgroundImage);
 
-        Window window = new Window("Sign Up", skin);
+        Window window = new Window("", skin);
+        Label titleLabel = new Label("Register", skin, "Bold");
+        titleLabel.setAlignment(Align.center);
+        window.getTitleTable().clear();
+        window.getTitleTable().add(titleLabel).expandX().center().padTop(5).padBottom(10);
+
         window.setMovable(false);
         window.setResizable(false);
         window.setSize(1200, 800);
@@ -44,17 +67,15 @@ public class SignUpMenuScreen implements Screen {
 
         Table contentTable = new Table();
 
-        // ستون سمت چپ
+        // left column
         Table leftColumn = new Table();
         leftColumn.add(new Label("Username:", skin)).left().pad(5);
         leftColumn.row();
-        TextField usernameField = new TextField("", skin);
         leftColumn.add(usernameField).width(350).pad(5,5,5,100);
 
         leftColumn.row();
         leftColumn.add(new Label("Password:", skin)).left().pad(5);
         leftColumn.row();
-        TextField passwordField = new TextField("", skin);
 //        passwordField.setPasswordCharacter('*');
 //        passwordField.setPasswordMode(true);
         leftColumn.add(passwordField).width(350).pad(5,5,5,100);
@@ -62,7 +83,6 @@ public class SignUpMenuScreen implements Screen {
         leftColumn.row();
         leftColumn.add(new Label("Confirm Pass:", skin)).left().pad(5);
         leftColumn.row();
-        TextField confirmPassField = new TextField("", skin);
         leftColumn.add(confirmPassField).width(350).pad(5,5,5,100);
 
         leftColumn.row();
@@ -75,38 +95,77 @@ public class SignUpMenuScreen implements Screen {
         leftColumn.add(genderBox).width(350).pad(5,5,5,100);
 
 
-        // ستون سمت راست
+        // right column:
         Table rightColumn = new Table();
         rightColumn.add(new Label("Nickname:", skin)).left().pad(5);
         rightColumn.row();
-        TextField nicknameField = new TextField("", skin);
         rightColumn.add(nicknameField).width(350).pad(5);
         rightColumn.row();
 
-        rightColumn.add(new Label(" ", skin)).pad(5); // فاصله برای تراز با password
+        rightColumn.add(new Label(" ", skin)).pad(5);
         rightColumn.row();
 
+
+        // new table for dice and switch:
+        Table diceRow = new Table();
 
         ImageButton diceButton = new ImageButton(skin);
-        diceButton.addListener(new ClickListener() {
+        diceButton.setTransform(true);
+        diceButton.scaleBy(1f);
+
+        diceButton.addListener(new ChangeListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // TODO: handle dice roll
+            public void changed(ChangeEvent event, Actor actor) {
+                LoginMenuController.setRandomPass(SignUpMenuScreen.this);
+
             }
         });
-        rightColumn.add(diceButton).width(50).height(50).pad(5);
+
+        diceRow.add(diceButton).width(50).height(50).padRight(300).padTop(35);
+
+        CheckBox toggleSwitch = new CheckBox(" ", skin);
+        toggleSwitch.setChecked(false);
+
+        toggleSwitch.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (toggleSwitch.isChecked()) {
+                    LoginMenuController.setRandomPass(SignUpMenuScreen.this);
+                    isPassRandom = true;
+                }
+                else {
+                    if (isPassRandom) {
+                        passwordField.setMessageText("");
+                        confirmPassField.setMessageText("");
+                        isPassRandom = false;
+                    }
+                }
+            }
+        });
+
+//        diceRow.add(toggleSwitch).width(100).height(50);
+
+
+//        passwordField.setTextFieldListener((textField, c) -> {
+//            if (isPassRandom) {
+//                isPassRandom = false;
+//                toggleSwitch.setChecked(false);
+//            }
+//        });
+
+        rightColumn.add(diceRow).pad(0);
         rightColumn.row();
 
-        rightColumn.add(new Label("Email:", skin)).left().pad(25,5,5,5);
+
+        rightColumn.add(new Label("Email:", skin)).left().pad(0,5,5,5);
         rightColumn.row();
-        TextField emailField = new TextField("", skin);
         rightColumn.add(emailField).width(350).pad(5);
 
 
         contentTable.add(leftColumn).top().pad(10);
         contentTable.add(rightColumn).top().pad(10);
 
-        // دکمه‌های پایین
+        // back and next buttons:
         Table buttonRow = new Table();
         TextButton backButton = new TextButton("Back", skin);
         TextButton nextButton = new TextButton("Next", skin);
@@ -121,7 +180,55 @@ public class SignUpMenuScreen implements Screen {
         nextButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // TODO: handle next
+                Result result;
+                try {
+                    result = LoginMenuController.registerThroughScreen(usernameField.getText(), passwordField.getText(),
+                            confirmPassField.getText(), nicknameField.getText(), emailField.getText(), genderBox.getSelected());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (result.isSuccessful()) {
+                    StardewValley.getGame().setScreen(new SecurityQuestionScreen(usernameField.getText()));
+                }
+                else {
+                    String error = result.toString();
+
+                    Window errorWindow = new Window("Error", skin);
+                    errorWindow.setMovable(false);
+                    errorWindow.setResizable(false);
+                    errorWindow.setSize(700, 150);
+                    errorWindow.setPosition(80, stage.getHeight() - errorWindow.getHeight() - 70); // بالا سمت چپ
+
+                    Label errorLabel = new Label(error, skin);
+                    errorLabel.setWrap(true);
+                    errorLabel.setAlignment(Align.center);
+                    errorWindow.add(errorLabel).width(660).pad(10);
+
+                    stage.addActor(errorWindow);
+                    errorWindow.toFront();
+
+                    Timer.Task autoRemoveTask = new Timer.Task() {
+                        @Override
+                        public void run() {
+                            errorWindow.remove();
+                        }
+                    };
+                    Timer.schedule(autoRemoveTask, 5);
+
+                    InputListener clickAnywhereListener = new InputListener() {
+                        @Override
+                        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                            errorWindow.remove();
+                            autoRemoveTask.cancel();
+                            stage.removeListener(this);
+                            return true;
+                        }
+                    };
+                    stage.addListener(clickAnywhereListener);
+                }
+
+
             }
         });
 
@@ -160,5 +267,26 @@ public class SignUpMenuScreen implements Screen {
     public void dispose() {
         stage.dispose();
         backgroundTexture.dispose();
+    }
+
+
+    public TextField getUsernameField() {
+        return usernameField;
+    }
+
+    public TextField getPasswordField() {
+        return passwordField;
+    }
+
+    public TextField getConfirmPassField() {
+        return confirmPassField;
+    }
+
+    public TextField getNicknameField() {
+        return nicknameField;
+    }
+
+    public TextField getEmailField() {
+        return emailField;
     }
 }

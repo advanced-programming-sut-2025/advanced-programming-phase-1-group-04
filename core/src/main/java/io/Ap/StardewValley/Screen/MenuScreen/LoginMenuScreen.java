@@ -23,8 +23,9 @@ public class LoginMenuScreen implements Screen {
 
     private TextField usernameField;
     private TextField passwordField;
+    private CheckBox toggleSwitch;
 
-    boolean stayLoggedIn = false;
+    boolean stayLoggedIn;
 
     public LoginMenuScreen() {
         stage = new Stage(new ScreenViewport());
@@ -36,6 +37,42 @@ public class LoginMenuScreen implements Screen {
 
         usernameField = new TextField("", skin);
         passwordField = new TextField("", skin);
+        toggleSwitch = new CheckBox("", skin);
+        toggleSwitch.setChecked(false);
+
+        stayLoggedIn = false;
+    }
+
+    public LoginMenuScreen(String username, String password, boolean stayLoggedIn) {
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
+
+        skin = StardewValley.getSkin();
+        backgroundTexture = new Texture(Gdx.files.internal("etc/menu/background_start.png"));
+        backgroundImage = new Image(backgroundTexture);
+
+        usernameField = new TextField(username, skin);
+        passwordField = new TextField(password, skin);
+        toggleSwitch = new CheckBox("", skin);
+        toggleSwitch.setChecked(stayLoggedIn);
+
+        this.stayLoggedIn = stayLoggedIn;
+    }
+
+    public LoginMenuScreen(String username, boolean stayLoggedIn) {
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
+
+        skin = StardewValley.getSkin();
+        backgroundTexture = new Texture(Gdx.files.internal("etc/menu/background_start.png"));
+        backgroundImage = new Image(backgroundTexture);
+
+        usernameField = new TextField(username, skin);
+        passwordField = new TextField("", skin);
+        toggleSwitch = new CheckBox("", skin);
+        toggleSwitch.setChecked(stayLoggedIn);
+
+        this.stayLoggedIn = stayLoggedIn;
     }
 
     @Override
@@ -80,8 +117,6 @@ public class LoginMenuScreen implements Screen {
 
         // right column:
 
-        CheckBox toggleSwitch = new CheckBox("", skin);
-        toggleSwitch.setChecked(false);
         toggleSwitch.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -99,7 +134,52 @@ public class LoginMenuScreen implements Screen {
         forgetPassButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                StardewValley.getGame().setScreen(new StartMenuScreen());
+                Result result;
+                try {
+                    result = LoginMenuController.forgetPasswordThroughScreen(usernameField.getText());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (result.isSuccessful()) {
+                    StardewValley.getGame().setScreen(new ForgetPasswordScreen(usernameField.getText(), stayLoggedIn, result.toString()));
+                }
+                else {
+                    String error = result.toString();
+
+                    Window errorWindow = new Window("Error", skin);
+                    errorWindow.setMovable(false);
+                    errorWindow.setResizable(false);
+                    errorWindow.setSize(700, 150);
+                    errorWindow.setPosition(80, stage.getHeight() - errorWindow.getHeight() - 70);
+
+                    Label errorLabel = new Label(error, skin);
+                    errorLabel.setWrap(true);
+                    errorLabel.setAlignment(Align.center);
+                    errorWindow.add(errorLabel).width(660).pad(10);
+
+                    stage.addActor(errorWindow);
+                    errorWindow.toFront();
+
+                    Timer.Task autoRemoveTask = new Timer.Task() {
+                        @Override
+                        public void run() {
+                            errorWindow.remove();
+                        }
+                    };
+                    Timer.schedule(autoRemoveTask, 5);
+
+                    InputListener clickAnywhereListener = new InputListener() {
+                        @Override
+                        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                            errorWindow.remove();
+                            autoRemoveTask.cancel();
+                            stage.removeListener(this);
+                            return true;
+                        }
+                    };
+                    stage.addListener(clickAnywhereListener);
+                }
             }
         });
 
@@ -139,55 +219,52 @@ public class LoginMenuScreen implements Screen {
         nextButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                Result result;
-//                try {
-//                    result = LoginMenuController.registerThroughScreen(usernameField.getText(), passwordField.getText(),
-//                            confirmPassField.getText(), nicknameField.getText(), emailField.getText(), genderBox.getSelected());
-//                } catch (Exception e) {
-//                    throw new RuntimeException(e);
-//                }
-//
-//                if (result.isSuccessful()) {
-//                    StardewValley.getGame().setScreen(new SecurityQuestionScreen(usernameField.getText()));
-//                }
-//                else {
-//                    String error = result.toString();
-//
-//                    Window errorWindow = new Window("Error", skin);
-//                    errorWindow.setMovable(false);
-//                    errorWindow.setResizable(false);
-//                    errorWindow.setSize(700, 150);
-//                    errorWindow.setPosition(80, stage.getHeight() - errorWindow.getHeight() - 70); // بالا سمت چپ
-//
-//                    Label errorLabel = new Label(error, skin);
-//                    errorLabel.setWrap(true);
-//                    errorLabel.setAlignment(Align.center);
-//                    errorWindow.add(errorLabel).width(660).pad(10);
-//
-//                    stage.addActor(errorWindow);
-//                    errorWindow.toFront();
-//
-//                    Timer.Task autoRemoveTask = new Timer.Task() {
-//                        @Override
-//                        public void run() {
-//                            errorWindow.remove();
-//                        }
-//                    };
-//                    Timer.schedule(autoRemoveTask, 5);
-//
-//                    InputListener clickAnywhereListener = new InputListener() {
-//                        @Override
-//                        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                            errorWindow.remove();
-//                            autoRemoveTask.cancel();
-//                            stage.removeListener(this);
-//                            return true;
-//                        }
-//                    };
-//                    stage.addListener(clickAnywhereListener);
-//                }
+                Result result;
+                try {
+                    result = LoginMenuController.loginThroughScreen(usernameField.getText(), passwordField.getText(), stayLoggedIn);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
 
+                if (result.isSuccessful()) {
+                    StardewValley.getGame().setScreen(new MainMenuScreen());
+                }
+                else {
+                    String error = result.toString();
 
+                    Window errorWindow = new Window("Error", skin);
+                    errorWindow.setMovable(false);
+                    errorWindow.setResizable(false);
+                    errorWindow.setSize(700, 150);
+                    errorWindow.setPosition(80, stage.getHeight() - errorWindow.getHeight() - 70);
+
+                    Label errorLabel = new Label(error, skin);
+                    errorLabel.setWrap(true);
+                    errorLabel.setAlignment(Align.center);
+                    errorWindow.add(errorLabel).width(660).pad(10);
+
+                    stage.addActor(errorWindow);
+                    errorWindow.toFront();
+
+                    Timer.Task autoRemoveTask = new Timer.Task() {
+                        @Override
+                        public void run() {
+                            errorWindow.remove();
+                        }
+                    };
+                    Timer.schedule(autoRemoveTask, 5);
+
+                    InputListener clickAnywhereListener = new InputListener() {
+                        @Override
+                        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                            errorWindow.remove();
+                            autoRemoveTask.cancel();
+                            stage.removeListener(this);
+                            return true;
+                        }
+                    };
+                    stage.addListener(clickAnywhereListener);
+                }
             }
         });
 

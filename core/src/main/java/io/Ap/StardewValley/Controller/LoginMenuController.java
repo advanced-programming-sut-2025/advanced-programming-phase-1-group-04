@@ -8,6 +8,7 @@ import io.Ap.StardewValley.Model.Command.SecurityQuestion;
 import io.Ap.StardewValley.Model.Result;
 import io.Ap.StardewValley.Model.User;
 import com.google.gson.Gson;
+import io.Ap.StardewValley.Screen.MenuScreen.ForgetPasswordScreen;
 import io.Ap.StardewValley.Screen.MenuScreen.SignUpMenuScreen;
 
 
@@ -279,5 +280,81 @@ public class LoginMenuController {
         writer.close();
         return new Result(true, "User registered successfully.");
     }
+
+
+    //added by aynaz:
+    public static Result forgetPasswordThroughScreen(String username) {
+        User user = App.getUserByUsername(username);
+        if (user == null) {
+            return new Result(false, "There is no such username!");
+        }
+
+        return new Result(true, user.getSecurityQuestion());
+    }
+
+    //added by aynaz:
+    public static void setRandomPass (ForgetPasswordScreen forgetPasswordScreen) {
+        TextField newPass = forgetPasswordScreen.getNewPassField();
+        String randomPass = generatePassword();
+
+        newPass.setText(randomPass);
+    }
+
+    //added by aynaz:
+    public static Result securityAnswerThroughScreen(String username, String password, String answer) throws IOException {
+        User user = App.getUserByUsername(username);
+        if (user == null) {
+            return new Result(false, "There is no such username!");
+        } else if (!user.getAnswer().equals(answer)) {
+            return new Result(false, "Your answer is incorrect!");
+        } else if (!LoginMenuCommand.Password.isMatch(password)) {
+            return new Result(false, "Password format is invalid!");
+        } else if (password.length() < 8) {
+            return new Result(false, "password is not long enough!");
+        } else if (!password.matches(".*[a-z].*")) {
+            return new Result(false, "password must contain lowercase letters!");
+        } else if (!password.matches(".*[A-Z].*")) {
+            return new Result(false, "password must contain uppercase letters!");
+        } else if (!password.matches(".*[0-9].*")) {
+            return new Result(false, "password must contain numbers!");
+        } else if (!password.matches(".*[!@#$%^&*()_+\\-={}\\[\\]:;\"'<>,.?/|\\\\].*")) {
+            return new Result(false, "password must contain special symbols!");
+        } else if (getHashPassword(password).equals(user.getPassword())) {
+            return new Result(false, "New and old passwords are the same!");
+        }
+
+
+        user.setPassword(getHashPassword(password));
+        App.setCurrentUser(user);
+
+        Gson gson = new Gson();
+        FileWriter writer = new FileWriter("users/" + username + ".json");
+        gson.toJson(user, writer);
+        writer.close();
+
+        return new Result(true, "Your password changed successfully!");
+    }
+
+
+    //added by aynaz:
+    public static Result loginThroughScreen(String username, String password, boolean loggedIn) throws IOException {
+        User user = App.getUserByUsername(username);
+        if (user == null) {
+            return new Result(false, "There is no such username!");
+        } else if (!getHashPassword(password).equals(user.getPassword())) {
+            return new Result(false, "Password is incorrect!");
+        }
+
+        Gson gson = new Gson();
+        FileWriter writer = new FileWriter("users/loggedIn.json");
+        if (!loggedIn) gson.toJson(null, writer);
+        else gson.toJson(user, writer);
+        writer.close();
+
+        App.setCurrentUser(user);
+        App.setCurrentMenu(Menu.MainMenu);
+        return new Result(true, "You login successfully. Now you are in Main menu.");
+    }
+
 
 }

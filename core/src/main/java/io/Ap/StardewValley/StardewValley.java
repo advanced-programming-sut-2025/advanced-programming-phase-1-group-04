@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import io.Ap.StardewValley.Screen.MenuScreen.MainMenuScreen;
 import io.Ap.StardewValley.Screen.MenuScreen.StartMenuScreen;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -17,7 +18,7 @@ public class StardewValley extends Game {
         game = this;
         batch = new SpriteBatch();
         skin = new Skin(Gdx.files.internal("skin/NzSkin.json"));
-        getGame().setScreen(new StartMenuScreen());
+        getGame().setScreen(new MainMenuScreen());
     }
 
     @Override

@@ -1,0 +1,12 @@
+PHASE 2:
+Gdx:
+    1920
+    1055
+Y
+^
+|
+0,0-> X
+------------------------------
+spriteSheet:
+etc/gogoli/animations.png: 64*64
+etc/gogoli/companions.png: 16*16

@@ -1,3 +1,4 @@
+etc/cursor.png
 etc/gogoli/animations.png
 etc/gogoli/companions.png
 etc/icon.png

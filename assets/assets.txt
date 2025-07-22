@@ -1,6 +1,7 @@
 etc/gogoli/animations.png
 etc/gogoli/companions.png
 etc/icon.png
+etc/menu/background_chill.png
 etc/menu/background_night.png
 etc/menu/background_start.png
 etc/menu/bird.png
@@ -8,8 +9,6 @@ etc/menu/cloud_1.png
 etc/menu/cloud_2.png
 etc/menu/cloud_3.png
 etc/menu/logo.png
-etc/menu/nimShash.png
-etc/menu/shash2.png
 skin/04B_30__.fnt
 skin/NzSkin.atlas
 skin/NzSkin.json

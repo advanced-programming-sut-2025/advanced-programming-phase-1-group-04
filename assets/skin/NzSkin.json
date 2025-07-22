@@ -47,6 +47,12 @@
 	"anishafaf": {
 		"hex": "ffa87bff"
 	},
+	"error": {
+		"hex": "ce1f25ff"
+	},
+	"error2": {
+		"hex": "ad1400ff"
+	},
 	"ordinaryText": {
 		"hex": "221122ff"
 	},
@@ -219,6 +225,10 @@
 "WindowStyle": {
 	"default": {
 		"background": "background",
+		"titleFont": "Bold"
+	},
+	"Letter": {
+		"background": "window2",
 		"titleFont": "Bold"
 	}
 }

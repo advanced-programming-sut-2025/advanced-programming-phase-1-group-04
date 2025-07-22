@@ -58,9 +58,8 @@ public class StardewValley extends Game {
 
     private void setCustomCursor() {
         Pixmap pixmap = new Pixmap(Gdx.files.internal("etc/cursor.png"));
-        Cursor customCursor = Gdx.graphics.newCursor(pixmap, 20, 20);
+        Cursor customCursor = Gdx.graphics.newCursor(pixmap, 0, 0);
         Gdx.graphics.setCursor(customCursor);
-
         pixmap.dispose();
     }
 }

@@ -18,9 +18,8 @@ public class animationActor extends Actor {
 
     private final MovementType movementType;
 
-    // فقط برای حالت پروانه‌ای
-    private float directionAngle;     // زاویه حرکت (در رادیان)
-    private float speed = 40f;        // سرعت حرکت
+    private float directionAngle;
+    private float speed = 40f;
     private float directionChangeTimer = 0f;
 
     public animationActor(Animation<TextureRegion> animation, float x, float y, float scale, MovementType movementType) {
@@ -34,7 +33,7 @@ public class animationActor extends Actor {
         setSize(originalWidth * scale, originalHeight * scale);
 
         if (movementType == MovementType.Random) {
-            directionAngle = MathUtils.random(0f, MathUtils.PI2); // جهت تصادفی اولیه
+            directionAngle = MathUtils.random(0f, MathUtils.PI2);
         }
     }
 
@@ -44,10 +43,9 @@ public class animationActor extends Actor {
         time += delta;
 
         if (movementType == MovementType.Random) {
-            // هر چند لحظه زاویه حرکت رو کمی تغییر بده (نویز تصادفی)
             directionChangeTimer += delta;
             if (directionChangeTimer >= 0.1f) {
-                directionAngle += MathUtils.random(-0.3f, 0.3f);  // تغییر کم
+                directionAngle += MathUtils.random(-0.3f, 0.3f);
                 directionChangeTimer = 0f;
             }
 
@@ -57,7 +55,6 @@ public class animationActor extends Actor {
             float newX = getX() + dx;
             float newY = getY() + dy;
 
-            // wrap-around در لبه‌های صفحه
             if (newX > Gdx.graphics.getWidth()) newX = -getWidth();
             if (newX + getWidth() < 0) newX = Gdx.graphics.getWidth();
 
@@ -66,7 +63,6 @@ public class animationActor extends Actor {
 
             setPosition(newX, newY);
         } else {
-            // LINEAR
             float newX = getX() - speed * delta;
             if (newX + getWidth() < 0) {
                 newX = Gdx.graphics.getWidth();

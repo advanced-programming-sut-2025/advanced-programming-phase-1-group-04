@@ -24,7 +24,7 @@ backgroundPedding
   index: -1
 hScroll
   rotate: false
-  xy: 180, 659
+  xy: 635, 1494
   size: 29, 24
   split: 9, 14, 12, 11
   pad: 9, 10, 8, 10
@@ -33,7 +33,7 @@ hScroll
   index: -1
 hScrollKnob
   rotate: false
-  xy: 1673, 1819
+  xy: 1, 576
   size: 40, 24
   split: 14, 19, 10, 11
   pad: 0, 0, 0, 0
@@ -60,7 +60,7 @@ selectBox
   index: -1
 selectListBoard
   rotate: false
-  xy: 1, 584
+  xy: 180, 667
   size: 32, 16
   split: 8, 14, 6, 9
   pad: 6, 6, 5, 5
@@ -85,16 +85,25 @@ vScrollKnob
   orig: 24, 40
   offset: 0, 0
   index: -1
+window2
+  rotate: false
+  xy: 509, 1446
+  size: 124, 72
+  split: 59, 54, 31, 36
+  pad: 33, 32, 12, 12
+  orig: 124, 72
+  offset: 0, 0
+  index: -1
 checkBox
   rotate: false
-  xy: 703, 1558
+  xy: 1483, 1744
   size: 46, 49
   orig: 46, 49
   offset: 0, 0
   index: -1
 overCheckbox
   rotate: false
-  xy: 509, 1469
+  xy: 703, 1558
   size: 46, 49
   orig: 46, 49
   offset: 0, 0
@@ -150,7 +159,7 @@ selectedTas
   index: -1
 tas
   rotate: false
-  xy: 1483, 1753
+  xy: 1673, 1803
   size: 40, 40
   orig: 40, 40
   offset: 0, 0

@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.StardewValley;
@@ -19,26 +18,20 @@ public class MainMenuScreen implements Screen {
     private final Table mainTable;
 
     private final TextButton profileButton, gameButton, exitButton, logoutButton;
-    private Image backgroundImage, logoImage;
+    private final Image backgroundImage, logoImage;
 
-    private final Array<Texture> cloudTextures = new Array<>();
-    private final Array<CloudActor> cloudActors = new Array<>();
-
-    private Animation<TextureRegion> birdAnimation;
+    private final Animation<TextureRegion> butterflyAnimation;
 
     public MainMenuScreen() {
         Skin skin = StardewValley.getSkin();
 
-        profileButton = new TextButton("Register", skin, "Chicken");
-        gameButton = new TextButton("Login", skin, "Strawberry");
-        logoutButton = new TextButton("Register", skin, "Chicken");
+        profileButton = new TextButton("Profile", skin, "Chicken");
+        gameButton = new TextButton("Game", skin, "Strawberry");
+        logoutButton = new TextButton("Logout", skin, "Earth");
         exitButton = new TextButton("Exit", skin, "Plant");
 
-        backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/nimShash.png")));
+        backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_chill.png")));
         logoImage = new Image(new Texture(Gdx.files.internal("etc/menu/logo.png")));
-        cloudTextures.add(new Texture(Gdx.files.internal("etc/menu/cloud_1.png")));
-        cloudTextures.add(new Texture(Gdx.files.internal("etc/menu/cloud_2.png")));
-        cloudTextures.add(new Texture(Gdx.files.internal("etc/menu/cloud_3.png")));
 
 //        Texture birdSheet = new Texture(Gdx.files.internal("etc/gogoli/animations.png"));
 //        TextureRegion[][] tmp = TextureRegion.split(birdSheet, 64, 64);
@@ -47,10 +40,10 @@ public class MainMenuScreen implements Screen {
 
         Texture birdSheet = new Texture(Gdx.files.internal("etc/gogoli/companions.png"));
         TextureRegion[][] tmp = TextureRegion.split(birdSheet, 16, 16);
-        TextureRegion[] birdFrames = new TextureRegion[16];
-        System.arraycopy(tmp[0], 0, birdFrames, 0, 16);
+        TextureRegion[] birdFrames = new TextureRegion[4];
+        System.arraycopy(tmp[9], 0, birdFrames, 0, 4);
 
-        birdAnimation = new Animation<>(0.13f, birdFrames);
+        butterflyAnimation = new Animation<>(0.13f, birdFrames);
 
         mainTable = new Table();
         stage = new Stage(new ScreenViewport());
@@ -74,21 +67,21 @@ public class MainMenuScreen implements Screen {
         mainTable.setFillParent(true);
         mainTable.center().top().padTop(100);
 
-        animationActor bird1 = new animationActor(birdAnimation, 1920, 375, 1f, animationActor.MovementType.Random);
-        animationActor bird2 = new animationActor(birdAnimation, 1800, 320, 4f, animationActor.MovementType.Random);
-        animationActor bird3 = new animationActor(birdAnimation, 1600, 350, 3f, animationActor.MovementType.Random);
-        stage.addActor(bird1);
-        stage.addActor(bird2);
-        stage.addActor(bird3);
+        int numOfButterfly = 10;
+        for (int i = 0; i < numOfButterfly; i++) {
+            animationActor animation = new animationActor(butterflyAnimation, 1920, 375, 4f, animationActor.MovementType.Random);
+            stage.addActor(animation);
+        }
 
         mainTable.add(logoImage).center().padBottom(50).row();
 
         Table buttonRow = new Table();
-        buttonRow.add(profileButton).width(222).pad(10);
-        buttonRow.add(gameButton).width(222).pad(10);
-        buttonRow.add(logoutButton).width(222).pad(10);
-        buttonRow.add(exitButton).width(222).pad(10);
+        buttonRow.add(profileButton).width(240).pad(10);
+        buttonRow.add(gameButton).width(240).pad(10);
+        buttonRow.add(logoutButton).width(240).pad(10);
+        buttonRow.add(exitButton).width(240).pad(10);
         mainTable.add(buttonRow).center().row();
+
 
 //        Random random = new Random();
 //        int numberOfClouds = 8;
@@ -158,6 +151,5 @@ public class MainMenuScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        for (Texture tex : cloudTextures) tex.dispose();
     }
 }

@@ -27,12 +27,12 @@ public class StartMenuScreen implements Screen {
     private final Table mainTable;
 
     private final TextButton registerButton, loginButton, exitButton;
-    private Image backgroundImage, logoImage;
+    private final Image backgroundImage, logoImage;
 
     private final Array<Texture> cloudTextures = new Array<>();
     private final Array<CloudActor> cloudActors = new Array<>();
 
-    private Animation<TextureRegion> birdAnimation;
+    private final Animation<TextureRegion> birdAnimation;
 
     public StartMenuScreen() {
         Skin skin = StardewValley.getSkin();
@@ -86,9 +86,9 @@ public class StartMenuScreen implements Screen {
         mainTable.add(logoImage).center().padBottom(50).row();
 
         Table buttonRow = new Table();
-        buttonRow.add(registerButton).width(222).pad(10);
-        buttonRow.add(loginButton).width(222).pad(10);
-        buttonRow.add(exitButton).width(222).pad(10);
+        buttonRow.add(registerButton).width(240).pad(10);
+        buttonRow.add(loginButton).width(240).pad(10);
+        buttonRow.add(exitButton).width(240).pad(10);
         mainTable.add(buttonRow).center().row();
 
         Random random = new Random();

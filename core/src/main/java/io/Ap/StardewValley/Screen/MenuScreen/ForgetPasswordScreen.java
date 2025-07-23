@@ -2,6 +2,7 @@ package io.Ap.StardewValley.Screen.MenuScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -36,6 +37,7 @@ public class ForgetPasswordScreen implements Screen {
 
         skin = StardewValley.getSkin();
         backgroundTexture = new Texture(Gdx.files.internal("etc/menu/background_start.png"));
+//        backgroundTexture = new Texture(Gdx.files.internal("etc/menu/background_night.png"));
         backgroundImage = new Image(backgroundTexture);
 
         this.username = username;
@@ -124,13 +126,14 @@ public class ForgetPasswordScreen implements Screen {
                 else {
                     String error = result.toString();
 
-                    Window errorWindow = new Window("Error", skin);
+                    Window errorWindow = new Window("", skin, "Letter");
                     errorWindow.setMovable(false);
                     errorWindow.setResizable(false);
-                    errorWindow.setSize(700, 150);
-                    errorWindow.setPosition(80, stage.getHeight() - errorWindow.getHeight() - 70); // بالا سمت چپ
+                    errorWindow.setSize(700, 100);
+                    errorWindow.setPosition(80, stage.getHeight() - errorWindow.getHeight() - 100);
 
-                    Label errorLabel = new Label(error, skin);
+                    Label errorLabel = new Label(error, skin, "WhiteText");
+                    errorLabel.setColor(new Color(0.7f, 0f, 0f, 1f));
                     errorLabel.setWrap(true);
                     errorLabel.setAlignment(Align.center);
                     errorWindow.add(errorLabel).width(660).pad(10);

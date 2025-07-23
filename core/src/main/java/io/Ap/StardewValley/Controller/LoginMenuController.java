@@ -239,13 +239,13 @@ public class LoginMenuController {
         } else if (password.length() < 8) {
             return new Result(false, "password is not long enough!");
         } else if (!password.matches(".*[a-z].*")) {
-            return new Result(false, "password must contain lowercase letters!");
+            return new Result(false, "pass must contain lowercase letters!");
         } else if (!password.matches(".*[A-Z].*")) {
-            return new Result(false, "password must contain uppercase letters!");
+            return new Result(false, "pass must contain uppercase letters!");
         } else if (!password.matches(".*[0-9].*")) {
             return new Result(false, "password must contain numbers!");
         } else if (!password.matches(".*[!@#$%^&*()_+\\-={}\\[\\]:;\"'<>,.?/|\\\\].*")) {
-            return new Result(false, "password must contain special symbols!");
+            return new Result(false, "pass must contain special symbols!");
         } else if (!password.equals(rePassword)) {
             return new Result(false, "confirm password is wrong!");
         }
@@ -312,15 +312,15 @@ public class LoginMenuController {
         } else if (password.length() < 8) {
             return new Result(false, "password is not long enough!");
         } else if (!password.matches(".*[a-z].*")) {
-            return new Result(false, "password must contain lowercase letters!");
+            return new Result(false, "pass must contain lowercase letters!");
         } else if (!password.matches(".*[A-Z].*")) {
-            return new Result(false, "password must contain uppercase letters!");
+            return new Result(false, "pass must contain uppercase letters!");
         } else if (!password.matches(".*[0-9].*")) {
             return new Result(false, "password must contain numbers!");
         } else if (!password.matches(".*[!@#$%^&*()_+\\-={}\\[\\]:;\"'<>,.?/|\\\\].*")) {
-            return new Result(false, "password must contain special symbols!");
+            return new Result(false, "pass must contain special symbols!");
         } else if (getHashPassword(password).equals(user.getPassword())) {
-            return new Result(false, "New and old passwords are the same!");
+            return new Result(false, "pass is the same with the old one!");
         }
 
 
@@ -353,7 +353,7 @@ public class LoginMenuController {
 
         App.setCurrentUser(user);
         App.setCurrentMenu(Menu.MainMenu);
-        return new Result(true, "You login successfully. Now you are in Main menu.");
+        return new Result(true, "You logged in successfully. Now you are in Main menu.");
     }
 
 

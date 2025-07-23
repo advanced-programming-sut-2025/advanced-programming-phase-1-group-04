@@ -1,3 +1,4 @@
+etc/cursor.png
 etc/gogoli/animations.png
 etc/gogoli/companions.png
 etc/icon.png
@@ -9,6 +10,7 @@ etc/menu/cloud_1.png
 etc/menu/cloud_2.png
 etc/menu/cloud_3.png
 etc/menu/logo.png
+player/farmer_base.png
 skin/04B_30__.fnt
 skin/NzSkin.atlas
 skin/NzSkin.json

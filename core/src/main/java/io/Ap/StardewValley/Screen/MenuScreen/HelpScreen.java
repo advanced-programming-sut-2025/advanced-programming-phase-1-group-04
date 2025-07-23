@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -15,34 +16,32 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.StardewValley;
 
-public class MainMenuScreen implements Screen {
+import java.util.Random;
+
+public class HelpScreen implements Screen {
     private final Stage stage;
     private final Table mainTable;
 
-    private final TextButton profileButton, gameButton, exitButton, logoutButton;
-    private final Image backgroundImage, logoImage;
+    private final TextButton registerButton, loginButton, exitButton;
+    private final Image backgroundImage;
 
-    private final Array<Animation<TextureRegion>> butterflyAnimations = new Array<>();
+    private final Animation<TextureRegion> birdAnimation;
 
-    public MainMenuScreen() {
+    public HelpScreen() {
         Skin skin = StardewValley.getSkin();
 
-        profileButton = new TextButton("Profile", skin, "Chicken");
-        gameButton = new TextButton("Game", skin, "Strawberry");
-        logoutButton = new TextButton("Logout", skin, "Earth");
+        registerButton = new TextButton("Register", skin, "Chicken");
+        loginButton = new TextButton("Login", skin, "Strawberry");
         exitButton = new TextButton("Exit", skin, "Plant");
 
         backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_chill.png")));
-        logoImage = new Image(new Texture(Gdx.files.internal("etc/menu/logo.png")));
 
-        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/companions.png"));
-        TextureRegion[][] tmp = TextureRegion.split(sheet, 16, 16);
+        Texture birdSheet = new Texture(Gdx.files.internal("player/farmer_base.png"));
+        TextureRegion[][] tmp = TextureRegion.split(birdSheet, 16, 32);
+        TextureRegion[] birdFrames = new TextureRegion[18];
+        System.arraycopy(tmp[0], 0, birdFrames, 0, 18);
 
-        for (int i = 0; i < 4; i++) {
-            TextureRegion[] frames = new TextureRegion[4];
-            System.arraycopy(tmp[9], 4 * i, frames, 0, 4);
-            butterflyAnimations.add(new Animation<>(0.13f, frames));
-        }
+        birdAnimation = new Animation<>(0.13f, birdFrames);
 
         mainTable = new Table();
         stage = new Stage(new ScreenViewport());
@@ -57,58 +56,36 @@ public class MainMenuScreen implements Screen {
         stage.addActor(stack);
 
         stack.add(backgroundImage);
+
+        Group cloudLayer = new Group();
+        stack.add(cloudLayer);
+
         stack.add(mainTable);
 
         mainTable.setFillParent(true);
         mainTable.center().top().padTop(100);
 
-        int numOfButterfly = 25;
-        for (int i = 0; i < numOfButterfly; i++) {
-            Animation<TextureRegion> randomAnimation = butterflyAnimations.random();
+        animationActor bird1 = new animationActor(birdAnimation, 1920, 375, 5f, animationActor.MovementType.Liner);
+        stage.addActor(bird1);
 
-            float x = MathUtils.random(0, Gdx.graphics.getWidth());
-            float y = MathUtils.random(0, Gdx.graphics.getHeight());
-
-            float scale = MathUtils.random(1f, 5f);
-
-            animationActor butterfly = new animationActor(
-                    randomAnimation,
-                    x,
-                    y,
-                    scale,
-                    animationActor.MovementType.Random
-            );
-
-            stage.addActor(butterfly);
-        }
-
-        mainTable.add(logoImage).center().padBottom(50).row();
 
         Table buttonRow = new Table();
-        buttonRow.add(profileButton).width(240).pad(10);
-        buttonRow.add(gameButton).width(240).pad(10);
-        buttonRow.add(logoutButton).width(240).pad(10);
+        buttonRow.add(registerButton).width(240).pad(10);
+        buttonRow.add(loginButton).width(240).pad(10);
         buttonRow.add(exitButton).width(240).pad(10);
         mainTable.add(buttonRow).center().row();
 
-        profileButton.addListener(new ClickListener() {
+        registerButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 //StardewValley.getGame().setScreen(new Shash());
             }
         });
 
-        gameButton.addListener(new ClickListener() {
+        loginButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                 //StardewValley.getGame().setScreen(new HelpScreen());
-            }
-        });
-
-        logoutButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                StardewValley.getGame().setScreen(new StartMenuScreen());
+                //StardewValley.getGame().setScreen(new MainMenuScreen());
             }
         });
 

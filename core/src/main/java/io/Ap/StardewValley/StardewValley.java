@@ -2,6 +2,8 @@ package io.Ap.StardewValley;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import io.Ap.StardewValley.Screen.MenuScreen.MainMenuScreen;
@@ -18,6 +20,8 @@ public class StardewValley extends Game {
         game = this;
         batch = new SpriteBatch();
         skin = new Skin(Gdx.files.internal("skin/NzSkin.json"));
+
+        setCustomCursor();
         getGame().setScreen(new StartMenuScreen());
         //        getGame().setScreen(new MainMenuScreen());
     }
@@ -50,5 +54,12 @@ public class StardewValley extends Game {
 
     public static Skin getSkin() {
         return skin;
+    }
+
+    private void setCustomCursor() {
+        Pixmap pixmap = new Pixmap(Gdx.files.internal("etc/cursor.png"));
+        Cursor customCursor = Gdx.graphics.newCursor(pixmap, 0, 0);
+        Gdx.graphics.setCursor(customCursor);
+        pixmap.dispose();
     }
 }

@@ -97,7 +97,7 @@ public class Tree implements Item, Plant {
     }
 
     public int getCurrentStage () {
-        int daysSincePlanted = App.getCurrentGame().getCurrentTime().getDay() - plantingDate.getDay();
+        int daysSincePlanted = App.getGame().getCurrentTime().getDay() - plantingDate.getDay();
         if (daysSincePlanted < 7) {
             return 1;
         }
@@ -115,11 +115,11 @@ public class Tree implements Item, Plant {
 
     public boolean hasFruit () {
         if (lastTimeHarvested != null) {
-            if (App.getCurrentGame().getCurrentTime().getDay() - lastTimeHarvested.getDay() >= getFruitHarvestCycle()) {
+            if (App.getGame().getCurrentTime().getDay() - lastTimeHarvested.getDay() >= getFruitHarvestCycle()) {
                 return true;
             }
         }
-        if (App.getCurrentGame().getCurrentTime().getDay() - plantingDate.getDay() >= totalHarvestTime) {
+        if (App.getGame().getCurrentTime().getDay() - plantingDate.getDay() >= totalHarvestTime) {
             return true;
         }
         return false;

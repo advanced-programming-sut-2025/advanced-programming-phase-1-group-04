@@ -11,15 +11,15 @@ import java.io.IOException;
 public class App {
     private static Menu currentMenu;
     private static User currentUser;
-    private static Game currentGame = null;
+    private static Game game = null;
+    private static final KeyManager keyManager = new KeyManager();
 
-
-    public static Game getCurrentGame() {
-        return currentGame;
+    public static Game getGame() {
+        return game;
     }
 
-    public static void setCurrentGame(Game currentGame) {
-        App.currentGame = currentGame;
+    public static void setGame(Game game) {
+        App.game = game;
     }
 
     public static Menu getCurrentMenu() {
@@ -73,5 +73,9 @@ public class App {
         File[] files = folder.listFiles();
         int length = (files != null) ? files.length - 1: 0;
         return length;
+    }
+
+    public static KeyManager getKeyManager() {
+        return keyManager;
     }
 }

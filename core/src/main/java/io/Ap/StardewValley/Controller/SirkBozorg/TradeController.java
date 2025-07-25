@@ -11,7 +11,7 @@ public class TradeController {
 
     public static Result TradePrice(String username, String item, String amount, String price) {
         int id = -1;
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getUsername().equals(username)) {
                 id = player.getId();
                 break;
@@ -21,7 +21,7 @@ public class TradeController {
             return new Result(false, "Nadarim hamchin adamio.");
         }
         boolean found = false;
-        Player currentplayer = App.getCurrentGame().getCurrentPlayer();
+        Player currentplayer = App.getGame().getCurrentPlayer();
         for (Item items : currentplayer.getInventory().getItemList()) {
             if (items.getName().equals(item)) {
                 found = true;
@@ -52,12 +52,12 @@ public class TradeController {
         catch (NumberFormatException error) {
             return new Result(false, "haji ye adade dorost vared kon dige.");
         }
-        App.getCurrentGame().setTradeAmount(App.getCurrentGame().getTradeAmount() + 1);
+        App.getGame().setTradeAmount(App.getGame().getTradeAmount() + 1);
         Item item1 = currentplayer.getInventory().hasItemWithName(item);
         Trade trade = new Trade("offer", currentplayer.getId(), item1, number, priceNumber,
-                null, -1, App.getCurrentGame().getTradeAmount());
+                null, -1, App.getGame().getTradeAmount());
         currentplayer.addSentTrade(trade);
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getId() == id) {
                 player.addReceivedTrade(trade);
             }
@@ -67,8 +67,8 @@ public class TradeController {
 
     public static Result TradeItem(String username, String item, String amount, String targetItem, String targetAmount) {
         int id = -1;
-        Player currentplayer = App.getCurrentGame().getCurrentPlayer();
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        Player currentplayer = App.getGame().getCurrentPlayer();
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getUsername().equals(username)) {
                 id = player.getId();
                 break;
@@ -77,7 +77,7 @@ public class TradeController {
         if (id == -1) {
             return new Result(false, "Nadarim hamchin adamio.");
         }
-        Player targetplayer = App.getCurrentGame().getPlayerByID(id);
+        Player targetplayer = App.getGame().getPlayerByID(id);
         boolean found = false;
         for (Item items : currentplayer.getInventory().getItemList()) {
             if (items.getName().equals(item)) {
@@ -126,11 +126,11 @@ public class TradeController {
                 }
             }
         }
-        App.getCurrentGame().setTradeAmount(App.getCurrentGame().getTradeAmount() + 1);
+        App.getGame().setTradeAmount(App.getGame().getTradeAmount() + 1);
         Item item1 = currentplayer.getInventory().hasItemWithName(item);
         Item item2 = currentplayer.getInventory().hasItemWithName(targetItem);
         Trade trade = new Trade("request", currentplayer.getId(), item1, number, -1, item2,
-                numberTarget, App.getCurrentGame().getTradeAmount());
+                numberTarget, App.getGame().getTradeAmount());
         currentplayer.addSentTrade(trade);
         targetplayer.addReceivedTrade(trade);
         return new Result(true, "Request sent to " + currentplayer.getUsername() + " successfully!");
@@ -138,7 +138,7 @@ public class TradeController {
 
     public static Result TradeList() {
         StringBuilder builder = new StringBuilder();
-        Player currentplayer = App.getCurrentGame().getCurrentPlayer();
+        Player currentplayer = App.getGame().getCurrentPlayer();
         builder.append("ReceivedTrades:\n").append("________________________________\n");
         for (Trade trade : currentplayer.getReceivedTrades()) {
             builder.append("\t").append("tradeID: ").append(trade.getId()).append("\n");
@@ -158,7 +158,7 @@ public class TradeController {
     }
 
     public static Result TradeResponse(String response, String ID) {
-        Player currentPlayer = App.getCurrentGame().getCurrentPlayer();
+        Player currentPlayer = App.getGame().getCurrentPlayer();
         boolean found = false;
         int tradeID;
         try {
@@ -185,7 +185,7 @@ public class TradeController {
                             friend.addXP(-30);
                         }
                     }
-                    for (Friend friend : App.getCurrentGame().getPlayerByID(trade.getSenderID()).getFriends()) {
+                    for (Friend friend : App.getGame().getPlayerByID(trade.getSenderID()).getFriends()) {
                         if (friend.getFriendId() == currentPlayer.getId()) {
                             friend.addXP(-30);
                         }
@@ -197,7 +197,7 @@ public class TradeController {
                         if (currentPlayer.getCount() < trade.getAmount()) {
                             return new Result(false, "Pool nadari ahmaghe faghir.");
                         }
-                        for (Player player : App.getCurrentGame().getPlayers()) {
+                        for (Player player : App.getGame().getPlayers()) {
                             if (player.getId() == trade.getSenderID()) {
                                 if (player.getInventory().hasItemWithNumber(trade.getItem().getName(), trade.getAmount())) {
                                     return new Result(false, "Haji yaroo nadare felan boro badan bia.");
@@ -214,7 +214,7 @@ public class TradeController {
                                 friend.addXP(50);
                             }
                         }
-                        for (Friend friend : App.getCurrentGame().getPlayerByID(trade.getSenderID()).getFriends()) {
+                        for (Friend friend : App.getGame().getPlayerByID(trade.getSenderID()).getFriends()) {
                             if (friend.getFriendId() == currentPlayer.getId()) {
                                 friend.addXP(50);
                             }
@@ -226,7 +226,7 @@ public class TradeController {
                                 trade.getTargetItemAmount())) {
                             return new Result(false, "Item nadari ahmaghe faghir.");
                         }
-                        for (Player player : App.getCurrentGame().getPlayers()) {
+                        for (Player player : App.getGame().getPlayers()) {
                             if (player.getId() == trade.getSenderID()) {
                                 if (player.getInventory().hasItemWithNumber(trade.getItem().getName(), trade.getAmount())) {
                                     return new Result(false, "Haji yaroo nadare felan boro badan bia.");
@@ -243,7 +243,7 @@ public class TradeController {
                                 friend.addXP(50);
                             }
                         }
-                        for (Friend friend : App.getCurrentGame().getPlayerByID(trade.getSenderID()).getFriends()) {
+                        for (Friend friend : App.getGame().getPlayerByID(trade.getSenderID()).getFriends()) {
                             if (friend.getFriendId() == currentPlayer.getId()) {
                                 friend.addXP(50);
                             }
@@ -259,7 +259,7 @@ public class TradeController {
 
     public static Result TradeHistory() {
         StringBuilder builder = new StringBuilder();
-        Player currentplayer = App.getCurrentGame().getCurrentPlayer();
+        Player currentplayer = App.getGame().getCurrentPlayer();
         builder.append("TradeHistory:\n\n");
         builder.append("ReceivedTrades:\n").append("________________________________\n");
         for (Trade trade : currentplayer.getReceivedTrades()) {

@@ -10,7 +10,6 @@ import io.Ap.StardewValley.Model.Cooking.FoodType;
 import io.Ap.StardewValley.Model.Cooking.Ingredient;
 import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Item;
-import io.Ap.StardewValley.Model.Plants.*;
 import io.Ap.StardewValley.Model.Plants.Crop;
 import io.Ap.StardewValley.Model.Plants.ForagingCrop;
 import io.Ap.StardewValley.Model.Plants.Fruit;
@@ -19,11 +18,11 @@ import io.Ap.StardewValley.Model.Result;
 
 public class FoodController {
     public static Result refrigeratorPick (String itemName) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        Player player = App.getCurrentGame().getCurrentPlayer();
+        Player player = App.getGame().getCurrentPlayer();
         Item item;
         if (itemName == null) {
             return new Result (false, "invalid item name!");
@@ -38,11 +37,11 @@ public class FoodController {
     }
 
     public static Result refrigeratorPut (String itemName) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        Player player = App.getCurrentGame().getCurrentPlayer();
+        Player player = App.getGame().getCurrentPlayer();
         Item item;
         if (itemName == null) {
             return new Result (false, "invalid item name!");
@@ -62,24 +61,24 @@ public class FoodController {
     }
 
     public static Result showRecipes () {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
         String result = "Cooking recipes:\n";
-        for (FoodRecipe r : App.getCurrentGame().getCurrentPlayer().getFoodRecipes()) {
+        for (FoodRecipe r : App.getGame().getCurrentPlayer().getFoodRecipes()) {
             result = result + r.getName() + ": " + r.getRecipeString() + "\n";
         }
         return new Result(true, result);
     }
 
     public static Result cook (String foodName) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        Player player = App.getCurrentGame().getCurrentPlayer();
-        if (App.getCurrentGame().getTile(player.getCoordinate()).getBuildingType() != BuildingType.House) {
+        Player player = App.getGame().getCurrentPlayer();
+        if (App.getGame().getTile(player.getCoordinate()).getBuildingType() != BuildingType.House) {
             return new Result(false, "you must be at home for using this command!");
         }
         if (foodName == null) {
@@ -104,24 +103,24 @@ public class FoodController {
             return canMakeFood(recipe);
         }
         for (Item i : recipe.getRecipe().keySet()) {
-            if (!App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(i.getName(), recipe.getRecipe().get(i))) {
-                App.getCurrentGame().getCurrentPlayer().removeItemFromRefrigerator(i.getName(), recipe.getRecipe().get(i));
+            if (!App.getGame().getCurrentPlayer().removeItemFromInventory(i.getName(), recipe.getRecipe().get(i))) {
+                App.getGame().getCurrentPlayer().removeItemFromRefrigerator(i.getName(), recipe.getRecipe().get(i));
             }
         }
         if (findFoodType(recipe) == null) {
             return new Result(false, "invalid craft name!"); //never happens (inshallah)
         }
-        App.getCurrentGame().getCurrentPlayer().addEnergy(-3);
-        App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Food(findFoodType(recipe)), 1);
+        App.getGame().getCurrentPlayer().addEnergy(-3);
+        App.getGame().getCurrentPlayer().addItemToInventory(new Food(findFoodType(recipe)), 1);
         return new Result(false, foodName + " added to inventory.");
     }
 
     public static Result eat (String foodName) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        Player player = App.getCurrentGame().getCurrentPlayer();
+        Player player = App.getGame().getCurrentPlayer();
         if (foodName == null) {
             return new Result(false, "invalid food name!");
         }
@@ -161,7 +160,7 @@ public class FoodController {
     }
 
     public static FoodRecipe findFoodRecipe (String name) {
-        for (FoodRecipe r : App.getCurrentGame().getCurrentPlayer().getFoodRecipes()) {
+        for (FoodRecipe r : App.getGame().getCurrentPlayer().getFoodRecipes()) {
             if (r.getName().equalsIgnoreCase(name)) {
                 return r;
             }
@@ -171,8 +170,8 @@ public class FoodController {
 
     public static Result canMakeFood (FoodRecipe r) {
         for (Item i : r.getRecipe().keySet()) {
-            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber(i.getName(), r.getRecipe().get(i)) &&
-                    !App.getCurrentGame().getCurrentPlayer().getRefrigerator().hasItemWithNumber(i.getName(), r.getRecipe().get(i))) {
+            if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber(i.getName(), r.getRecipe().get(i)) &&
+                    !App.getGame().getCurrentPlayer().getRefrigerator().hasItemWithNumber(i.getName(), r.getRecipe().get(i))) {
                 return new Result (false, "you don't have enough " + i.getName() + " in your inventory!");
             }
         }

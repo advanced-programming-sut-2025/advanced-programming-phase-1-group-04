@@ -17,8 +17,8 @@ public class ForagingCrop implements Item, Plant {
     public ForagingCrop (ForagingCropType type, boolean purposelyPlanted) {
         this.type = type;
         this.purposelyPlanted = purposelyPlanted;
-        plantingDate = new DateAndTime(App.getCurrentGame().getCurrentTime().getHour(),
-                App.getCurrentGame().getCurrentTime().getDay(), App.getCurrentGame().getCurrentTime().getWeather());
+        plantingDate = new DateAndTime(App.getGame().getCurrentTime().getHour(),
+                App.getGame().getCurrentTime().getDay(), App.getGame().getCurrentTime().getWeather());
     }
 
     public ForagingCrop (DateAndTime t, ForagingCropType type, boolean purposelyPlanted) {

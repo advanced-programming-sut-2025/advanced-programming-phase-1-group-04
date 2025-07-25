@@ -42,7 +42,7 @@ public enum SpringSeeds {
 
 
     public int getPrice() {
-        if (App.getCurrentGame().getCurrentTime().getSeason() == Season.Spring)
+        if (App.getGame().getCurrentTime().getSeason() == Season.Spring)
             return (price * 2) / 3;
         else
             return price;

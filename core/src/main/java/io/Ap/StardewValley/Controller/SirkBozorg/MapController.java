@@ -3,7 +3,6 @@ package io.Ap.StardewValley.Controller.SirkBozorg;
 import io.Ap.StardewValley.Controller.GameMenuController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.*;
-import io.Ap.StardewValley.Model.Map.*;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Result;
 import io.Ap.StardewValley.Model.Shop.ShopType;
@@ -14,12 +13,12 @@ import java.util.PriorityQueue;
 
 public class MapController {
     public static Result printAllMap() {
-        return new Result(true, App.getCurrentGame().getMap().toString());
+        return new Result(true, App.getGame().getMap().toString());
     }
 
     public static Result printFarm() {
         int i = 0, j = 0;
-        switch (App.getCurrentGame().getCurrentPlayer().getFarm()) {
+        switch (App.getGame().getCurrentPlayer().getFarm()) {
             case 2:
                 j = 2;
                 break;
@@ -31,11 +30,11 @@ public class MapController {
                 i = 2;
                 break;
         }
-        return new Result(true, App.getCurrentGame().getMap().getRegion(i, j).toString());
+        return new Result(true, App.getGame().getMap().getRegion(i, j).toString());
     }
 
     public static Result printMap(String stringX, String stringY, String stringSize) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
@@ -50,16 +49,16 @@ public class MapController {
         }
 
         StringBuilder result = new StringBuilder();
-        Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
+        Tile[][] fullMap = App.getGame().getMap().getFullMap();
         for (int i = x; i < x + size; i++){
             for(int j = y; j < y +size; j++) {
                 result.append(" ");
                 Coordinate coordinate = new Coordinate(i, j);
                 boolean isPlayer = false;
-                for (Player player: App.getCurrentGame().getPlayers()) {
+                for (Player player: App.getGame().getPlayers()) {
                     if (player.getCoordinate().equals(coordinate)) {
                         isPlayer = true;
-                        if (player.getId() == App.getCurrentGame().getCurrentPlayer().getId())
+                        if (player.getId() == App.getGame().getCurrentPlayer().getId())
                             result.append(Symbols.CurrentPlayer.getColoredSymbol());
                         else
                             result.append(Symbols.Player.getColoredSymbol());
@@ -75,7 +74,7 @@ public class MapController {
     }
 
     public static Result helpMap(){
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
@@ -96,24 +95,24 @@ public class MapController {
             return new Result(false, "Mashti x,y bein (0,0) - (89, 119)");
         }
 
-        return new Result(true, App.getCurrentGame().getTile(coordinate).toString());
+        return new Result(true, App.getGame().getTile(coordinate).toString());
     }
 
     public static Result walk(String stringX, String stringY) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
         int x = Integer.parseInt(stringX);
         int y = Integer.parseInt(stringY);
         Coordinate coordinate = new Coordinate(x, y);
-        int energy = getDestinationEnergy(App.getCurrentGame().getCurrentPlayer(),coordinate);
+        int energy = getDestinationEnergy(App.getGame().getCurrentPlayer(),coordinate);
 
         if ((x < 0 || x >= 90) || (y < 0 || y >= 120)) {
             return new Result(false, "Mashti x,y bein (0,0) - (89, 119)!");
         } else if (energy == -1) {
             return new Result(false, "You can't go there!");
-        } else if (getFarmId(coordinate) != -1 && App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(coordinate)) {   // TODO: if when married
+        } else if (getFarmId(coordinate) != -1 && App.getGame().getCurrentPlayer().getFarm() != getFarmId(coordinate)) {   // TODO: if when married
             return new Result(false, "You can't go in others farm!");
         } else if (handleWorkingHours(coordinate) != null) {
             return handleWorkingHours(coordinate);
@@ -127,7 +126,7 @@ public class MapController {
         int x = Integer.parseInt(stringX);
         int y = Integer.parseInt(stringY);
         Coordinate coordinate = new Coordinate(x, y);
-        Player player = App.getCurrentGame().getCurrentPlayer();
+        Player player = App.getGame().getCurrentPlayer();
         int energy = getDestinationEnergy(player, coordinate);
 
         if (!input.toLowerCase().contains("yes")) {
@@ -135,17 +134,17 @@ public class MapController {
         }
 
         Coordinate newCoordinate = getDestination(player, coordinate);
-        App.getCurrentGame().getCurrentPlayer().setCoordinate(newCoordinate);
-        App.getCurrentGame().getCurrentPlayer().addEnergy(-energy);
+        App.getGame().getCurrentPlayer().setCoordinate(newCoordinate);
+        App.getGame().getCurrentPlayer().addEnergy(-energy);
         return new Result(true, "You successfully go to (" + newCoordinate.getX() +", " + newCoordinate.getY() + ")");
     }
 
     public static Result buildGreenHouse() {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        Player player = App.getCurrentGame().getCurrentPlayer();
+        Player player = App.getGame().getCurrentPlayer();
         if (player.getCount() < 1000) {
             return new Result(false, "You don't have enough money!(1000 dollars)");
         } else if (!player.getInventory().hasItemWithNumber("Stone", 500)) {
@@ -168,12 +167,12 @@ public class MapController {
                 break;
         }
 
-        App.getCurrentGame().getMap().build(x, y, BuildingType.GreenHouserBuild);
+        App.getGame().getMap().build(x, y, BuildingType.GreenHouserBuild);
         return new Result(true, "Now you have Greenhouse:)");
     }
 
     public static Result buildFarmBuilding(String name, String stringX, String stringY){
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
@@ -181,14 +180,14 @@ public class MapController {
         int y = Integer.parseInt(stringY);
         Coordinate coordinate = new Coordinate(x, y);
         BuildingType type = getBuildingType(name);
-        Result result = App.getCurrentGame().getShop(ShopType.CarpentersShop).buy(name, 1, "SOS");
+        Result result = App.getGame().getShop(ShopType.CarpentersShop).buy(name, 1, "SOS");
         // TODO:  goh to in ghesmat!
         // Map error:
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.CarpentersShop) {
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.CarpentersShop) {
             return new Result(false, "you must be in Carpenter's Shop to be able to build an farm building!");
         } else if ((x < 0 || x >= 90) || (y < 0 || y >= 120)) {
             return new Result(false, "Mashti x,y bein (0,0) - (89, 119)");
-        } else if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(coordinate)) {
+        } else if (!App.getGame().getCurrentPlayer().isMyFarm(coordinate)) {
             return new Result(false, "You can only build farm buildings on your own farm!");
         } else if (type == null) {
             return new Result(false, "Building name is invalid!");
@@ -205,13 +204,13 @@ public class MapController {
     }
 
     public static Result showListFarmBuilding() {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
         StringBuilder result = new StringBuilder();
         result.append("My Farm Building List:\n").append("_______________________________________\n");
-        for (FarmBuilding farmBuilding: App.getCurrentGame().getCurrentPlayer().getMyFarmBuildings()) {
+        for (FarmBuilding farmBuilding: App.getGame().getCurrentPlayer().getMyFarmBuildings()) {
             result.append("Name: ").append(farmBuilding.getName()).append("\n");
         }
         return new Result(true, result.toString());
@@ -220,8 +219,8 @@ public class MapController {
     public static Coordinate getDestination (Player player, Coordinate destination) {
         int lenx = 90;
         int leny = 120;
-        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX();
-        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY();
+        int sourcex = App.getGame().getCurrentPlayer().getCoordinate().getX();
+        int sourcey = App.getGame().getCurrentPlayer().getCoordinate().getY();
         int destx = destination.getX();
         int desty = destination.getY();
         int[][][] dist = new int[lenx][leny][4];
@@ -249,13 +248,13 @@ public class MapController {
             int y = cur[2];
             int dir = cur[3];
             Coordinate c = new Coordinate(x, y);
-            if (!App.getCurrentGame().getTile(c).isWalkable())
+            if (!App.getGame().getTile(c).isWalkable())
                 continue;
-            int id = App.getCurrentGame().getCurrentPlayer().getPartnerID();
-            if (getFarmId(c) != -1 && (App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(c)
-                    || (id != -1 && App.getCurrentGame().getPlayerByID(id).getFarm() != getFarmId(c))))
+            int id = App.getGame().getCurrentPlayer().getPartnerID();
+            if (getFarmId(c) != -1 && (App.getGame().getCurrentPlayer().getFarm() != getFarmId(c)
+                    || (id != -1 && App.getGame().getPlayerByID(id).getFarm() != getFarmId(c))))
                 continue;
-            if ((cost / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
+            if ((cost / 20) > App.getGame().getCurrentPlayer().getEnergy())
                 return new Coordinate(last.getX(), last.getY());
             last.setX(x);
             last.setY(y);
@@ -286,7 +285,7 @@ public class MapController {
             while (c.getX() != sourcex || c.getY() != sourcey) {
                 int minimumEnergy = Math.min(Math.min(dist[c.getX()][c.getY()][0], dist[c.getX()][c.getY()][1]),
                         Math.min(dist[c.getX()][c.getY()][2], dist[c.getX()][c.getY()][3]));
-                if ((minimumEnergy + 19) / 20 <= App.getCurrentGame().getCurrentPlayer().getEnergy())
+                if ((minimumEnergy + 19) / 20 <= App.getGame().getCurrentPlayer().getEnergy())
                     break;
                 if (minimumEnergy == dist[c.getX()][c.getY()][0]) {
                     c = parent[c.getX()][c.getY()][0];
@@ -309,8 +308,8 @@ public class MapController {
     public static int getDestinationEnergy (Player player, Coordinate destination) {
         int lenx = 90;
         int leny = 120;
-        int sourcex = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX();
-        int sourcey = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY();
+        int sourcex = App.getGame().getCurrentPlayer().getCoordinate().getX();
+        int sourcey = App.getGame().getCurrentPlayer().getCoordinate().getY();
         int destx = destination.getX();
         int desty = destination.getY();
         int[][][] dist = new int[lenx][leny][4];
@@ -334,13 +333,13 @@ public class MapController {
             int y = cur[2];
             int dir = cur[3];
             Coordinate c = new Coordinate(x, y);
-            if (!App.getCurrentGame().getTile(c).isWalkable())
+            if (!App.getGame().getTile(c).isWalkable())
                 continue;
-            int id = App.getCurrentGame().getCurrentPlayer().getPartnerID();
-            if (getFarmId(c) != -1 && (App.getCurrentGame().getCurrentPlayer().getFarm() != getFarmId(c)
-                    || (id != -1 && App.getCurrentGame().getPlayerByID(id).getFarm() != getFarmId(c))))
+            int id = App.getGame().getCurrentPlayer().getPartnerID();
+            if (getFarmId(c) != -1 && (App.getGame().getCurrentPlayer().getFarm() != getFarmId(c)
+                    || (id != -1 && App.getGame().getPlayerByID(id).getFarm() != getFarmId(c))))
                 continue;
-            if ((cost / 20) > App.getCurrentGame().getCurrentPlayer().getEnergy())
+            if ((cost / 20) > App.getGame().getCurrentPlayer().getEnergy())
                 return ans;
             last.setX(x);
             last.setY(y);
@@ -428,8 +427,8 @@ public class MapController {
     }*/
 
     private static Result handleWorkingHours(Coordinate coordinate) {
-        BuildingType buildingType = App.getCurrentGame().getTile(coordinate).getBuildingType();
-        int h = App.getCurrentGame().getCurrentTime().getHour();
+        BuildingType buildingType = App.getGame().getTile(coordinate).getBuildingType();
+        int h = App.getGame().getCurrentTime().getHour();
         if (buildingType == null) return null;
         switch (buildingType) {
             case Blacksmith:
@@ -496,7 +495,7 @@ public class MapController {
     }
 
     private static boolean canBuild(Coordinate coordinate, BuildingType type) {
-        Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
+        Tile[][] fullMap = App.getGame().getMap().getFullMap();
         for (int i = coordinate.getX(); i < coordinate.getX() + type.getL(); i++) {
             for (int j = coordinate.getY(); j < coordinate.getY() + type.getW(); j++) {
                 Tile tile = fullMap[i][j];
@@ -513,7 +512,7 @@ public class MapController {
     }
 
     private static void buildInMap(Coordinate coordinate, BuildingType type) {
-        Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
+        Tile[][] fullMap = App.getGame().getMap().getFullMap();
         for (int i = coordinate.getX(); i < coordinate.getX() + type.getL(); i++) {
             for (int j = coordinate.getY(); j < coordinate.getY() + type.getW(); j++) {
                 Tile tile = fullMap[i][j];
@@ -536,7 +535,7 @@ public class MapController {
     }
 
     private static boolean hasThisBuildingType(BuildingType type)  {
-        for (FarmBuilding farmBuilding: App.getCurrentGame().getCurrentPlayer().getMyFarmBuildings()) {
+        for (FarmBuilding farmBuilding: App.getGame().getCurrentPlayer().getMyFarmBuildings()) {
             if (farmBuilding.getType().getType().equals(type)) {
                 return true;
             }

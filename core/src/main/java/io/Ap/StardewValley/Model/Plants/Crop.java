@@ -44,8 +44,8 @@ public class Crop implements Item, Plant {
     }
 
     public Crop(CropType type, double qualityConst) {
-        this.plantingDate = new DateAndTime(App.getCurrentGame().getCurrentTime().getHour(),
-                App.getCurrentGame().getCurrentTime().getDay(), App.getCurrentGame().getCurrentTime().getWeather());
+        this.plantingDate = new DateAndTime(App.getGame().getCurrentTime().getHour(),
+                App.getGame().getCurrentTime().getDay(), App.getGame().getCurrentTime().getWeather());
         this.type = type;
         this.purposelyPlanted = true;
         totalHarvestTime = type.getHarvestTime();
@@ -115,7 +115,7 @@ public class Crop implements Item, Plant {
     public int getCurrentStage () {
         int stageTime = getHarvestTime();
         int currentStage = getStages().length + 1;
-        int daysSincePlanted = App.getCurrentGame().getCurrentTime().getDay() - plantingDate.getDay();//TODO: in moshkel dare
+        int daysSincePlanted = App.getGame().getCurrentTime().getDay() - plantingDate.getDay();//TODO: in moshkel dare
         if (lastTimeHarvested == null) {
             if (daysSincePlanted >= stageTime) {
                 return currentStage;
@@ -129,7 +129,7 @@ public class Crop implements Item, Plant {
             }
         }
         else {
-            if (App.getCurrentGame().getCurrentTime().getDay() - lastTimeHarvested.getDay() >= getRegrowthTime()) {
+            if (App.getGame().getCurrentTime().getDay() - lastTimeHarvested.getDay() >= getRegrowthTime()) {
                 return getStages().length;
             }
             else {
@@ -161,7 +161,7 @@ public class Crop implements Item, Plant {
             return true;
         }
         if (lastTimeHarvested == null) {
-            if (App.getCurrentGame().getCurrentTime().getDay() - plantingDate.getDay() >= totalHarvestTime) {
+            if (App.getGame().getCurrentTime().getDay() - plantingDate.getDay() >= totalHarvestTime) {
                 return true;
             }
             return false;

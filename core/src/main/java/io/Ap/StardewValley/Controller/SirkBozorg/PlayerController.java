@@ -23,12 +23,12 @@ import io.Ap.StardewValley.Model.Result;
 public class PlayerController {
 
     public static Result showEnergy () {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        return new Result(true, "player " + App.getCurrentGame().getCurrentPlayer().getUsername() + " energy: " +
-                App.getCurrentGame().getCurrentPlayer().getEnergy());
+        return new Result(true, "player " + App.getGame().getCurrentPlayer().getUsername() + " energy: " +
+                App.getGame().getCurrentPlayer().getEnergy());
     }
 
     public static Result cheatEnergy (String value) {
@@ -36,27 +36,27 @@ public class PlayerController {
         if (!isParsableInt(value) || (v = Integer.parseInt(value)) < 0) {
             return new Result (false, "value must be a non-negative number!");
         }
-        App.getCurrentGame().getCurrentPlayer().setEnergy(v);
-        if (v > App.getCurrentGame().getCurrentPlayer().getMaxEnergy()) {
-            App.getCurrentGame().getCurrentPlayer().setMaxEnergy(v);
+        App.getGame().getCurrentPlayer().setEnergy(v);
+        if (v > App.getGame().getCurrentPlayer().getMaxEnergy()) {
+            App.getGame().getCurrentPlayer().setMaxEnergy(v);
         }
-        return new Result (true, "player " + App.getCurrentGame().getCurrentPlayer().getUsername() +
+        return new Result (true, "player " + App.getGame().getCurrentPlayer().getUsername() +
                 " energy is now " + value);
     }
 
     public static Result unlimitedEnergy () {
-        App.getCurrentGame().getCurrentPlayer().setMaxEnergy(Integer.MAX_VALUE);
-        App.getCurrentGame().getCurrentPlayer().setMaxMovesInTurn(Integer.MAX_VALUE);
+        App.getGame().getCurrentPlayer().setMaxEnergy(Integer.MAX_VALUE);
+        App.getGame().getCurrentPlayer().setMaxMovesInTurn(Integer.MAX_VALUE);
         return new Result (true, "your max energy is now infinite.");
     }
 
     public static Result showInventory () {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
         String result = "items in inventory:\n";
-        Inventory inventory = App.getCurrentGame().getCurrentPlayer().getInventory();
+        Inventory inventory = App.getGame().getCurrentPlayer().getInventory();
         if (inventory.getItems().isEmpty()) {
             return new Result(true, "hich ani nadari");
         }
@@ -68,7 +68,7 @@ public class PlayerController {
     }
 
     public static Result inventoryTrash (String itemName, String number) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
@@ -79,7 +79,7 @@ public class PlayerController {
         if (itemName == null) {
             return new Result(false, "invalid item name!");
         }
-        else if (!App.getCurrentGame().getCurrentPlayer().moveItemFromInventoryToTrash(itemName, quantity)) {
+        else if (!App.getGame().getCurrentPlayer().moveItemFromInventoryToTrash(itemName, quantity)) {
             return new Result(false, "you don't have this amount of " +
                     itemName + " in your inventory!");
         }
@@ -90,14 +90,14 @@ public class PlayerController {
     }
 
     public static Result inventoryTrashWithoutNumber (String itemName) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
         if (itemName == null) {
             return new Result(false, "invalid item name!");
         }
-        if (!App.getCurrentGame().getCurrentPlayer().moveItemFromInventoryToTrash(itemName, -1)) {
+        if (!App.getGame().getCurrentPlayer().moveItemFromInventoryToTrash(itemName, -1)) {
             return new Result(false, "you don't have " +
                     itemName + " in your inventory!");
         }
@@ -105,11 +105,11 @@ public class PlayerController {
     }
 
     public static Result showAbility() {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        Player player = App.getCurrentGame().getCurrentPlayer();
+        Player player = App.getGame().getCurrentPlayer();
         String result = "ability levels:\nfarming : " + player.getAbilityLevel(Skill.Farming) +
                 "\nmining : " + player.getAbilityLevel(Skill.Mining) + "\nforaging : " +
                 player.getAbilityLevel(Skill.Foraging) + "\nfishing : " + player.getAbilityLevel(Skill.Fishing);
@@ -122,7 +122,7 @@ public class PlayerController {
         int count = Integer.parseInt(stringCount);
         Item item = getItemByTypeName(type, name);
 
-        if (App.getCurrentGame().getCurrentPlayer().getInventory().getRemainedCapacity() < 1) { // TODO: Aynaz نمیدونم چطور مشخص میکنی جا داره یا نه ولی ارور مربوطه
+        if (App.getGame().getCurrentPlayer().getInventory().getRemainedCapacity() < 1) { // TODO: Aynaz نمیدونم چطور مشخص میکنی جا داره یا نه ولی ارور مربوطه
             return new Result(false, "no space");
         } else if (count < 1) {
             return new Result(false, "Count must be a positive number!");
@@ -136,7 +136,7 @@ public class PlayerController {
             return new Result(false, "Name is invalid!");
         }
 
-        App.getCurrentGame().getCurrentPlayer().getInventory().addItem(item, count);
+        App.getGame().getCurrentPlayer().getInventory().addItem(item, count);
         return new Result(true, "Now you have " + count +" of " + name + " in your inventory");
     }
 

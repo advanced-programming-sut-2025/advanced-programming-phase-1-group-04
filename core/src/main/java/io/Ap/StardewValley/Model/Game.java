@@ -121,9 +121,9 @@ public class Game {
                 x = NightController.rand.nextInt(30, 60);
                 y = NightController.rand.nextInt(40, 80);
                 Coordinate c = new Coordinate(x, y);
-                if (App.getCurrentGame().getTile(c).isWalkable()) {
+                if (App.getGame().getTile(c).isWalkable()) {
                     npc = new NPC(type, c);
-                    App.getCurrentGame().getTile(c).setNpc(npc);
+                    App.getGame().getTile(c).setNpc(npc);
                     break;
                 }
             }

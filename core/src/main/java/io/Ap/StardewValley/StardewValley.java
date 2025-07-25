@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import io.Ap.StardewValley.Screen.MenuScreen.HelpScreen;
 import io.Ap.StardewValley.Screen.MenuScreen.MainMenuScreen;
 import io.Ap.StardewValley.Screen.MenuScreen.StartMenuScreen;
 
@@ -23,7 +24,7 @@ public class StardewValley extends Game {
 
         setCustomCursor();
 
-        getGame().setScreen(new MainMenuScreen());
+        getGame().setScreen(new HelpScreen());
     }
 
     @Override

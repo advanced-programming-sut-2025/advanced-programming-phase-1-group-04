@@ -3,7 +3,6 @@ package io.Ap.StardewValley.View;
 import io.Ap.StardewValley.Controller.GameMenuController;
 
 import io.Ap.StardewValley.Controller.SirkBozorg.*;
-import io.Ap.StardewValley.Controller.SirkBozorg.*;
 import io.Ap.StardewValley.Model.App;
 
 import io.Ap.StardewValley.Model.Command.GameMenuCommand;
@@ -32,7 +31,7 @@ public class GameMenu implements AppMenu {
             System.out.println(result);
 
             if (result.isSuccessful()) {
-                ArrayList<Player> players = App.getCurrentGame().getPlayers();
+                ArrayList<Player> players = App.getGame().getPlayers();
 
                 for (int i = 0; i < players.size(); i++) {
                     Player player = players.get(i);
@@ -58,10 +57,10 @@ public class GameMenu implements AppMenu {
             System.out.println(GameMenuController.exitGame());
         }
         else if (GameMenuCommand.DeleteGame.getMatcher(input) != null) {
-            int playerCount = App.getCurrentGame().getPlayers().size();
-            int crPlayer = App.getCurrentGame().getPlayers().indexOf(App.getCurrentGame().getCurrentPlayer());
+            int playerCount = App.getGame().getPlayers().size();
+            int crPlayer = App.getGame().getPlayers().indexOf(App.getGame().getCurrentPlayer());
             for (int i = 1; i < playerCount; i++) {
-                System.out.println(App.getCurrentGame().getPlayers().get((i + crPlayer) % playerCount).getUsername() + " do you want to delete this game? (yse, no)");
+                System.out.println(App.getGame().getPlayers().get((i + crPlayer) % playerCount).getUsername() + " do you want to delete this game? (yse, no)");
                 while (true) {
                     input = scanner.nextLine().trim();
                     Result result = GameMenuController.deleteGame(i, input);

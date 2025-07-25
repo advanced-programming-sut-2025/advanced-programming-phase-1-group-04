@@ -15,7 +15,7 @@ import java.util.List;
 public class PlantController {
 
     public static Result craftInfo (String craftName) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
@@ -80,7 +80,7 @@ public class PlantController {
     }
 
     public static Result plant (String seedName, String direction) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
@@ -89,21 +89,21 @@ public class PlantController {
         if ((seedType = getSeedTypeByName(seedName)) == null && saplingType == null) {
             return new Result(false, "invalid seed/ sapling name!");
         }
-        if (App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithName(seedName) == null) {
+        if (App.getGame().getCurrentPlayer().getInventory().hasItemWithName(seedName) == null) {
             return new Result(false, "you don't have " + seedName + " in your inventory!");
         }
         if (seedType != null) {
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
+            App.getGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
             return plantInTile(GameMenuController.getCoordinateByDirection(direction), new Seed(seedType, true), GameMenuController.getTileByDirection(direction),
-                    App.getCurrentGame().getCurrentTime());
+                    App.getGame().getCurrentTime());
         }
-        App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
+        App.getGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
         return plantInTile(GameMenuController.getCoordinateByDirection(direction), new Sapling(saplingType, true), GameMenuController.getTileByDirection(direction),
-                App.getCurrentGame().getCurrentTime());
+                App.getGame().getCurrentTime());
     }
 
     public static Result showPlant (String X, String Y) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
@@ -115,7 +115,7 @@ public class PlantController {
         if (x >= 90 || x < 0 || y >= 120 || y < 0) {
             return new Result(false, "invalid coordinate!");
         }
-        Tile tile = App.getCurrentGame().getTile(new Coordinate(x, y));
+        Tile tile = App.getGame().getTile(new Coordinate(x, y));
         if (tile == null) {
             return new Result(false, "invalid tile!");
         }
@@ -141,13 +141,13 @@ public class PlantController {
                 result = result + "the " + tile.getLastTimeWatered().getDay() + "th day\nfertilize: ";
             }
 
-            if (App.getCurrentGame().getTile(new Coordinate(x, y)).getFertilize() == 0) {
+            if (App.getGame().getTile(new Coordinate(x, y)).getFertilize() == 0) {
                 result = result + "not fertilized";
             }
-            else if (App.getCurrentGame().getTile(new Coordinate(x, y)).getFertilize() == 1) {
+            else if (App.getGame().getTile(new Coordinate(x, y)).getFertilize() == 1) {
                 result = result + "retaining soil";
             }
-            else if (App.getCurrentGame().getTile(new Coordinate(x, y)).getFertilize() == 2) {
+            else if (App.getGame().getTile(new Coordinate(x, y)).getFertilize() == 2) {
                 result = result + "speed-gro";
             }
             return new Result(true, result);
@@ -156,7 +156,7 @@ public class PlantController {
     }
 
     public static Result fertilize (String fertilizer, String direction) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
@@ -190,11 +190,11 @@ public class PlantController {
     }
 
     public static Result howMuchWater () {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        Item wateringCan = App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithName("watering can");
+        Item wateringCan = App.getGame().getCurrentPlayer().getInventory().hasItemWithName("watering can");
         if (wateringCan == null) {
             return new Result(false, "an error occurred!");
         }
@@ -272,10 +272,10 @@ public class PlantController {
         if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouserBuild))) {
             return new Result(false, "you must plant on the ground or in the greenhouse!");
         }
-        if (!seed.getSeasons().contains(App.getCurrentGame().getCurrentTime().getSeason()) && tile.getType() == TileType.Ground) {
+        if (!seed.getSeasons().contains(App.getGame().getCurrentTime().getSeason()) && tile.getType() == TileType.Ground) {
             return new Result(false, "this plant can't get planted outside of the greenhouse in this season!");
         }
-        if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(coordinate)) {
+        if (!App.getGame().getCurrentPlayer().isMyFarm(coordinate)) {
             return new Result(false, "you are not allowed to plant here!");
         }
         if (tile.getItem() != null) {
@@ -308,10 +308,10 @@ public class PlantController {
         if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouserBuild))) {
             return new Result(false, "you must plant on the ground or in the greenhouse!");
         }
-        if (!sapling.getSeasons().contains(App.getCurrentGame().getCurrentTime().getSeason()) && tile.getType() == TileType.Ground) {
+        if (!sapling.getSeasons().contains(App.getGame().getCurrentTime().getSeason()) && tile.getType() == TileType.Ground) {
             return new Result(false, "this plant can't get planted outside of the greenhouse in this season!");
         }
-        if (!App.getCurrentGame().getCurrentPlayer().isMyFarm(coordinate)) {
+        if (!App.getGame().getCurrentPlayer().isMyFarm(coordinate)) {
             return new Result(false, "you are not allowed to plant here!");
         }
         if (tile.getItem() != null) {

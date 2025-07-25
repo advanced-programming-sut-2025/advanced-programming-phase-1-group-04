@@ -105,25 +105,25 @@ public class TheStardropSaloon implements Shop {
                 if (recipes.get(r) < number) {
                     return new Result(false, "due to the daily limit of this item, you can't buy it now!");
                 }
-                if (r.getPrice() * number > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (r.getPrice() * number > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result(false, "you don't have enough money!\n" + r.getPrice() * number +
                             "g is needed.");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().addToFoodRecipes(r.getType())) {
+                if (!App.getGame().getCurrentPlayer().addToFoodRecipes(r.getType())) {
                     return new Result(false, "you already have this recipe!");
                 }
-                App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * r.getPrice());
+                App.getGame().getCurrentPlayer().addCount(-1 * number * r.getPrice());
                 recipes.put(r, 0);
                 return new Result(true, "fish smoker added to your craft recipes.");
             }
         }
         for (StardropIngredients i : ingredients) {
             if (productName.equalsIgnoreCase(i.getName())) {
-                if (i.getPrice() * number > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (i.getPrice() * number > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result(false, "you don't have enough money!\n" + i.getPrice() * number +
                             "g is needed.");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Ingredient(i.getType()), number)) {
+                if (!App.getGame().getCurrentPlayer().addItemToInventory(new Ingredient(i.getType()), number)) {
                     return new Result(false, "you can't add this item to your inventory!");
                 }
                 return new Result(true, number + " of " + i.getName() + " is added to your inventory.");
@@ -132,11 +132,11 @@ public class TheStardropSaloon implements Shop {
 
         for (StardropFood f : food) {
             if (productName.equalsIgnoreCase(f.getName())) {
-                if (f.getPrice() * number > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (f.getPrice() * number > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result(false, "you don't have enough money!\n" + f.getPrice() * number +
                             "g is needed.");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Food(f.getType()), number)) {
+                if (!App.getGame().getCurrentPlayer().addItemToInventory(new Food(f.getType()), number)) {
                     return new Result(false, "you can't add this item to your inventory!");
                 }
                 return new Result(true, number + " of " + f.getName() + " is added to your inventory.");

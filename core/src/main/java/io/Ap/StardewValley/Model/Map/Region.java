@@ -24,10 +24,10 @@ public class Region {
                 result.append(" ");
                 Coordinate coordinate = new Coordinate(i, j);
                 boolean isPlayer = false;
-                for (Player player: App.getCurrentGame().getPlayers()) {
+                for (Player player: App.getGame().getPlayers()) {
                     if (player.getCoordinate().equals(coordinate)) {
                         isPlayer = true;
-                        if (player.getId() == App.getCurrentGame().getCurrentPlayer().getId())
+                        if (player.getId() == App.getGame().getCurrentPlayer().getId())
                             result.append(Symbols.CurrentPlayer.getColoredSymbol());
                         else
                             result.append(Symbols.Player.getColoredSymbol());

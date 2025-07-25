@@ -46,7 +46,7 @@ public enum FallSeeds {
 
 
     public int getPrice() {
-        if (App.getCurrentGame().getCurrentTime().getSeason() == Season.Fall)
+        if (App.getGame().getCurrentTime().getSeason() == Season.Fall)
             return (price * 2) / 3;
         else
             return price;

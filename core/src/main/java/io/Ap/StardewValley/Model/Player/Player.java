@@ -68,14 +68,6 @@ public class Player {
     private int partnerID = -1;
     private ArrayList<Trade> sentTrades = new ArrayList<>();
     private ArrayList<Trade> receivedTrades = new ArrayList<>();
-    //gift list
-    //ask marriage list?
-    //trade list
-    //quest list
-
-    //gift history
-    //talk history
-    //trade history
 
     public Player(int id, int farm) {
         this.id = id;
@@ -303,7 +295,7 @@ public class Player {
     public void addPartnerCount(int count) {
         if (partnerID == -1)
             return;
-        Player partner = App.getCurrentGame().getPlayerByID(partnerID);
+        Player partner = App.getGame().getPlayerByID(partnerID);
         partner.count += count;
     }
 
@@ -327,7 +319,7 @@ public class Player {
     public boolean isMyPartnerFarm(Coordinate coordinate) {
         if (partnerID == -1)
             return false;
-        Player partner = App.getCurrentGame().getPlayerByID(partnerID);
+        Player partner = App.getGame().getPlayerByID(partnerID);
         return switch (partner.getFarm()) {
             case 1 -> coordinate.getX() < 30 && coordinate.getY() < 40
                     && coordinate.getX() >= 0 && coordinate.getY() >= 0;

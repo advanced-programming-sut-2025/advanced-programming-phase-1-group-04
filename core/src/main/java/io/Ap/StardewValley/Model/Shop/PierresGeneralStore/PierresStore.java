@@ -148,7 +148,7 @@ public class PierresStore implements Shop {
                         "\nprice: " + a.getPrice() + "\ndaily limit: " + a.getDailyLimit() + "\n\n";
             }
         }
-        if (App.getCurrentGame().getCurrentTime().getSeason() == Season.Spring) {
+        if (App.getGame().getCurrentTime().getSeason() == Season.Spring) {
             result = result + "* Spring products:\n\n";
             for (SpringSeeds a : springSeeds.keySet()) {
                 if (springSeeds.get(a) > 0) {
@@ -163,7 +163,7 @@ public class PierresStore implements Shop {
                 }
             }
         }
-        if (App.getCurrentGame().getCurrentTime().getSeason() == Season.Summer) {
+        if (App.getGame().getCurrentTime().getSeason() == Season.Summer) {
             result = result + "* Summer products:\n\n";
             for (SummerSeeds a : summerSeeds.keySet()) {
                 if (summerSeeds.get(a) > 0) {
@@ -178,7 +178,7 @@ public class PierresStore implements Shop {
                 }
             }
         }
-        if (App.getCurrentGame().getCurrentTime().getSeason() == Season.Fall) {
+        if (App.getGame().getCurrentTime().getSeason() == Season.Fall) {
             result = result + "* Fall products:\n\n";
             for (FallSeeds a : fallSeeds.keySet()) {
                 if (fallSeeds.get(a) > 0) {
@@ -193,7 +193,7 @@ public class PierresStore implements Shop {
                 }
             }
         }
-        if (App.getCurrentGame().getCurrentTime().getSeason() == Season.Winter) {
+        if (App.getGame().getCurrentTime().getSeason() == Season.Winter) {
             result = result + "* Winter products:\n\n";
             for (WinterSeeds a : winterSeeds.keySet()) {
                 if (winterSeeds.get(a) > 0) {
@@ -212,14 +212,14 @@ public class PierresStore implements Shop {
         }
         for (PierresIngredients a : ingredients) {
             if (productName.equalsIgnoreCase(a.getName())) {
-                if (number * a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (number * a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result (false, "you don't have enough money!\n" +
                             number * a.getPrice() + "g is needed.");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Ingredient(a.getType()), number)) {
+                if (!App.getGame().getCurrentPlayer().addItemToInventory(new Ingredient(a.getType()), number)) {
                     return new Result (false, "you can't add this item(s) to your inventory!");
                 }
-                App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
+                App.getGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
                 return new Result(true, number + " " + a.getName() + " added to inventory.");
             }
         }
@@ -229,16 +229,16 @@ public class PierresStore implements Shop {
                 if (gifts.get(a) < number) {
                     return new Result(false, "due to the daily limit of this item, you can't buy it now!");
                 }
-                if (number * a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (number * a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result (false, "you don't have enough money!\n" +
                             number * a.getPrice() + "g is needed.");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new GiftItem(a.getType()), number)) {
+                if (!App.getGame().getCurrentPlayer().addItemToInventory(new GiftItem(a.getType()), number)) {
                     return new Result (false, "you can't add this item(s) to your inventory!");
                 }
                 int newNumber = gifts.get(a) - number;
                 gifts.put(a, newNumber);
-                App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
+                App.getGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
                 return new Result(true, number + " " + a.getName() + " added to inventory.");
             }
         }
@@ -251,44 +251,44 @@ public class PierresStore implements Shop {
                 if (recipes.get(a) < number) {
                     return new Result(false, "due to the daily limit of this item, you can't buy it now!");
                 }
-                if (number * a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (number * a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result (false, "you don't have enough money!\n" +
                             number * a.getPrice() + "g is needed.");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().addToCraftRecipes(a.getType())) {
+                if (!App.getGame().getCurrentPlayer().addToCraftRecipes(a.getType())) {
                     return new Result (false, "you already have this recipe!");
                 }
                 int newNumber = recipes.get(a) - number;
                 recipes.put(a, newNumber);
-                App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
+                App.getGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
                 return new Result(true, number + " " + a.getName() + " added to your recipes.");
             }
         }
 
         for (PierresFertilizers a : fertilizers) {
             if (productName.equalsIgnoreCase(a.getName())) {
-                if (number * a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (number * a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result (false, "you don't have enough money!\n" +
                             number * a.getPrice() + "g is needed.");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Fertilizer(a.getType()), number)) {
+                if (!App.getGame().getCurrentPlayer().addItemToInventory(new Fertilizer(a.getType()), number)) {
                     return new Result (false, "you can't add this item(s) to your inventory!");
                 }
-                App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
+                App.getGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
                 return new Result(true, number + " " + a.getName() + " added to inventory.");
             }
         }
 
         for (PierresSaplings a : sapling) {
             if (productName.equalsIgnoreCase(a.getName())) {
-                if (number * a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (number * a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result (false, "you don't have enough money!\n" +
                             number * a.getPrice() + "g is needed.");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Sapling(a.getType(), true), number)) {
+                if (!App.getGame().getCurrentPlayer().addItemToInventory(new Sapling(a.getType(), true), number)) {
                     return new Result (false, "you can't add this item(s) to your inventory!");
                 }
-                App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
+                App.getGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
                 return new Result(true, number + " " + a.getName() + " added to inventory.");
             }
         }
@@ -301,15 +301,15 @@ public class PierresStore implements Shop {
                 if (backpack.get(a) < number) {
                     return new Result(false, "due to the daily limit of this item, you can't buy it now!");
                 }
-                if (a.getCapacity() <= App.getCurrentGame().getCurrentPlayer().getInventory().getCapacity()) {
+                if (a.getCapacity() <= App.getGame().getCurrentPlayer().getInventory().getCapacity()) {
                     return new Result(false, "the capacity of your own backpack is not less than this backpack!");
                 }
-                if (number * a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (number * a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result (false, "you don't have enough money!\n" +
                             number * a.getPrice() + "g is needed.");
                 }
-                App.getCurrentGame().getCurrentPlayer().getInventory().setCapacity(a.getCapacity());
-                App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
+                App.getGame().getCurrentPlayer().getInventory().setCapacity(a.getCapacity());
+                App.getGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
                 int newNumber = backpack.get(a) - number;
                 backpack.put(a, newNumber);
                 return new Result(true, "your backpack capacity upgraded.");
@@ -319,31 +319,31 @@ public class PierresStore implements Shop {
         for (SpringSeeds a : springSeeds.keySet()) {
             if (productName.equalsIgnoreCase(a.getName())) {
                 if (a.equals(SpringSeeds.GrassStarter)) {
-                    if (number * a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                    if (number * a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                         return new Result (false, "you don't have enough money!\n" +
                                 number * a.getPrice() + "g is needed.");
                     }
-                    if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
+                    if (!App.getGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
                         return new Result (false, "you can't add this item(s) to your inventory!");
                     }
                     return new Result(true, number + " " + a.getName() + " added to inventory.");
                 }
-                if (App.getCurrentGame().getCurrentTime().getSeason() != Season.Spring) {
+                if (App.getGame().getCurrentTime().getSeason() != Season.Spring) {
                     return new Result(false, "this item is not available now!");
                 }
                 if (springSeeds.get(a) < number) {
                     return new Result(false, "due to the daily limit of this item, you can't buy it now!");
                 }
-                if (number * a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (number * a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result (false, "you don't have enough money!\n" +
                             number * a.getPrice() + "g is needed.");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
+                if (!App.getGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
                     return new Result (false, "you can't add this item(s) to your inventory!");
                 }
                 int newNumber = springSeeds.get(a) - number;
                 springSeeds.put(a, newNumber);
-                App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
+                App.getGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
                 return new Result(true, number + " " + a.getName() + " added to inventory.");
             }
         }
@@ -351,31 +351,31 @@ public class PierresStore implements Shop {
         for (SummerSeeds a : summerSeeds.keySet()) {
             if (productName.equalsIgnoreCase(a.getName())) {
                 if (a.equals(SpringSeeds.GrassStarter)) {
-                    if (number * a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                    if (number * a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                         return new Result (false, "you don't have enough money!\n" +
                                 number * a.getPrice() + "g is needed.");
                     }
-                    if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
+                    if (!App.getGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
                         return new Result (false, "you can't add this item(s) to your inventory!");
                     }
                     return new Result(true, number + " " + a.getName() + " added to inventory.");
                 }
-                if (App.getCurrentGame().getCurrentTime().getSeason() != Season.Summer) {
+                if (App.getGame().getCurrentTime().getSeason() != Season.Summer) {
                     return new Result(false, "this item is not available now!");
                 }
                 if (summerSeeds.get(a) < 0) {
                     return new Result(false, "due to the daily limit of this item, you can't buy it now!");
                 }
-                if (number * a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (number * a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result (false, "you don't have enough money!\n" +
                             number * a.getPrice() + "g is needed.");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
+                if (!App.getGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
                     return new Result (false, "you can't add this item(s) to your inventory!");
                 }
                 int newNumber = summerSeeds.get(a) - number;
                 summerSeeds.put(a, newNumber);
-                App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
+                App.getGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
                 return new Result(true, number + " " + a.getName() + " added to inventory.");
             }
         }
@@ -383,31 +383,31 @@ public class PierresStore implements Shop {
         for (FallSeeds a : fallSeeds.keySet()) {
             if (productName.equalsIgnoreCase(a.getName())) {
                 if (a.equals(SpringSeeds.GrassStarter)) {
-                    if (number * a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                    if (number * a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                         return new Result (false, "you don't have enough money!\n" +
                                 number * a.getPrice() + "g is needed.");
                     }
-                    if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
+                    if (!App.getGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
                         return new Result (false, "you can't add this item(s) to your inventory!");
                     }
                     return new Result(true, number + " " + a.getName() + " added to inventory.");
                 }
-                if (App.getCurrentGame().getCurrentTime().getSeason() != Season.Fall) {
+                if (App.getGame().getCurrentTime().getSeason() != Season.Fall) {
                     return new Result(false, "this item is not available now!");
                 }
                 if (fallSeeds.get(a) < number) {
                     return new Result(false, "due to the daily limit of this item, you can't buy it now!");
                 }
-                if (number * a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (number * a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result (false, "you don't have enough money!\n" +
                             number * a.getPrice() + "g is needed.");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
+                if (!App.getGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
                     return new Result (false, "you can't add this item(s) to your inventory!");
                 }
                 int newNumber = fallSeeds.get(a) - number;
                 fallSeeds.put(a, newNumber);
-                App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
+                App.getGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
                 return new Result(true, number + " " + a.getName() + " added to inventory.");
             }
         }
@@ -415,14 +415,14 @@ public class PierresStore implements Shop {
         for (WinterSeeds a : winterSeeds.keySet()) {
             if (productName.equalsIgnoreCase(a.getName())) {
                 if (a.equals(SpringSeeds.GrassStarter)) {
-                    if (number * a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                    if (number * a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                         return new Result (false, "you don't have enough money!\n" +
                                 number * a.getPrice() + "g is needed.");
                     }
-                    if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
+                    if (!App.getGame().getCurrentPlayer().addItemToInventory(new Seed(a.getType()), number)) {
                         return new Result (false, "you can't add this item(s) to your inventory!");
                     }
-                    App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
+                    App.getGame().getCurrentPlayer().addCount(-1 * number * a.getPrice());
                     return new Result(true, number + " " + a.getName() + " added to inventory.");
                 }
             }

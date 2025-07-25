@@ -24,24 +24,24 @@ public class Axe implements Tool{
 
     @Override
     public Result upgrade() {
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.Blacksmith) {
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.Blacksmith) {
             return new Result(false, "you are not in black smith building!");
         }
         String pre = "previous level: ";
         String cur = "\ncurrent level: ";
         if (level == ToolLevel.Starter) {
-            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("copper", 25)) {
+            if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("copper", 25)) {
                 return new Result(false, "you don't have enough copper ores!\n25 copper ores are needed.");
             }
-            else if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
+            else if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
                 return new Result(false, "you don't have enough coal!\n5 pieces are needed.");
             }
-            else if (App.getCurrentGame().getCurrentPlayer().getCount() < 2000) {
+            else if (App.getGame().getCurrentPlayer().getCount() < 2000) {
                 return new Result(false, "you don't have enough money!\ncost: 2000g.");
             }
-            App.getCurrentGame().getCurrentPlayer().addCount(-2000);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("copper", 25);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
+            App.getGame().getCurrentPlayer().addCount(-2000);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("copper", 25);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
             price = 2000;
             level = ToolLevel.Copper;
             pre = pre + "Starter";
@@ -49,18 +49,18 @@ public class Axe implements Tool{
             return new Result(true, "axe upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Copper) {
-            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("iron", 25)) {
+            if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("iron", 25)) {
                 return new Result(false, "you don't have enough iron ores!\n25 iron ores are needed.");
             }
-            else if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
+            else if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
                 return new Result(false, "you don't have enough coal!\n5 pieces are needed.");
             }
-            else if (App.getCurrentGame().getCurrentPlayer().getCount() < 5000) {
+            else if (App.getGame().getCurrentPlayer().getCount() < 5000) {
                 return new Result(false, "you don't have enough money!\ncost: 5000g.");
             }
-            App.getCurrentGame().getCurrentPlayer().addCount(-5000);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("iron", 25);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
+            App.getGame().getCurrentPlayer().addCount(-5000);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("iron", 25);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
             price = 5000;
             level = ToolLevel.Steel;
             pre = pre + "Copper";
@@ -68,18 +68,18 @@ public class Axe implements Tool{
             return new Result(true, "axe upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Steel) {
-            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("gold", 25)) {
+            if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("gold", 25)) {
                 return new Result(false, "you don't have enough gold ores!\n25 gold ores are needed.");
             }
-            else if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
+            else if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
                 return new Result(false, "you don't have enough coal!\n5 pieces are needed.");
             }
-            else if (App.getCurrentGame().getCurrentPlayer().getCount() < 10000) {
+            else if (App.getGame().getCurrentPlayer().getCount() < 10000) {
                 return new Result(false, "you don't have enough money!\ncost: 10000g.");
             }
-            App.getCurrentGame().getCurrentPlayer().addCount(-10000);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("gold", 25);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
+            App.getGame().getCurrentPlayer().addCount(-10000);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("gold", 25);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
             price = 10000;
             level = ToolLevel.Gold;
             pre = pre + "Steel";
@@ -87,18 +87,18 @@ public class Axe implements Tool{
             return new Result(true, "axe upgraded successfully.\n" + pre + cur);
         }
         else if (level == ToolLevel.Gold) {
-            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("iridium", 25)) {
+            if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("iridium", 25)) {
                 return new Result(false, "you don't have enough iridium ores!\n25 iridium ores are needed.");
             }
-            else if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
+            else if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
                 return new Result(false, "you don't have enough coal!\n5 pieces are needed.");
             }
-            else if (App.getCurrentGame().getCurrentPlayer().getCount() < 25000) {
+            else if (App.getGame().getCurrentPlayer().getCount() < 25000) {
                 return new Result(false, "you don't have enough money!\ncost: 25000g.");
             }
-            App.getCurrentGame().getCurrentPlayer().addCount(-25000);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("iridium", 25);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
+            App.getGame().getCurrentPlayer().addCount(-25000);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("iridium", 25);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
             price = 25000;
             level = ToolLevel.Iridium;
             pre = pre + "Gold";
@@ -110,7 +110,7 @@ public class Axe implements Tool{
 
     @Override
     public Result use(Tile tile) {
-        Player player = App.getCurrentGame().getCurrentPlayer();
+        Player player = App.getGame().getCurrentPlayer();
         if (tile == null) {
             return new Result(false, "invalid direction!");
         }
@@ -147,7 +147,7 @@ public class Axe implements Tool{
         if (c == null) {
             return new Result(false, "invalid coordinate!");
         }
-        Tile t = App.getCurrentGame().getTile(c);
+        Tile t = App.getGame().getTile(c);
         return use(t);
     }
 
@@ -155,7 +155,7 @@ public class Axe implements Tool{
     public int getEnergyConsumption(boolean useSuccess) {
         int base = 0;
         if (useSuccess) {
-            if (4 == App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Foraging)) {
+            if (4 == App.getGame().getCurrentPlayer().getAbilityLevel(Skill.Foraging)) {
                 if (level == ToolLevel.Starter) {
                     base = 4;
                 }
@@ -191,7 +191,7 @@ public class Axe implements Tool{
             }
         }
         else {
-            if (4 == App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Foraging)) {
+            if (4 == App.getGame().getCurrentPlayer().getAbilityLevel(Skill.Foraging)) {
                 if (level == ToolLevel.Starter) {
                     base = 3;
                 }
@@ -226,13 +226,13 @@ public class Axe implements Tool{
                 }
             }
         }
-        if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Rain) {
+        if (App.getGame().getCurrentTime().getWeather() == Weather.Rain) {
             return (int) (base * 1.5);
         }
-        else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
+        else if (App.getGame().getCurrentTime().getWeather() == Weather.Snow) {
             return base * 2;
         }
-        if (App.getCurrentGame().getCurrentPlayer().isBuffed(Skill.Foraging)) {
+        if (App.getGame().getCurrentPlayer().isBuffed(Skill.Foraging)) {
             base = Math.max(base - 1, 0);
         }
         return base;

@@ -27,7 +27,7 @@ public class MilkPail implements Tool{
         if (c == null) {
             return new Result(false, "invalid coordinate!");
         }
-        for (Animal a : App.getCurrentGame().getCurrentPlayer().getMyAnimals()) {
+        for (Animal a : App.getGame().getCurrentPlayer().getMyAnimals()) {
             if (c.equals(a.getCoordinate()) && a.getType() == AnimalType.Cow) {
                 return AnimalController.collectAnimalProduce(a.getName());
             }
@@ -38,20 +38,20 @@ public class MilkPail implements Tool{
 
     @Override
     public int getEnergyConsumption(boolean useSuccess) {
-        if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Rain) {
+        if (App.getGame().getCurrentTime().getWeather() == Weather.Rain) {
             return 6;
         }
-        else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
+        else if (App.getGame().getCurrentTime().getWeather() == Weather.Snow) {
             return 8;
         }
         return 4;
     }
 
     public static int getEnergyForAnimals() {
-        if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Rain) {
+        if (App.getGame().getCurrentTime().getWeather() == Weather.Rain) {
             return 6;
         }
-        else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
+        else if (App.getGame().getCurrentTime().getWeather() == Weather.Snow) {
             return 8;
         }
         return 4;

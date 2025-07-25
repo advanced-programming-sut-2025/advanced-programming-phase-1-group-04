@@ -109,21 +109,21 @@ public class CarpentersShop implements Shop {
             return new Result(false, "invalid product name!");
         }
         if (productName.equalsIgnoreCase("stone")) {
-            if (20 * number > App.getCurrentGame().getCurrentPlayer().getCount()) {
+            if (20 * number > App.getGame().getCurrentPlayer().getCount()) {
                 return new Result(false, "you don't have enough money!");
             }
-            App.getCurrentGame().getCurrentPlayer().addCount(-20 * number);
-            if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Stone(), number)) {
+            App.getGame().getCurrentPlayer().addCount(-20 * number);
+            if (!App.getGame().getCurrentPlayer().addItemToInventory(new Stone(), number)) {
                 return new Result(false, "can't add this item(s) to your inventory!");
             }
             return new Result(true, number + " stone added to inventory.");
         }
         if (productName.equalsIgnoreCase("wood")) {
-            if (10 * number > App.getCurrentGame().getCurrentPlayer().getCount()) {
+            if (10 * number > App.getGame().getCurrentPlayer().getCount()) {
                 return new Result(false, "you don't have enough money!");
             }
-            App.getCurrentGame().getCurrentPlayer().addCount(-10 * number);
-            if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Wood(), number)) {
+            App.getGame().getCurrentPlayer().addCount(-10 * number);
+            if (!App.getGame().getCurrentPlayer().addItemToInventory(new Wood(), number)) {
                 return new Result(false, "can't add this item(s) to your inventory!");
             }
             return new Result(true, number + " wood added to inventory.");
@@ -136,25 +136,25 @@ public class CarpentersShop implements Shop {
                 if (buildings.get(s) <= 0 || number != 1) {
                     return new Result(false, "due to the daily limit of this item, you can't buy it now!");
                 }
-                if (number * s.getCost() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (number * s.getCost() > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result(false, "you don't have enough money!");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("stone", s.getStonesCost() * number)) {
+                if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("stone", s.getStonesCost() * number)) {
                     return new Result(false, "you don't have enough stones!\n" + s.getStonesCost() + " stones are needed.");
                 }
-                if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("wood", s.getWoodCost() * number)) {
+                if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("wood", s.getWoodCost() * number)) {
                     return new Result(false, "you don't have enough woods!\n" + s.getWoodCost() + " woods are needed.");
                 }
-                for (FarmBuilding b : App.getCurrentGame().getCurrentPlayer().getMyFarmBuildings()) {
+                for (FarmBuilding b : App.getGame().getCurrentPlayer().getMyFarmBuildings()) {
                     if (b.getType().getType() == s.getType().getType() && b.getType().getLevel() >= s.getType().getLevel()) {
                         return new Result(false, "you already have this building!");
                     }
                 }
                 // TODO: Aynaz بهت زنگ میزنم تهخ
-                App.getCurrentGame().getCurrentPlayer().addCount(-1 * number * s.getCost());
-                App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("stone", s.getStonesCost());
-                App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("wood", s.getWoodCost());
-                App.getCurrentGame().getCurrentPlayer().addToFarmBuildings(new FarmBuilding(s.getType()));
+                App.getGame().getCurrentPlayer().addCount(-1 * number * s.getCost());
+                App.getGame().getCurrentPlayer().removeItemFromInventory("stone", s.getStonesCost());
+                App.getGame().getCurrentPlayer().removeItemFromInventory("wood", s.getWoodCost());
+                App.getGame().getCurrentPlayer().addToFarmBuildings(new FarmBuilding(s.getType()));
                 return new Result(true, s.getName() + " added to farm buildings");
             }
         }

@@ -11,7 +11,6 @@ import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Map.Tile;
 import io.Ap.StardewValley.Model.Map.TileType;
 import io.Ap.StardewValley.Model.Plants.*;
-import io.Ap.StardewValley.Model.Plants.*;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Shop.Shop;
 import io.Ap.StardewValley.Model.Time.DateAndTime;
@@ -57,26 +56,26 @@ public class NightController {
 
     private static void randomForagingPlants() {
         foragingPlantsForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
-        if (App.getCurrentGame().getPlayers().size() >= 2) {
+        if (App.getGame().getPlayers().size() >= 2) {
             foragingPlantsForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
         }
-        if (App.getCurrentGame().getPlayers().size() >= 3) {
+        if (App.getGame().getPlayers().size() >= 3) {
             foragingPlantsForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
         }
-        if (App.getCurrentGame().getPlayers().size() >= 4) {
+        if (App.getGame().getPlayers().size() >= 4) {
             foragingPlantsForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
         }
     }
 
     public static void foragingPlantsForEachFarm(Coordinate c1, Coordinate c2) {
-        ArrayList<Forageable> listOfPlants = ForageableFactory.getSeasonPlantForageables(App.getCurrentGame().
+        ArrayList<Forageable> listOfPlants = ForageableFactory.getSeasonPlantForageables(App.getGame().
                 getCurrentTime().getSeason());
         for (int x = c1.getX(); x < c2.getX(); x++) {
             for (int y = c1.getY(); y < c2.getY(); y++) {
-                if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() == null &&
-                        App.getCurrentGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground){
+                if (App.getGame().getTile(new Coordinate(x, y)).getItem() == null &&
+                        App.getGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground){
                     if (rand.nextInt(100) < 5) {
-                        plantForageable(App.getCurrentGame().getTile(new Coordinate(x, y)),
+                        plantForageable(App.getGame().getTile(new Coordinate(x, y)),
                                 listOfPlants.get(rand.nextInt(listOfPlants.size())));
                     }
                 }
@@ -107,18 +106,18 @@ public class NightController {
     }
 
     private static void setWeather() {
-        App.getCurrentGame().getCurrentTime().setWeather(App.getCurrentGame().getTomorrowWeather());
+        App.getGame().getCurrentTime().setWeather(App.getGame().getTomorrowWeather());
     }
 
     private static void setTomorrowWeather() {
-        Season season = App.getCurrentGame().getCurrentTime().getSeason();
+        Season season = App.getGame().getCurrentTime().getSeason();
         Weather randomWeather = season.getWeathers().get(rand.nextInt(season.getWeathers().size()));
-        App.getCurrentGame().setTomorrowWeather(randomWeather);
+        App.getGame().setTomorrowWeather(randomWeather);
     }
 
     private static void rainyWeatherEffect() {
-        if (App.getCurrentGame().getCurrentTime().getWeather().equals(Weather.Rain) || App.getCurrentGame().getCurrentTime().getWeather().equals(Weather.Storm)) {
-            Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
+        if (App.getGame().getCurrentTime().getWeather().equals(Weather.Rain) || App.getGame().getCurrentTime().getWeather().equals(Weather.Storm)) {
+            Tile[][] fullMap = App.getGame().getMap().getFullMap();
             for (int i = 0; i < 90; i++) {
                 for (int j = 0; j < 120; j++) {
                     if (fullMap[i][j].getType().equals(TileType.Ground))
@@ -130,7 +129,7 @@ public class NightController {
 
     private static void thorEffect() {
         if (thorCoordinate != null) {
-            Tile tile = App.getCurrentGame().getTile(thorCoordinate);
+            Tile tile = App.getGame().getTile(thorCoordinate);
             if (tile.getType().equals(TileType.Ground)) {
                 if (tile.getItem() instanceof Tree tree) {
                     tree.burn();
@@ -140,7 +139,7 @@ public class NightController {
             }
             thorCoordinate = null;
         } else {
-            if (App.getCurrentGame().getCurrentTime().getWeather().equals(Weather.Storm)) {
+            if (App.getGame().getCurrentTime().getWeather().equals(Weather.Storm)) {
                 for (Tile tile: getRandomTilesFromFarm(1, 3)) {
                     if (tile.getItem() instanceof Tree tree) {
                         tree.burn();
@@ -153,7 +152,7 @@ public class NightController {
     }
 
     private static void movePlayers() {
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (MapController.getDestinationEnergy(player, player.getHouseCoordinate()) <= player.getEnergy() &&
                 MapController.getDestinationEnergy(player, player.getHouseCoordinate()) != -1) {
                 player.setCoordinate(player.getHouseCoordinate());
@@ -166,7 +165,7 @@ public class NightController {
     }
 
     private static void goToNextDay () {
-        DateAndTime t = App.getCurrentGame().getCurrentTime();
+        DateAndTime t = App.getGame().getCurrentTime();
         t.setDay(t.getDay() + 1);
         t.setHour(9);
     }
@@ -204,8 +203,8 @@ public class NightController {
         while (selected.size() < count) {
             int x = rand.nextInt(maxX - minX + 1) + minX;
             int y = rand.nextInt(maxY - minY + 1) + minY;
-            if (App.getCurrentGame().getTile(new Coordinate(x, y)).getType().equals(TileType.Ground))
-                selected.add(App.getCurrentGame().getTile(new Coordinate(x, y)));
+            if (App.getGame().getTile(new Coordinate(x, y)).getType().equals(TileType.Ground))
+                selected.add(App.getGame().getTile(new Coordinate(x, y)));
         }
 
         return new ArrayList<>(selected);
@@ -214,13 +213,13 @@ public class NightController {
 
     public static void randomForagingMinerals() {
         foragingMineralsForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
-        if (App.getCurrentGame().getPlayers().size() >= 2) {
+        if (App.getGame().getPlayers().size() >= 2) {
             foragingMineralsForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
         }
-        if (App.getCurrentGame().getPlayers().size() >= 3) {
+        if (App.getGame().getPlayers().size() >= 3) {
             foragingMineralsForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
         }
-        if (App.getCurrentGame().getPlayers().size() >= 4) {
+        if (App.getGame().getPlayers().size() >= 4) {
             foragingMineralsForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
         }
     }
@@ -229,10 +228,10 @@ public class NightController {
         ArrayList<Forageable> listOfMinerals = ForageableFactory.getMineralForageables();
         for (int x = c1.getX(); x < c2.getX(); x++) {
             for (int y = c1.getY(); y < c2.getY(); y++) {
-                if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() == null &&
-                App.getCurrentGame().getTile(new Coordinate(x, y)).getType() == TileType.Mine){
+                if (App.getGame().getTile(new Coordinate(x, y)).getItem() == null &&
+                App.getGame().getTile(new Coordinate(x, y)).getType() == TileType.Mine){
                     if (rand.nextInt(100) < 5) {
-                        App.getCurrentGame().getTile(new Coordinate(x, y)).
+                        App.getGame().getTile(new Coordinate(x, y)).
                                 setItem(new ForagingMineral((ForagingMineralType) listOfMinerals.get(rand.nextInt(listOfMinerals.size()))));
 
                     }
@@ -242,7 +241,7 @@ public class NightController {
     }
 
     private static void calculateFriendshipAnimal() {
-        for (Player player: App.getCurrentGame().getPlayers()) {
+        for (Player player: App.getGame().getPlayers()) {
             for (Animal animal: player.getMyAnimals()) {
                 if (!animal.isPetted())
                     animal.addFriendship(-10);
@@ -255,7 +254,7 @@ public class NightController {
     }
 
     private static void resetAnimals() {
-        for (Player player: App.getCurrentGame().getPlayers()) {
+        for (Player player: App.getGame().getPlayers()) {
             for (Animal animal: player.getMyAnimals()) {
                 setAnimalProduct(animal);
                 animal.setFeeded(false);
@@ -292,13 +291,13 @@ public class NightController {
 
     private static void waterControl () {
         waterControlForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
-        if (App.getCurrentGame().getPlayers().size() >= 2) {
+        if (App.getGame().getPlayers().size() >= 2) {
             waterControlForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
         }
-        if (App.getCurrentGame().getPlayers().size() >= 3) {
+        if (App.getGame().getPlayers().size() >= 3) {
             waterControlForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
         }
-        if (App.getCurrentGame().getPlayers().size() >= 4) {
+        if (App.getGame().getPlayers().size() >= 4) {
             waterControlForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
         }
     }
@@ -306,7 +305,7 @@ public class NightController {
     private static void waterControlForEachFarm (Coordinate c1, Coordinate c2) {
         for (int x = c1.getX(); x < c2.getX(); x++) {
             for (int y = c1.getY(); y < c2.getY(); y++) {
-                Tile tile = App.getCurrentGame().getTile(new Coordinate(x, y));
+                Tile tile = App.getGame().getTile(new Coordinate(x, y));
                 if (tile.getItem() == null || !(tile.getItem() instanceof Plant)) {
                     tile.setWatered(false);
                     continue;
@@ -319,7 +318,7 @@ public class NightController {
                     tile.setItem(null);
                     tile.setWatered(false);
                 }
-                else if (App.getCurrentGame().getCurrentTime().getDay() - tile.getLastTimeWatered().getDay() >= 2) {
+                else if (App.getGame().getCurrentTime().getDay() - tile.getLastTimeWatered().getDay() >= 2) {
                     tile.setItem(null);
                     tile.setWatered(false);
                 }
@@ -328,7 +327,7 @@ public class NightController {
     }
 
     private static void shopStockReset () {
-        for (Shop shop : App.getCurrentGame().getShops()) {
+        for (Shop shop : App.getGame().getShops()) {
             shop.resetStock();
         }
     }
@@ -336,13 +335,13 @@ public class NightController {
 
     private static void crowControl () {
         crowControlForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
-        if (App.getCurrentGame().getPlayers().size() >= 2) {
+        if (App.getGame().getPlayers().size() >= 2) {
             crowControlForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
         }
-        if (App.getCurrentGame().getPlayers().size() >= 3) {
+        if (App.getGame().getPlayers().size() >= 3) {
             crowControlForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
         }
-        if (App.getCurrentGame().getPlayers().size() >= 4) {
+        if (App.getGame().getPlayers().size() >= 4) {
             crowControlForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
         }
     }
@@ -354,13 +353,13 @@ public class NightController {
 
         for (int x = c1.getX(); x < c2.getX(); x++) {
             for (int y = c1.getY(); y < c2.getY(); y++) {
-                if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() != null &&
-                        App.getCurrentGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground) {
+                if (App.getGame().getTile(new Coordinate(x, y)).getItem() != null &&
+                        App.getGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground) {
 
-                    if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() instanceof Plant) {
+                    if (App.getGame().getTile(new Coordinate(x, y)).getItem() instanceof Plant) {
                         numberOfPlants++;
                     }
-                    else if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() instanceof Craft craft) {
+                    else if (App.getGame().getTile(new Coordinate(x, y)).getItem() instanceof Craft craft) {
                         if (craft.getType() == CraftType.Scarecrow) {
                             for (int i = Math.max(0, x - 8); i < Math.min(89, x + 8); i++) {
                                 for (int j = Math.max(0, y - 8); i < Math.min(119, y + 8); i++) {
@@ -384,23 +383,23 @@ public class NightController {
         if (rand.nextInt(100) < (numberOfPlants / 16) * 25) {
             for (int x = c1.getX(); x < c2.getX(); x++) {
                 for (int y = c1.getY(); y < c2.getY(); y++) {
-                    if (App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() != null &&
-                            App.getCurrentGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground &&
-                            App.getCurrentGame().getTile(new Coordinate(x, y)).getItem() instanceof Plant plant){
+                    if (App.getGame().getTile(new Coordinate(x, y)).getItem() != null &&
+                            App.getGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground &&
+                            App.getGame().getTile(new Coordinate(x, y)).getItem() instanceof Plant plant){
                         if (scared[x][y] != 1) {
                             if (plant instanceof Tree tree) {
-                                tree.setLastTimeHarvested(App.getCurrentGame().getCurrentTime());
+                                tree.setLastTimeHarvested(App.getGame().getCurrentTime());
                             }
                             else if (plant instanceof Crop crop) {
                                 if (crop.isOneTime()) {
-                                    App.getCurrentGame().getTile(new Coordinate(x, y)).setItem(null);
+                                    App.getGame().getTile(new Coordinate(x, y)).setItem(null);
                                 }
                                 else {
-                                    crop.setLastTimeHarvested(App.getCurrentGame().getCurrentTime());
+                                    crop.setLastTimeHarvested(App.getGame().getCurrentTime());
                                 }
                             }
                             else {
-                                App.getCurrentGame().getTile(new Coordinate(x, y)).setItem(null);
+                                App.getGame().getTile(new Coordinate(x, y)).setItem(null);
                             }
                         }
                     }
@@ -411,14 +410,14 @@ public class NightController {
 
 
     private static void shippingBinControl() {
-        for (Player player: App.getCurrentGame().getPlayers()) {
+        for (Player player: App.getGame().getPlayers()) {
             player.addCount(player.getShippingBin().getPrices());
             player.getShippingBin().clear();
         }
     }
 
     private static void resetFriends() {
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             for (Friend friend : player.getFriends()) {
                 if (!friend.isGiftedToday() && !friend.isHuggedToday() && !friend.isTalkedToday()) {
                     friend.addXP(-10);

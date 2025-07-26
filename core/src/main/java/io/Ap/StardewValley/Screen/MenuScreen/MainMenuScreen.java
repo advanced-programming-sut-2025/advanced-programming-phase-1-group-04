@@ -13,7 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.Ap.StardewValley.Controller.MainMenuController;
 import io.Ap.StardewValley.StardewValley;
+
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MainMenuScreen implements Screen {
     private final Stage stage;
@@ -108,6 +112,8 @@ public class MainMenuScreen implements Screen {
         logoutButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                MainMenuController.handleStayLogin();
+
                 StardewValley.getGame().setScreen(new StartMenuScreen());
             }
         });

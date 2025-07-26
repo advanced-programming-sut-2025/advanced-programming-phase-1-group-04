@@ -8,10 +8,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Controller.GameMenuController;
+import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.App;
+import io.Ap.StardewValley.Model.Game;
 import io.Ap.StardewValley.Screen.MenuScreen.StartMenuScreen;
 import io.Ap.StardewValley.StardewValley;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class GameScreen implements Screen, InputProcessor {
@@ -24,11 +27,10 @@ public class GameScreen implements Screen, InputProcessor {
     private boolean paused = false;
 
     private OrthographicCamera camera;
-    private GameMenuController controller;
+    private GameScreenController controller = new GameScreenController();
 
     public GameScreen() {
-        //this.controller = controller;
-        //controller.setViews(this);
+        controller.setViews(this);
     }
 
     public OrthographicCamera getCamera() {
@@ -85,9 +87,9 @@ public class GameScreen implements Screen, InputProcessor {
             //TillDown.getBatch().setShader(App.getShader());
             //App.getShader().setUniformi("u_grayscale", App.isGrayscale() ? 1 : 0);
 
-            // update game
+            // update game logic
             StardewValley.getBatch().begin();
-            //controller.updateGame();
+            controller.updateGame();
             StardewValley.getBatch().end();
         }
 
@@ -100,13 +102,13 @@ public class GameScreen implements Screen, InputProcessor {
         float camHalfWidth = camera.viewportWidth / 2f;
         float camHalfHeight = camera.viewportHeight / 2f;
 
-//        float playerX = App.getGame().getPlayer().getX();
-//        float playerY = App.getGame().getPlayer().getY();
+        float playerX = App.getGame().getCurrentPlayer().getCoordinate().getX();
+        float playerY = App.getGame().getCurrentPlayer().getCoordinate().getY();
 //        float spriteWidth = App.getGame().getPlayer().getHero().getSprite().getWidth();
 //        float spriteHeight = App.getGame().getPlayer().getHero().getSprite().getHeight();
 
-        float centerX = 10 + 20 / 2f;
-        float centerY = 234 + 32 / 2f;
+        float centerX = playerX + 16 / 2f;
+        float centerY = playerY + 32 / 2f;
 
         centerX = MathUtils.clamp(centerX, camHalfWidth, MapWidth - camHalfWidth);
         centerY = MathUtils.clamp(centerY, camHalfHeight, MapHeight - camHalfHeight);
@@ -135,7 +137,7 @@ public class GameScreen implements Screen, InputProcessor {
 //        table.add(soundCheckbox).pad(10);
 //        table.add(autoReloadCheckbox).pad(10).row();
 
-        Dialog pauseDialog = new Dialog("Pause", skin, "round") {
+        Dialog pauseDialog = new Dialog("Pause", skin) {
             @Override
             protected void result(Object object) {
                 if (object instanceof String) {
@@ -146,10 +148,11 @@ public class GameScreen implements Screen, InputProcessor {
                             break;
                         case "give up":
                             //StardewValley.getGame().setScreen(new EndGameMenu(0));
+                            paused = false;
                             break;
                         case "save & exit":
                             //GameController.saveGame();
-                            StardewValley.getGame().setScreen(new StartMenuScreen());
+                            Gdx.app.exit();
                             break;
                     }
                 }

@@ -15,6 +15,8 @@ import io.Ap.StardewValley.Model.Map.Item;
 import io.Ap.StardewValley.Model.Tool.Tool;
 import io.Ap.StardewValley.Model.User;
 import com.google.gson.Gson;
+import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
+import io.Ap.StardewValley.Screen.PlayerScreen.StateType;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,6 +26,9 @@ import java.util.*;
 import java.util.Map;
 
 public class Player {
+    private DirectionType direction;
+    private StateType state;
+
     private final int id;
     private final int farm; // Farm id 1-4
 
@@ -70,6 +75,9 @@ public class Player {
     private ArrayList<Trade> receivedTrades = new ArrayList<>();
 
     public Player(int id, int farm) {
+        this.direction = DirectionType.Up;
+        this.state = StateType.Idle;
+
         this.id = id;
         this.farm = farm;
         switch (farm) {
@@ -494,5 +502,25 @@ public class Player {
 
     public ArrayList<Trade> getReceivedTrades() {
         return receivedTrades;
+    }
+
+    public DirectionType getDirection() {
+        return direction;
+    }
+
+    public StateType getState() {
+        return state;
+    }
+
+    public void setDirection(DirectionType direction) {
+        this.direction = direction;
+    }
+
+    public void setState(StateType state) {
+        this.state = state;
+    }
+
+    public int getSpeed() {
+        return 5;
     }
 }

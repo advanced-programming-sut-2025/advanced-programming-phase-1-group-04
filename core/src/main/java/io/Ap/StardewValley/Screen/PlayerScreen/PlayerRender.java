@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
-import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.StardewValley;
 
 import java.util.EnumMap;
@@ -17,10 +16,10 @@ import java.util.Map;
 public class PlayerRender {
     private float stateTime = 0f;
 
-    private AnimationFramesBank bodyAnimations;
-    private AnimationFramesBank hand01Animations;
-    private AnimationFramesBank hand02Animations;
-    private AnimationFramesBank pantAnimations;
+    private PlayerAnimationFrames bodyAnimations;
+    private PlayerAnimationFrames hand01Animations;
+    private PlayerAnimationFrames hand02Animations;
+    private PlayerAnimationFrames pantAnimations;
 
     private final Map<DirectionType, TextureRegion> hairFrames = new EnumMap<>(DirectionType.class);
     private final Map<DirectionType, TextureRegion> shirtFrames = new EnumMap<>(DirectionType.class);
@@ -44,13 +43,13 @@ public class PlayerRender {
 
         // Body, Hand, PantStyle
         TextureRegion[][] bodySheet = TextureRegion.split(new Texture("player/body_boy.png"), 16, 32);
-        this.bodyAnimations = new AnimationFramesBank(bodySheet);
+        this.bodyAnimations = new PlayerAnimationFrames(bodySheet);
         TextureRegion[][] hand01Sheet = TextureRegion.split(new Texture("player/hand_01.png"), 16, 32);
-        this.hand01Animations = new AnimationFramesBank(hand01Sheet);
+        this.hand01Animations = new PlayerAnimationFrames(hand01Sheet);
         TextureRegion[][] hand02Sheet = TextureRegion.split(new Texture("player/hand_02.png"), 16, 32);
-        this.hand02Animations = new AnimationFramesBank(hand02Sheet);
+        this.hand02Animations = new PlayerAnimationFrames(hand02Sheet);
         TextureRegion[][] pantSheet = TextureRegion.split(new Texture("player/pants/pant01.png"), 16, 32);
-        this.pantAnimations = new AnimationFramesBank(pantSheet);
+        this.pantAnimations = new PlayerAnimationFrames(pantSheet);
     }
 
     public void render() {

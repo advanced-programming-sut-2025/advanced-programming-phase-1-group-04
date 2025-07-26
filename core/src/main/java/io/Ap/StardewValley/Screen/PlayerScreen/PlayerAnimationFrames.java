@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class AnimationFramesBank {
+public class PlayerAnimationFrames {
     private final Map<DirectionType, Animation<TextureRegion>> walkAnimations = new EnumMap<>(DirectionType.class);
 
     private final Map<DirectionType, TextureRegion> idleFrames = new EnumMap<>(DirectionType.class);
@@ -19,7 +19,7 @@ public class AnimationFramesBank {
     private final Map<DirectionType, Animation<TextureRegion>> toolScytheAnimations = new EnumMap<>(DirectionType.class);
     private final Map<DirectionType, Animation<TextureRegion>> toolShearAnimations = new EnumMap<>(DirectionType.class);
 
-    public AnimationFramesBank(TextureRegion[][] sheet) {
+    public PlayerAnimationFrames(TextureRegion[][] sheet) {
         float frameDuration = 0.12f;
 
         faintAnimation = new Animation<>(frameDuration, sheet[0][4], sheet[0][5]);

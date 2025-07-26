@@ -29,15 +29,15 @@ public class StardewValley extends Game {
 
         setCustomCursor();
 
-        //TODO:
-        try {
-            App.loadApp();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        GameMenuController.newGame("Parsa", null, null);
-        GameMenuController.chooseMap(0 ,1);
-        GameMenuController.chooseMap(1 ,2);
+//        //TODO:
+//        try {
+//            App.loadApp();
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//        GameMenuController.newGame("Parsa", null, null);
+//        GameMenuController.chooseMap(0 ,1);
+//        GameMenuController.chooseMap(1 ,2);
 
         getGame().setScreen(new PreGameMenuScreen());
     }

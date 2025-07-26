@@ -16,34 +16,30 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Screen.GameScreen;
 import io.Ap.StardewValley.StardewValley;
 
-public class MainMenuScreen implements Screen {
+public class GameMenuScreen implements Screen {
     private final Stage stage;
     private final Table mainTable;
 
-    private final TextButton profileButton, gameButton, exitButton, logoutButton;
+    private final TextButton newButton, loadButton, coOpButton, backButton;
     private final Image backgroundImage, logoImage;
 
     private final Array<Animation<TextureRegion>> butterflyAnimations = new Array<>();
 
-    public MainMenuScreen() {
+    public GameMenuScreen() {
         Skin skin = StardewValley.getSkin();
 
-        profileButton = new TextButton("Profile", skin, "Chicken");
-        gameButton = new TextButton("Game", skin, "Strawberry");
-        logoutButton = new TextButton("Logout", skin, "Earth");
-        exitButton = new TextButton("Exit", skin, "Plant");
+        newButton = new TextButton("New", skin, "Chicken");
+        loadButton = new TextButton("Load", skin, "Strawberry");
+        coOpButton = new TextButton("Co-op", skin, "Earth");
+        backButton = new TextButton("Back", skin, "Plant");
 
-        backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_chill.png")));
+        backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_night.png")));
         logoImage = new Image(new Texture(Gdx.files.internal("etc/menu/logo.png")));
 
-        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/companions.png"));
-        TextureRegion[][] tmp = TextureRegion.split(sheet, 16, 16);
+        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/Bat.png"));
+        TextureRegion[][] tmp = TextureRegion.split(sheet, 64, 64);
 
-        for (int i = 0; i < 4; i++) {
-            TextureRegion[] frames = new TextureRegion[4];
-            System.arraycopy(tmp[9], 4 * i, frames, 0, 4);
-            butterflyAnimations.add(new Animation<>(0.13f, frames));
-        }
+        butterflyAnimations.add(new Animation<>(0.13f, tmp[0]));
 
         mainTable = new Table();
         stage = new Stage(new ScreenViewport());
@@ -63,14 +59,14 @@ public class MainMenuScreen implements Screen {
         mainTable.setFillParent(true);
         mainTable.center().top().padTop(100);
 
-        int numOfButterfly = 25;
+        int numOfButterfly = 15;
         for (int i = 0; i < numOfButterfly; i++) {
             Animation<TextureRegion> randomAnimation = butterflyAnimations.random();
 
             float x = MathUtils.random(0, Gdx.graphics.getWidth());
             float y = MathUtils.random(0, Gdx.graphics.getHeight());
 
-            float scale = MathUtils.random(1f, 5f);
+            float scale = MathUtils.random(1f, 2f);
 
             animationActor butterfly = new animationActor(
                     randomAnimation,
@@ -86,37 +82,38 @@ public class MainMenuScreen implements Screen {
         mainTable.add(logoImage).center().padBottom(50).row();
 
         Table buttonRow = new Table();
-        buttonRow.add(profileButton).width(240).pad(10);
-        buttonRow.add(gameButton).width(240).pad(10);
-        buttonRow.add(logoutButton).width(240).pad(10);
-        buttonRow.add(exitButton).width(240).pad(10);
+        buttonRow.add(newButton).width(240).pad(10);
+        buttonRow.add(loadButton).width(240).pad(10);
+        buttonRow.add(coOpButton).width(240).pad(10);
+        buttonRow.add(backButton).width(240).pad(10);
+
         mainTable.add(buttonRow).center().row();
 
-        profileButton.addListener(new ClickListener() {
+        newButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //StardewValley.getGame().setScreen(new Shash());
+                StardewValley.getGame().setScreen(new GameScreen());
             }
         });
 
-        gameButton.addListener(new ClickListener() {
+        loadButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                 StardewValley.getGame().setScreen(new GameMenuScreen());
+                //StardewValley.getGame().setScreen(new HelpScreen());
             }
         });
 
-        logoutButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                StardewValley.getGame().setScreen(new StartMenuScreen());
-            }
-        });
-
-        exitButton.addListener(new ClickListener() {
+        backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
+            }
+        });
+
+        coOpButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                //StardewValley.getGame().setScreen(new HelpScreen());
             }
         });
     }

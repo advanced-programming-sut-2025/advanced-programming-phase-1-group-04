@@ -1,4 +1,5 @@
 etc/cursor.png
+etc/gogoli/Bat.png
 etc/gogoli/animations.png
 etc/gogoli/companions.png
 etc/icon.png
@@ -22,6 +23,7 @@ player/hand_01_girl.png
 player/hand_02.png
 player/hand_02_girl.png
 player/pants/Pant01.png
+player/pants/pants.png
 player/shirts/shirts.png
 skin/04B_30__.fnt
 skin/NzSkin.atlas

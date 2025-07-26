@@ -143,15 +143,9 @@ public class GameScreen implements Screen, InputProcessor {
                 if (object instanceof String) {
                     switch ((String) object) {
                         case "resume":
-                            //GameController.setSetting(colorCheckbox.isChecked(), soundCheckbox.isChecked(), autoReloadCheckbox.isChecked());
                             paused = false;
                             break;
-                        case "give up":
-                            //StardewValley.getGame().setScreen(new EndGameMenu(0));
-                            paused = false;
-                            break;
-                        case "save & exit":
-                            //GameController.saveGame();
+                        case "exit":
                             Gdx.app.exit();
                             break;
                     }
@@ -162,8 +156,7 @@ public class GameScreen implements Screen, InputProcessor {
         pauseDialog.getContentTable().add(table).expand().fill();
 
         pauseDialog.button("resume", "resume").row();
-        pauseDialog.button("give up", "give up").row();
-        pauseDialog.button("save & exit", "save & exit").row();
+        pauseDialog.button("exit", "exit").row();
 
         pauseDialog.setMovable(false);
         pauseDialog.setModal(true);

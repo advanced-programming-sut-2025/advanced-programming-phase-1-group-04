@@ -9,8 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import io.Ap.StardewValley.Controller.GameMenuController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Screen.GameScreen;
-import io.Ap.StardewValley.Screen.MenuScreen.HelpScreen;
-import io.Ap.StardewValley.Screen.MenuScreen.MainMenuScreen;
+import io.Ap.StardewValley.Screen.MenuScreen.GameMenuScreen;
 import io.Ap.StardewValley.Screen.MenuScreen.StartMenuScreen;
 
 import java.io.FileNotFoundException;
@@ -29,17 +28,17 @@ public class StardewValley extends Game {
 
         setCustomCursor();
 
-        //TODO:
-        try {
-            App.loadApp();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        GameMenuController.newGame("Parsa", null, null);
-        GameMenuController.chooseMap(0 ,1);
-        GameMenuController.chooseMap(1 ,2);
+//        //TODO:
+//        try {
+//            App.loadApp();
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//        GameMenuController.newGame("Parsa", null, null);
+//        GameMenuController.chooseMap(0 ,1);
+//        GameMenuController.chooseMap(1 ,2);
 
-        getGame().setScreen(new GameScreen());
+        getGame().setScreen(new GameMenuScreen());
     }
 
     @Override

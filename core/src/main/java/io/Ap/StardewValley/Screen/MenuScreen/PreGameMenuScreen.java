@@ -24,6 +24,8 @@ public class PreGameMenuScreen implements Screen {
     private String hairColor, pantColor;
     private int pantIndex, shirtIndex, hairIndex;
 
+    private int farmId;
+
     private final Image bodyImage, handImage;
     private Stack characterStack;
 
@@ -55,6 +57,8 @@ public class PreGameMenuScreen implements Screen {
         pantIndex = 0;
         shirtIndex = 0;
         hairIndex = 0;
+
+        farmId = 1;
     }
 
     @Override
@@ -90,8 +94,8 @@ public class PreGameMenuScreen implements Screen {
         characterStack.add(characterGroup);
 
         leftColumn.add(characterStack).size(
-                characterBackground.getWidth() * 1.5f,
-                characterBackground.getHeight() * 1.5f
+                characterBackground.getWidth() * 1.7f,
+                characterBackground.getHeight() * 1.7f
         ).padBottom(30);
 
         leftColumn.row();
@@ -176,7 +180,7 @@ public class PreGameMenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 hairIndex--;
-                if (hairIndex < 0) hairIndex = hairSheet.length - 1;
+                if (hairIndex < 0) hairIndex = 6 * 8 + 7;
                 refreshCharacter();
             }
         });
@@ -185,7 +189,7 @@ public class PreGameMenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 hairIndex++;
-                if (hairIndex >= hairSheet.length) hairIndex = 0;
+                if (hairIndex > 6 * 8 + 7) hairIndex = 0;
                 refreshCharacter();
             }
         });
@@ -194,7 +198,7 @@ public class PreGameMenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 shirtIndex--;
-                if (shirtIndex < 0) shirtIndex = shirtSheet[0].length - 1;
+                if (shirtIndex < 0) shirtIndex = 17 * 18 + 9;
                 refreshCharacter();
             }
         });
@@ -203,7 +207,7 @@ public class PreGameMenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 shirtIndex++;
-                if (shirtIndex >= shirtSheet[0].length) shirtIndex = 0;
+                if (shirtIndex > 17 * 18 + 9) shirtIndex = 0;
                 refreshCharacter();
             }
         });
@@ -211,8 +215,8 @@ public class PreGameMenuScreen implements Screen {
         pantSelector.leftBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                pantIndex--;
-                if (pantIndex < 0) pantIndex = pantSheet[0].length - 1;
+                pantIndex -= 12;
+                if (pantIndex < 0) pantIndex = pantSheet[0].length - 12;
                 refreshCharacter();
             }
         });
@@ -220,8 +224,8 @@ public class PreGameMenuScreen implements Screen {
         pantSelector.rightBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                pantIndex++;
-                if (pantIndex >= pantSheet[0].length) pantIndex = 0;
+                pantIndex += 12;
+                if (pantIndex > pantSheet[0].length - 12) pantIndex = 0;
                 refreshCharacter();
             }
         });
@@ -259,8 +263,8 @@ public class PreGameMenuScreen implements Screen {
 
         float scale = 8f;
 
-        int x = 32;
-        int y = 32;
+        int x = 45;
+        int y = 49;
 
         bodyImage.setSize(16 * scale, 32 * scale);
         bodyImage.setPosition(x, y);
@@ -271,19 +275,19 @@ public class PreGameMenuScreen implements Screen {
         characterGroup.addActor(handImage);
 
         // selected:
-        Image hairImage = new Image(hairSheet[0][0]);
+        Image hairImage = new Image(hairSheet[(hairIndex / 8) * 3][hairIndex % 8]);
         hairImage.setSize(16 * scale, 32 * scale);
         hairImage.setPosition(x, y - 1 * scale);
         hairImage.setColor(getColor(hairColor));
         characterGroup.addActor(hairImage);
 
-        Image pantImage = new Image(pantSheet[0][0]);
+        Image pantImage = new Image(pantSheet[0][pantIndex]);
         pantImage.setSize(16 * scale, 32 * scale);
         pantImage.setPosition(x, y);
         pantImage.setColor(getColor(pantColor));
         characterGroup.addActor(pantImage);
 
-        Image shirtImage = new Image(shirtSheet[0][0]);
+        Image shirtImage = new Image(shirtSheet[(shirtIndex / 18) * 4][shirtIndex % 16]);
         shirtImage.setSize(8 * scale, 8 * scale);
         shirtImage.setPosition(x + 4 * scale, y + 9 * scale);
         characterGroup.addActor(shirtImage);
@@ -292,17 +296,17 @@ public class PreGameMenuScreen implements Screen {
 
     public Color getColor(String hairColor) {
         return switch (hairColor) {
-            case "Black" -> Color.BLACK;
-            case "Brown" -> new Color(0.36f, 0.25f, 0.20f, 1f);
+            case "Black" ->  new Color(0x2c2c2dff);
+            case "Brown" -> new Color(0x91513bff);
             case "Blonde" -> new Color(0.98f, 0.94f, 0.55f, 1f);
-            case "Red" -> Color.RED;
-            case "Blue" -> Color.BLUE;
+            case "Red" -> new Color(0x8e1f0cff);
+            case "Blue" -> new Color(0x2121a3ff);
             case "Cyan" -> Color.CYAN;
-            case "Green" -> Color.GREEN;
-            case "Magenta" -> Color.MAGENTA;
+            case "Green" -> new Color(0x277f2bff);
+            case "Magenta" -> new Color(0x9e59dbff);
             case "Orange" -> Color.ORANGE;
             case "Pink" -> Color.PINK;
-            case "Yellow" -> Color.YELLOW;
+            case "Yellow" -> new Color(0xffee2dff);
             case "Gray" -> Color.GRAY;
             case "White" -> Color.WHITE;
             default -> Color.WHITE;

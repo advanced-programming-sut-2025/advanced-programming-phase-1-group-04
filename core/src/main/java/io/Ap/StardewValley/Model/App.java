@@ -2,6 +2,9 @@ package io.Ap.StardewValley.Model;
 
 import io.Ap.StardewValley.Model.Command.Menu;
 import com.google.gson.Gson;
+import io.Ap.StardewValley.Screen.MenuScreen.MainMenuScreen;
+import io.Ap.StardewValley.Screen.MenuScreen.StartMenuScreen;
+import io.Ap.StardewValley.StardewValley;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,6 +44,23 @@ public class App {
             App.setCurrentUser(null);
         } else {
             App.setCurrentMenu(Menu.MainMenu);
+            App.setCurrentUser(user);
+        }
+    }
+
+    public static void loadAppScreen() throws FileNotFoundException {
+        File file = new File("users/loggedIn.json");
+
+        FileReader reader = new FileReader(file);
+        Gson gson = new Gson();
+        User user = gson.fromJson(reader, User.class);
+        if (user == null) {
+            App.setCurrentMenu(Menu.LoginMenu);
+            StardewValley.getGame().setScreen(new StartMenuScreen());
+            App.setCurrentUser(null);
+        } else {
+            App.setCurrentMenu(Menu.MainMenu);
+            StardewValley.getGame().setScreen(new MainMenuScreen());
             App.setCurrentUser(user);
         }
     }

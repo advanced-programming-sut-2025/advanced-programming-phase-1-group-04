@@ -86,6 +86,9 @@ public class PlantController {
         GameMenuController.moveControl();
         SeedType seedType;
         SaplingType saplingType = getSaplingTypeByName(seedName);
+        if (seedName == null) {
+            return new Result(false, "invalid seed/ sapling name!");
+        }
         if ((seedType = getSeedTypeByName(seedName)) == null && saplingType == null) {
             return new Result(false, "invalid seed/ sapling name!");
         }
@@ -93,7 +96,18 @@ public class PlantController {
             return new Result(false, "you don't have " + seedName + " in your inventory!");
         }
         if (seedType != null) {
+
+            //CONFLICT:
+// <<<<<<< HEAD
+            // if (seedName.equalsIgnoreCase("mixed seeds")) {
+            //     App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
+            //     return plantInTile(GameMenuController.getCoordinateByDirection(direction), new Seed(getRandomSeed(), true), GameMenuController.getTileByDirection(direction),
+            //             App.getCurrentGame().getCurrentTime());
+            // }
+            // App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
+// =======
             App.getGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
+// >>>>>>> origin/menu
             return plantInTile(GameMenuController.getCoordinateByDirection(direction), new Seed(seedType, true), GameMenuController.getTileByDirection(direction),
                     App.getGame().getCurrentTime());
         }
@@ -284,19 +298,27 @@ public class PlantController {
         if (!tile.isPlowed()) {
             return new Result(false, "this tile has not been plowed");
         }
-        Crop crop;
-        if (seed.getName().equalsIgnoreCase("Mixed Seeds")) {
-            Seed randomSeed = new Seed(SeedType.values()[NightController.rand.nextInt(35)]);
-            crop = new Crop(time, randomSeed.getCrop(),true);
+//        Crop crop;
+//        if (seed.getSeedType().getCropName().equalsIgnoreCase("Mixed")) {
+//            Seed randomSeed = new Seed(SeedType.values()[NightController.rand.nextInt(35)]);
+//            crop = new Crop(time, randomSeed.getCrop(),true);
+//        }
+//        else {
+//            crop = new Crop (time, seed.getCrop(), true);
+//        }
+
+        Crop crop = PlayerController.getCrop(seed.getSeedType().getCropName());
+
+        if (crop == null) {
+            return new Result(false, "seed type invalid!");
         }
-        else {
-            crop = new Crop (time, seed.getCrop(), true);
-        }
+
         if (tile.getFertilize() == 2) {
             if (!crop.getName().equalsIgnoreCase("grass")) {
                 crop.setTotalHarvestTime(crop.getHarvestTime() - 1);
             }
         }
+
         tile.setItem(crop);
         return new Result(true, seed.getName() + " is now planted in selected tile.");
     }
@@ -338,5 +360,11 @@ public class PlantController {
             }
         }
         return seeds;
+    }
+
+    private static SeedType getRandomSeed () {
+        int size = getSeasonSeeds(App.getGame().getCurrentTime().getSeason()).size();
+        int index = NightController.rand.nextInt(Math.max(0, size -1));
+        return getSeasonSeeds(App.getGame().getCurrentTime().getSeason()).get(index);
     }
 }

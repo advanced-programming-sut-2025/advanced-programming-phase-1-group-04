@@ -51,7 +51,7 @@ public class NightController {
         rainyWeatherEffect();
         randomForagingPlants();
         randomForagingMinerals();
-        crowControl();
+//        crowControl();
     }
 
     private static void randomForagingPlants() {

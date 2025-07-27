@@ -10,6 +10,7 @@ import io.Ap.StardewValley.Model.Map.Item;
 import io.Ap.StardewValley.Model.Map.Tile;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Result;
+import io.Ap.StardewValley.Model.Map.*;
 
 public class CraftController {
     public static Result showRecipes () {
@@ -72,22 +73,32 @@ public class CraftController {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
+        
+        //CONFLICT:
+// <<<<<<< HEAD
+        // Player player = App.getCurrentGame().getCurrentPlayer();
+        // if (direction == null) {
+        //     return new Result(false, "invalid direction!");
+        // }
+// =======
         Player player = App.getGame().getCurrentPlayer();
+// >>>>>>> origin/menu
         Tile tile = GameMenuController.getTileByDirection(direction);
-        Item i;
+        Craft craft;
+
         if (tile == null) {
             return new Result(false, "invalid direction!");
+        }
+        if (tile.getType() != TileType.Ground) {
+            return new Result(false, "the selected tile is not ground!");
         }
         if (craftName == null) {
             return new Result(false, "invalid craft name!");
         }
-        if (findCraftTypeFromAllRecipes(craftName) == null) {
+        if ((craft = PlayerController.getCraft(craftName)) == null) {
             return new Result(false, "there's no such craft!");
         }
-        if ((i = player.getInventory().hasItemWithName(craftName)) == null) {
-            return new Result(false, "you don't have this craft in your inventory!");
-        }
-        if (!(i instanceof Craft craft)) {
+        if ((player.getInventory().hasItemWithName(craftName)) == null) {
             return new Result(false, "you don't have this craft in your inventory!");
         }
         if (tile.getItem() != null) {

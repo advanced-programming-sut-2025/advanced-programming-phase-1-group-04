@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import io.Ap.StardewValley.Model.App;
+import io.Ap.StardewValley.Screen.MenuScreen.MainMenuScreen;
 import io.Ap.StardewValley.Controller.GameMenuController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Screen.GameScreen;
@@ -29,6 +31,11 @@ public class StardewValley extends Game {
         skin = new Skin(Gdx.files.internal("skin/NzSkin.json"));
 
         setCustomCursor();
+        try {
+            App.loadAppScreen();
+        } catch (FileNotFoundException e) {
+           throw new RuntimeException(e);
+       }
 
 //        //TODO:
 //        try {
@@ -40,7 +47,7 @@ public class StardewValley extends Game {
 //        GameMenuController.chooseMap(0 ,1);
 //        GameMenuController.chooseMap(1 ,2);
 
-        getGame().setScreen(new TiledMapScreen());
+//        getGame().setScreen(new PreGameMenuScreen());
     }
 
     @Override

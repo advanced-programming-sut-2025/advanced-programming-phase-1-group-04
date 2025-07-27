@@ -4,9 +4,12 @@ import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Command.Menu;
 import io.Ap.StardewValley.Model.Result;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class MainMenuController {
     public static Result logout() {
-        App.setCurrentUser(null);
+        handleStayLogin();
         App.setCurrentMenu(Menu.LoginMenu);
 
         return new Result(true, "You have successfully logged out. Now you are in login menu");
@@ -29,5 +32,16 @@ public class MainMenuController {
     public static Result exitMenu () {
         App.setCurrentMenu(Menu.LoginMenu);
         return new Result(true, "Now you are in login menu");
+    }
+
+
+    //added by aynaz:
+    public static void handleStayLogin() {
+        App.setCurrentUser(null);
+        try (FileWriter writer = new FileWriter("users/loggedIn.json")) {
+            writer.write("null");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

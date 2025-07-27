@@ -165,4 +165,13 @@ public class Game {
     public ArrayList<NPC> getNPCs() {
         return npcs;
     }
+
+    // TODO: nafiseh tof:
+    public int getPlayerSpeed() {
+        return 2;
+    }
+
+    public float getPlayerScale() {
+        return 1f;
+    }
 }

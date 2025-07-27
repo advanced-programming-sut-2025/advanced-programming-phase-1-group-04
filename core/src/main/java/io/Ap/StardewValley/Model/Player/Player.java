@@ -554,10 +554,6 @@ public class Player {
         this.state = state;
     }
 
-    public int getSpeed() {
-        return 5;
-    }
-
     public String getPantColor() {
         return pantColor;
     }

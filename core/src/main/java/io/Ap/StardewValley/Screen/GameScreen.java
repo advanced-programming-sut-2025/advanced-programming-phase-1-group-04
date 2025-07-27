@@ -1,6 +1,7 @@
 package io.Ap.StardewValley.Screen;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -11,6 +12,7 @@ import io.Ap.StardewValley.Controller.GameMenuController;
 import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Game;
+import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
 import io.Ap.StardewValley.Screen.MenuScreen.StartMenuScreen;
 import io.Ap.StardewValley.StardewValley;
 
@@ -20,9 +22,8 @@ import java.io.IOException;
 public class GameScreen implements Screen, InputProcessor {
     private Stage stage;
     private Table table = new Table();
+    private TiledMapRendererHelper mapRenderer;
 
-    private final float MapWidth = 2688;
-    private final float MapHeight = 2688;
 
     private boolean paused = false;
 
@@ -68,9 +69,15 @@ public class GameScreen implements Screen, InputProcessor {
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
 
-        // set camera
+//        // set camera
+//        camera = new OrthographicCamera();
+//        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//        camera.zoom = 0.2f;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.zoom = 0.2f; // یا هر مقداری که دوست داری
+
+        mapRenderer = new TiledMapRendererHelper("map/tiled/FFarm.tmx");
     }
 
     @Override
@@ -83,11 +90,15 @@ public class GameScreen implements Screen, InputProcessor {
             // update camera
             updateCamera();
 
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+            mapRenderer.render(camera);
             // set shader
             //TillDown.getBatch().setShader(App.getShader());
             //App.getShader().setUniformi("u_grayscale", App.isGrayscale() ? 1 : 0);
 
-            // update game logic
+            // update game
             StardewValley.getBatch().begin();
             controller.updateGame();
             StardewValley.getBatch().end();
@@ -99,25 +110,22 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     public void updateCamera() {
-        float camHalfWidth = camera.viewportWidth / 2f;
-        float camHalfHeight = camera.viewportHeight / 2f;
-
         float playerX = App.getGame().getCurrentPlayer().getCoordinate().getX();
         float playerY = App.getGame().getCurrentPlayer().getCoordinate().getY();
-//        float spriteWidth = App.getGame().getPlayer().getHero().getSprite().getWidth();
-//        float spriteHeight = App.getGame().getPlayer().getHero().getSprite().getHeight();
 
-        float centerX = playerX + 16 / 2f;
-        float centerY = playerY + 32 / 2f;
+        float scale = App.getGame().getPlayerScale();
+        float spriteWidth = 16 * scale;
+        float spriteHeight = 32 * scale;
 
-        centerX = MathUtils.clamp(centerX, camHalfWidth, MapWidth - camHalfWidth);
-        centerY = MathUtils.clamp(centerY, camHalfHeight, MapHeight - camHalfHeight);
+        float centerX = playerX + spriteWidth / 2f;
+        float centerY = playerY + spriteHeight / 2f;
 
         camera.position.set(centerX, centerY, 0);
         camera.update();
 
         StardewValley.getBatch().setProjectionMatrix(camera.combined);
     }
+
 
     public void showPauseDialog() {
         Skin skin = StardewValley.getSkin();
@@ -252,6 +260,8 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public void dispose() {
+        mapRenderer.dispose();
+
     }
 
     @Override

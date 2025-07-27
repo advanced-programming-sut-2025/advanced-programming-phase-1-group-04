@@ -7,14 +7,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import io.Ap.StardewValley.Model.App;
-import io.Ap.StardewValley.Screen.MenuScreen.MainMenuScreen;
-import io.Ap.StardewValley.Controller.GameMenuController;
-import io.Ap.StardewValley.Model.App;
-import io.Ap.StardewValley.Screen.GameScreen;
-import io.Ap.StardewValley.Screen.MapScreen.TiledMapScreen;
-import io.Ap.StardewValley.Screen.MenuScreen.GameMenuScreen;
-import io.Ap.StardewValley.Screen.MenuScreen.PreGameMenuScreen;
-import io.Ap.StardewValley.Screen.MenuScreen.StartMenuScreen;
 
 import java.io.FileNotFoundException;
 
@@ -37,10 +29,10 @@ public class StardewValley extends Game {
         try {
             App.loadAppScreen();
         } catch (FileNotFoundException e) {
-           throw new RuntimeException(e);
-       }
+            throw new RuntimeException(e);
+        }
 
-        getGame().setScreen(new PreGameMenuScreen());
+        //getGame().setScreen(new TiledMapRenderHelper());
     }
 
     @Override

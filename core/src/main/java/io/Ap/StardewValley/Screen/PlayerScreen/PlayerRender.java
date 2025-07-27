@@ -93,7 +93,7 @@ public class PlayerRender {
         Coordinate hairOffset = OffsetManager.getOffset(OffsetType.Hair, state, direction, frameIndex);
         Coordinate shirtOffset = OffsetManager.getOffset(OffsetType.Shirt, state, direction, frameIndex);
 
-        float scale = 6f;
+        float scale = App.getGame().getPlayerScale();
         batch.draw(bodyFrame, x, y, bodyFrame.getRegionWidth() * scale, bodyFrame.getRegionHeight() * scale);
 
         batch.setColor(App.getColor(App.getGame().getCurrentPlayer().getPantColor()));

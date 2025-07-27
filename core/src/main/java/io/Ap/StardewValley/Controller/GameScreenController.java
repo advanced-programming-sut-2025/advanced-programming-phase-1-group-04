@@ -35,20 +35,21 @@ public class GameScreenController {
         float newY = player.getCoordinate().getY();
 
         // Player move:
+        int speed = App.getGame().getPlayerSpeed();
         if (Gdx.input.isKeyPressed(App.getKeyManager().getMoveUp())){
-            newY += player.getSpeed();
+            newY += speed;
             isMoving = true;
             player.setDirection(DirectionType.Up);
         } else if (Gdx.input.isKeyPressed(App.getKeyManager().getMoveDown())){
-            newY -= player.getSpeed();
+            newY -= speed;
             isMoving = true;
             player.setDirection(DirectionType.Down);
         } else if (Gdx.input.isKeyPressed(App.getKeyManager().getMoveRight())){
-            newX += player.getSpeed();
+            newX += speed;
             isMoving = true;
             player.setDirection(DirectionType.Right);
         } else if (Gdx.input.isKeyPressed(App.getKeyManager().getMoveLeft())){
-            newX -= player.getSpeed();
+            newX -= speed;
             isMoving = true;
             player.setDirection(DirectionType.Left);
         }

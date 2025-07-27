@@ -11,6 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.Ap.StardewValley.Controller.GameMenuController;
+import io.Ap.StardewValley.Model.App;
+import io.Ap.StardewValley.Screen.GameScreen;
 import io.Ap.StardewValley.StardewValley;
 
 
@@ -156,7 +159,8 @@ public class PreGameMenuScreen implements Screen {
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //StardewValley.getGame().setScreen(new StartMenuScreen());
+                GameMenuController.newGameOffline(hairColor, pantColor, pantIndex % 12, shirtIndex, hairIndex, farmId);
+                StardewValley.getGame().setScreen(new GameScreen());
             }
         });
 
@@ -278,39 +282,22 @@ public class PreGameMenuScreen implements Screen {
         Image hairImage = new Image(hairSheet[(hairIndex / 8) * 3][hairIndex % 8]);
         hairImage.setSize(16 * scale, 32 * scale);
         hairImage.setPosition(x, y - 1 * scale);
-        hairImage.setColor(getColor(hairColor));
+        hairImage.setColor(App.getColor(hairColor));
         characterGroup.addActor(hairImage);
 
         Image pantImage = new Image(pantSheet[0][pantIndex]);
         pantImage.setSize(16 * scale, 32 * scale);
         pantImage.setPosition(x, y);
-        pantImage.setColor(getColor(pantColor));
+        pantImage.setColor(App.getColor(pantColor));
         characterGroup.addActor(pantImage);
 
         Image shirtImage = new Image(shirtSheet[(shirtIndex / 18) * 4][shirtIndex % 16]);
         shirtImage.setSize(8 * scale, 8 * scale);
         shirtImage.setPosition(x + 4 * scale, y + 9 * scale);
         characterGroup.addActor(shirtImage);
-        return characterGroup;
-    }
 
-    public Color getColor(String hairColor) {
-        return switch (hairColor) {
-            case "Black" ->  new Color(0x2c2c2dff);
-            case "Brown" -> new Color(0x91513bff);
-            case "Blonde" -> new Color(0.98f, 0.94f, 0.55f, 1f);
-            case "Red" -> new Color(0x8e1f0cff);
-            case "Blue" -> new Color(0x2121a3ff);
-            case "Cyan" -> Color.CYAN;
-            case "Green" -> new Color(0x277f2bff);
-            case "Magenta" -> new Color(0x9e59dbff);
-            case "Orange" -> Color.ORANGE;
-            case "Pink" -> Color.PINK;
-            case "Yellow" -> new Color(0xffee2dff);
-            case "Gray" -> Color.GRAY;
-            case "White" -> Color.WHITE;
-            default -> Color.WHITE;
-        };
+        System.out.println(pantIndex);
+        return characterGroup;
     }
 
     private void refreshCharacter() {

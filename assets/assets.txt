@@ -424,7 +424,16 @@ player/hand_01.png
 player/hand_01_girl.png
 player/hand_02.png
 player/hand_02_girl.png
-player/pants/Pant01.png
+player/pants/pant_0.png
+player/pants/pant_1.png
+player/pants/pant_2.png
+player/pants/pant_3.png
+player/pants/pant_4.png
+player/pants/pant_5.png
+player/pants/pant_6.png
+player/pants/pant_7.png
+player/pants/pant_8.png
+player/pants/pant_9.png
 skin/04B_30__.fnt
 skin/NzSkin.atlas
 skin/NzSkin.json

@@ -44,7 +44,7 @@ public class GameMenuController {
         } else if (App.getGame() != null) {
             return new Result(false, "You are in game. Boro khodeto siah kon");
         }
-        Player currentPlayer = new Player(App.getCurrentUser().getId(), 1);
+        Player currentPlayer = new Player("Black", "Black", 0, 0, 0, App.getCurrentUser().getId(), 1);
         ArrayList<Player> players = new ArrayList<>();
         players.add(currentPlayer);
 
@@ -58,7 +58,7 @@ public class GameMenuController {
         if (hasSavedGame(user1.getId())) {
             return new Result(false, username1 + " have a saved game. You can't create new one!");
         }
-        players.add(new Player(user1.getId(), 2));
+        players.add(new Player("Black", "Black", 0, 0, 0, user1.getId(), 2));
 
         if (username2 != null) {
             User user2 = App.getUserByUsername(username2);
@@ -67,7 +67,7 @@ public class GameMenuController {
             if (hasSavedGame(user2.getId())) {
                 return new Result(false, username2 + " have a saved game. You can't create new one!");
             }
-            players.add(new Player(user2.getId(), 3));
+            players.add(new Player("Black", "Black", 0, 0, 0, user2.getId(), 3));
         }
 
         if (username3 != null) {
@@ -77,7 +77,7 @@ public class GameMenuController {
             if (hasSavedGame(user3.getId())) {
                 return new Result(false, username3 + " have a saved game. You can't create new one!");
             }
-            players.add(new Player(user3.getId(), 4));
+            players.add(new Player("Black", "Black", 0, 0, 0, user3.getId(), 4));
         }
 
         App.setGame(new Game(players, currentPlayer));
@@ -172,7 +172,7 @@ public class GameMenuController {
     }
 
     public static Result nextTurn() {
-        // Bug: وقتی نفر اخر انرژیش صفر شه  هیچ موقع نمیره ساعت بعدی.....
+        // BUG: وقتی نفر اخر انرژیش صفر شه  هیچ موقع نمیره ساعت بعدی.....
         // BUG: نکست ترن زد و شب شد باید بره نفر بعدی که نمیره
         int index = App.getGame().getPlayers().indexOf(App.getGame().getCurrentPlayer());
         int totalPlayers = App.getGame().getPlayers().size();
@@ -526,5 +526,17 @@ public class GameMenuController {
             builder.append("\t").append(counter).append("- ").append(notification).append("\n");
         }
         System.out.println(builder.toString());
+    }
+
+    // Phase 2:
+    public static void newGameOffline (String hairColor, String pantColor, int pantIndex, int shirtIndex, int hairIndex, int farmIdSelect) {
+        Player currentPlayer = new Player(hairColor, pantColor, pantIndex, shirtIndex, hairIndex, App.getCurrentUser().getId(), 1);
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(currentPlayer);
+
+        GameMenuController.farmSelections[0] = farmIdSelect;
+
+        App.setGame(new Game(players, currentPlayer));
+        loadNewGame();
     }
 }

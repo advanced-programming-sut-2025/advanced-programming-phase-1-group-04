@@ -92,7 +92,7 @@ public class GameMenuScreen implements Screen {
         newButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                StardewValley.getGame().setScreen(new GameScreen());
+                StardewValley.getGame().setScreen(new PreGameMenuScreen());
             }
         });
 
@@ -106,7 +106,7 @@ public class GameMenuScreen implements Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
+                StardewValley.getGame().setScreen(new MainMenuScreen());
             }
         });
 

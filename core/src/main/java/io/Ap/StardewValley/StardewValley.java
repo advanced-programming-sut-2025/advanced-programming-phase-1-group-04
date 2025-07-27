@@ -11,6 +11,7 @@ import io.Ap.StardewValley.Screen.MenuScreen.MainMenuScreen;
 import io.Ap.StardewValley.Controller.GameMenuController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Screen.GameScreen;
+import io.Ap.StardewValley.Screen.MapScreen.TiledMapScreen;
 import io.Ap.StardewValley.Screen.MenuScreen.GameMenuScreen;
 import io.Ap.StardewValley.Screen.MenuScreen.PreGameMenuScreen;
 import io.Ap.StardewValley.Screen.MenuScreen.StartMenuScreen;
@@ -47,6 +48,9 @@ public class StardewValley extends Game {
 //        GameMenuController.chooseMap(1 ,2);
 
 //        getGame().setScreen(new PreGameMenuScreen());
+
+        getGame().setScreen(new TiledMapScreen());
+
     }
 
     @Override

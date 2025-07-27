@@ -141,8 +141,8 @@ public class PreGameMenuScreen implements Screen {
         contentTable.add(colorSelectTable).padBottom(20).row();
 
         Table buttonRow = new Table();
-        buttonRow.add(startButton).width(200).height(90).pad(10);
         buttonRow.add(backButton).width(200).height(90).pad(10);
+        buttonRow.add(startButton).width(200).height(90).pad(10);
 
 
         window.add(contentTable).expand().center().row();
@@ -159,7 +159,7 @@ public class PreGameMenuScreen implements Screen {
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameMenuController.newGameOffline(hairColor, pantColor, pantIndex % 12, shirtIndex, hairIndex, farmId);
+                GameMenuController.newGameOffline(hairColor, pantColor, pantIndex / 12, shirtIndex, hairIndex, farmId);
                 StardewValley.getGame().setScreen(new GameScreen());
             }
         });
@@ -274,17 +274,7 @@ public class PreGameMenuScreen implements Screen {
         bodyImage.setPosition(x, y);
         characterGroup.addActor(bodyImage);
 
-        handImage.setSize(16 * scale, 32 * scale);
-        handImage.setPosition(x, y);
-        characterGroup.addActor(handImage);
-
         // selected:
-        Image hairImage = new Image(hairSheet[(hairIndex / 8) * 3][hairIndex % 8]);
-        hairImage.setSize(16 * scale, 32 * scale);
-        hairImage.setPosition(x, y - 1 * scale);
-        hairImage.setColor(App.getColor(hairColor));
-        characterGroup.addActor(hairImage);
-
         Image pantImage = new Image(pantSheet[0][pantIndex]);
         pantImage.setSize(16 * scale, 32 * scale);
         pantImage.setPosition(x, y);
@@ -296,7 +286,17 @@ public class PreGameMenuScreen implements Screen {
         shirtImage.setPosition(x + 4 * scale, y + 9 * scale);
         characterGroup.addActor(shirtImage);
 
-        System.out.println(pantIndex);
+        Image hairImage = new Image(hairSheet[(hairIndex / 8) * 3][hairIndex % 8]);
+        hairImage.setSize(16 * scale, 32 * scale);
+        hairImage.setPosition(x, y - 1 * scale);
+        hairImage.setColor(App.getColor(hairColor));
+        characterGroup.addActor(hairImage);
+
+        // hand
+        handImage.setSize(16 * scale, 32 * scale);
+        handImage.setPosition(x, y);
+        characterGroup.addActor(handImage);
+
         return characterGroup;
     }
 

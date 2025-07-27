@@ -49,7 +49,7 @@ public class StardewValley extends Game {
 
 //        getGame().setScreen(new PreGameMenuScreen());
 
-        getGame().setScreen(new TiledMapScreen());
+//        getGame().setScreen(new TiledMapScreen());
 
     }
 

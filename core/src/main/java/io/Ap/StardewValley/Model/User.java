@@ -16,14 +16,17 @@ public class User {
     private int games = 0;
     private int mostCoinsEarned = 0;
 
+    private String avatarPath;
 
-    public User(String username, String password, String nickname, String email, String gender) {
+
+    public User(String username, String password, String nickname, String email, String gender, String avatarPath) {
         this.id = App.getNumberOfUsers() + 1;
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.email = email;
         this.gender = gender;
+        this.avatarPath = avatarPath;
     }
 
     public SecurityQuestion getQuestion() {
@@ -62,6 +65,10 @@ public class User {
         this.mostCoinsEarned = mostCoinsEarned;
     }
 
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -92,6 +99,18 @@ public class User {
 
     public int getId() {
         return id;
+    }
+
+    public int getGames() {
+        return games;
+    }
+
+    public int getMostCoinsEarned() {
+        return mostCoinsEarned;
+    }
+
+    public String getAvatarPath() {
+        return avatarPath;
     }
 
     @Override

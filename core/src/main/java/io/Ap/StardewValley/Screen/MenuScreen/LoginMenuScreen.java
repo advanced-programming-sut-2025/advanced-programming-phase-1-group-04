@@ -149,13 +149,14 @@ public class LoginMenuScreen implements Screen {
                 else {
                     String error = result.toString();
 
-                    Window errorWindow = new Window("Error", skin);
+                    Window errorWindow = new Window("", skin, "Letter");
                     errorWindow.setMovable(false);
                     errorWindow.setResizable(false);
-                    errorWindow.setSize(700, 150);
-                    errorWindow.setPosition(80, stage.getHeight() - errorWindow.getHeight() - 70);
+                    errorWindow.setSize(700, 100);
+                    errorWindow.setPosition(80, stage.getHeight() - errorWindow.getHeight() - 100);
 
-                    Label errorLabel = new Label(error, skin);
+                    Label errorLabel = new Label(error, skin, "WhiteText");
+                    errorLabel.setColor(new Color(0.7f, 0f, 0f, 1f));
                     errorLabel.setWrap(true);
                     errorLabel.setAlignment(Align.center);
                     errorWindow.add(errorLabel).width(660).pad(10);
@@ -197,7 +198,7 @@ public class LoginMenuScreen implements Screen {
         rightColumn.add(new Label("", skin)).left().pad(5);
         rightColumn.row();
 
-        rightColumn.add(forgetPassButton).left().pad(13,5,5,5);
+        rightColumn.add(forgetPassButton).left().pad(13,5,5,5).height(90).width(300);
         rightColumn.row();
 
 
@@ -271,8 +272,8 @@ public class LoginMenuScreen implements Screen {
             }
         });
 
-        buttonRow.add(backButton).width(150).pad(10);
-        buttonRow.add(nextButton).width(150).pad(10);
+        buttonRow.add(backButton).width(150).height(90).pad(10);
+        buttonRow.add(nextButton).width(150).height(90).pad(10);
 
 
         window.add(contentTable).expand().center().row();

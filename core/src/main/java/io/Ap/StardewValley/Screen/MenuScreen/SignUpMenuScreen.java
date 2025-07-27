@@ -235,8 +235,8 @@ public class SignUpMenuScreen implements Screen {
             }
         });
 
-        buttonRow.add(backButton).width(150).pad(10);
-        buttonRow.add(nextButton).width(150).pad(10);
+        buttonRow.add(backButton).width(150).height(90).pad(10);
+        buttonRow.add(nextButton).width(150).height(90).width(150).pad(10);
 
 
         window.add(contentTable).expand().center().row();

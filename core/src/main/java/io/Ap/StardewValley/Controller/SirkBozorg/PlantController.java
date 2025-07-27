@@ -363,8 +363,8 @@ public class PlantController {
     }
 
     private static SeedType getRandomSeed () {
-        int size = getSeasonSeeds(App.getCurrentGame().getCurrentTime().getSeason()).size();
+        int size = getSeasonSeeds(App.getGame().getCurrentTime().getSeason()).size();
         int index = NightController.rand.nextInt(Math.max(0, size -1));
-        return getSeasonSeeds(App.getCurrentGame().getCurrentTime().getSeason()).get(index);
+        return getSeasonSeeds(App.getGame().getCurrentTime().getSeason()).get(index);
     }
 }

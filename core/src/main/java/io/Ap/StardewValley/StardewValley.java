@@ -46,7 +46,7 @@ public class StardewValley extends Game {
 //        GameMenuController.chooseMap(0 ,1);
 //        GameMenuController.chooseMap(1 ,2);
 
-        getGame().setScreen(new PreGameMenuScreen());
+//        getGame().setScreen(new PreGameMenuScreen());
     }
 
     @Override

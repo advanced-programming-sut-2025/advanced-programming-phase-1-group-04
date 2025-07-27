@@ -159,7 +159,7 @@ public class SecurityQuestionScreen implements Screen {
         });
 
         Table buttonTable = new Table();
-        buttonTable.add(submitButton).width(150).padTop(20);
+        buttonTable.add(submitButton).width(150).height(90).padTop(20);
 
         contentTable.row();
         contentTable.add(inputTable).colspan(1).padTop(30);

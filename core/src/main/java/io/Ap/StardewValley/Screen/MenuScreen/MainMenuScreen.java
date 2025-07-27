@@ -99,7 +99,7 @@ public class MainMenuScreen implements Screen {
         profileButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //StardewValley.getGame().setScreen(new Shash());
+                StardewValley.getGame().setScreen(new ProfileMenuScreen());
             }
         });
 

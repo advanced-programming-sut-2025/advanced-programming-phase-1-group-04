@@ -1,10 +1,17 @@
 package io.Ap.StardewValley.Controller;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Command.LoginMenuCommand;
 import io.Ap.StardewValley.Model.Command.Menu;
 import io.Ap.StardewValley.Model.Result;
 import com.google.gson.Gson;
+import io.Ap.StardewValley.Screen.MenuScreen.ChangePasswordScreen;
+import io.Ap.StardewValley.Screen.MenuScreen.ProfileMenuScreen;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -110,5 +117,84 @@ public class ProfileMenuController {
         FileWriter writer = new FileWriter("users/" + App.getCurrentUser().getUsername() + ".json");
         gson.toJson(App.getCurrentUser(), writer);
         writer.close();
+    }
+
+
+    //added by aynaz:
+    public static void changeAvatar(int index, ProfileMenuScreen profileMenuScreen) throws IOException {
+        String avatarPath = "avatar/" + index + ".png";
+        App.getCurrentUser().setAvatarPath(avatarPath);
+        profileMenuScreen.setAvatarPath(avatarPath);
+        profileMenuScreen.getAvatarImage().setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(avatarPath)))));
+        updateCurrentUser();
+    }
+
+    public static Result changeNicknameThroughScreen (String nickname) throws IOException {
+        if (!LoginMenuCommand.Name.isMatch(nickname)) {
+            return new Result(false, "Nickname format is invalid!");
+        } else if (App.getCurrentUser().getNickname().equals(nickname)) {
+            return new Result(false, "Old and new nickname are the same!");
+//            return new Result(false, "Nickname is the same as old one!");
+        }
+
+        App.getCurrentUser().setNickname(nickname);
+        updateCurrentUser();
+        return new Result(true, "Nickname successfully changed.");
+    }
+
+
+    public static Result changeUsernameThroughScreen (String username) throws IOException {
+        String oldUsername = App.getCurrentUser().getUsername();
+        if (!LoginMenuCommand.Name.isMatch(username)) {
+            return new Result(false, "Username format is invalid!");
+        } else if (oldUsername.equals(username)) {
+            return new Result(false, "Old and new usernames are the same!");
+        }  else if (App.getUserByUsername(username) != null) {
+            return new Result(false, "Username already exist!");
+        }
+
+        App.getCurrentUser().setUsername(username);
+
+        Gson gson = new Gson();
+        File oldFile = new File("users/" + oldUsername + ".json");
+        File newFile = new File("users/" + username + ".json");
+        FileWriter writer = new FileWriter(oldFile);
+
+        gson.toJson(App.getCurrentUser(), writer);
+        writer.close();
+        oldFile.renameTo(newFile);
+
+        return new Result(true, "Username successfully changed.");
+    }
+
+    public static Result changePasswordThroughScreen (String newPassword, String oldPassword) throws IOException {
+        if (!LoginMenuCommand.Password.isMatch(newPassword)) {
+            return new Result(false, "Password format is invalid!");
+        } else if (newPassword.length() < 8) {
+            return new Result(false, "password is not long enough!");
+        } else if (!newPassword.matches(".*[a-z].*")) {
+            return new Result(false, "pass must contain lowercase letters!");
+        } else if (!newPassword.matches(".*[A-Z].*")) {
+            return new Result(false, "pass must contain uppercase letters!");
+        } else if (!newPassword.matches(".*[0-9].*")) {
+            return new Result(false, "password must contain numbers!");
+        } else if (!newPassword.matches(".*[!@#$%^&*()_+\\-={}\\[\\]:;\"'<>,.?/|\\\\].*")) {
+            return new Result(false, "pass must contain special symbols!");
+        } else if (!App.getCurrentUser().getPassword().equals(LoginMenuController.getHashPassword(oldPassword))) {
+            return new Result(false, "Old password is incorrect!");
+        } else if (App.getCurrentUser().getPassword().equals(LoginMenuController.getHashPassword(newPassword))) {
+            return new Result(false, "Old and new password are the same!");
+        }
+
+        App.getCurrentUser().setPassword(LoginMenuController.getHashPassword(newPassword));
+        updateCurrentUser();
+        return new Result(true, "Password successfully changed.");
+    }
+
+    public static void setRandomPass (ChangePasswordScreen changePasswordScreen) {
+        TextField newPass = changePasswordScreen.getNewPassField();
+        String randomPass = LoginMenuController.generatePassword();
+
+        newPass.setText(randomPass);
     }
 }

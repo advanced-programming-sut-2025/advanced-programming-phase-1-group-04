@@ -133,19 +133,19 @@ public class BlackSmith implements Shop {
             if (copperTrashCan <= 0) {
                 return new Result(false, "due to the daily limit of this item, you can't buy it now!");
             }
-            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("copper", 25)) {
+            if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("copper", 25)) {
                 return new Result(false, "you don't have enough copper ores!\n25 copper ores are needed.");
             }
-            else if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
+            else if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
                 return new Result(false, "you don't have enough coal!\n5 pieces are needed.");
             }
-            else if (App.getCurrentGame().getCurrentPlayer().getCount() < 1000) {
+            else if (App.getGame().getCurrentPlayer().getCount() < 1000) {
                 return new Result(false, "you don't have enough money!\ncost: 2000g.");
             }
-            App.getCurrentGame().getCurrentPlayer().addCount(-1000);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("copper", 25);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
-            App.getCurrentGame().getCurrentPlayer().getInventory().setTrashCanLevel(2);
+            App.getGame().getCurrentPlayer().addCount(-1000);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("copper", 25);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
+            App.getGame().getCurrentPlayer().getInventory().setTrashCanLevel(2);
             copperTrashCan = 0;
             return new Result(true, "your trash can is now upgraded to a copper trash can.");
         }
@@ -154,19 +154,19 @@ public class BlackSmith implements Shop {
             if (steelTrashCan <= 0) {
                 return new Result(false, "due to the daily limit of this item, you can't buy it now!");
             }
-            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("iron", 25)) {
+            if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("iron", 25)) {
                 return new Result(false, "you don't have enough iron ores!\n25 iron ores are needed.");
             }
-            else if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
+            else if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
                 return new Result(false, "you don't have enough coal!\n5 pieces are needed.");
             }
-            else if (App.getCurrentGame().getCurrentPlayer().getCount() < 2500) {
+            else if (App.getGame().getCurrentPlayer().getCount() < 2500) {
                 return new Result(false, "you don't have enough money!\ncost: 5000g.");
             }
-            App.getCurrentGame().getCurrentPlayer().addCount(-2500);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("iron", 25);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
-            App.getCurrentGame().getCurrentPlayer().getInventory().setTrashCanLevel(3);
+            App.getGame().getCurrentPlayer().addCount(-2500);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("iron", 25);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
+            App.getGame().getCurrentPlayer().getInventory().setTrashCanLevel(3);
             steelTrashCan = 0;
             return new Result(true, "your trash can is now upgraded to a steel trash can.");
         }
@@ -175,19 +175,19 @@ public class BlackSmith implements Shop {
             if (goldTrashCan <= 0) {
                 return new Result(false, "due to the daily limit of this item, you can't buy it now!");
             }
-            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("gold", 25)) {
+            if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("gold", 25)) {
                 return new Result(false, "you don't have enough gold ores!\n25 gold ores are needed.");
             }
-            else if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
+            else if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
                 return new Result(false, "you don't have enough coal!\n5 pieces are needed.");
             }
-            else if (App.getCurrentGame().getCurrentPlayer().getCount() < 5000) {
+            else if (App.getGame().getCurrentPlayer().getCount() < 5000) {
                 return new Result(false, "you don't have enough money!\ncost: 10000g.");
             }
-            App.getCurrentGame().getCurrentPlayer().addCount(-5000);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("gold", 25);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
-            App.getCurrentGame().getCurrentPlayer().getInventory().setTrashCanLevel(4);
+            App.getGame().getCurrentPlayer().addCount(-5000);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("gold", 25);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
+            App.getGame().getCurrentPlayer().getInventory().setTrashCanLevel(4);
             goldTrashCan = 0;
             return new Result(true, "your trash can is now upgraded to a gold trash can.");
         }
@@ -196,19 +196,19 @@ public class BlackSmith implements Shop {
             if (iridiumTrashCan <= 0) {
                 return new Result(false, "due to the daily limit of this item, you can't buy it now!");
             }
-            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("iridium", 25)) {
+            if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("iridium", 25)) {
                 return new Result(false, "you don't have enough iridium ores!\n25 iridium ores are needed.");
             }
-            else if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
+            else if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber("coal", 5)) {
                 return new Result(false, "you don't have enough coal!\n5 pieces are needed.");
             }
-            else if (App.getCurrentGame().getCurrentPlayer().getCount() < 12500) {
+            else if (App.getGame().getCurrentPlayer().getCount() < 12500) {
                 return new Result(false, "you don't have enough money!\ncost: 25000g.");
             }
-            App.getCurrentGame().getCurrentPlayer().addCount(-12500);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("iridium", 25);
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
-            App.getCurrentGame().getCurrentPlayer().getInventory().setTrashCanLevel(5);
+            App.getGame().getCurrentPlayer().addCount(-12500);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("iridium", 25);
+            App.getGame().getCurrentPlayer().removeItemFromInventory("coal", 5);
+            App.getGame().getCurrentPlayer().getInventory().setTrashCanLevel(5);
             iridiumTrashCan = 0;
             return new Result(true, "your trash can is now upgraded to an iridium trash can.");
         }
@@ -283,11 +283,11 @@ public class BlackSmith implements Shop {
     }
 
     public Result buyMineral (BlackSmithStock s, int number) {
-        if (s.getPrice() * number > App.getCurrentGame().getCurrentPlayer().getCount()) {
+        if (s.getPrice() * number > App.getGame().getCurrentPlayer().getCount()) {
             return new Result(false, "you don't have enough money!");
         }
-        App.getCurrentGame().getCurrentPlayer().addCount(-1 * s.getPrice() * number);
-        if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new ForagingMineral(s.getMineralType()), number)) {
+        App.getGame().getCurrentPlayer().addCount(-1 * s.getPrice() * number);
+        if (!App.getGame().getCurrentPlayer().addItemToInventory(new ForagingMineral(s.getMineralType()), number)) {
             return new Result(false, "can't add this item(s) to your inventory!");
         }
         return new Result(true, number + " " + s.getName() + " added to inventory.");

@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Controller.MainMenuController;
+import io.Ap.StardewValley.Screen.GameScreen;
 import io.Ap.StardewValley.StardewValley;
 
 import java.io.FileWriter;
@@ -105,7 +106,7 @@ public class MainMenuScreen implements Screen {
         gameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                 //StardewValley.getGame().setScreen(new HelpScreen());
+                 StardewValley.getGame().setScreen(new GameMenuScreen());
             }
         });
 

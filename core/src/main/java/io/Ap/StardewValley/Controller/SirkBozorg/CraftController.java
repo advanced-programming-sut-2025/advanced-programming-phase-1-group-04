@@ -5,7 +5,6 @@ import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Crafting.Craft;
 import io.Ap.StardewValley.Model.Crafting.CraftRecipe;
 import io.Ap.StardewValley.Model.Crafting.CraftType;
-import io.Ap.StardewValley.Model.Map.*;
 import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Item;
 import io.Ap.StardewValley.Model.Map.Tile;
@@ -14,12 +13,12 @@ import io.Ap.StardewValley.Model.Result;
 
 public class CraftController {
     public static Result showRecipes () {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
         String result = "Crafting recipes:\n";
-        for (CraftRecipe r : App.getCurrentGame().getCurrentPlayer().getCraftRecipes()) {
+        for (CraftRecipe r : App.getGame().getCurrentPlayer().getCraftRecipes()) {
             result = result + r.getName() + ": " + r.getRecipeString() + "\n";
             if (canMakeCraft(r).isSuccessful()) {
                 result = result + "needed items are available\n\n";
@@ -32,11 +31,11 @@ public class CraftController {
     }
 
     public static Result makeCraft (String craftName) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.House) {
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.House) {
             return new Result(false, "you must be at home for using this command!");
         }
         CraftRecipe recipe;
@@ -46,7 +45,7 @@ public class CraftController {
         if((recipe = findCraftRecipe(craftName)) == null) {
             return new Result(false, "you haven't learned this recipe yet!");
         }
-        if (App.getCurrentGame().getCurrentPlayer().getInventory().getRemainedCapacity() <= 0) {
+        if (App.getGame().getCurrentPlayer().getInventory().getRemainedCapacity() <= 0) {
             return new Result(false, "your inventory doesn't have enough capacity!");
         }
         boolean success = canMakeCraft(recipe).isSuccessful();
@@ -54,29 +53,35 @@ public class CraftController {
             return canMakeCraft(recipe);
         }
         for (Item i : recipe.getRecipe().keySet()) {
-            App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(i.getName(), recipe.getRecipe().get(i));
+            App.getGame().getCurrentPlayer().removeItemFromInventory(i.getName(), recipe.getRecipe().get(i));
         }
         if (findCraftType(recipe) == null) {
             return new Result(false, "invalid craft name!"); //never happens (inshallah)
         }
-        if (App.getCurrentGame().getCurrentPlayer().getEnergy() < 2) {
+        if (App.getGame().getCurrentPlayer().getEnergy() < 2) {
             return new Result(false, "you don't have enough energy\n" + GameMenuController.nextTurn().message());
             //TODO: next turn call mishe?
         }
-        App.getCurrentGame().getCurrentPlayer().addEnergy(-2);
-        App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Craft(findCraftType(recipe)), 1);
+        App.getGame().getCurrentPlayer().addEnergy(-2);
+        App.getGame().getCurrentPlayer().addItemToInventory(new Craft(findCraftType(recipe)), 1);
         return new Result(false, craftName + " added to inventory.");
     }
 
     public static Result placeCraft (String craftName, String direction) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        Player player = App.getCurrentGame().getCurrentPlayer();
-        if (direction == null) {
-            return new Result(false, "invalid direction!");
-        }
+        
+        //CONFLICT:
+// <<<<<<< HEAD
+        // Player player = App.getCurrentGame().getCurrentPlayer();
+        // if (direction == null) {
+        //     return new Result(false, "invalid direction!");
+        // }
+// =======
+        Player player = App.getGame().getCurrentPlayer();
+// >>>>>>> origin/menu
         Tile tile = GameMenuController.getTileByDirection(direction);
         Craft craft;
 
@@ -99,7 +104,7 @@ public class CraftController {
             return new Result(false, "the selected tile isn't empty!");
         }
         tile.setItem(craft);
-        App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(craft.getName(), 1);
+        App.getGame().getCurrentPlayer().removeItemFromInventory(craft.getName(), 1);
         return new Result(false, craft.getName() + " has been successfully placed in the selected tile.");
     }
 
@@ -111,7 +116,7 @@ public class CraftController {
 
 
     public static CraftRecipe findCraftRecipe (String name) {
-        for (CraftRecipe r : App.getCurrentGame().getCurrentPlayer().getCraftRecipes()) {
+        for (CraftRecipe r : App.getGame().getCurrentPlayer().getCraftRecipes()) {
             if (r.getName().equalsIgnoreCase(name)) {
                 return r;
             }
@@ -121,7 +126,7 @@ public class CraftController {
 
     public static Result canMakeCraft (CraftRecipe r) {
         for (Item i : r.getRecipe().keySet()) {
-            if (!App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithNumber(i.getName(), r.getRecipe().get(i))) {
+            if (!App.getGame().getCurrentPlayer().getInventory().hasItemWithNumber(i.getName(), r.getRecipe().get(i))) {
                 return new Result (false, "you don't have enough " + i.getName() + " in your inventory!");
             }
         }

@@ -8,7 +8,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Screen.MenuScreen.MainMenuScreen;
+import io.Ap.StardewValley.Controller.GameMenuController;
+import io.Ap.StardewValley.Model.App;
+import io.Ap.StardewValley.Screen.GameScreen;
+import io.Ap.StardewValley.Screen.MenuScreen.GameMenuScreen;
+import io.Ap.StardewValley.Screen.MenuScreen.PreGameMenuScreen;
 import io.Ap.StardewValley.Screen.MenuScreen.StartMenuScreen;
+
+import java.io.FileNotFoundException;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class StardewValley extends Game {
@@ -25,10 +32,21 @@ public class StardewValley extends Game {
         setCustomCursor();
         try {
             App.loadAppScreen();
-        } catch (Exception e) {}
+        } catch (FileNotFoundException e) {
+           throw new RuntimeException(e);
+       }
 
-//        getGame().setScreen(new StartMenuScreen());
-        //        getGame().setScreen(new MainMenuScreen());
+//        //TODO:
+//        try {
+//            App.loadApp();
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//        GameMenuController.newGame("Parsa", null, null);
+//        GameMenuController.chooseMap(0 ,1);
+//        GameMenuController.chooseMap(1 ,2);
+
+        getGame().setScreen(new PreGameMenuScreen());
     }
 
     @Override

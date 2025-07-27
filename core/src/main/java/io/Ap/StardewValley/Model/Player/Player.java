@@ -15,6 +15,8 @@ import io.Ap.StardewValley.Model.Map.Item;
 import io.Ap.StardewValley.Model.Tool.Tool;
 import io.Ap.StardewValley.Model.User;
 import com.google.gson.Gson;
+import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
+import io.Ap.StardewValley.Screen.PlayerScreen.StateType;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,6 +26,9 @@ import java.util.*;
 import java.util.Map;
 
 public class Player {
+    private DirectionType direction;
+    private StateType state;
+
     private final int id;
     private final int farm; // Farm id 1-4
 
@@ -68,16 +73,11 @@ public class Player {
     private int partnerID = -1;
     private ArrayList<Trade> sentTrades = new ArrayList<>();
     private ArrayList<Trade> receivedTrades = new ArrayList<>();
-    //gift list
-    //ask marriage list?
-    //trade list
-    //quest list
-
-    //gift history
-    //talk history
-    //trade history
 
     public Player(int id, int farm) {
+        this.direction = DirectionType.Up;
+        this.state = StateType.Idle;
+
         this.id = id;
         this.farm = farm;
         switch (farm) {
@@ -303,7 +303,7 @@ public class Player {
     public void addPartnerCount(int count) {
         if (partnerID == -1)
             return;
-        Player partner = App.getCurrentGame().getPlayerByID(partnerID);
+        Player partner = App.getGame().getPlayerByID(partnerID);
         partner.count += count;
     }
 
@@ -327,7 +327,7 @@ public class Player {
     public boolean isMyPartnerFarm(Coordinate coordinate) {
         if (partnerID == -1)
             return false;
-        Player partner = App.getCurrentGame().getPlayerByID(partnerID);
+        Player partner = App.getGame().getPlayerByID(partnerID);
         return switch (partner.getFarm()) {
             case 1 -> coordinate.getX() < 30 && coordinate.getY() < 40
                     && coordinate.getX() >= 0 && coordinate.getY() >= 0;
@@ -527,5 +527,25 @@ public class Player {
 
     public ArrayList<Trade> getReceivedTrades() {
         return receivedTrades;
+    }
+
+    public DirectionType getDirection() {
+        return direction;
+    }
+
+    public StateType getState() {
+        return state;
+    }
+
+    public void setDirection(DirectionType direction) {
+        this.direction = direction;
+    }
+
+    public void setState(StateType state) {
+        this.state = state;
+    }
+
+    public int getSpeed() {
+        return 5;
     }
 }

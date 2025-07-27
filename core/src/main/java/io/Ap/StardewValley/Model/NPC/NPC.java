@@ -30,7 +30,7 @@ public class NPC {
         this.quests = type.getQuests();
         this.friendXp = new HashMap<>();
         this.talkedToday = new HashMap<>();
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             this.friendXp.put(player, 0);
             this.talkedToday.put(player, false);
         }

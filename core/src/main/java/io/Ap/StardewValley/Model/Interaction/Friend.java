@@ -104,7 +104,7 @@ public class Friend {
     }
 
     public String getFriendName() {
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getId() == this.friendId)
                 return player.getUsername();
         }

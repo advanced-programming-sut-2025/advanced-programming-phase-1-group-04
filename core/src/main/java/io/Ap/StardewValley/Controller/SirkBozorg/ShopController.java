@@ -12,118 +12,118 @@ public class ShopController {
         if (count < 0) {
             return new Result(false, "Count should be positive!");
         }
-        App.getCurrentGame().getCurrentPlayer().addCount(count);
-        return new Result(true, "Now your account has been updated to: "  + App.getCurrentGame().getCurrentPlayer().getCount());
+        App.getGame().getCurrentPlayer().addCount(count);
+        return new Result(true, "Now your account has been updated to: "  + App.getGame().getCurrentPlayer().getCount());
     }
 
     public static Result showAllProducts () {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getType() != TileType.Building) {
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getType() != TileType.Building) {
             return new Result (false, "you must be in a shop to use this command!");
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.Blacksmith) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.Blacksmith).showAllProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.Blacksmith) {
+            return new Result(true, App.getGame().getShop(ShopType.Blacksmith).showAllProducts());
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.CarpentersShop) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.CarpentersShop).showAllProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.CarpentersShop) {
+            return new Result(true, App.getGame().getShop(ShopType.CarpentersShop).showAllProducts());
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.FishShop) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.FishShop).showAllProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.FishShop) {
+            return new Result(true, App.getGame().getShop(ShopType.FishShop).showAllProducts());
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.JojaMart) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.JojaMart).showAllProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.JojaMart) {
+            return new Result(true, App.getGame().getShop(ShopType.JojaMart).showAllProducts());
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.MarniesRanch) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.MarniesRanch).showAllProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.MarniesRanch) {
+            return new Result(true, App.getGame().getShop(ShopType.MarniesRanch).showAllProducts());
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.PierresGeneralStore) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.PierresGeneralStore).showAllProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.PierresGeneralStore) {
+            return new Result(true, App.getGame().getShop(ShopType.PierresGeneralStore).showAllProducts());
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.TheStarDropSaloon) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.TheStarDropSaloon).showAllProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.TheStarDropSaloon) {
+            return new Result(true, App.getGame().getShop(ShopType.TheStarDropSaloon).showAllProducts());
         }
         return new Result (false, "you must be in a shop to use this command!");
     }
 
     public static Result showAvailableProducts() {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getType() != TileType.Building) {
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getType() != TileType.Building) {
             return new Result (false, "you must be in a shop to use this command!");
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.Blacksmith) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.Blacksmith).showAvailableProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.Blacksmith) {
+            return new Result(true, App.getGame().getShop(ShopType.Blacksmith).showAvailableProducts());
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.CarpentersShop) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.CarpentersShop).showAvailableProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.CarpentersShop) {
+            return new Result(true, App.getGame().getShop(ShopType.CarpentersShop).showAvailableProducts());
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.FishShop) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.FishShop).showAvailableProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.FishShop) {
+            return new Result(true, App.getGame().getShop(ShopType.FishShop).showAvailableProducts());
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.JojaMart) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.JojaMart).showAvailableProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.JojaMart) {
+            return new Result(true, App.getGame().getShop(ShopType.JojaMart).showAvailableProducts());
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.MarniesRanch) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.MarniesRanch).showAvailableProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.MarniesRanch) {
+            return new Result(true, App.getGame().getShop(ShopType.MarniesRanch).showAvailableProducts());
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.PierresGeneralStore) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.PierresGeneralStore).showAvailableProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.PierresGeneralStore) {
+            return new Result(true, App.getGame().getShop(ShopType.PierresGeneralStore).showAvailableProducts());
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.TheStarDropSaloon) {
-            return new Result(true, App.getCurrentGame().getShop(ShopType.TheStarDropSaloon).showAvailableProducts());
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.TheStarDropSaloon) {
+            return new Result(true, App.getGame().getShop(ShopType.TheStarDropSaloon).showAvailableProducts());
         }
         return new Result (false, "you must be in a shop to use this command!");
     }
 
     public static Result purchaseWithNumber (String productName, String count) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
         int number;
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getType() != TileType.Building) {
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getType() != TileType.Building) {
             return new Result (false, "you must be in a shop to use this command!");
         }
         if ((number = Integer.parseInt(count)) <= 0) {
             return new Result(false, "\"count\" must be a positive number!");
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.Blacksmith) {
-            return App.getCurrentGame().getShop(ShopType.Blacksmith).buy(productName, number, null);
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.Blacksmith) {
+            return App.getGame().getShop(ShopType.Blacksmith).buy(productName, number, null);
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.CarpentersShop) {
-            return App.getCurrentGame().getShop(ShopType.CarpentersShop).buy(productName, number, null);
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.CarpentersShop) {
+            return App.getGame().getShop(ShopType.CarpentersShop).buy(productName, number, null);
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.FishShop) {
-            return App.getCurrentGame().getShop(ShopType.FishShop).buy(productName, number, null);
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.FishShop) {
+            return App.getGame().getShop(ShopType.FishShop).buy(productName, number, null);
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.JojaMart) {
-            return App.getCurrentGame().getShop(ShopType.JojaMart).buy(productName, number, null);
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.JojaMart) {
+            return App.getGame().getShop(ShopType.JojaMart).buy(productName, number, null);
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.MarniesRanch) {
-            return App.getCurrentGame().getShop(ShopType.MarniesRanch).buy(productName, number, null);
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.MarniesRanch) {
+            return App.getGame().getShop(ShopType.MarniesRanch).buy(productName, number, null);
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.PierresGeneralStore) {
-            return App.getCurrentGame().getShop(ShopType.PierresGeneralStore).buy(productName, number, null);
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.PierresGeneralStore) {
+            return App.getGame().getShop(ShopType.PierresGeneralStore).buy(productName, number, null);
         }
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.TheStarDropSaloon) {
-            return App.getCurrentGame().getShop(ShopType.TheStarDropSaloon).buy(productName, number, null);
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() == BuildingType.TheStarDropSaloon) {
+            return App.getGame().getShop(ShopType.TheStarDropSaloon).buy(productName, number, null);
         }
         return new Result (false, "you must be in a shop to use this command!");
     }
 
     public static Result sell(String type, String name, String stringCount) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
         int count = (stringCount == null ) ? -1 : Integer.parseInt(stringCount);
         Item item = PlayerController.getItemByTypeName(type, name);
-        int inventoryCount = App.getCurrentGame().getCurrentPlayer().getInventory().getItemQuantity(item);
+        int inventoryCount = App.getGame().getCurrentPlayer().getInventory().getItemQuantity(item);
 
 
         // location error:
@@ -156,8 +156,8 @@ public class ShopController {
         }
 
         if (count == -1) count = inventoryCount;
-        App.getCurrentGame().getCurrentPlayer().addItemToShippingBin(item, count);
-        if (!App.getCurrentGame().getCurrentPlayer().getInventory().removeItem(item.getName(), count)) {
+        App.getGame().getCurrentPlayer().addItemToShippingBin(item, count);
+        if (!App.getGame().getCurrentPlayer().getInventory().removeItem(item.getName(), count)) {
             return new Result(false, "Oh shit here we go again(you can't remove this item from your inventory)");
         }
 
@@ -165,10 +165,10 @@ public class ShopController {
     }
 
     private static boolean isShippingBinAroundMe() {
-        Tile[][] fullMap = App.getCurrentGame().getMap().getFullMap();
+        Tile[][] fullMap = App.getGame().getMap().getFullMap();
 
-        int x = App.getCurrentGame().getCurrentPlayer().getCoordinate().getX();
-        int y = App.getCurrentGame().getCurrentPlayer().getCoordinate().getY();
+        int x = App.getGame().getCurrentPlayer().getCoordinate().getX();
+        int y = App.getGame().getCurrentPlayer().getCoordinate().getY();
 
         int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
         int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};

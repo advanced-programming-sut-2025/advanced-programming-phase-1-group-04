@@ -19,8 +19,8 @@ public class FishingPole implements Tool{
 
     @Override
     public Result upgrade() {
-        Player player = App.getCurrentGame().getCurrentPlayer();
-        if (App.getCurrentGame().getTile(App.getCurrentGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.FishShop) {
+        Player player = App.getGame().getCurrentPlayer();
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.FishShop) {
             return new Result(false, "you are not in fish shop!");
         }
         if (player.getCurrentTool() == null || !(player.getCurrentTool() instanceof FishingPole pole)) {
@@ -74,20 +74,20 @@ public class FishingPole implements Tool{
         if (c == null) {
             return new Result(false, "invalid coordinate!");
         }
-        Tile t = App.getCurrentGame().getTile(c);
+        Tile t = App.getGame().getTile(c);
         return use(t);
     }
 
     @Override
     public int getEnergyConsumption(boolean useSuccess) {
         int base = 0;
-        if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Rain) {
+        if (App.getGame().getCurrentTime().getWeather() == Weather.Rain) {
             base = (int) (level.getEnergyConsumption() * 1.5);
         }
-        else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
+        else if (App.getGame().getCurrentTime().getWeather() == Weather.Snow) {
             base = level.getEnergyConsumption() * 2;
         }
-        if (App.getCurrentGame().getCurrentPlayer().isBuffed(Skill.Fishing)) {
+        if (App.getGame().getCurrentPlayer().isBuffed(Skill.Fishing)) {
             base = Math.max(base - 1, 0);
         }
         return base;

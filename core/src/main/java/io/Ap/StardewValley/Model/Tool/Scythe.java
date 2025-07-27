@@ -22,7 +22,7 @@ public class Scythe implements Tool {
 
     @Override
     public Result use(Tile tile) {
-        Player player = App.getCurrentGame().getCurrentPlayer();
+        Player player = App.getGame().getCurrentPlayer();
         player.addEnergy(-1 * getEnergyConsumption(true));
         if (tile == null) {
             return new Result(false, "invalid direction!");
@@ -74,7 +74,7 @@ public class Scythe implements Tool {
                     tile.setItem(null);
                 }
                 else {
-                    crop.setLastTimeHarvested(App.getCurrentGame().getCurrentTime());
+                    crop.setLastTimeHarvested(App.getGame().getCurrentTime());
                 }
                 if (!crop.isPurposelyPlanted()) {
                     player.addAbility(Skill.Foraging, 10);
@@ -110,16 +110,16 @@ public class Scythe implements Tool {
         if (c == null) {
             return new Result(false, "invalid coordinate!");
         }
-        Tile t = App.getCurrentGame().getTile(c);
+        Tile t = App.getGame().getTile(c);
         return use(t);
     }
 
     @Override
     public int getEnergyConsumption(boolean useSuccess) {
-        if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Rain) {
+        if (App.getGame().getCurrentTime().getWeather() == Weather.Rain) {
             return 3;
         }
-        else if (App.getCurrentGame().getCurrentTime().getWeather() == Weather.Snow) {
+        else if (App.getGame().getCurrentTime().getWeather() == Weather.Snow) {
             return 4;
         }
         return 2;
@@ -147,8 +147,8 @@ public class Scythe implements Tool {
 
     private double qualityConst () {
         double c = 1;
-        int a = App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Farming) +
-                App.getCurrentGame().getCurrentPlayer().getAbilityLevel(Skill.Foraging);
+        int a = App.getGame().getCurrentPlayer().getAbilityLevel(Skill.Farming) +
+                App.getGame().getCurrentPlayer().getAbilityLevel(Skill.Foraging);
         if (NightController.rand.nextInt(10) < a) {
             c = 1.25;
         }

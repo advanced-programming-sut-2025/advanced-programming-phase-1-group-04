@@ -85,13 +85,13 @@ public class FishShop implements Shop {
             if (stock.get(FishShopStock.FishSmoker) <= 0 || number > 1) {
                 return new Result(false, "due to the daily limit of this item, you can't buy it now!");
             }
-            if (FishShopStock.FishSmoker.getPrice() * number > App.getCurrentGame().getCurrentPlayer().getCount()) {
+            if (FishShopStock.FishSmoker.getPrice() * number > App.getGame().getCurrentPlayer().getCount()) {
                 return new Result(false, "you don't have enough money!");
             }
-            if (!App.getCurrentGame().getCurrentPlayer().addToCraftRecipes(CraftRecipe.FishSmoker)) {
+            if (!App.getGame().getCurrentPlayer().addToCraftRecipes(CraftRecipe.FishSmoker)) {
                 return new Result(false, "you already have this recipe!");
             }
-            App.getCurrentGame().getCurrentPlayer().addCount(-10000);
+            App.getGame().getCurrentPlayer().addCount(-10000);
             stock.put(FishShopStock.FishSmoker, 0);
             return new Result(true, "fish smoker added to your craft recipes.");
         }
@@ -99,10 +99,10 @@ public class FishShop implements Shop {
             if (stock.get(FishShopStock.TroutSoup) <= 0 || number > 1) {
                 return new Result(false, "due to the daily limit of this item, you can't buy it now!");
             }
-            if (FishShopStock.TroutSoup.getPrice() * number > App.getCurrentGame().getCurrentPlayer().getCount()) {
+            if (FishShopStock.TroutSoup.getPrice() * number > App.getGame().getCurrentPlayer().getCount()) {
                 return new Result(false, "you don't have enough money!");
             }
-            if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Food (FoodType.TroutSoup), 1)) {
+            if (!App.getGame().getCurrentPlayer().addItemToInventory(new Food (FoodType.TroutSoup), 1)) {
                 return new Result(false, "you can't add this item to your inventory!");
             }
             return new Result(true, "Trout soup added to your inventory.");
@@ -113,16 +113,16 @@ public class FishShop implements Shop {
             return new Result(false, "you must be equipped with your current fishing pole and then use upgrade command!");
         }
         if (productName.equalsIgnoreCase("training pole") || productName.equalsIgnoreCase("training rod")) {
-            if (App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithName("Fishing pole") != null) {
+            if (App.getGame().getCurrentPlayer().getInventory().hasItemWithName("Fishing pole") != null) {
                 return new Result(false, "you already have a fishing pole!");
             }
             if (stock.get(FishShopStock.TrainingRod) <= 0 || number > 1) {
                 return new Result(false, "due to the daily limit of this item, you can't buy it now!");
             }
-            if (FishShopStock.TrainingRod.getPrice() * number > App.getCurrentGame().getCurrentPlayer().getCount()) {
+            if (FishShopStock.TrainingRod.getPrice() * number > App.getGame().getCurrentPlayer().getCount()) {
                 return new Result(false, "you don't have enough money!");
             }
-            App.getCurrentGame().getCurrentPlayer().addItemToInventory(new FishingPole(FishingPoleType.Training), 1);
+            App.getGame().getCurrentPlayer().addItemToInventory(new FishingPole(FishingPoleType.Training), 1);
             return new Result(true, "training rod added successfully.");
         }
         return new Result(false, "invalid product name!");

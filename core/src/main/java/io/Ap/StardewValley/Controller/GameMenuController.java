@@ -8,7 +8,6 @@ import io.Ap.StardewValley.Model.Command.Menu;
 import io.Ap.StardewValley.Model.Cooking.FoodType;
 import io.Ap.StardewValley.Model.Crafting.CraftType;
 import io.Ap.StardewValley.Model.Game;
-import io.Ap.StardewValley.Model.Map.*;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Map.GameMap;
 import io.Ap.StardewValley.Model.Map.Item;
@@ -27,7 +26,6 @@ import io.Ap.StardewValley.Model.Shop.TheStardropSaloon.TheStardropSaloon;
 import io.Ap.StardewValley.Model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import io.Ap.StardewValley.Gson.*;
 
 import java.io.File;
 import java.io.FileReader;
@@ -43,7 +41,7 @@ public class GameMenuController {
     public static Result newGame(String username1, String username2, String username3) {
         if (hasSavedGame(App.getCurrentUser().getId())) {
             return new Result(false, "You have a saved game. You can't create new one!");
-        } else if (App.getCurrentGame() != null) {
+        } else if (App.getGame() != null) {
             return new Result(false, "You are in game. Boro khodeto siah kon");
         }
         Player currentPlayer = new Player(App.getCurrentUser().getId(), 1);
@@ -82,7 +80,7 @@ public class GameMenuController {
             players.add(new Player(user3.getId(), 4));
         }
 
-        App.setCurrentGame(new Game(players, currentPlayer));
+        App.setGame(new Game(players, currentPlayer));
         return new Result(true, "Game started successfully. Now you should choose your map:");
     }
 
@@ -96,17 +94,17 @@ public class GameMenuController {
     }
 
     public static Result loadNewGame() {
-        for (int i = App.getCurrentGame().getPlayers().size(); i < 4; i++) {
+        for (int i = App.getGame().getPlayers().size(); i < 4; i++) {
             farmSelections[i] = 1;
         }
 
-        App.getCurrentGame().setShops(new ArrayList<>(List.of(new BlackSmith(), new CarpentersShop(), new FishShop(),
+        App.getGame().setShops(new ArrayList<>(List.of(new BlackSmith(), new CarpentersShop(), new FishShop(),
                 new JojaMart(), new MarniesRanch(), new PierresStore(), new TheStardropSaloon())));
 
-        App.getCurrentGame().setMap(new GameMap(farmSelections));
-        App.getCurrentGame().getMap().setFulMap();
-        App.getCurrentGame().setNPCs();
-        App.getCurrentGame().setFriends();
+        App.getGame().setMap(new GameMap(farmSelections));
+        App.getGame().getMap().setFulMap();
+        App.getGame().setNPCs();
+        App.getGame().setFriends();
 
         NightController.foragingPlantsForEachFarm(new Coordinate(0, 0), new Coordinate(89, 119));
         NightController.randomForagingMinerals();
@@ -121,31 +119,31 @@ public class GameMenuController {
         }
 
         Game game = getGameById(id);
-        App.setCurrentGame(game);
+        App.setGame(game);
         Player player = getPlayer(id);
         if (player == null) {
             return new Result(false, "Sorry something went wrong!");
         }
-        App.getCurrentGame().setMainPlayer(player);
-        App.getCurrentGame().getMap().setFulMap();
+        App.getGame().setMainPlayer(player);
+        App.getGame().getMap().setFulMap();
         return new Result(true, "Game successfully loaded.");
     }
 
     public static Result exitGame() {
-        if (App.getCurrentGame() == null) {
+        if (App.getGame() == null) {
             return new Result(false, "You should be in a game!");
-        } else if (App.getCurrentGame().getCurrentPlayer().getId() != App.getCurrentGame().getMainPlayer().getId()) {
+        } else if (App.getGame().getCurrentPlayer().getId() != App.getGame().getMainPlayer().getId()) {
             return new Result(false, "Just main player(who created the game or last loaded it) can use the following command!");
         }
 
         StringBuilder name = new StringBuilder();
-        for(Player player: App.getCurrentGame().getPlayers())
+        for(Player player: App.getGame().getPlayers())
             name.append(player.getId()).append("_");
         if (!name.isEmpty()) name.deleteCharAt(name.length() - 1);
 
         saveGame(name.toString());
 
-        App.setCurrentGame(null);
+        App.setGame(null);
         App.setCurrentMenu(Menu.MainMenu);
 
         return new Result(true, "Game saved successfully. Now you are in Main menu");
@@ -163,9 +161,9 @@ public class GameMenuController {
     public static Result resultDeleteGame() {
         if (allPlayersVotedYes()) {
 
-            deleteGame(App.getCurrentGame().getCurrentPlayer().getId());
+            deleteGame(App.getGame().getCurrentPlayer().getId());
 
-            App.setCurrentGame(null);
+            App.setGame(null);
             App.setCurrentMenu(Menu.MainMenu);
             return new Result(true, "Bazi hazf shod. Mobarak kheilia");
         } else {
@@ -176,15 +174,15 @@ public class GameMenuController {
     public static Result nextTurn() {
         // Bug: وقتی نفر اخر انرژیش صفر شه  هیچ موقع نمیره ساعت بعدی.....
         // BUG: نکست ترن زد و شب شد باید بره نفر بعدی که نمیره
-        int index = App.getCurrentGame().getPlayers().indexOf(App.getCurrentGame().getCurrentPlayer());
-        int totalPlayers = App.getCurrentGame().getPlayers().size();
+        int index = App.getGame().getPlayers().indexOf(App.getGame().getCurrentPlayer());
+        int totalPlayers = App.getGame().getPlayers().size();
         int nextIndex = (index + 1) % totalPlayers;
 
         // update time
         if (nextIndex == 0) {
 
-            App.getCurrentGame().getCurrentTime().addHour(1);
-            if (App.getCurrentGame().getCurrentTime().getHour() == 24) {
+            App.getGame().getCurrentTime().addHour(1);
+            if (App.getGame().getCurrentTime().getHour() == 24) {
                 NightController.nightControl();
                 return new Result(true, "Shab bekheir...");
             }
@@ -193,10 +191,10 @@ public class GameMenuController {
         // skip players with 0 energy:
         int startingIndex = nextIndex;
         do {
-            Player candidate = App.getCurrentGame().getPlayers().get(nextIndex);
+            Player candidate = App.getGame().getPlayers().get(nextIndex);
             if (candidate.getEnergy() > 0) {
-                App.getCurrentGame().setCurrentPlayer(candidate);
-                App.getCurrentGame().getCurrentPlayer().resetMovesThisTurn();
+                App.getGame().setCurrentPlayer(candidate);
+                App.getGame().getCurrentPlayer().resetMovesThisTurn();
                 return new Result(true, "Now it's " + candidate.getUsername() + "'s turn.");
             }
             nextIndex = (nextIndex + 1) % totalPlayers;
@@ -216,13 +214,13 @@ public class GameMenuController {
     }
 
     public static Result currentPlayer() {
-        return new Result(true, App.getCurrentGame().getCurrentPlayer().toString());
+        return new Result(true, App.getGame().getCurrentPlayer().toString());
     }
 
     public static Tile getTileByDirection (String direction) {
         direction = direction.toLowerCase();
-        Coordinate coordinate = new Coordinate(App.getCurrentGame().getCurrentPlayer().getCoordinate().getX(),
-                App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
+        Coordinate coordinate = new Coordinate(App.getGame().getCurrentPlayer().getCoordinate().getX(),
+                App.getGame().getCurrentPlayer().getCoordinate().getY());
         int x = coordinate.getX();
         int y = coordinate.getY();
         switch (direction) {
@@ -274,13 +272,13 @@ public class GameMenuController {
                 return null;
         }
 
-        return App.getCurrentGame().getTile(coordinate);
+        return App.getGame().getTile(coordinate);
     }
 
     public static Coordinate getCoordinateByDirection (String direction) {
         direction = direction.toLowerCase();
-        Coordinate coordinate = new Coordinate(App.getCurrentGame().getCurrentPlayer().getCoordinate().getX(),
-                App.getCurrentGame().getCurrentPlayer().getCoordinate().getY());
+        Coordinate coordinate = new Coordinate(App.getGame().getCurrentPlayer().getCoordinate().getX(),
+                App.getGame().getCurrentPlayer().getCoordinate().getY());
         int x = coordinate.getX();
         int y = coordinate.getY();
         switch (direction) {
@@ -359,7 +357,7 @@ public class GameMenuController {
                 .registerTypeAdapter(Shop.class, new ShopAdapter())
                 .setPrettyPrinting()
                 .create();
-            gson.toJson(App.getCurrentGame(), writer);
+            gson.toJson(App.getGame(), writer);
         } catch (IOException e) {
             System.err.println("Error saving game: " + e.getMessage());
         }
@@ -463,7 +461,7 @@ public class GameMenuController {
     }
 
     public static Player getPlayer(int id) {
-        for (Player player: App.getCurrentGame().getPlayers()) {
+        for (Player player: App.getGame().getPlayers()) {
             if (player.getId() == id)
                 return player;
         }
@@ -471,11 +469,11 @@ public class GameMenuController {
     }
 
     public static void moveControl () {
-        App.getCurrentGame().getCurrentPlayer().addMovesThisTurn();
+        App.getGame().getCurrentPlayer().addMovesThisTurn();
     }
 
     private static boolean allPlayersVotedYes() {
-        int playerCount = App.getCurrentGame().getPlayers().size();
+        int playerCount = App.getGame().getPlayers().size();
         for (int i = 1; i < playerCount; i++) {
             if (!deleteGame[i]) {
                 return false;
@@ -485,7 +483,7 @@ public class GameMenuController {
     }
 
     public static void hourControl () {
-        Player player = App.getCurrentGame().getCurrentPlayer();
+        Player player = App.getGame().getCurrentPlayer();
         player.reduceBuff(1);
 
         outer:
@@ -514,7 +512,7 @@ public class GameMenuController {
     }
 
     public static void printMessagesReceived() {
-        ArrayList<String> messages = App.getCurrentGame().getCurrentPlayer().getNotifications();
+        ArrayList<String> messages = App.getGame().getCurrentPlayer().getNotifications();
         if (messages.isEmpty()) {
             System.out.println("You have not received any notifications!");
             return;

@@ -8,18 +8,18 @@ import io.Ap.StardewValley.Model.Time.Weather;
 
 public class TimeController {
     public static Result time(String command) {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        String time = String.format("Time: %02d:00", App.getCurrentGame().getCurrentTime().getHour());
-        String day = "Date: " + App.getCurrentGame().getCurrentTime().getDay();
+        String time = String.format("Time: %02d:00", App.getGame().getCurrentTime().getHour());
+        String day = "Date: " + App.getGame().getCurrentTime().getDay();
         return switch (command) {
             case "time" -> new Result(true, time);
             case "date" -> new Result(true, day);
             case "datetime" -> new Result(true, time + ", " + day);
             case "day of the week" ->
-                new Result(true, "Day of the week: " + App.getCurrentGame().getCurrentTime().getDayOfWeek());
+                new Result(true, "Day of the week: " + App.getGame().getCurrentTime().getDayOfWeek());
             default -> new Result(true, "tekh");
         };
 
@@ -29,13 +29,13 @@ public class TimeController {
         int time = Integer.parseInt(stringTime);
         if (time < 1) {
             return new Result(false, "You can't turn back the clock. Sorry");
-        } else if (App.getCurrentGame().getCurrentTime().getHour() + time > 23) {
+        } else if (App.getGame().getCurrentTime().getHour() + time > 23) {
             return new Result(false, "Time should be between 9-24");
         }
 
         // TODO: night controller
-        App.getCurrentGame().getCurrentTime().addHour(time);
-        return new Result(true, "Time successfully changed to " + App.getCurrentGame().getCurrentTime().getHour() + ":00");
+        App.getGame().getCurrentTime().addHour(time);
+        return new Result(true, "Time successfully changed to " + App.getGame().getCurrentTime().getHour() + ":00");
     }
 
     public static Result cheatDate(String stringDate) {
@@ -49,31 +49,31 @@ public class TimeController {
             NightController.nightControl();
         }
         //App.getCurrentGame().getCurrentTime().addDay(date);
-        return new Result(true, "Date successfully changed to " + App.getCurrentGame().getCurrentTime().getDay());
+        return new Result(true, "Date successfully changed to " + App.getGame().getCurrentTime().getDay());
     }
 
     public static Result season() {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        return new Result(true, App.getCurrentGame().getCurrentTime().getSeason().name());
+        return new Result(true, App.getGame().getCurrentTime().getSeason().name());
     }
 
     public static Result weather() {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        return new Result(true, App.getCurrentGame().getCurrentTime().getWeather().name());
+        return new Result(true, App.getGame().getCurrentTime().getWeather().name());
     }
 
     public static Result weatherForecast() {
-        if (App.getCurrentGame().getCurrentPlayer().getMovesThisTurn() >= App.getCurrentGame().getCurrentPlayer().getMaxMovesInTurn()) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        return new Result(true, App.getCurrentGame().getTomorrowWeather().name());
+        return new Result(true, App.getGame().getTomorrowWeather().name());
     }
 
     public static Result cheatThor(String stringX, String stringY) {
@@ -91,12 +91,12 @@ public class TimeController {
         Weather weather = pharseWeather(type);
         if (weather == null) {
             return new Result(false, "Type is invalid!");
-        } else if (!App.getCurrentGame().getCurrentTime().getSeason().getWeathers().contains(weather)) {
+        } else if (!App.getGame().getCurrentTime().getSeason().getWeathers().contains(weather)) {
             return new Result(false, "You can't use this weather in your season!" +
-                "\nValid weathers: " + App.getCurrentGame().getCurrentTime().getSeason().getWeathers());
+                "\nValid weathers: " + App.getGame().getCurrentTime().getSeason().getWeathers());
         }
 
-        App.getCurrentGame().setTomorrowWeather(weather);
+        App.getGame().setTomorrowWeather(weather);
         return new Result(true, "Tomorrow weather successfully changed to " + type);
     }
 

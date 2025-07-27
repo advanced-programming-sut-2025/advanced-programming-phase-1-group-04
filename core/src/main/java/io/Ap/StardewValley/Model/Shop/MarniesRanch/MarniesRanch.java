@@ -96,11 +96,11 @@ public class MarniesRanch implements Shop {
             return new Result(false, "invalid product name!");
         }
         if (productName.equalsIgnoreCase("hay")) {
-            if (number * 50 > App.getCurrentGame().getCurrentPlayer().getCount()) {
+            if (number * 50 > App.getGame().getCurrentPlayer().getCount()) {
                 return new Result(false, "you don't have enough money!\n" +
                         number * 50 + "g is needed.");
             }
-            if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Ingredient(IngredientType.Hay), number)) {
+            if (!App.getGame().getCurrentPlayer().addItemToInventory(new Ingredient(IngredientType.Hay), number)) {
                 return new Result(false, "can't add this item(s) to your inventory!");
             }
             return new Result(true, number + " of hay added to your inventory.");
@@ -110,14 +110,14 @@ public class MarniesRanch implements Shop {
             if (number > milkPailNumber) {
                 return new Result(false, "due to the daily limit of this item, you can't buy it now!");
             }
-            if (number * 1000 > App.getCurrentGame().getCurrentPlayer().getCount()) {
+            if (number * 1000 > App.getGame().getCurrentPlayer().getCount()) {
                 return new Result(false, "you don't have enough money!\n" +
                         number * 1000 + "g is needed.");
             }
-            if (App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithName("milk pail") != null) {
+            if (App.getGame().getCurrentPlayer().getInventory().hasItemWithName("milk pail") != null) {
                 return new Result(false, "you already have a milk pail!");
             }
-            if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new MilkPail(), number)) {
+            if (!App.getGame().getCurrentPlayer().addItemToInventory(new MilkPail(), number)) {
                 return new Result(false, "can't add this item to your inventory!");
             }
             milkPailNumber = 0;
@@ -128,14 +128,14 @@ public class MarniesRanch implements Shop {
             if (number > shearNumber) {
                 return new Result(false, "due to the daily limit of this item, you can't buy it now!");
             }
-            if (number * 1000 > App.getCurrentGame().getCurrentPlayer().getCount()) {
+            if (number * 1000 > App.getGame().getCurrentPlayer().getCount()) {
                 return new Result(false, "you don't have enough money!\n" +
                         number * 1000 + "g is needed.");
             }
-            if (App.getCurrentGame().getCurrentPlayer().getInventory().hasItemWithName("shear") != null) {
+            if (App.getGame().getCurrentPlayer().getInventory().hasItemWithName("shear") != null) {
                 return new Result(false, "you already have a shear!");
             }
-            if (!App.getCurrentGame().getCurrentPlayer().addItemToInventory(new Shear(), number)) {
+            if (!App.getGame().getCurrentPlayer().addItemToInventory(new Shear(), number)) {
                 return new Result(false, "can't add this item to your inventory!");
             }
             shearNumber = 0;
@@ -150,19 +150,19 @@ public class MarniesRanch implements Shop {
                 if (1 > animals.get(a)) {
                     return new Result(false, "due to the daily limit of this item, you can't buy it now!");
                 }
-                if (a.getPrice() > App.getCurrentGame().getCurrentPlayer().getCount()) {
+                if (a.getPrice() > App.getGame().getCurrentPlayer().getCount()) {
                     return new Result(false, "you don't have enough money!\n" +
                             a.getPrice() + "g is needed.");
                 }
                 //TODO: Aynaz اقا قبلش چک کن ببین اصلا قفس یا طویله داره یا نه بعد لولش جک کن
-                if (App.getCurrentGame().getCurrentPlayer().getFarmBuildingLevel(a.getBuildingType().getType()) < a.getBuildingType().getLevel()) {
+                if (App.getGame().getCurrentPlayer().getFarmBuildingLevel(a.getBuildingType().getType()) < a.getBuildingType().getLevel()) {
                     return new Result(false,  a.getBuildingType().getName() + " or a better version is needed!");
                 }
-                if (App.getCurrentGame().getCurrentPlayer().getFarmBuildingCapacity(a.getBuildingType().getType()) <= 0) {
+                if (App.getGame().getCurrentPlayer().getFarmBuildingCapacity(a.getBuildingType().getType()) <= 0) {
                     return new Result(false, "you don't have enough capacity!");
                 }
                 //TODO: Aynaz بعدش از ظرفیت اونجا کم کن جایی کم نمیشه
-                App.getCurrentGame().getCurrentPlayer().addAnimal(new Animal(a.getType(), animalName));
+                App.getGame().getCurrentPlayer().addAnimal(new Animal(a.getType(), animalName));
                 return new Result(true, productName + " named " + animalName + " is now added to your animals.");
             }
         }

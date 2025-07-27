@@ -97,6 +97,20 @@
 		"imageOver": "selectedTas",
 		"pressedOffsetX": -1,
 		"pressedOffsetY": -2
+	},
+	"Left": {
+		"imageUp": "left",
+		"imageDown": "selectedLeft",
+		"imageOver": "selectedLeft",
+		"pressedOffsetX": -1,
+		"pressedOffsetY": -2
+	},
+	"Right": {
+		"imageUp": "right",
+		"imageDown": "selectedRight",
+		"imageOver": "selectedRight",
+		"pressedOffsetX": -1,
+		"pressedOffsetY": -2
 	}
 },
 "LabelStyle": {

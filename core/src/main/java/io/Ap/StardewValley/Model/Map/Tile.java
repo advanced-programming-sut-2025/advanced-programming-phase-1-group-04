@@ -188,8 +188,8 @@ public class Tile {
     public void setWatered(boolean watered) {
         isWatered = watered;
         if (watered) {
-            lastTimeWatered = new DateAndTime(App.getCurrentGame().getCurrentTime().getHour(),
-                    App.getCurrentGame().getCurrentTime().getDay(), App.getCurrentGame().getCurrentTime().getWeather());
+            lastTimeWatered = new DateAndTime(App.getGame().getCurrentTime().getHour(),
+                    App.getGame().getCurrentTime().getDay(), App.getGame().getCurrentTime().getWeather());
         }
     }
 

@@ -1,7 +1,5 @@
 package io.Ap.StardewValley.Controller.SirkBozorg;
 
-import io.Ap.StardewValley.Model.*;
-import io.Ap.StardewValley.Model.Interaction.*;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Interaction.Friend;
 import io.Ap.StardewValley.Model.Interaction.Gift;
@@ -18,7 +16,7 @@ public class InteractionController {
     public static Result showFriendships () {
         StringBuilder builder = new StringBuilder();
         builder.append("Friendships:\n").append("________________________________\n");
-        for (Friend friend : App.getCurrentGame().getCurrentPlayer().getFriends()) {
+        for (Friend friend : App.getGame().getCurrentPlayer().getFriends()) {
             builder.append(friend.getFriendName()).append(":\n");
             builder.append("\t").append("Friendship Level: ").append(friend.getLevel()).append("\n");
             builder.append("\t").append("Friendship xp: ").append(friend.getXp()).append("\n");
@@ -29,8 +27,8 @@ public class InteractionController {
 
     public static Result talk (String username, String message) {
         int friendId = -1;
-        Player currentPlayer = App.getCurrentGame().getCurrentPlayer();
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        Player currentPlayer = App.getGame().getCurrentPlayer();
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getUsername().equals(username)) {
                 friendId = player.getId();
                 Coordinate c = new Coordinate(player.getCoordinate().getX(), player.getCoordinate().getY());
@@ -45,7 +43,7 @@ public class InteractionController {
             return new Result(false, "Haji in kie dige?");
         }
         Talk talk = new Talk(currentPlayer.getId(), friendId, message);
-        App.getCurrentGame().addTalk(talk);
+        App.getGame().addTalk(talk);
         for (Friend friend : currentPlayer.getFriends()) {
             if (friend.getFriendId() == friendId) {
                 if (!friend.isTalkedToday()) {
@@ -55,7 +53,7 @@ public class InteractionController {
                 }
             }
         }
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getId() == friendId) {
                 player.addNotification("You have recived a message from " + currentPlayer.getUsername() + "!");
                 for (Friend friend : currentPlayer.getFriends()) {
@@ -75,8 +73,8 @@ public class InteractionController {
     public static Result showTalkHistory (String username) {
         int friendId = -1;
         Player friendPlayer = null;
-        Player currentPlayer = App.getCurrentGame().getCurrentPlayer();
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        Player currentPlayer = App.getGame().getCurrentPlayer();
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getUsername().equals(username)) {
                 friendId = player.getId();
                 friendPlayer = player;
@@ -87,7 +85,7 @@ public class InteractionController {
             return new Result(false, "Haji tavahom zadi? nadarim hamchin kesi.");
         }
         boolean isTalkedEver = false;
-        for (Talk talk : App.getCurrentGame().getTalks()) {
+        for (Talk talk : App.getGame().getTalks()) {
             if ((talk.getSenderId() == currentPlayer.getId() && talk.getReceiverId() == friendId)
                     || (talk.getSenderId() == friendId && talk.getReceiverId() == currentPlayer.getId())) {
                 isTalkedEver = true;
@@ -98,7 +96,7 @@ public class InteractionController {
         }
         StringBuilder builder = new StringBuilder();
         builder.append("Message history:\n").append("________________________________\n");
-        for (Talk talk : App.getCurrentGame().getTalks()) {
+        for (Talk talk : App.getGame().getTalks()) {
             if (talk.getSenderId() == currentPlayer.getId() && talk.getReceiverId() == friendId) {
                 builder.append("\tYou: ").append(talk.getMessage()).append("\n");
             }
@@ -110,7 +108,7 @@ public class InteractionController {
     }
 
     public static Result gift (String username, String item, String amount) {
-        Player currentPlayer = App.getCurrentGame().getCurrentPlayer();
+        Player currentPlayer = App.getGame().getCurrentPlayer();
         int friendId = -1;
         int quantity;
         try {
@@ -119,7 +117,7 @@ public class InteractionController {
         catch (NumberFormatException error) {
             return new Result(false, "Ye adad vared kon.");
         }
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getUsername().equals(username)) {
                 friendId = player.getId();
                 if (Math.abs (player.getCoordinate().getX() - currentPlayer.getCoordinate().getX()) > 1
@@ -154,7 +152,7 @@ public class InteractionController {
                 }
             }
         }
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getId() == friendId) {
                 player.addNotification("You have recived a gift from " + currentPlayer.getUsername() + "!");
                 player.addGiftToGifts(gift);
@@ -175,11 +173,11 @@ public class InteractionController {
 
     public static Result giftList () {
         StringBuilder builder = new StringBuilder();
-        if (App.getCurrentGame().getCurrentPlayer().getGifts().isEmpty()) {
+        if (App.getGame().getCurrentPlayer().getGifts().isEmpty()) {
             return new Result(true, "You've not received any gift");
         }
         builder.append("Received gifts:\n").append("________________________________\n");
-        for (Gift gift : App.getCurrentGame().getCurrentPlayer().getGifts()) {
+        for (Gift gift : App.getGame().getCurrentPlayer().getGifts()) {
             builder.append("\tGiftName: ").append(gift.getGift().get(0).getName()).append("\n");
             builder.append("\tSender: ").append(gift.getSender()).append("\n");
             builder.append("\tisAccepted: ");
@@ -214,14 +212,14 @@ public class InteractionController {
         catch (NumberFormatException error) {
             return new Result(false, "Addad sahih bede chaghal.");
         }
-        Player currentPlayer = App.getCurrentGame().getCurrentPlayer();
+        Player currentPlayer = App.getGame().getCurrentPlayer();
         int friendId = -1;
         for (Gift gift : currentPlayer.getGifts()) {
             if (gift.getGiftID() == id) {
                 if (gift.getRate() != -1) {
                     return new Result(false, "Ghablan rate dadi chaghal.");
                 }
-                for (Player player : App.getCurrentGame().getPlayers()) {
+                for (Player player : App.getGame().getPlayers()) {
                     if (player.getUsername().equals(gift.getSender())) {
                         friendId = player.getId();
                         break;
@@ -233,7 +231,7 @@ public class InteractionController {
         if (friendId == -1) {
             return new Result(false, "Hamchin gifti nadarim.");
         }
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getId() == currentPlayer.getId()) {
                 for (Friend friend : player.getFriends()) {
                     if (friend.getFriendId() == friendId) {
@@ -256,7 +254,7 @@ public class InteractionController {
 
     public static Result giftHistory (String username) {
         int friendID = -1;
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getUsername().equals(username)) {
                 friendID = player.getId();
                 break;
@@ -265,7 +263,7 @@ public class InteractionController {
         if (friendID == -1) {
             return new Result(false, "Hamchin adami nadarim.");
         }
-        Player currentPlayer = App.getCurrentGame().getCurrentPlayer();
+        Player currentPlayer = App.getGame().getCurrentPlayer();
         StringBuilder builder = new StringBuilder();
         builder.append("Sent gifts history:\n").append("________________________________\n");
         for (Friend friend : currentPlayer.getFriends()) {
@@ -279,7 +277,7 @@ public class InteractionController {
         }
         builder.append("\n");
         builder.append("Received gifts:\n").append("________________________________\n");
-        for (Friend friend : App.getCurrentGame().getPlayerByID(friendID).getFriends()) {
+        for (Friend friend : App.getGame().getPlayerByID(friendID).getFriends()) {
             if (friend.getFriendId() == currentPlayer.getId()) {
                 for (Gift gift : friend.getSentGifts()) {
                     builder.append("\tGiftName: ").append(gift.getGift().get(0).getName()).append("\n");
@@ -293,8 +291,8 @@ public class InteractionController {
     public static Result hug (String username) {
         int friendID = -1;
         int level = -1;
-        Player currentPlayer = App.getCurrentGame().getCurrentPlayer();
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        Player currentPlayer = App.getGame().getCurrentPlayer();
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getUsername().equals(username)) {
                 friendID = player.getId();
                 break;
@@ -303,7 +301,7 @@ public class InteractionController {
         if (friendID == -1) {
             return new Result(false, "Too tanhaeet bemir.");
         }
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getId() == friendID) {
                 if (Math.abs(currentPlayer.getCoordinate().getX() - player.getCoordinate().getX()) > 1 ||
                         Math.abs(currentPlayer.getCoordinate().getY() - player.getCoordinate().getY()) > 1) {
@@ -318,7 +316,7 @@ public class InteractionController {
                 }
             }
         }
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getId() == currentPlayer.getId()) {
                 for (Friend friend : player.getFriends()) {
                     if (friend.getFriendId() == friendID) {
@@ -347,8 +345,8 @@ public class InteractionController {
 
     public static Result giveFlower (String username) {
         int friendID = -1;
-        Player currentPlayer = App.getCurrentGame().getCurrentPlayer();
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        Player currentPlayer = App.getGame().getCurrentPlayer();
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getUsername().equals(username)) {
                 friendID = player.getId();
                 break;
@@ -357,7 +355,7 @@ public class InteractionController {
         if (friendID == -1) {
             return new Result(false, "Nadraim agha.");
         }
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getId() == friendID) {
                 if (Math.abs(currentPlayer.getCoordinate().getX() - player.getCoordinate().getX()) > 1 ||
                         Math.abs(currentPlayer.getCoordinate().getY() - player.getCoordinate().getY()) > 1) {
@@ -383,12 +381,12 @@ public class InteractionController {
             return new Result(false, "Boro Gol bekhar geda goshne.");
         }
         currentPlayer.removeItemFromInventory("Bouquet" , 1);
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getId() == friendID) {
                 player.addItemToInventory(new GiftItem(GiftType.Bouquet), 1);
             }
         }
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getId() == currentPlayer.getId()) {
                 for (Friend friend : player.getFriends()) {
                     if (friend.getFriendId() == friendID) {
@@ -404,13 +402,13 @@ public class InteractionController {
                 }
             }
         }
-        return new Result(true, "Gaved bouquet to " + App.getCurrentGame().getPlayerByID(friendID).getUsername());
+        return new Result(true, "Gaved bouquet to " + App.getGame().getPlayerByID(friendID).getUsername());
     }
 
     public static Result askMarriage (String username) {
         int friendID = -1;
-        Player currentPlayer = App.getCurrentGame().getCurrentPlayer();
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        Player currentPlayer = App.getGame().getCurrentPlayer();
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getUsername().equals(username)) {
                 friendID = player.getId();
                 break;
@@ -419,7 +417,7 @@ public class InteractionController {
         if (friendID == -1) {
             return new Result(false, "Boro khoda roozito jaye dige bede.");
         }
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getId() == friendID) {
                 if (Math.abs(currentPlayer.getCoordinate().getX() - player.getCoordinate().getX()) > 1 ||
                         Math.abs(currentPlayer.getCoordinate().getY() - player.getCoordinate().getY()) > 1) {
@@ -443,21 +441,21 @@ public class InteractionController {
         }
         if (!found)
             return new Result(false, "Boro ring bekhar esfahani ahmagh.");
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getId() == friendID) {
                 player.addItemToInventory(new GiftItem(GiftType.WeddingRing), 1);
                 player.addNotification("You've received a marriage request from " + currentPlayer.getUsername() + "!");
                 break;
             }
         }
-        return new Result(true, "Marriage request sent to " + App.getCurrentGame().getPlayerByID(friendID).
+        return new Result(true, "Marriage request sent to " + App.getGame().getPlayerByID(friendID).
                 getUsername() + " successfully. mobarake agha, ma ke be yaar naresidim :(");
     }
 
     public static Result respondMarriage (String answer, String username) {
         int friendID = -1;
-        Player currentPlayer = App.getCurrentGame().getCurrentPlayer();
-        for (Player player : App.getCurrentGame().getPlayers()) {
+        Player currentPlayer = App.getGame().getCurrentPlayer();
+        for (Player player : App.getGame().getPlayers()) {
             if (player.getId() == friendID) {
                 friendID = player.getId();
                 break;
@@ -466,7 +464,7 @@ public class InteractionController {
         if (friendID == -1) {
             return new Result(false, "Tavaho nazan agha nadarim hamchin adami.");
         }
-        Player partner = App.getCurrentGame().getPlayerByID(friendID);
+        Player partner = App.getGame().getPlayerByID(friendID);
         if (answer.equals("accept")) {
             currentPlayer.setPartnerID(friendID);
             partner.setPartnerID(currentPlayer.getId());

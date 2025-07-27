@@ -17,7 +17,7 @@ import io.Ap.StardewValley.Controller.ProfileMenuController;
 import io.Ap.StardewValley.Model.Result;
 import io.Ap.StardewValley.StardewValley;
 
-public class ChangeNikNameScreen implements Screen {
+public class ChangeNickNameScreen implements Screen {
     private final Stage stage;
     private final Skin skin;
     private final Texture backgroundTexture;
@@ -26,7 +26,7 @@ public class ChangeNikNameScreen implements Screen {
 
     private TextField nickname;
 
-    public ChangeNikNameScreen () {
+    public ChangeNickNameScreen() {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 

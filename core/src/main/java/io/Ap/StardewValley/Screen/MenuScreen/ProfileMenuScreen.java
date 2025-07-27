@@ -23,7 +23,7 @@ public class ProfileMenuScreen implements Screen {
     private final Image backgroundImage;
 
     private TextButton changeUsername;
-    private TextButton changeNikname;
+    private TextButton changeNickname;
     private TextButton changeEmail;
     private TextButton changePassword;
     private ImageButton rightButton;
@@ -45,7 +45,7 @@ public class ProfileMenuScreen implements Screen {
         backgroundImage = new Image(backgroundTexture);
 
         changeUsername = new TextButton("change username", skin);
-        changeNikname = new TextButton("change nikname", skin);
+        changeNickname = new TextButton("change nickname", skin);
         changeEmail = new TextButton("change email", skin);
         changePassword = new TextButton("change password", skin);
         rightButton = new ImageButton(skin, "Right");
@@ -134,7 +134,7 @@ public class ProfileMenuScreen implements Screen {
         leftColumn.add(new Label("Username: " + App.getCurrentUser().getUsername(), skin)).center().pad(5);
 
         leftColumn.row();
-        leftColumn.add(new Label("NikName: " + App.getCurrentUser().getNickname(), skin)).center().pad(5);
+        leftColumn.add(new Label("NickName: " + App.getCurrentUser().getNickname(), skin)).center().pad(5);
         leftColumn.row();
         leftColumn.add(new Label("Most coins earned: " + App.getCurrentUser().getMostCoinsEarned(), skin)).center().pad(5);
 
@@ -153,10 +153,10 @@ public class ProfileMenuScreen implements Screen {
                 StardewValley.getGame().setScreen(new ChangeUsernameScreen());
             }
         });
-        changeNikname.addListener(new ClickListener() {
+        changeNickname.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                StardewValley.getGame().setScreen(new ChangeNikNameScreen());
+                StardewValley.getGame().setScreen(new ChangeNickNameScreen());
             }
         });
         changeEmail.addListener(new ClickListener() {
@@ -177,7 +177,7 @@ public class ProfileMenuScreen implements Screen {
 
         rightColumn.add(changeUsername).center().pad(13,100,5,5).height(90).width(300);
         rightColumn.row();
-        rightColumn.add(changeNikname).center().pad(13,100,5,5).height(90).width(300);
+        rightColumn.add(changeNickname).center().pad(13,100,5,5).height(90).width(300);
         rightColumn.row();
         rightColumn.add(changeEmail).center().pad(13,100,5,5).height(90).width(300);
         rightColumn.row();
@@ -242,8 +242,8 @@ public class ProfileMenuScreen implements Screen {
         return changeUsername;
     }
 
-    public TextButton getChangeNikname() {
-        return changeNikname;
+    public TextButton getChangeNickname() {
+        return changeNickname;
     }
 
     public TextButton getChangeEmail() {

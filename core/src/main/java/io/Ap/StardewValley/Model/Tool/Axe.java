@@ -252,18 +252,16 @@ public class Axe implements Tool{
     public String getName() {
         if (level == ToolLevel.Starter) {
             return "axe";
-        }
-        if (level == ToolLevel.Copper) {
+        } if (level == ToolLevel.Copper) {
             return "copper axe";
-        }
-        if (level == ToolLevel.Starter) {
-            return "axe";
-        }
-        if (level == ToolLevel.Steel) {
+        } if (level == ToolLevel.Steel) {
             return "steel axe";
+        } if (level == ToolLevel.Gold) {
+            return "gold axe";
+        } if (level == ToolLevel.Iridium) {
+            return "iridium axe";
         }
-
-        return "Axe";
+        return "axe";
     }
 
     @Override

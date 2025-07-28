@@ -59,7 +59,7 @@ public class MilkPail implements Tool{
 
     @Override
     public String getLevelString() {
-        return "Milk pail";
+        return "milk pail";
     }
 
     @Override

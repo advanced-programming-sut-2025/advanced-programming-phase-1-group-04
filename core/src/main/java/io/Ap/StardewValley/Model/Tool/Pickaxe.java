@@ -285,7 +285,18 @@ public class Pickaxe implements Tool {
 
     @Override
     public String getName() {
-        return "Pickaxe";
+        if (level == ToolLevel.Starter) {
+            return "pickaxe";
+        } if (level == ToolLevel.Copper) {
+            return "copper pickaxe";
+        } if (level == ToolLevel.Steel) {
+            return "steel pickaxe";
+        } if (level == ToolLevel.Gold) {
+            return "gold pickaxe";
+        } if (level == ToolLevel.Iridium) {
+            return "iridium pickaxe";
+        }
+        return "pickaxe";
     }
 
     @Override

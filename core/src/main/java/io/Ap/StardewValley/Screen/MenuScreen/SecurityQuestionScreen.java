@@ -82,7 +82,7 @@ public class SecurityQuestionScreen implements Screen {
         Label selectLabel = new Label("Question:", skin);
         SelectBox<Integer> questionSelect = new SelectBox<>(skin);
         Integer[] numbers = new Integer[10];
-        for (int i = 0; i < 10; i++) numbers[i] = i + 1;
+        for (int i = 0; i < 6; i++) numbers[i] = i + 1;
         questionSelect.setItems(numbers);
 
         Label answerLabel = new Label("Answer:", skin);

@@ -104,7 +104,7 @@ public class FishingPole implements Tool{
 
     @Override
     public String getName() {
-        return "Fishing pole";
+        return level.getName().toLowerCase();
     }
 
     @Override

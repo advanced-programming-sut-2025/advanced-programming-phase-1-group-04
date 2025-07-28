@@ -70,14 +70,11 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(multiplexer);
 
 //        // set camera
-//        camera = new OrthographicCamera();
-//        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//        camera.zoom = 0.2f;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.zoom = 0.2f; // یا هر مقداری که دوست داری
+        camera.zoom = 0.2f;
 
-        mapRenderer = new TiledMapRendererHelper("map/tiled/FFarm.tmx");
+        mapRenderer = new TiledMapRendererHelper("map/farms/Farm.tmx");
     }
 
     @Override

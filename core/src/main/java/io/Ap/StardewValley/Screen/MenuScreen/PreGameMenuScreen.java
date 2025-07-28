@@ -152,7 +152,7 @@ public class PreGameMenuScreen implements Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
+                StardewValley.getGame().setScreen(new GameScreen());
             }
         });
 

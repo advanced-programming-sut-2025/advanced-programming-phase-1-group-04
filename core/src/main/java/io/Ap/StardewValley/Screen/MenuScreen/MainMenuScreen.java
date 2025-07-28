@@ -2,18 +2,23 @@ package io.Ap.StardewValley.Screen.MenuScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Controller.MainMenuController;
+import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Screen.GameScreen;
 import io.Ap.StardewValley.StardewValley;
 
@@ -90,8 +95,12 @@ public class MainMenuScreen implements Screen {
         mainTable.add(logoImage).center().padBottom(50).row();
 
         Table buttonRow = new Table();
+
         buttonRow.add(profileButton).width(240).pad(10);
         buttonRow.add(gameButton).width(240).pad(10);
+
+        buttonRow.add(getAvatarButtonGroup()).pad(10);
+
         buttonRow.add(logoutButton).width(240).pad(10);
         buttonRow.add(exitButton).width(240).pad(10);
         mainTable.add(buttonRow).center().row();
@@ -125,6 +134,30 @@ public class MainMenuScreen implements Screen {
                 Gdx.app.exit();
             }
         });
+    }
+
+    private Group getAvatarButtonGroup() {
+        Skin skin = StardewValley.getSkin();
+
+        TextButton button = new TextButton(App.getCurrentUser().getUsername(), skin, "Plant");
+        float scaleButton = 1.3f;
+        button.setSize(button.getWidth() * scaleButton,button.getHeight() * scaleButton);
+
+        float scaleAvatar = 1.4f;
+        Texture avatarTexture = new Texture(Gdx.files.internal(App.getCurrentUser().getAvatarPath()));
+        avatarTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        Image avatarImage = new Image(avatarTexture);
+        avatarImage.setSize(avatarImage.getWidth() * scaleAvatar, avatarImage.getHeight() * scaleAvatar);
+
+        avatarImage.setPosition(50, 19);
+
+        Group group = new Group();
+        group.setSize(button.getWidth(), button.getHeight());
+
+        group.addActor(button);
+        group.addActor(avatarImage);
+
+        return group;
     }
 
     @Override

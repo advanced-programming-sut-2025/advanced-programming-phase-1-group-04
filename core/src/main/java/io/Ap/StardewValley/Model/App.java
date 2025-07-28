@@ -57,12 +57,12 @@ public class App {
         User user = gson.fromJson(reader, User.class);
         if (user == null) {
             App.setCurrentMenu(Menu.LoginMenu);
-            StardewValley.getGame().setScreen(new StartMenuScreen());
             App.setCurrentUser(null);
+            StardewValley.getGame().setScreen(new StartMenuScreen());
         } else {
             App.setCurrentMenu(Menu.MainMenu);
-            StardewValley.getGame().setScreen(new MainMenuScreen());
             App.setCurrentUser(user);
+            StardewValley.getGame().setScreen(new MainMenuScreen());
         }
     }
 

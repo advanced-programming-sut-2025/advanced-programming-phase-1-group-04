@@ -54,7 +54,7 @@ public class LoginMenuController {
             return new Result(false, "Generated password: " + randomPassword + "\nDo you accept this password? (yes/no)");
         }
 
-        User user = new User(username, getHashPassword(password), nickName, email, gender, "avatar/1.png");
+        User user = new User(username, getHashPassword(password), nickName, email, gender, "etc/avatar/1.png");
         Gson gson = new Gson();
         FileWriter writer = new FileWriter("users/" + username + ".json");
         gson.toJson(user, writer);
@@ -250,11 +250,14 @@ public class LoginMenuController {
             return new Result(false, "confirm password is wrong!");
         }
 
-        User user = new User(username, getHashPassword(password), nickName, email, gender, "avatar/1.png");
+        User user = new User(username, getHashPassword(password), nickName, email, gender, "etc/avatar/1.png");
         Gson gson = new Gson();
         FileWriter writer = new FileWriter("users/" + username + ".json");
         gson.toJson(user, writer);
         writer.close();
+        try {
+            login(username, password, null);
+        } catch (Exception e) {}
         return new Result(true,"Benazam.\nNow pick a security question:\n" + SecurityQuestion.getQuestions());
     }
 

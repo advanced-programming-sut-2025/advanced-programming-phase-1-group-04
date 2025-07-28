@@ -250,6 +250,19 @@ public class Axe implements Tool{
 
     @Override
     public String getName() {
+        if (level == ToolLevel.Starter) {
+            return "axe";
+        }
+        if (level == ToolLevel.Copper) {
+            return "copper axe";
+        }
+        if (level == ToolLevel.Starter) {
+            return "axe";
+        }
+        if (level == ToolLevel.Steel) {
+            return "steel axe";
+        }
+
         return "Axe";
     }
 

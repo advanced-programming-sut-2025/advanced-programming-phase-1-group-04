@@ -137,11 +137,12 @@ public class ProfileMenuController {
 
     //added by aynaz:
     public static void changeAvatar(int index, ProfileMenuScreen profileMenuScreen) throws IOException {
-        String avatarPath = "avatar/" + index + ".png";
+        String avatarPath = "etc/avatar/" + index + ".png";
         App.getCurrentUser().setAvatarPath(avatarPath);
         profileMenuScreen.setAvatarPath(avatarPath);
         profileMenuScreen.getAvatarImage().setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(avatarPath)))));
         updateCurrentUser();
+        updateLoggedIn();
     }
 
     public static Result changeNicknameThroughScreen (String nickname) throws IOException {
@@ -154,6 +155,7 @@ public class ProfileMenuController {
 
         App.getCurrentUser().setNickname(nickname);
         updateCurrentUser();
+        updateLoggedIn();
         return new Result(true, "Nickname successfully changed.");
     }
 
@@ -178,6 +180,7 @@ public class ProfileMenuController {
         gson.toJson(App.getCurrentUser(), writer);
         writer.close();
         oldFile.renameTo(newFile);
+        updateLoggedIn();
 
         return new Result(true, "Username successfully changed.");
     }
@@ -203,6 +206,7 @@ public class ProfileMenuController {
 
         App.getCurrentUser().setPassword(LoginMenuController.getHashPassword(newPassword));
         updateCurrentUser();
+        updateLoggedIn();
         return new Result(true, "Password successfully changed.");
     }
 

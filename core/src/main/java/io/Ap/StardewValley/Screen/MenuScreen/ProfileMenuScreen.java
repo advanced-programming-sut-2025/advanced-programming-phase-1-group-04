@@ -31,7 +31,7 @@ public class ProfileMenuScreen implements Screen {
     private String avatarPath;
     Image avatarImage;
 
-    private final String toRemove1 = "avatar/";
+    private final String toRemove1 = "etc/avatar/";
     private final String toRemove2 = ".png";
 
 

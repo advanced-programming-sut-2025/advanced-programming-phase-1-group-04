@@ -16,10 +16,10 @@ import java.util.Map;
 public class PlayerRender {
     private float stateTime = 0f;
 
-    private PlayerAnimationFrames bodyAnimations;
-    private PlayerAnimationFrames hand01Animations;
-    private PlayerAnimationFrames hand02Animations;
-    private PlayerAnimationFrames pantAnimations;
+    private BankPlayerAnimationFrames bodyAnimations;
+    private BankPlayerAnimationFrames hand01Animations;
+    private BankPlayerAnimationFrames hand02Animations;
+    private BankPlayerAnimationFrames pantAnimations;
 
     private final Map<DirectionType, TextureRegion> hairFrames = new EnumMap<>(DirectionType.class);
     private final Map<DirectionType, TextureRegion> shirtFrames = new EnumMap<>(DirectionType.class);
@@ -47,13 +47,13 @@ public class PlayerRender {
 
         // Body, Hand, Pant
         TextureRegion[][] bodySheet = TextureRegion.split(new Texture("player/body_boy.png"), 16, 32);
-        this.bodyAnimations = new PlayerAnimationFrames(bodySheet);
+        this.bodyAnimations = new BankPlayerAnimationFrames(bodySheet);
         TextureRegion[][] hand01Sheet = TextureRegion.split(new Texture("player/hand_01.png"), 16, 32);
-        this.hand01Animations = new PlayerAnimationFrames(hand01Sheet);
+        this.hand01Animations = new BankPlayerAnimationFrames(hand01Sheet);
         TextureRegion[][] hand02Sheet = TextureRegion.split(new Texture("player/hand_02.png"), 16, 32);
-        this.hand02Animations = new PlayerAnimationFrames(hand02Sheet);
+        this.hand02Animations = new BankPlayerAnimationFrames(hand02Sheet);
         TextureRegion[][] pantSheet = TextureRegion.split(new Texture("player/pants/pant_" + pantIndex + ".png"), 16, 32);
-        this.pantAnimations = new PlayerAnimationFrames(pantSheet);
+        this.pantAnimations = new BankPlayerAnimationFrames(pantSheet);
     }
 
     public void render() {

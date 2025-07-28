@@ -1,5 +1,6 @@
 package io.Ap.StardewValley.Model;
 
+import com.badlogic.gdx.graphics.Color;
 import io.Ap.StardewValley.Model.Command.Menu;
 import com.google.gson.Gson;
 import io.Ap.StardewValley.Screen.MenuScreen.MainMenuScreen;
@@ -97,5 +98,24 @@ public class App {
 
     public static KeyManager getKeyManager() {
         return keyManager;
+    }
+
+    public static Color getColor(String hairColor) {
+        return switch (hairColor) {
+            case "Black" ->  new Color(0x2c2c2dff);
+            case "Brown" -> new Color(0x91513bff);
+            case "Blonde" -> new Color(0.98f, 0.94f, 0.55f, 1f);
+            case "Red" -> new Color(0x8e1f0cff);
+            case "Blue" -> new Color(0x2121a3ff);
+            case "Cyan" -> Color.CYAN;
+            case "Green" -> new Color(0x277f2bff);
+            case "Magenta" -> new Color(0x9e59dbff);
+            case "Orange" -> Color.ORANGE;
+            case "Pink" -> Color.PINK;
+            case "Yellow" -> new Color(0xffee2dff);
+            case "Gray" -> Color.GRAY;
+            case "White" -> Color.WHITE;
+            default -> Color.WHITE;
+        };
     }
 }

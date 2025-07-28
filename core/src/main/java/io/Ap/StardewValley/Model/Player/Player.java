@@ -26,6 +26,9 @@ import java.util.*;
 import java.util.Map;
 
 public class Player {
+    private final String hairColor, pantColor;
+    private final int pantIndex, shirtIndex, hairIndex;
+
     private DirectionType direction;
     private StateType state;
 
@@ -74,7 +77,13 @@ public class Player {
     private ArrayList<Trade> sentTrades = new ArrayList<>();
     private ArrayList<Trade> receivedTrades = new ArrayList<>();
 
-    public Player(int id, int farm) {
+    public Player(String hairColor, String pantColor, int pantIndex, int shirtIndex, int hairIndex, int id, int farm) {
+        this.hairColor = hairColor;
+        this.pantColor = pantColor;
+        this.pantIndex = pantIndex;
+        this.shirtIndex = shirtIndex;
+        this.hairIndex = hairIndex;
+
         this.direction = DirectionType.Up;
         this.state = StateType.Idle;
 
@@ -545,7 +554,23 @@ public class Player {
         this.state = state;
     }
 
-    public int getSpeed() {
-        return 5;
+    public String getPantColor() {
+        return pantColor;
+    }
+
+    public int getPantIndex() {
+        return pantIndex;
+    }
+
+    public int getShirtIndex() {
+        return shirtIndex;
+    }
+
+    public int getHairIndex() {
+        return hairIndex;
+    }
+
+    public String getHairColor() {
+        return hairColor;
     }
 }

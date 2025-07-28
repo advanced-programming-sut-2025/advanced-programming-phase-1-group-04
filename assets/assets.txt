@@ -23,19 +23,6 @@ etc/menu/daybg.png
 etc/menu/logo.png
 etc/menu/nightbg.png
 map/SecretNotesImages.png
-map/tiled-maps-master/MagicLand.tmx
-map/tiled-maps-master/README.md
-map/tiled-maps-master/gameart2d-desert.png
-map/tiled-maps-master/gameart2d-desert.tmx
-map/tiled-maps-master/jb-32-Tileset.png
-map/tiled-maps-master/jb-32.tmx
-map/tiled-maps-master/level25-Tileset.png
-map/tiled-maps-master/level25.tmx
-map/tiled-maps-master/magiclanddizzy_tiles.gif
-map/tiled-maps-master/screenshots/MagicLand.png
-map/tiled-maps-master/screenshots/gameart2d-desert.png
-map/tiled-maps-master/screenshots/jb-32.png
-map/tiled-maps-master/screenshots/level25.png
 map/tiled/AbandonedJojaMart.tmx
 map/tiled/AdventureGuild.tmx
 map/tiled/AnimalShop.tmx
@@ -86,6 +73,7 @@ map/tiled/ElliottSea.tmx
 map/tiled/ElliottSeaTiles.png
 map/tiled/EmilyDreamscape.tmx
 map/tiled/EmilyDreamscapeTiles.png
+map/tiled/FFarm.tmx
 map/tiled/Farm Obelisk.png
 map/tiled/Farm.tmx
 map/tiled/FarmCave.tmx
@@ -433,7 +421,16 @@ player/hand_01.png
 player/hand_01_girl.png
 player/hand_02.png
 player/hand_02_girl.png
-player/pants/Pant01.png
+player/pants/pant_0.png
+player/pants/pant_1.png
+player/pants/pant_2.png
+player/pants/pant_3.png
+player/pants/pant_4.png
+player/pants/pant_5.png
+player/pants/pant_6.png
+player/pants/pant_7.png
+player/pants/pant_8.png
+player/pants/pant_9.png
 skin/04B_30__.fnt
 skin/NzSkin.atlas
 skin/NzSkin.json

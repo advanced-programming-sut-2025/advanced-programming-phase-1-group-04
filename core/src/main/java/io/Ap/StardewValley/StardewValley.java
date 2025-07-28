@@ -7,14 +7,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import io.Ap.StardewValley.Model.App;
-import io.Ap.StardewValley.Screen.MenuScreen.MainMenuScreen;
-import io.Ap.StardewValley.Controller.GameMenuController;
-import io.Ap.StardewValley.Model.App;
-import io.Ap.StardewValley.Screen.GameScreen;
-import io.Ap.StardewValley.Screen.MapScreen.TiledMapScreen;
-import io.Ap.StardewValley.Screen.MenuScreen.GameMenuScreen;
-import io.Ap.StardewValley.Screen.MenuScreen.PreGameMenuScreen;
-import io.Ap.StardewValley.Screen.MenuScreen.StartMenuScreen;
 
 import java.io.FileNotFoundException;
 
@@ -30,27 +22,17 @@ public class StardewValley extends Game {
         batch = new SpriteBatch();
         skin = new Skin(Gdx.files.internal("skin/NzSkin.json"));
 
+        // setCursor
         setCustomCursor();
+
+        // loadApp(stayLoggedIn)
         try {
             App.loadAppScreen();
         } catch (FileNotFoundException e) {
-           throw new RuntimeException(e);
-       }
+            throw new RuntimeException(e);
+        }
 
-//        //TODO:
-//        try {
-//            App.loadApp();
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//        GameMenuController.newGame("Parsa", null, null);
-//        GameMenuController.chooseMap(0 ,1);
-//        GameMenuController.chooseMap(1 ,2);
-
-//        getGame().setScreen(new PreGameMenuScreen());
-
-//        getGame().setScreen(new TiledMapScreen());
-
+        //getGame().setScreen(new TiledMapRenderHelper());
     }
 
     @Override

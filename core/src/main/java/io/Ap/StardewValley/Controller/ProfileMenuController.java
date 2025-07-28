@@ -10,12 +10,11 @@ import io.Ap.StardewValley.Model.Command.LoginMenuCommand;
 import io.Ap.StardewValley.Model.Command.Menu;
 import io.Ap.StardewValley.Model.Result;
 import com.google.gson.Gson;
+import io.Ap.StardewValley.Model.User;
 import io.Ap.StardewValley.Screen.MenuScreen.ChangePasswordScreen;
 import io.Ap.StardewValley.Screen.MenuScreen.ProfileMenuScreen;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class ProfileMenuController {
     public static Result changeUsername (String username) throws IOException {
@@ -117,6 +116,22 @@ public class ProfileMenuController {
         FileWriter writer = new FileWriter("users/" + App.getCurrentUser().getUsername() + ".json");
         gson.toJson(App.getCurrentUser(), writer);
         writer.close();
+    }
+
+    private static void updateLoggedIn() throws IOException {
+        // TODO: aynaz daste khodeto mibose
+        File file = new File("users/loggedIn.json");
+
+        try (FileReader reader = new FileReader(file)) {
+            Gson gson = new Gson();
+            User user = gson.fromJson(reader, User.class);
+
+            if (user != null) {
+                try (FileWriter writer = new FileWriter(file)) {
+                    gson.toJson(App.getCurrentUser(), writer);
+                }
+            }
+        }
     }
 
 

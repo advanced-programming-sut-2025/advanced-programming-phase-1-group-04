@@ -9449,17 +9449,17 @@
  </tile>
  <tile id="1906">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Type" value="Mountain"/>
   </properties>
  </tile>
  <tile id="1907">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Type" value="Mountain"/>
   </properties>
  </tile>
  <tile id="1908">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Type" value="Mountain"/>
   </properties>
  </tile>
  <tile id="1910">
@@ -9539,17 +9539,17 @@
  </tile>
  <tile id="1931">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Type" value="Mountain"/>
   </properties>
  </tile>
  <tile id="1932">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Type" value="Mountain"/>
   </properties>
  </tile>
  <tile id="1933">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Type" value="Mountain"/>
   </properties>
  </tile>
  <tile id="1934">
@@ -9631,17 +9631,17 @@
  </tile>
  <tile id="1956">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Type" value="Mountain"/>
   </properties>
  </tile>
  <tile id="1957">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Type" value="Mountain"/>
   </properties>
  </tile>
  <tile id="1958">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Type" value="Mountain"/>
   </properties>
  </tile>
  <tile id="1959">

@@ -100,7 +100,7 @@ public class MakeRegionJsonFromTmx {
 
                 case "Ground":
                     return new Tile(TileType.Ground, false, null, null);
-                case "Wood", "Rail":
+                case "Wood", "Rail", "Stone":
                     return new Tile(TileType.Ground, true, null, null);
 
                 case "H":
@@ -230,7 +230,9 @@ public class MakeRegionJsonFromTmx {
                         TiledMapTile tile = cell.getTile();
                         if (tile != null) {
                             if (getTile(tile) == null) {
-                                result[x][y] = "shash";
+                                if (result[x][y].equals("void")) {
+                                    result[x][y] = "shash(" + layer.getName() + ")";
+                                }
                             } else {
                                 result[x][y] = tile.getProperties().get("Type", String.class);
                             }

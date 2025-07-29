@@ -1,4 +1,4 @@
-package io.Ap.StardewValley.Model.Map;
+package io.Ap.StardewValley.Model.Item;
 
 public enum ItemType {
     Tree("tree"), // !price, !quality

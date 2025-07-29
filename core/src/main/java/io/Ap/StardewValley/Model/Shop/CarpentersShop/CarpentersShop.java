@@ -2,8 +2,8 @@ package io.Ap.StardewValley.Model.Shop.CarpentersShop;
 
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.FarmBuilding;
-import io.Ap.StardewValley.Model.Map.Stone;
-import io.Ap.StardewValley.Model.Map.Wood;
+import io.Ap.StardewValley.Model.Item.Stone;
+import io.Ap.StardewValley.Model.Item.Wood;
 import io.Ap.StardewValley.Model.Result;
 import io.Ap.StardewValley.Model.Shop.Shop;
 import io.Ap.StardewValley.Model.Shop.ShopType;

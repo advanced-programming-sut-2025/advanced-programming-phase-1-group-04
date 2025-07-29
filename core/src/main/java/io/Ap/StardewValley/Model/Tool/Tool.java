@@ -1,7 +1,7 @@
 package io.Ap.StardewValley.Model.Tool;
 
 import io.Ap.StardewValley.Model.Map.Coordinate;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Map.Tile;
 import io.Ap.StardewValley.Model.Result;
 

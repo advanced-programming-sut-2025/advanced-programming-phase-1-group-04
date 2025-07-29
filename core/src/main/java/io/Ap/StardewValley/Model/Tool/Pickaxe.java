@@ -4,7 +4,7 @@ import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Crafting.Craft;
 import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Coordinate;
-import io.Ap.StardewValley.Model.Map.Stone;
+import io.Ap.StardewValley.Model.Item.Stone;
 import io.Ap.StardewValley.Model.Map.Tile;
 import io.Ap.StardewValley.Model.Plants.ForagingMineral;
 import io.Ap.StardewValley.Model.Plants.ForagingMineralType;

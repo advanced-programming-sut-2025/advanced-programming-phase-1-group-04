@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.11.2" name="untitled tile sheet" tilewidth="16" tileheight="16" tilecount="527" columns="17">
- <image source="../../StardeValley/Images/MAP/Maps/spring_beach" width="272" height="496"/>
+<tileset version="1.10" tiledversion="1.11.2" name="spring_beach" tilewidth="16" tileheight="16" tilecount="527" columns="17">
+ <image source="spring_beach.png" width="272" height="496"/>
  <tile id="7">
   <properties>
    <property name="Water" value="T"/>

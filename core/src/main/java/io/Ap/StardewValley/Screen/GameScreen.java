@@ -82,17 +82,18 @@ public class GameScreen implements Screen, InputProcessor {
         if (!paused) {
             ScreenUtils.clear(0, 0, 0, 1);
 
-            SpriteBatch batch = StardewValley.getBatch();
 
             // update camera
             updateCamera();
 
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            //mapRenderer.render(camera);
+
+            // render map
+            SpriteBatch batch = StardewValley.getBatch();
             mapRenderer.renderBeforePlayer(camera);
 
-            // update game
+            // update game, render player
             batch.begin();
             controller.updateGame();
             batch.end();

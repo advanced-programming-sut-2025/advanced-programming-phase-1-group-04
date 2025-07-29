@@ -10,7 +10,7 @@ import io.Ap.StardewValley.Model.Crafting.CraftType;
 import io.Ap.StardewValley.Model.Game;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Map.GameMap;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Map.Tile;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Player.Skill;

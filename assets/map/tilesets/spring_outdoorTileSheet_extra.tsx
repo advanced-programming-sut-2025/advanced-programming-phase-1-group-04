@@ -6,14 +6,14 @@
    <property name="Buildable" type="bool" value="true"/>
    <property name="CanPlantTrees" value="T"/>
    <property name="NoSpawn" value="T"/>
-   <property name="Type" value="Grass"/>
+   <property name="Type" value="Ground"/>
   </properties>
  </tile>
  <tile id="1">
   <properties>
    <property name="Buildable" type="bool" value="true"/>
    <property name="NoSpawn" value="T"/>
-   <property name="Type" value="Dirt"/>
+   <property name="Type" value="Ground"/>
   </properties>
  </tile>
  <tile id="2">
@@ -22,7 +22,7 @@
    <property name="CanPlantTrees" value="T"/>
    <property name="Diggable" value="T"/>
    <property name="NoSpawn" value="T"/>
-   <property name="Type" value="Dirt"/>
+   <property name="Type" value="Ground"/>
   </properties>
  </tile>
  <tile id="9">
@@ -30,14 +30,14 @@
    <property name="Buildable" type="bool" value="true"/>
    <property name="CanPlantTrees" value="T"/>
    <property name="NoSpawn" value="T"/>
-   <property name="Type" value="Grass"/>
+   <property name="Type" value="Ground"/>
   </properties>
  </tile>
  <tile id="10">
   <properties>
    <property name="Buildable" type="bool" value="true"/>
    <property name="NoSpawn" value="T"/>
-   <property name="Type" value="Grass"/>
+   <property name="Type" value="Ground"/>
   </properties>
  </tile>
  <tile id="17">
@@ -45,14 +45,14 @@
    <property name="Buildable" type="bool" value="true"/>
    <property name="CanPlantTrees" value="T"/>
    <property name="NoSpawn" value="T"/>
-   <property name="Type" value="Grass"/>
+   <property name="Type" value="Ground"/>
   </properties>
  </tile>
  <tile id="18">
   <properties>
    <property name="Buildable" type="bool" value="true"/>
    <property name="NoSpawn" value="T"/>
-   <property name="Type" value="Grass"/>
+   <property name="Type" value="Ground"/>
   </properties>
  </tile>
  <tile id="25">
@@ -60,7 +60,7 @@
    <property name="Buildable" type="bool" value="true"/>
    <property name="CanPlantTrees" value="T"/>
    <property name="NoSpawn" value="T"/>
-   <property name="Type" value="Grass"/>
+   <property name="Type" value="Ground"/>
   </properties>
  </tile>
 </tileset>

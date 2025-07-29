@@ -2,9 +2,9 @@ package io.Ap.StardewValley.Model.Crafting;
 
 import io.Ap.StardewValley.Model.Cooking.Ingredient;
 import io.Ap.StardewValley.Model.Cooking.IngredientType;
-import io.Ap.StardewValley.Model.Map.Item;
-import io.Ap.StardewValley.Model.Map.Stone;
-import io.Ap.StardewValley.Model.Map.Wood;
+import io.Ap.StardewValley.Model.Item.Item;
+import io.Ap.StardewValley.Model.Item.Stone;
+import io.Ap.StardewValley.Model.Item.Wood;
 import io.Ap.StardewValley.Model.Plants.ForagingMineral;
 import io.Ap.StardewValley.Model.Plants.ForagingMineralType;
 import io.Ap.StardewValley.Model.Plants.Sapling;

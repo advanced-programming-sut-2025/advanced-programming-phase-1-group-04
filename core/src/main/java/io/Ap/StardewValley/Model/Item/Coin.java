@@ -1,4 +1,4 @@
-package io.Ap.StardewValley.Model.Map;
+package io.Ap.StardewValley.Model.Item;
 
 public class Coin implements Item {
     @Override

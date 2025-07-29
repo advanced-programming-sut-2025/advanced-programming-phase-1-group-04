@@ -2,7 +2,7 @@ package io.Ap.StardewValley.Model.Plants;
 
 import io.Ap.StardewValley.Controller.SirkBozorg.PlantController;
 import io.Ap.StardewValley.Model.App;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Time.DateAndTime;
 import io.Ap.StardewValley.Model.Time.Season;
 import io.Ap.StardewValley.Model.Time.Weather;

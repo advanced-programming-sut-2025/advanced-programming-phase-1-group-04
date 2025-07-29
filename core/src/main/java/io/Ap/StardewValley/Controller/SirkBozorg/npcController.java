@@ -1,7 +1,7 @@
 package io.Ap.StardewValley.Controller.SirkBozorg;
 
 import io.Ap.StardewValley.Model.App;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.NPC.NPC;
 import io.Ap.StardewValley.Model.NPC.Quest;
 import io.Ap.StardewValley.Model.Player.AiChat;

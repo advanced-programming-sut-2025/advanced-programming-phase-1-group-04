@@ -1,6 +1,7 @@
 package io.Ap.StardewValley.Model.Map;
 
 import io.Ap.StardewValley.Model.App;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Player.Player;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

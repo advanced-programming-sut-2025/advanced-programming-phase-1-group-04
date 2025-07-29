@@ -11,7 +11,7 @@ import io.Ap.StardewValley.Model.Interaction.Gift;
 import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Map.FarmBuilding;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Tool.Tool;
 import io.Ap.StardewValley.Model.User;
 import com.google.gson.Gson;

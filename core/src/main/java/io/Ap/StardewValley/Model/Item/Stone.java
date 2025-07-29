@@ -1,4 +1,4 @@
-package io.Ap.StardewValley.Model.Map;
+package io.Ap.StardewValley.Model.Item;
 
 import io.Ap.StardewValley.Model.Shop.CarpentersShop.CarpenterStock;
 

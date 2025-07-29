@@ -6,6 +6,9 @@ import io.Ap.StardewValley.Model.Animals.Fish;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Cooking.Food;
 import io.Ap.StardewValley.Model.Crafting.Craft;
+import io.Ap.StardewValley.Model.Item.Item;
+import io.Ap.StardewValley.Model.Item.Stone;
+import io.Ap.StardewValley.Model.Item.Wood;
 import io.Ap.StardewValley.Model.NPC.NPC;
 import io.Ap.StardewValley.Model.Plants.*;
 import io.Ap.StardewValley.Model.Time.DateAndTime;
@@ -14,7 +17,6 @@ import io.Ap.StardewValley.Model.Time.DateAndTime;
 public class Tile {
     private TileType type;
 
-    //private boolean isDoor = false; TODO: baraye in faz dar hesab nakardam
     private BuildingType buildingType = null;
 
     private Item item = null;
@@ -38,7 +40,7 @@ public class Tile {
         this.buildingType = buildingType;
     }
 
-    public Tile(TileType type, boolean isPavement, Item item, NPC npc){ // For Ground
+    public Tile(TileType type, boolean isPavement, Item item, NPC npc){ // For Ground -> Wood, Rail
         this.type = type;
         this.isPavement = isPavement;
         this.item = item;

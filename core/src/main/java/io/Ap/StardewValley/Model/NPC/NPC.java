@@ -3,7 +3,7 @@ package io.Ap.StardewValley.Model.NPC;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Game;
 import io.Ap.StardewValley.Model.Map.Coordinate;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Player.Player;
 
 import java.util.ArrayList;

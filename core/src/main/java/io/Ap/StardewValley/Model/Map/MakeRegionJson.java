@@ -1,5 +1,6 @@
 package io.Ap.StardewValley.Model.Map;
 
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Plants.ForagingCrop;
 import io.Ap.StardewValley.Model.Plants.ForagingCropType;
 import io.Ap.StardewValley.Model.Plants.Tree;

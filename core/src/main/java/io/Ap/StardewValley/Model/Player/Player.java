@@ -26,6 +26,9 @@ import java.util.*;
 import java.util.Map;
 
 public class Player {
+    private float xLibGdx;
+    private float yLibGdx;
+
     private final String hairColor, pantColor;
     private final int pantIndex, shirtIndex, hairIndex;
 
@@ -107,6 +110,8 @@ public class Player {
         }
 
         this.coordinate = this.houseCoordinate;
+        this.xLibGdx = this.coordinate.getX();
+        this.yLibGdx = this.coordinate.getY();
     }
 
     public int getAbilityLevel (Skill skill) {
@@ -572,5 +577,21 @@ public class Player {
 
     public String getHairColor() {
         return hairColor;
+    }
+
+    public void setXLibGdx(float xLibGdx) {
+        this.xLibGdx = xLibGdx;
+    }
+
+    public void setYLibGdx(float yLibGdx) {
+        this.yLibGdx = yLibGdx;
+    }
+
+    public float getXLibGdx() {
+        return xLibGdx;
+    }
+
+    public float getYLibGdx() {
+        return yLibGdx;
     }
 }

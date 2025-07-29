@@ -10,8 +10,6 @@ import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
 import io.Ap.StardewValley.Screen.PlayerScreen.PlayerRender;
 import io.Ap.StardewValley.Screen.PlayerScreen.StateType;
 
-import java.io.FileNotFoundException;
-
 public class GameScreenController {
     private final PlayerRender playerRender = new PlayerRender();
     private GameScreen view;
@@ -31,8 +29,8 @@ public class GameScreenController {
         boolean isUsingTool = false;
         boolean isEating = false;
 
-        float newX = player.getCoordinate().getX();
-        float newY = player.getCoordinate().getY();
+        float newX = player.getXLibGdx();
+        float newY = player.getYLibGdx();
 
         // Player move:
         int speed = App.getGame().getPlayerSpeed();
@@ -83,16 +81,18 @@ public class GameScreenController {
         }
 
         // clamp player inside map boundaries
-        int playerWidth = 16;
-        int playerHeight = 32;
+        int playerWidth = (int) (16 * App.getGame().getPlayerScale());
+        int playerHeight = (int) (32 * App.getGame().getPlayerScale());
 
         float mapWidth = 2688;
         float mapHeight = 2688;
-        newX = MathUtils.clamp(newX, 0, mapWidth - playerWidth);
-        newY = MathUtils.clamp(newY, playerHeight, mapHeight - playerHeight);
+        //newX = MathUtils.clamp(newX, 0, mapWidth - playerWidth);
+        //newY = MathUtils.clamp(newY, playerHeight, mapHeight - playerHeight);
 
-        // set position
-        player.setCoordinate(new Coordinate((int) newX, (int) newY)); //TODO: coordinate int or float
+        // set position LibGdx, tile base
+        player.setXLibGdx(newX);
+        player.setYLibGdx(newY);
+        player.setCoordinate(getPlayerCoordinate(newX, newY));
 
         // status
         if (isMoving) {
@@ -105,7 +105,12 @@ public class GameScreenController {
         // ... TODO
     }
 
-    private void handleAnimationPlayer() {
+    public Coordinate getPlayerCoordinate(float x, float y) {
+        final int tileSize = 16;
 
+        int tileX = (int)(x / tileSize);
+        int tileY = (int)(y / tileSize);
+        return new Coordinate(tileX, tileY);
     }
+
 }

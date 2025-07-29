@@ -4,32 +4,28 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import io.Ap.StardewValley.Controller.GameMenuController;
 import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.App;
-import io.Ap.StardewValley.Model.Game;
+import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
-import io.Ap.StardewValley.Screen.MenuScreen.StartMenuScreen;
 import io.Ap.StardewValley.StardewValley;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class GameScreen implements Screen, InputProcessor {
     private Stage stage;
-    private Table table = new Table();
+    private final Table dialogTable = new Table();
+    private final Table controllerTable = new Table();
+
     private TiledMapRendererHelper mapRenderer;
 
 
     private boolean paused = false;
 
     private OrthographicCamera camera;
-    private GameScreenController controller = new GameScreenController();
+    private final GameScreenController controller = new GameScreenController();
 
     public GameScreen() {
         controller.setViews(this);
@@ -39,8 +35,8 @@ public class GameScreen implements Screen, InputProcessor {
         return camera;
     }
 
-    public Table getTable() {
-        return table;
+    public Table getDialogTable() {
+        return dialogTable;
     }
 
     public Stage getStage() {
@@ -58,9 +54,9 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
-        table.setFillParent(true);
-        table.top().left();
-        stage.addActor(table);
+        dialogTable.setFillParent(true);
+        dialogTable.top().left();
+        stage.addActor(dialogTable);
         Gdx.input.setInputProcessor(this);
 
         // InputMultiplexer for resume menu
@@ -83,8 +79,9 @@ public class GameScreen implements Screen, InputProcessor {
             ScreenUtils.clear(0, 0, 0, 1);
 
 
-            // update camera
+            // update camera, controller table
             updateCamera();
+            updateControllerTable();
 
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -102,12 +99,24 @@ public class GameScreen implements Screen, InputProcessor {
         }
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        stage.addActor(controllerTable);
         stage.draw();
     }
 
-    public void updateCamera() {
-        float playerX = App.getGame().getCurrentPlayer().getCoordinate().getX();
-        float playerY = App.getGame().getCurrentPlayer().getCoordinate().getY();
+    private void updateControllerTable() {
+        Skin skin = StardewValley.getSkin();
+
+        Coordinate cor = App.getGame().getCurrentPlayer().getCoordinate();
+        controllerTable.clear();
+        controllerTable.setFillParent(true);
+        controllerTable.top().left();
+        controllerTable.add(new Label("Player: " + cor.getX() + ", " + cor.getY() ,skin));
+    }
+
+
+    private void updateCamera() {
+        float playerX = App.getGame().getCurrentPlayer().getXLibGdx();
+        float playerY = App.getGame().getCurrentPlayer().getYLibGdx();
 
         float scale = App.getGame().getPlayerScale();
         float spriteWidth = 16 * scale;

@@ -2,7 +2,7 @@ package io.Ap.StardewValley.Model.Map;
 
 
 public enum BuildingType {
-    Door(1,2),
+    Door(1,2), // add door in isWalkable
 
     GreenHouse(5, 7),
     GreenHouseBuild(5, 7),

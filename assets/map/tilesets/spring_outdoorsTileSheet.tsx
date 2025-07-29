@@ -113,17 +113,17 @@
  </tile>
  <tile id="22">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="23">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="24">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="25">
@@ -238,17 +238,17 @@
  </tile>
  <tile id="47">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="48">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="49">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="50">
@@ -363,17 +363,17 @@
  </tile>
  <tile id="72">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="73">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="74">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="75">
@@ -453,8 +453,7 @@
  </tile>
  <tile id="90">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="91">
@@ -489,17 +488,17 @@
  </tile>
  <tile id="97">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="98">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="99">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="100">
@@ -544,14 +543,12 @@
  </tile>
  <tile id="115">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="117">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="118">
@@ -566,30 +563,27 @@
  </tile>
  <tile id="120">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="121">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="122">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="123">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="124">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="126">
@@ -629,14 +623,12 @@
  </tile>
  <tile id="141">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="142">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="143">
@@ -651,30 +643,27 @@
  </tile>
  <tile id="145">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="146">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="147">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="148">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="149">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="150">
@@ -702,6 +691,16 @@
  <tile id="153">
   <properties>
    <property name="Diggable" value="T"/>
+   <property name="Type" value="Ground"/>
+  </properties>
+ </tile>
+ <tile id="154">
+  <properties>
+   <property name="Type" value="Ground"/>
+  </properties>
+ </tile>
+ <tile id="155">
+  <properties>
    <property name="Type" value="Ground"/>
   </properties>
  </tile>
@@ -743,8 +742,7 @@
  </tile>
  <tile id="167">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="168">
@@ -759,29 +757,27 @@
  </tile>
  <tile id="170">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="171">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="172">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="173">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="174">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="175">
@@ -877,44 +873,42 @@
  </tile>
  <tile id="192">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="193">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="194">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="195">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="196">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="197">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="198">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="199">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="200">
@@ -1028,39 +1022,37 @@
  </tile>
  <tile id="218">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="219">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="220">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="221">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="222">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="223">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="224">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="225">
@@ -1145,42 +1137,42 @@
  </tile>
  <tile id="242">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="243">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="244">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="245">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="246">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="247">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="248">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="249">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="250">
@@ -1261,7 +1253,6 @@
  </tile>
  <tile id="262">
   <properties>
-   <property name="BuildingType" value="DontKnow"/>
    <property name="Type" value="Building"/>
   </properties>
  </tile>
@@ -1272,42 +1263,42 @@
  </tile>
  <tile id="267">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="268">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="269">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="270">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="271">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="272">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="273">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="274">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="275">
@@ -1337,6 +1328,11 @@
  <tile id="279">
   <properties>
    <property name="Buildable" type="bool" value="true"/>
+   <property name="Type" value="Ground"/>
+  </properties>
+ </tile>
+ <tile id="280">
+  <properties>
    <property name="Type" value="Ground"/>
   </properties>
  </tile>
@@ -1410,7 +1406,7 @@
  </tile>
  <tile id="292">
   <properties>
-   <property name="BuildingType" value="MarinesRanch"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="294">
@@ -1603,6 +1599,11 @@
    <property name="Type" value="Ground"/>
   </properties>
  </tile>
+ <tile id="330">
+  <properties>
+   <property name="Type" value="Ground"/>
+  </properties>
+ </tile>
  <tile id="331">
   <properties>
    <property name="Buildable" type="bool" value="true"/>
@@ -1769,14 +1770,12 @@
  </tile>
  <tile id="362">
   <properties>
-   <property name="BuildingType" value="ShippingBin"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="ShippingBin"/>
   </properties>
  </tile>
  <tile id="363">
   <properties>
-   <property name="BuildingType" value="ShippingBin"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="ShippingBin"/>
   </properties>
  </tile>
  <tile id="364">
@@ -1904,14 +1903,12 @@
  </tile>
  <tile id="387">
   <properties>
-   <property name="BuildingType" value="ShippingBin"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="ShippingBin"/>
   </properties>
  </tile>
  <tile id="388">
   <properties>
-   <property name="BuildingType" value="ShippingBin"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="ShippingBin"/>
   </properties>
  </tile>
  <tile id="389">
@@ -3150,14 +3147,12 @@
  </tile>
  <tile id="626">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="627">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="628">
@@ -3207,50 +3202,42 @@
  </tile>
  <tile id="637">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="638">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="639">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="640">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="641">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="642">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="643">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="644">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="645">
@@ -3288,14 +3275,12 @@
  </tile>
  <tile id="651">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="652">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="653">
@@ -3342,44 +3327,37 @@
  </tile>
  <tile id="661">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="662">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="663">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="664">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="665">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="666">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="667">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="668">
@@ -3427,20 +3405,17 @@
  </tile>
  <tile id="676">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="677">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="678">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="679">
@@ -3484,44 +3459,37 @@
  </tile>
  <tile id="686">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="687">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="688">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="689">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="690">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="691">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="692">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="693">
@@ -3561,26 +3529,22 @@
  </tile>
  <tile id="700">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="701">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="702">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="703">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="704">
@@ -3624,56 +3588,47 @@
  </tile>
  <tile id="711">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="712">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="713">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="714">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="715">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="716">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="717">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="718">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="719">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="720">
@@ -3703,26 +3658,22 @@
  </tile>
  <tile id="725">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="726">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="727">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="728">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="729">
@@ -3752,56 +3703,47 @@
  </tile>
  <tile id="736">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="737">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="738">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="739">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="740">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="741">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="742">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="743">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="744">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="745">
@@ -3832,26 +3774,22 @@
  </tile>
  <tile id="750">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="751">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="752">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="753">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="754">
@@ -3881,62 +3819,52 @@
  </tile>
  <tile id="761">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="762">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="763">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="764">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="765">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="766">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="767">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="768">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="769">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="770">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="771">
@@ -3962,26 +3890,22 @@
  </tile>
  <tile id="775">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="776">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="777">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="778">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="779">
@@ -4029,62 +3953,52 @@
  </tile>
  <tile id="786">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="787">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="788">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="789">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="790">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="791">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="792">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="793">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="794">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="795">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="796">
@@ -4110,26 +4024,22 @@
  </tile>
  <tile id="800">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="801">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="802">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="803">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="804">
@@ -4176,8 +4086,7 @@
  </tile>
  <tile id="811">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="812">
@@ -4193,44 +4102,37 @@
  </tile>
  <tile id="814">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="815">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="816">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="817">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="818">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="819">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="820">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="821">
@@ -4255,26 +4157,22 @@
  </tile>
  <tile id="825">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="826">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="827">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="828">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="829">
@@ -4320,14 +4218,12 @@
  </tile>
  <tile id="836">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="837">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="838">
@@ -4338,44 +4234,37 @@
  </tile>
  <tile id="839">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="840">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="841">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="842">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="843">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="844">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="845">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="846">
@@ -4400,26 +4289,22 @@
  </tile>
  <tile id="850">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="851">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="852">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="853">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="854">
@@ -4466,14 +4351,12 @@
  </tile>
  <tile id="861">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="862">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="863">
@@ -4483,50 +4366,42 @@
  </tile>
  <tile id="864">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="865">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="866">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="867">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="868">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="869">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="870">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="871">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="872">
@@ -4546,26 +4421,22 @@
  </tile>
  <tile id="875">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="876">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="877">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="878">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="879">
@@ -4588,8 +4459,7 @@
  </tile>
  <tile id="882">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="883">
@@ -4612,8 +4482,7 @@
  </tile>
  <tile id="886">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="887">
@@ -4623,56 +4492,47 @@
  </tile>
  <tile id="888">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="889">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="890">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="891">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="892">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="893">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="894">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="895">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="896">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="897">
@@ -4692,26 +4552,22 @@
  </tile>
  <tile id="900">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="901">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="902">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="903">
   <properties>
-   <property name="BuildingType" value="WizardBuilding"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="WizardBuilding"/>
   </properties>
  </tile>
  <tile id="904">
@@ -4734,8 +4590,7 @@
  </tile>
  <tile id="907">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="908">
@@ -4746,8 +4601,7 @@
  </tile>
  <tile id="909">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="910">
@@ -4758,8 +4612,7 @@
  </tile>
  <tile id="911">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="912">
@@ -4769,56 +4622,47 @@
  </tile>
  <tile id="913">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="914">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="915">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="916">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="917">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="918">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="919">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="920">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="921">
   <properties>
-   <property name="BuildingType" value="CarpentersShop"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="CarpentersShop"/>
   </properties>
  </tile>
  <tile id="922">
@@ -5625,8 +5469,7 @@
  </tile>
  <tile id="1111">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="1112">
@@ -5717,8 +5560,7 @@
  </tile>
  <tile id="1136">
   <properties>
-   <property name="BuildingType" value="Door"/>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Door"/>
   </properties>
  </tile>
  <tile id="1137">

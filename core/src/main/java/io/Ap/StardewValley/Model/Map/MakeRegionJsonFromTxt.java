@@ -13,9 +13,9 @@ import io.Ap.StardewValley.Gson.ItemAdapter;
 
 import java.io.*;
 
-public class MakeRegionJson {
+public class MakeRegionJsonFromTxt {
     public static void SaveJson(String fileName) throws IOException {
-        Tile[][] tiles = MakeRegionJson.loadMapFromTextFile(fileName);
+        Tile[][] tiles = MakeRegionJsonFromTxt.loadMapFromTextFile(fileName);
         Region region = new Region(fileName, tiles);
 
         Gson gson = new GsonBuilder()
@@ -40,7 +40,7 @@ public class MakeRegionJson {
 
                 for (int col = 0; col < Math.min(symbols.length, 40); col++) {
                     char symbol = symbols[col].charAt(0);
-                    tiles[row][col] = MakeRegionJson.getTileFromString(symbol);
+                    tiles[row][col] = MakeRegionJsonFromTxt.getTileFromString(symbol);
                 }
                 row++;
             }
@@ -96,5 +96,4 @@ public class MakeRegionJson {
                 throw new IllegalArgumentException("Invalid tile character: " + symbol);
         }
     }
-
 }

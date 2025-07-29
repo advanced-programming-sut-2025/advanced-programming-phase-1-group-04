@@ -63,9 +63,8 @@ public class PlayerRender {
         StateType state = App.getGame().getCurrentPlayer().getState();
         DirectionType direction = App.getGame().getCurrentPlayer().getDirection();
 
-        Coordinate cord = App.getGame().getCurrentPlayer().getCoordinate();
-        float x = cord.getX();
-        float y = cord.getY();
+        float x = App.getGame().getCurrentPlayer().getXLibGdx();
+        float y = App.getGame().getCurrentPlayer().getYLibGdx();
 
         TextureRegion bodyFrame, handFrame, pantFrame, hairFrame, shirtFrame;
         int frameIndex = 0;

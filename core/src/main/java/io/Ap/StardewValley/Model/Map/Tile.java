@@ -51,7 +51,7 @@ public class Tile {
                 switch (this.buildingType) {
                     case GreenHouse:
                         return Symbols.GreenHouse.getColoredSymbol();
-                    case GreenHouserBuild:
+                    case GreenHouseBuild:
                         return Symbols.GreenHouserBuild.getColoredSymbol();
                     case House:
                         return Symbols.House.getColoredSymbol();

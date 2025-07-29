@@ -3,7 +3,7 @@ package io.Ap.StardewValley.Model.Map;
 
 public enum BuildingType {
     GreenHouse(5, 7),
-    GreenHouserBuild(5, 7),
+    GreenHouseBuild(5, 7),
     House(4, 5),
 
     Barn(4, 7),

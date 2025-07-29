@@ -3,6 +3,7 @@ package io.Ap.StardewValley.Screen;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -56,7 +57,6 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public void show() {
-        //stage = new Stage(new ScreenViewport(), App.getSharedBatch());
         stage = new Stage(new ScreenViewport());
         table.setFillParent(true);
         table.top().left();
@@ -69,7 +69,7 @@ public class GameScreen implements Screen, InputProcessor {
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
 
-//        // set camera
+        // set camera
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.zoom = 0.2f;
@@ -82,26 +82,24 @@ public class GameScreen implements Screen, InputProcessor {
         if (!paused) {
             ScreenUtils.clear(0, 0, 0, 1);
 
-            //App.getGame().updateTime(delta);
+            SpriteBatch batch = StardewValley.getBatch();
 
             // update camera
             updateCamera();
 
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-            mapRenderer.render(camera);
-            // set shader
-            //TillDown.getBatch().setShader(App.getShader());
-            //App.getShader().setUniformi("u_grayscale", App.isGrayscale() ? 1 : 0);
+            //mapRenderer.render(camera);
+            mapRenderer.renderBeforePlayer(camera);
 
             // update game
-            StardewValley.getBatch().begin();
+            batch.begin();
             controller.updateGame();
-            StardewValley.getBatch().end();
+            batch.end();
+
+            mapRenderer.renderAfterPlayer(camera);
         }
 
-        //App.getShader().setUniformi("u_grayscale", App.isGrayscale() ? 1 : 0);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }

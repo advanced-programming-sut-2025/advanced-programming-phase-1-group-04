@@ -283,7 +283,7 @@ public class PlantController {
         if (tile == null) {
             return new Result(false, "invalid tile!");
         }
-        if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouserBuild))) {
+        if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouseBuild))) {
             return new Result(false, "you must plant on the ground or in the greenhouse!");
         }
         if (!seed.getSeasons().contains(App.getGame().getCurrentTime().getSeason()) && tile.getType() == TileType.Ground) {
@@ -327,7 +327,7 @@ public class PlantController {
         if (tile == null) {
             return new Result(false, "invalid tile!");
         }
-        if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouserBuild))) {
+        if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouseBuild))) {
             return new Result(false, "you must plant on the ground or in the greenhouse!");
         }
         if (!sapling.getSeasons().contains(App.getGame().getCurrentTime().getSeason()) && tile.getType() == TileType.Ground) {

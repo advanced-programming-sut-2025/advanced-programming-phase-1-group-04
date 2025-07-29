@@ -167,7 +167,7 @@ public class MapController {
                 break;
         }
 
-        App.getGame().getMap().build(x, y, BuildingType.GreenHouserBuild);
+        App.getGame().getMap().build(x, y, BuildingType.GreenHouseBuild);
         return new Result(true, "Now you have Greenhouse:)");
     }
 

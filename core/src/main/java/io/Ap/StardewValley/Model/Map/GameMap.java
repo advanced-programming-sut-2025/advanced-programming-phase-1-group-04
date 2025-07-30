@@ -12,11 +12,12 @@ import java.io.IOException;
 import io.Ap.StardewValley.Gson.ItemAdapter;
 
 public class GameMap {
-    private Region[][] region = new Region[3][3];
+    private final Region[][] region = new Region[3][3];
     private transient Tile[][] fullMap;
 
     public GameMap(int[] farmSelection) {
         region[0][0] = loadRegionJson("Farming"  + farmSelection[0]);
+        //region[0][0] = loadRegionJson("Farm"  + farmSelection[0]);
         region[0][1] = loadRegionJson("Path1");
         region[0][2] = loadRegionJson("Farming" + farmSelection[1]);
 
@@ -50,36 +51,80 @@ public class GameMap {
     }
 
     public void setFulMap() {
-        int tileRowsPerRegion = 30;
-        int tileColsPerRegion = 40;
-        int totalRows = 3 * 30;
-        int totalCols = 3 * 40;
+        // Phase 1:
+        // total rows = 3 * 30, total cols = 3 * 40;
 
-        Tile[][] fullMap = new Tile[totalRows][totalCols];
 
-        for (int regionRow = 0; regionRow < 3; regionRow++) {
-            for (int regionCol = 0; regionCol < 3; regionCol++) {
-                Region region = this.region[regionRow][regionCol];
+        // calculate total width, height:
+        int rows = region.length;
+        int cols = region[0].length;
 
-                Tile[][] tiles = region.getTiles();
-                for (int i = 0; i < tileRowsPerRegion; i++) {
-                    for (int j = 0; j < tileColsPerRegion; j++) {
-                        int fullRow = regionRow * tileRowsPerRegion + i;
-                        int fullCol = regionCol * tileColsPerRegion + j;
-                        fullMap[fullRow][fullCol] = tiles[i][j];
-                    }
+        int totalRows = 0;
+        int totalCols = 0;
+
+        int[] rowHeights = new int[rows];
+        int[] colWidths = new int[cols];
+
+        for (int i = 0; i < rows; i++) {
+            int maxHeight = 0;
+            for (int j = 0; j < cols; j++) {
+                Region r = region[i][j];
+                if (r != null) {
+                    maxHeight = Math.max(maxHeight, r.getTiles().length);
                 }
             }
+            rowHeights[i] = maxHeight;
+            totalRows += maxHeight;
         }
 
-        this.fullMap = fullMap;
+        for (int j = 0; j < cols; j++) {
+            int maxWidth = 0;
+            for (int i = 0; i < rows; i++) {
+                Region r = region[i][j];
+                if (r != null) {
+                    maxWidth = Math.max(maxWidth, r.getTiles()[0].length);
+                }
+            }
+            colWidths[j] = maxWidth;
+            totalCols += maxWidth;
+        }
+
+        // Build Full map:
+        fullMap = new Tile[totalRows][totalCols];
+
+        int rowOffset = 0;
+        for (int i = 0; i < rows; i++) {
+            int colOffset = 0;
+            for (int j = 0; j < cols; j++) {
+                Region r = region[i][j];
+                if (r == null) continue;
+
+                Tile[][] tiles = r.getTiles();
+                int h = tiles.length;
+                int w = tiles[0].length;
+
+                for (int y = 0; y < h; y++) {
+                    for (int x = 0; x < w; x++) {
+                        fullMap[rowOffset + y][colOffset + x] = tiles[y][x];
+                    }
+                }
+
+                colOffset += colWidths[j];
+            }
+            rowOffset += rowHeights[i];
+        }
     }
+
 
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < 3 * 30; i++) {
-            for (int j = 0; j < 3 * 40; j++) {
+
+        int height = fullMap.length;
+        int width = fullMap[0].length;
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 result.append(" ");
                 Coordinate coordinate = new Coordinate(i, j);
                 boolean isPlayer = false;
@@ -109,6 +154,7 @@ public class GameMap {
     public Region getRegion(int i, int j) {
         return region[i][j];
     }
+
     public void build(int x, int y, BuildingType type) {
         for (int i = x; i < type.getW() + x; i++) {
             for (int j = y; j < type.getL() + y; j++) {

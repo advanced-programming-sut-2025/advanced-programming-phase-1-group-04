@@ -109,10 +109,20 @@ public class Player {
                 throw new IllegalArgumentException("Invalid player farm");
         }
 
-        this.coordinate = this.houseCoordinate;
-        this.xLibGdx = this.coordinate.getX();
-        this.yLibGdx = this.coordinate.getY();
+        this.coordinate = new Coordinate(houseCoordinate.getX(), houseCoordinate.getY());
+        setLibGdxPositionFromCoordinate();
     }
+
+    private void setLibGdxPositionFromCoordinate() {
+        final int tileSize = 16;
+
+        int mapHeightInTiles = 2 * 30; // TODO: Shash?
+
+        this.xLibGdx = this.coordinate.getY() * tileSize;
+        this.yLibGdx = (mapHeightInTiles - 1 - this.coordinate.getX()) * tileSize;
+    }
+
+
 
     public int getAbilityLevel (Skill skill) {
         return Math.min(4, Math.max(0, (this.myAbility.get(skill) - 50) / 100));

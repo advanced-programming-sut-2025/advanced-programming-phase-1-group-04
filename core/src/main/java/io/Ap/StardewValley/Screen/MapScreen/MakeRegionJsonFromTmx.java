@@ -68,7 +68,7 @@ public class MakeRegionJsonFromTmx {
                         TiledMapTile tile = cell.getTile();
                         if (tile != null) {
                             if (getTile(tile) != null)
-                                result[x][y] = getTile(tile);
+                                result[x][mapHeight - 1 - y] = getTile(tile);
                         }
                     }
                 }
@@ -87,7 +87,8 @@ public class MakeRegionJsonFromTmx {
     }
 
     private static Tile getTile(TiledMapTile tile) {
-        // Building: ShippingBin, MarinesRanch, Door, Building(DontKnow),CarpentersShop, WizardBuilding
+        // Building: ShippingBin, MarinesRanch, Door, Building(DontKnow), WizardBuilding
+        //          PierresGeneralStore, CarpentersShop, Saloon, FishShop, JojaMart, BlackSmith
         MapProperties props = tile.getProperties();
         if (props.containsKey("Type")) {
             switch (props.get("Type", String.class)) {
@@ -110,19 +111,19 @@ public class MakeRegionJsonFromTmx {
                 case "ShippingBin":
                     return new Tile(TileType.Building, BuildingType.ShippingBin);
 
-                case "F":
+                case "FishShop":
                     return new Tile(TileType.Building, BuildingType.FishShop);
-                case "J":
+                case "JojaMart":
                     return new Tile(TileType.Building, BuildingType.JojaMart);
-                case "B":
+                case "BlackSmith":
                     return new Tile(TileType.Building, BuildingType.Blacksmith);
-                case "I":
+                case "PierresGeneralStore":
                     return new Tile(TileType.Building, BuildingType.PierresGeneralStore);
                 case "MarinesRanch":
                     return new Tile(TileType.Building, BuildingType.MarniesRanch);
                 case "CarpentersShop":
                     return new Tile(TileType.Building, BuildingType.CarpentersShop);
-                case "K":
+                case "Saloon":
                     return new Tile(TileType.Building, BuildingType.TheStarDropSaloon);
                 case "Door":
                     return new Tile(TileType.Building, BuildingType.Door);

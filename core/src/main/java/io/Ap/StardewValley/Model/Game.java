@@ -166,7 +166,7 @@ public class Game {
         return npcs;
     }
 
-    // TODO: nafiseh tof:
+    // TODO: CONSTANTS:
     public int getPlayerSpeed() {
         return 2;
     }

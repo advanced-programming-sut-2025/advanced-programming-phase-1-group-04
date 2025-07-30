@@ -4680,6 +4680,46 @@
    <property name="Type" value="Mountain"/>
   </properties>
  </tile>
+ <tile id="925">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="926">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="927">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="928">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="929">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="930">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="931">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="932">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
  <tile id="933">
   <properties>
    <property name="BuildingType" value="DontKnow"/>
@@ -4770,6 +4810,46 @@
  <tile id="949">
   <properties>
    <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="950">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="951">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="952">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="953">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="954">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="955">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="956">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="957">
+  <properties>
+   <property name="Type" value="Building"/>
   </properties>
  </tile>
  <tile id="958">
@@ -4864,6 +4944,46 @@
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
+ <tile id="975">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="976">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="977">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="978">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="979">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="980">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="981">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="982">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
  <tile id="983">
   <properties>
    <property name="BuildingType" value="DontKnow"/>
@@ -4954,6 +5074,46 @@
  <tile id="999">
   <properties>
    <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1000">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1001">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1002">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1003">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1004">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1005">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1006">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1007">
+  <properties>
+   <property name="Type" value="Building"/>
   </properties>
  </tile>
  <tile id="1008">

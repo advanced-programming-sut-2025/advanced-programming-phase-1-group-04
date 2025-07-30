@@ -58,11 +58,6 @@ public class GameScreenController {
             view.showPauseDialog();
         }
 
-        // reload weapon:
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getReloadWeapon())){
-
-        }
-
         // cheats:
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatTime())){
 
@@ -105,12 +100,16 @@ public class GameScreenController {
         // ... TODO
     }
 
-    public Coordinate getPlayerCoordinate(float x, float y) {
+    public Coordinate getPlayerCoordinate(float xLibGdx, float yLibGdx) {
         final int tileSize = 16;
 
-        int tileX = (int)(x / tileSize);
-        int tileY = (int)(y / tileSize);
-        return new Coordinate(tileX, tileY);
+        int mapHeightInTiles = App.getGame().getMap().getFullMap().length;
+
+        int logicX = mapHeightInTiles - 1 - (int)(yLibGdx / tileSize);
+        int logicY = (int)(xLibGdx / tileSize);
+
+        return new Coordinate(logicX, logicY);
     }
+
 
 }

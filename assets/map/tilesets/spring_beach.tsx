@@ -201,17 +201,17 @@
  </tile>
  <tile id="38">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="39">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="40">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="41">
@@ -290,17 +290,17 @@
  </tile>
  <tile id="55">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="56">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="57">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="58">
@@ -316,17 +316,17 @@
  </tile>
  <tile id="60">
   <properties>
-   <property name="Type" value="Water"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="61">
   <properties>
-   <property name="Type" value="Water"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="62">
   <properties>
-   <property name="Type" value="Water"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="63">
@@ -378,17 +378,17 @@
  </tile>
  <tile id="72">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="73">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="74">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="75">
@@ -404,17 +404,17 @@
  </tile>
  <tile id="77">
   <properties>
-   <property name="Type" value="Water"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="78">
   <properties>
-   <property name="Type" value="Water"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="79">
   <properties>
-   <property name="Type" value="Water"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="80">
@@ -502,17 +502,17 @@
  </tile>
  <tile id="94">
   <properties>
-   <property name="Type" value="Water"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="95">
   <properties>
-   <property name="Type" value="Water"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="96">
   <properties>
-   <property name="Type" value="Water"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="97">

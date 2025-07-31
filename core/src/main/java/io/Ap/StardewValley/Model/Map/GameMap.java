@@ -56,8 +56,8 @@ public class GameMap {
 
 
         // calculate total width, height:
-        int rows = region.length;
-        int cols = region[0].length;
+        int rows = 3;
+        int cols = 3;
 
         int totalRows = 0;
         int totalCols = 0;
@@ -65,29 +65,29 @@ public class GameMap {
         int[] rowHeights = new int[rows];
         int[] colWidths = new int[cols];
 
+        // calculate height:
         for (int i = 0; i < rows; i++) {
             int maxHeight = 0;
             for (int j = 0; j < cols; j++) {
                 Region r = region[i][j];
-                if (r != null) {
-                    maxHeight = Math.max(maxHeight, r.getTiles().length);
-                }
+                maxHeight = Math.max(maxHeight, r.getTiles().length);
             }
             rowHeights[i] = maxHeight;
             totalRows += maxHeight;
         }
 
+        // calculate width:
         for (int j = 0; j < cols; j++) {
             int maxWidth = 0;
             for (int i = 0; i < rows; i++) {
                 Region r = region[i][j];
-                if (r != null) {
-                    maxWidth = Math.max(maxWidth, r.getTiles()[0].length);
-                }
+                maxWidth = Math.max(maxWidth, r.getTiles()[0].length);
             }
             colWidths[j] = maxWidth;
             totalCols += maxWidth;
         }
+
+        System.out.println("Total rows: " + totalRows + ", Total cols: " + totalCols);
 
         // Build Full map:
         fullMap = new Tile[totalRows][totalCols];
@@ -97,8 +97,6 @@ public class GameMap {
             int colOffset = 0;
             for (int j = 0; j < cols; j++) {
                 Region r = region[i][j];
-                if (r == null) continue;
-
                 Tile[][] tiles = r.getTiles();
                 int h = tiles.length;
                 int w = tiles[0].length;

@@ -85,9 +85,12 @@ public class GameScreenController {
         //newY = MathUtils.clamp(newY, playerHeight, mapHeight - playerHeight);
 
         // set position LibGdx, tile base
-        player.setXLibGdx(newX);
-        player.setYLibGdx(newY);
-        player.setCoordinate(getPlayerCoordinate(newX, newY));
+        Coordinate newCoordinate = getPlayerCoordinate(newX, newY);
+        //if (App.getGame().getTile(newCoordinate).isWalkable()) {
+            player.setXLibGdx(newX);
+            player.setYLibGdx(newY);
+            player.setCoordinate(newCoordinate);
+        //}
 
         // status
         if (isMoving) {
@@ -103,7 +106,8 @@ public class GameScreenController {
     public Coordinate getPlayerCoordinate(float xLibGdx, float yLibGdx) {
         final int tileSize = 16;
 
-        int mapHeightInTiles = App.getGame().getMap().getFullMap().length;
+        //int mapHeightInTiles = App.getGame().getMap().getRegion(0, 0).getTiles().length;
+        int mapHeightInTiles = 65;
 
         int logicX = mapHeightInTiles - 1 - (int)(yLibGdx / tileSize);
         int logicY = (int)(xLibGdx / tileSize);

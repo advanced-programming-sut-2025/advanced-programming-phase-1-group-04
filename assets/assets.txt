@@ -38,7 +38,17 @@ map/farms/Farm_FourCorners.tmx
 map/farms/Farm_Island.tmx
 map/farms/Farm_Mining.tmx
 map/farms/Farm_Ranching.tmx
+map/paths/path1.tmx
+map/paths/path2.tmx
+map/paths/path3.tmx
+map/paths/path4.tmx
+map/tilesets/Characters.tsx
+map/tilesets/Festivals.png
+map/tilesets/Festivals.tsx
 map/tilesets/Paths.tsx
+map/tilesets/characterSheet.png
+map/tilesets/island_tilesheet_1.png
+map/tilesets/island_tilesheet_1.tsx
 map/tilesets/paths.png
 map/tilesets/spring_Shadows.png
 map/tilesets/spring_Shadows.tsx

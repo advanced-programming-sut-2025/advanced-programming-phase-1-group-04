@@ -25,17 +25,17 @@ public class TiledMapRendererHelper {
     private final TiledMap tiledMap;
     private final OrthogonalTiledMapRenderer renderer;
 
-    public TiledMapRendererHelper(String pathToTmx) {
-        tiledMap = new TmxMapLoader().load(pathToTmx);
+    public TiledMapRendererHelper(String mapName) {
+        tiledMap = new TmxMapLoader().load("map/paths/" + mapName + ".tmx");
         renderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-        try {
-            MakeRegionJsonFromTmx.SaveJson(tiledMap, "Farm");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            MakeRegionJsonFromTmx.SaveJson(tiledMap, mapName);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
-        //MakeRegionJsonFromTmx.saveTxt(tiledMap, "Farm");
+        MakeRegionJsonFromTmx.saveTxt(tiledMap, mapName);
     }
 
     public void renderAllLayers(OrthographicCamera camera) {

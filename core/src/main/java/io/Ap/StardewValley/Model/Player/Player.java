@@ -116,7 +116,7 @@ public class Player {
     private void setLibGdxPositionFromCoordinate() {
         final int tileSize = 16;
 
-        int mapHeightInTiles = 2 * 30; // TODO: Shash?
+        int mapHeightInTiles = 65; // TODO: Shash?
 
         this.xLibGdx = this.coordinate.getY() * tileSize;
         this.yLibGdx = (mapHeightInTiles - 1 - this.coordinate.getX()) * tileSize;

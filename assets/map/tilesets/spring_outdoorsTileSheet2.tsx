@@ -3043,15 +3043,25 @@
    <property name="Water" value="T"/>
   </properties>
  </tile>
+ <tile id="818">
+  <properties>
+   <property name="Type" value="Water"/>
+  </properties>
+ </tile>
+ <tile id="819">
+  <properties>
+   <property name="Type" value="Water"/>
+  </properties>
+ </tile>
  <tile id="820">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Water"/>
    <property name="Water" value="T"/>
   </properties>
  </tile>
  <tile id="821">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Water"/>
    <property name="Water" value="T"/>
   </properties>
  </tile>
@@ -3083,7 +3093,7 @@
  </tile>
  <tile id="832">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Water"/>
    <property name="Water" value="T"/>
   </properties>
  </tile>
@@ -3101,7 +3111,7 @@
  </tile>
  <tile id="835">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Water"/>
    <property name="Water" value="T"/>
   </properties>
  </tile>
@@ -3145,6 +3155,7 @@
  </tile>
  <tile id="848">
   <properties>
+   <property name="Type" value="Water"/>
    <property name="Water" value="T"/>
   </properties>
  </tile>
@@ -3174,12 +3185,13 @@
  </tile>
  <tile id="853">
   <properties>
+   <property name="Type" value="Water"/>
    <property name="Water" value="T"/>
   </properties>
  </tile>
  <tile id="854">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Water"/>
    <property name="Water" value="T"/>
   </properties>
  </tile>
@@ -3217,13 +3229,13 @@
  </tile>
  <tile id="866">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Water"/>
    <property name="Water" value="T"/>
   </properties>
  </tile>
  <tile id="867">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Water"/>
    <property name="Water" value="T"/>
   </properties>
  </tile>

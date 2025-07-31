@@ -70,7 +70,7 @@ public class GameScreen implements Screen, InputProcessor {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.zoom = 0.2f;
 
-        mapRenderer = new TiledMapRendererHelper("path1");
+        mapRenderer = new TiledMapRendererHelper("path4");
     }
 
     @Override

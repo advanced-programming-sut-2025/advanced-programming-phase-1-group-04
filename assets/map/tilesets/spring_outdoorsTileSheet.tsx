@@ -5609,6 +5609,46 @@
    <property name="Type" value="Mountain"/>
   </properties>
  </tile>
+ <tile id="1100">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1101">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1102">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1103">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1104">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1105">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1106">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1107">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
  <tile id="1108">
   <properties>
    <property name="BuildingType" value="DontKnow"/>
@@ -5700,6 +5740,46 @@
    <property name="Type" value="Mountain"/>
   </properties>
  </tile>
+ <tile id="1125">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1126">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1127">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1128">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1129">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1130">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1131">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1132">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
  <tile id="1133">
   <properties>
    <property name="BuildingType" value="DontKnow"/>
@@ -5769,6 +5849,46 @@
  <tile id="1145">
   <properties>
    <property name="Type" value="Mountain"/>
+  </properties>
+ </tile>
+ <tile id="1150">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1151">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1152">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1153">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1154">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1155">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1156">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1157">
+  <properties>
+   <property name="Type" value="Building"/>
   </properties>
  </tile>
  <tile id="1158">
@@ -5858,6 +5978,36 @@
  <tile id="1172">
   <properties>
    <property name="BuildingType" value="DontKnow"/>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1175">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1176">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1177">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1178">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1179">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1181">
+  <properties>
    <property name="Type" value="Building"/>
   </properties>
  </tile>
@@ -5953,6 +6103,41 @@
    <property name="Type" value="Building"/>
   </properties>
  </tile>
+ <tile id="1200">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1201">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1202">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1203">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1204">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1205">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1206">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
  <tile id="1207">
   <properties>
    <property name="Type" value="Water"/>
@@ -6042,6 +6227,16 @@
  <tile id="1222">
   <properties>
    <property name="BuildingType" value="DontKnow"/>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1225">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1226">
+  <properties>
    <property name="Type" value="Building"/>
   </properties>
  </tile>
@@ -6180,6 +6375,16 @@
    <property name="Water" value="T"/>
   </properties>
  </tile>
+ <tile id="1250">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1251">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
  <tile id="1252">
   <properties>
    <property name="Type" value="Water"/>
@@ -6315,6 +6520,16 @@
    <property name="Water" value="T"/>
   </properties>
  </tile>
+ <tile id="1275">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1276">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
  <tile id="1277">
   <properties>
    <property name="Type" value="Water"/>
@@ -6443,6 +6658,16 @@
    <property name="Passable" value="F"/>
    <property name="Type" value="Water"/>
    <property name="Water" value="T"/>
+  </properties>
+ </tile>
+ <tile id="1300">
+  <properties>
+   <property name="Type" value="Building"/>
+  </properties>
+ </tile>
+ <tile id="1301">
+  <properties>
+   <property name="Type" value="Building"/>
   </properties>
  </tile>
  <tile id="1302">

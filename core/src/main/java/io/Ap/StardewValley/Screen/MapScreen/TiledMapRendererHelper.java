@@ -29,13 +29,13 @@ public class TiledMapRendererHelper {
         tiledMap = new TmxMapLoader().load("map/paths/" + mapName + ".tmx");
         renderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-//        try {
-//            MakeRegionJsonFromTmx.SaveJson(tiledMap, mapName);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            MakeRegionJsonFromTmx.SaveJson(tiledMap, mapName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        MakeRegionJsonFromTmx.saveTxt(tiledMap, mapName);
+        //MakeRegionJsonFromTmx.saveTxt(tiledMap, mapName);
     }
 
     public void renderAllLayers(OrthographicCamera camera) {

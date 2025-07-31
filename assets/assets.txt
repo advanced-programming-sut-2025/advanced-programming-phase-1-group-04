@@ -68,6 +68,9 @@ map/tilesets/spring_outdoorsTileSheet2.png
 map/tilesets/spring_outdoorsTileSheet2.tsx
 map/tilesets/spring_town.png
 map/tilesets/spring_town.tsx
+map/town/Town-Christmas.tmx
+map/town/Town-Fair.tmx
+map/town/Town.tmx
 player/body_boy.png
 player/body_girl.png
 player/clothes/accessories.png

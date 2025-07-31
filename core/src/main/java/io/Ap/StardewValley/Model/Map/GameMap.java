@@ -16,8 +16,12 @@ public class GameMap {
     private transient Tile[][] fullMap;
 
     public GameMap(int[] farmSelection) {
+
+        //    Phase 1:
+
+        /*
+
         region[0][0] = loadRegionJson("Farming"  + farmSelection[0]);
-        //region[0][0] = loadRegionJson("Farm"  + farmSelection[0]);
         region[0][1] = loadRegionJson("Path1");
         region[0][2] = loadRegionJson("Farming" + farmSelection[1]);
 
@@ -29,15 +33,31 @@ public class GameMap {
         region[2][1] = loadRegionJson("Path3");
         region[2][2] = loadRegionJson("Farming" + farmSelection[2]);
 
-        /*mine[0] = loadRegionJson("Mine" + farmSelection[0]);
-        mine[1] = loadRegionJson("Mine" + farmSelection[1]);
-        mine[2] = loadRegionJson("Mine" + farmSelection[2]);
-        mine[3] = loadRegionJson("Mine" + farmSelection[3]);*/
+         */
+
+
+
+
+
+        region[0][0] = loadRegionJson("Farm"  + farmSelection[0]);
+        region[0][1] = loadRegionJson("path1");
+        region[0][2] = loadRegionJson("Farm" + farmSelection[1]);
+
+        region[1][0] = loadRegionJson("path4");
+        region[1][1] = loadRegionJson("Town");
+        region[1][2] = loadRegionJson("path2");
+
+        region[2][0] = loadRegionJson("Farm" + farmSelection[3]);
+        region[2][1] = loadRegionJson("path3");
+        region[2][2] = loadRegionJson("Farm" + farmSelection[2]);
+
 
     }
 
     private Region loadRegionJson(String name) {
-        File file = new File("core/src/main/resources/Maps/" + name + ".json"); // TODO: این با فایل جر کار نمیکنه
+        // Phase 1:
+        //File file = new File("core/src/main/resources/Maps/" + name + ".json");
+        File file = new File("core/src/main/resources/TiledMaps/" + name + ".json");
 
         try (FileReader reader = new FileReader(file)) {
             Gson gson = new GsonBuilder()

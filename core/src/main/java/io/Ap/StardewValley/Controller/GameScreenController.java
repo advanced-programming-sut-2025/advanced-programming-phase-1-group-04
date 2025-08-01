@@ -107,7 +107,7 @@ public class GameScreenController {
         int mapHeightInTiles = App.getGame().getMap().getRegion(0, 0).getTiles().length;
 
         int logicX = mapHeightInTiles - 1 - (int)(yLibGdx / tileSize);
-        int logicY = (int)(xLibGdx / tileSize);
+        int logicY = (int)((xLibGdx + tileSize / 2f) / tileSize);
 
         return new Coordinate(logicX, logicY);
     }

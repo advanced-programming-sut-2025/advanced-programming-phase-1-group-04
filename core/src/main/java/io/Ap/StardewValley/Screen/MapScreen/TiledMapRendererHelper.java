@@ -29,13 +29,13 @@ public class TiledMapRendererHelper {
         tiledMap = new TmxMapLoader().load("map/farms/" + mapName + ".tmx");
         renderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-//        MakeRegionJsonFromTmx.saveTxt(tiledMap, mapName);
-//
-//        try {
-//            MakeRegionJsonFromTmx.SaveJson(tiledMap, mapName);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        MakeRegionJsonFromTmx.saveTxt(tiledMap, mapName);
+
+        try {
+            MakeRegionJsonFromTmx.SaveJson(tiledMap, mapName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void renderAllLayers(OrthographicCamera camera) {
@@ -63,7 +63,7 @@ public class TiledMapRendererHelper {
         MapLayers layers = tiledMap.getLayers();
 
         for (MapLayer layer : layers)
-            layer.setVisible(!layer.getName().toLowerCase().contains("front"));
+            layer.setVisible(!layer.getName().toLowerCase().contains("always"));
 
         renderer.setView(camera);
         renderer.render();
@@ -73,7 +73,7 @@ public class TiledMapRendererHelper {
         MapLayers layers = tiledMap.getLayers();
 
         for (MapLayer layer : layers)
-            layer.setVisible(layer.getName().toLowerCase().contains("front"));
+            layer.setVisible(layer.getName().toLowerCase().contains("always"));
 
 
         renderer.setView(camera);

@@ -78,9 +78,6 @@ public class GameScreenController {
         // clamp player inside map boundaries
         int playerWidth = (int) (16 * App.getGame().getPlayerScale());
         int playerHeight = (int) (32 * App.getGame().getPlayerScale());
-
-        float mapWidth = 2688;
-        float mapHeight = 2688;
         //newX = MathUtils.clamp(newX, 0, mapWidth - playerWidth);
         //newY = MathUtils.clamp(newY, playerHeight, mapHeight - playerHeight);
 

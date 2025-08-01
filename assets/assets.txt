@@ -30,6 +30,7 @@ inventory/scythe.png
 inventory/shears.png
 inventory/trash can.png
 map/SecretNotesImages.png
+map/farms/Farm.tmx
 map/farms/Farm1.tmx
 map/farms/Farm2.tmx
 map/farms/Farm3.tmx

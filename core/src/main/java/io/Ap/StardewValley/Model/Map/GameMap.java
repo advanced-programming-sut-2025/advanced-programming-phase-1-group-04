@@ -209,6 +209,33 @@ public class GameMap {
         return new Coordinate(row, col);
     }
 
+    public Coordinate getCurrentRegionCoordinate(Coordinate coordinate) {
+        int x = coordinate.getX();
+        int y = coordinate.getY();
+
+        int row = 0, col = 0;
+
+        int accumulated = 0;
+        for (int i = 0; i < 3; i++) {
+            accumulated += rowHeights[i];
+            if (x < accumulated) {
+                row = i;
+                break;
+            }
+        }
+
+        accumulated = 0;
+        for (int j = 0; j < 3; j++) {
+            accumulated += colWidths[j];
+            if (y < accumulated) {
+                col = j;
+                break;
+            }
+        }
+
+        return new Coordinate(row, col);
+    }
+
     public Region getCurrentRegion() {
         Coordinate c = getCurrentRegionCoordinate();
         return region[c.getX()][c.getY()];

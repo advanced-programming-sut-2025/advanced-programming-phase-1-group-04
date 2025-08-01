@@ -91,23 +91,13 @@ public class GameScreenController {
         Coordinate newCoordinate = getPlayerCoordinate(newX, newY);
 
         // set new coordinate:
-        if (App.getGame().getTile(newCoordinate).isWalkable()) {
-            Coordinate newRegion = App.getGame().getMap().getCurrentRegionCoordinate();
-
-            // clamp player inside current region:
-            Region currentRegion = App.getGame().getMap().getCurrentRegion();
-            int mapWidth = currentRegion.getTiles()[0].length * 16;
-            int mapHeight = currentRegion.getTiles().length * 16;
-            int playerWidth = (int) (16 * App.getGame().getPlayerScale());
-            int playerHeight = (int) (32 * App.getGame().getPlayerScale());
-
-            //newX = MathUtils.clamp(newX, 0, mapWidth - playerWidth);
-            //newY = MathUtils.clamp(newY, 0, mapHeight - (float) playerHeight / 2);
-
+        if (App.getGame().getTile(newCoordinate) != null && App.getGame().getTile(newCoordinate).isWalkable()) {
+            // calculate newRegion:
             player.setXLibGdx(newX);
             player.setYLibGdx(newY);
             player.setCoordinate(newCoordinate);
 
+            Coordinate newRegion = App.getGame().getMap().getCurrentRegionCoordinate(newCoordinate);
             if (!oldRegion.equals(newRegion)) {
                 RegionTransition rt = RegionTransition.get(oldRegion, newRegion);
                 if (rt != null) {

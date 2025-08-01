@@ -61,14 +61,14 @@ public class MakeRegionJsonFromTmx {
 
             TiledMapTileLayer tileLayer = (TiledMapTileLayer) layer;
 
-            for (int x = 0; x < tileLayer.getWidth(); x++) {
-                for (int y = 0; y < tileLayer.getHeight(); y++) {
+            for (int y = tileLayer.getHeight() - 1; y >= 0; y--) {
+                for (int x = 0; x < tileLayer.getWidth(); x++) {
                     TiledMapTileLayer.Cell cell = tileLayer.getCell(x, y);
                     if (cell != null) {
                         TiledMapTile tile = cell.getTile();
                         if (tile != null) {
                             if (getTile(tile) != null)
-                                result[x][mapHeight - 1 - y] = getTile(tile);
+                                result[x][y] = getTile(tile); // حذف mapHeight - 1 - y
                         }
                     }
                 }

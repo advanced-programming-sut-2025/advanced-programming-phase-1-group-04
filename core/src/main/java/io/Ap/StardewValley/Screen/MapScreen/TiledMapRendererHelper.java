@@ -26,7 +26,7 @@ public class TiledMapRendererHelper {
     private final OrthogonalTiledMapRenderer renderer;
 
     public TiledMapRendererHelper(String mapName) {
-        tiledMap = new TmxMapLoader().load("map/farms/" + mapName + ".tmx");
+        tiledMap = new TmxMapLoader().load("map/town/" + mapName + ".tmx");
         renderer = new OrthogonalTiledMapRenderer(tiledMap);
 
 //        MakeRegionJsonFromTmx.saveTxt(tiledMap, mapName);

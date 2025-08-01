@@ -16,26 +16,19 @@ public class GameMap {
     private transient Tile[][] fullMap;
 
     public GameMap(int[] farmSelection) {
-
         //    Phase 1:
 
-        /*
-
-        region[0][0] = loadRegionJson("Farming"  + farmSelection[0]);
-        region[0][1] = loadRegionJson("Path1");
-        region[0][2] = loadRegionJson("Farming" + farmSelection[1]);
-
-        region[1][0] = loadRegionJson("Path4");
-        region[1][1] = loadRegionJson("NPC");
-        region[1][2] = loadRegionJson("Path2");
-
-        region[2][0] = loadRegionJson("Farming" + farmSelection[3]);
-        region[2][1] = loadRegionJson("Path3");
-        region[2][2] = loadRegionJson("Farming" + farmSelection[2]);
-
-         */
-
-
+//        region[0][0] = loadRegionJson("Farming"  + farmSelection[0]);
+//        region[0][1] = loadRegionJson("Path1");
+//        region[0][2] = loadRegionJson("Farming" + farmSelection[1]);
+//
+//        region[1][0] = loadRegionJson("Path4");
+//        region[1][1] = loadRegionJson("NPC");
+//        region[1][2] = loadRegionJson("Path2");
+//
+//        region[2][0] = loadRegionJson("Farming" + farmSelection[3]);
+//        region[2][1] = loadRegionJson("Path3");
+//        region[2][2] = loadRegionJson("Farming" + farmSelection[2]);
 
 
 
@@ -50,8 +43,6 @@ public class GameMap {
         region[2][0] = loadRegionJson("Farm" + farmSelection[3]);
         region[2][1] = loadRegionJson("path3");
         region[2][2] = loadRegionJson("Farm" + farmSelection[2]);
-
-
     }
 
     private Region loadRegionJson(String name) {
@@ -74,42 +65,32 @@ public class GameMap {
         // Phase 1:
         // total rows = 3 * 30, total cols = 3 * 40;
 
-
-        // calculate total width, height:
         int rows = 3;
         int cols = 3;
-
-        int totalRows = 0;
-        int totalCols = 0;
 
         int[] rowHeights = new int[rows];
         int[] colWidths = new int[cols];
 
-        // calculate height:
         for (int i = 0; i < rows; i++) {
-            int maxHeight = 0;
             for (int j = 0; j < cols; j++) {
                 Region r = region[i][j];
-                maxHeight = Math.max(maxHeight, r.getTiles().length);
+                int h = r.getTiles().length;
+                int w = r.getTiles()[0].length;
+
+                System.out.println("row " + i + " col " + j + " h " + h + " w " + w);
+
+                rowHeights[i] = h;
+                colWidths[j] = w;
             }
-            rowHeights[i] = maxHeight;
-            totalRows += maxHeight;
         }
 
-        // calculate width:
-        for (int j = 0; j < cols; j++) {
-            int maxWidth = 0;
-            for (int i = 0; i < rows; i++) {
-                Region r = region[i][j];
-                maxWidth = Math.max(maxWidth, r.getTiles()[0].length);
-            }
-            colWidths[j] = maxWidth;
-            totalCols += maxWidth;
-        }
+        int totalRows = 0;
+        int totalCols = 0;
+        for (int h : rowHeights) totalRows += h;
+        for (int w : colWidths) totalCols += w;
 
         System.out.println("Total rows: " + totalRows + ", Total cols: " + totalCols);
 
-        // Build Full map:
         fullMap = new Tile[totalRows][totalCols];
 
         int rowOffset = 0;

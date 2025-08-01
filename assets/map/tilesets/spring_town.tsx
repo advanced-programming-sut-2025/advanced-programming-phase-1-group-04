@@ -4572,7 +4572,7 @@
  </tile>
  <tile id="909">
   <properties>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="910">

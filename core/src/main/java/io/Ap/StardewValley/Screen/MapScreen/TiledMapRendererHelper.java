@@ -80,6 +80,21 @@ public class TiledMapRendererHelper {
         renderer.render();
     }
 
+    public int getWidthPixels() {
+        MapProperties props = tiledMap.getProperties();
+        int widthInTiles = props.get("width", Integer.class);
+        int tileWidth = props.get("tilewidth", Integer.class);
+        return widthInTiles * tileWidth;
+    }
+
+    public int getHeightPixels() {
+        MapProperties props = tiledMap.getProperties();
+        int heightInTiles = props.get("height", Integer.class);
+        int tileHeight = props.get("tileheight", Integer.class);
+        return heightInTiles * tileHeight;
+    }
+
+
 
     public void dispose() {
         tiledMap.dispose();

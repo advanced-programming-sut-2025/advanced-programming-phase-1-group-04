@@ -583,7 +583,7 @@
  </tile>
  <tile id="124">
   <properties>
-   <property name="Type" value="Door"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="126">

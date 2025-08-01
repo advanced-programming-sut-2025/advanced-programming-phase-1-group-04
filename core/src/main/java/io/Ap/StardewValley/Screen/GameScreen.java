@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
+import io.Ap.StardewValley.Model.Map.Region;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
 import io.Ap.StardewValley.StardewValley;
 
@@ -19,6 +21,8 @@ public class GameScreen implements Screen, InputProcessor {
     // Map:
     private TiledMapRendererHelper[][] mapRenderers = new TiledMapRendererHelper[3][3];
     private final int[] farmSelections = new int[4];
+    private TiledMapRendererHelper currentMap;
+
 
     private Stage stage;
     private final Table dialogTable = new Table();
@@ -60,6 +64,8 @@ public class GameScreen implements Screen, InputProcessor {
         dialogTable.setFillParent(true);
         dialogTable.top().left();
         stage.addActor(dialogTable);
+        stage.addActor(controllerTable);
+
         Gdx.input.setInputProcessor(this);
 
         // InputMultiplexer for resume menu
@@ -93,7 +99,7 @@ public class GameScreen implements Screen, InputProcessor {
         if (!paused) {
             // TODO:  current region:
             Coordinate cr = App.getGame().getMap().getCurrentRegionCoordinate();
-            TiledMapRendererHelper currentMap = mapRenderers[cr.getX()][cr.getY()];
+            currentMap = mapRenderers[cr.getX()][cr.getY()];
 
             ScreenUtils.clear(0, 0, 0, 1);
 
@@ -118,7 +124,6 @@ public class GameScreen implements Screen, InputProcessor {
         }
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        stage.addActor(controllerTable);
         stage.draw();
     }
 
@@ -133,8 +138,11 @@ public class GameScreen implements Screen, InputProcessor {
         controllerTable.add(new Label("LibGdx: (" + App.getGame().getCurrentPlayer().getXLibGdx() + ", " + App.getGame().getCurrentPlayer().getYLibGdx() + ")" ,skin));
     }
 
+    public void updateCamera() {
+        float camHalfWidth = (camera.viewportWidth * camera.zoom) / 2f;
+        float camHalfHeight = (camera.viewportHeight * camera.zoom) / 2f;
 
-    private void updateCamera() {
+
         float playerX = App.getGame().getCurrentPlayer().getXLibGdx();
         float playerY = App.getGame().getCurrentPlayer().getYLibGdx();
 
@@ -144,6 +152,12 @@ public class GameScreen implements Screen, InputProcessor {
 
         float centerX = playerX + spriteWidth / 2f;
         float centerY = playerY + spriteHeight / 2f;
+
+        int mapWidth = currentMap.getWidthPixels();
+        int mapHeight = currentMap.getHeightPixels();
+
+        centerX = MathUtils.clamp(centerX, camHalfWidth, mapWidth - camHalfWidth);
+        centerY = MathUtils.clamp(centerY, camHalfHeight, mapHeight - camHalfHeight);
 
         camera.position.set(centerX, centerY, 0);
         camera.update();

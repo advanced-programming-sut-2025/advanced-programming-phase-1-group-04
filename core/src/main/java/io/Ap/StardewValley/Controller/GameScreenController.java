@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
+import io.Ap.StardewValley.Model.Map.Region;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Screen.GameScreen;
+import io.Ap.StardewValley.Screen.MapScreen.RegionTransition;
 import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
 import io.Ap.StardewValley.Screen.PlayerScreen.PlayerRender;
 import io.Ap.StardewValley.Screen.PlayerScreen.StateType;
@@ -75,20 +77,6 @@ public class GameScreenController {
 
         }
 
-        // clamp player inside map boundaries
-        int playerWidth = (int) (16 * App.getGame().getPlayerScale());
-        int playerHeight = (int) (32 * App.getGame().getPlayerScale());
-        //newX = MathUtils.clamp(newX, 0, mapWidth - playerWidth);
-        //newY = MathUtils.clamp(newY, playerHeight, mapHeight - playerHeight);
-
-        // set position LibGdx, tile base
-        Coordinate newCoordinate = getPlayerCoordinate(newX, newY);
-        if (App.getGame().getTile(newCoordinate).isWalkable()) {
-            player.setXLibGdx(newX);
-            player.setYLibGdx(newY);
-            player.setCoordinate(newCoordinate);
-        }
-
         // status
         if (isMoving) {
             player.setState(StateType.Walk);
@@ -97,18 +85,57 @@ public class GameScreenController {
         } else {
             player.setState(StateType.Idle);
         }
-        // ... TODO
+
+        // change region:
+        Coordinate oldRegion = App.getGame().getMap().getCurrentRegionCoordinate();
+        Coordinate newCoordinate = getPlayerCoordinate(newX, newY);
+
+        // set new coordinate:
+        if (App.getGame().getTile(newCoordinate).isWalkable()) {
+            Coordinate newRegion = App.getGame().getMap().getCurrentRegionCoordinate();
+
+            // clamp player inside current region:
+            Region currentRegion = App.getGame().getMap().getCurrentRegion();
+            int mapWidth = currentRegion.getTiles()[0].length * 16;
+            int mapHeight = currentRegion.getTiles().length * 16;
+            int playerWidth = (int) (16 * App.getGame().getPlayerScale());
+            int playerHeight = (int) (32 * App.getGame().getPlayerScale());
+
+            //newX = MathUtils.clamp(newX, 0, mapWidth - playerWidth);
+            //newY = MathUtils.clamp(newY, 0, mapHeight - (float) playerHeight / 2);
+
+            player.setXLibGdx(newX);
+            player.setYLibGdx(newY);
+            player.setCoordinate(newCoordinate);
+
+            if (!oldRegion.equals(newRegion)) {
+                RegionTransition rt = RegionTransition.get(oldRegion, newRegion);
+                if (rt != null) {
+                    player.setXLibGdx(rt.getLibGdxX(16));
+                    player.setYLibGdx(rt.getLibGdxY(16));
+                    player.setCoordinate(rt.getDestinationCoordinate());
+                }
+            }
+        }
     }
 
     public Coordinate getPlayerCoordinate(float xLibGdx, float yLibGdx) {
         final int tileSize = 16;
 
         // TODO: curren region:
+        Coordinate cor = App.getGame().getMap().getCurrentRegionCoordinate();
         int mapHeightInTiles = App.getGame().getMap().getCurrentRegion().getTiles().length;
 
-        int logicX = mapHeightInTiles - 1 - (int)(yLibGdx / tileSize);
-        int logicY = (int)((xLibGdx + tileSize / 2f) / tileSize);
+        int[] rowOffsets = App.getGame().getMap().getRowOffsets();
+        int[] colOffsets = App.getGame().getMap().getColOffsets();
 
-        return new Coordinate(logicX, logicY);
+
+        int localX = mapHeightInTiles - 1 - (int)(yLibGdx / tileSize);
+        int localY = (int)((xLibGdx + tileSize / 2f) / tileSize);
+
+        int globalX = rowOffsets[cor.getX()] + localX;
+        int globalY = colOffsets[cor.getY()] + localY;
+
+        return new Coordinate(globalX, globalY);
     }
 }

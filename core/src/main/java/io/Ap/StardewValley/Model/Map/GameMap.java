@@ -15,8 +15,11 @@ public class GameMap {
     private final Region[][] region = new Region[3][3];
     private transient Tile[][] fullMap;
 
-    private transient final int[] rowHeights = new int[3];
-    private transient final int[] colWidths = new int[3];
+    private final int[] rowHeights = new int[3];
+    private final int[] colWidths = new int[3];
+
+    private final int[] rowOffsets = new int[3];
+    private final int[] colOffsets = new int[3];
 
     public GameMap(int[] farmSelection) {
         // Phase 1:
@@ -45,6 +48,18 @@ public class GameMap {
         region[2][0] = loadRegionJson("Farm" + farmSelection[3]);
         region[2][1] = loadRegionJson("path3");
         region[2][2] = loadRegionJson("Farm" + farmSelection[2]);
+
+//        region[0][0] = loadRegionJson("path4");
+//        region[0][1] = loadRegionJson("Town");
+//        region[0][2] = loadRegionJson("path2");
+//
+//        region[1][0] = loadRegionJson("Farm"  + farmSelection[0]);
+//        region[1][1] = loadRegionJson("path1");
+//        region[1][2] = loadRegionJson("Farm" + farmSelection[1]);
+//
+//        region[2][0] = loadRegionJson("Farm" + farmSelection[3]);
+//        region[2][1] = loadRegionJson("path3");
+//        region[2][2] = loadRegionJson("Farm" + farmSelection[2]);
     }
 
     private Region loadRegionJson(String name) {
@@ -107,8 +122,26 @@ public class GameMap {
             }
             rowOffset += rowHeights[i];
         }
+
+        calculateOffsets();
     }
 
+    private void calculateOffsets() {
+        rowOffsets[0] = 0;
+        colOffsets[0] = 0;
+        for (int i = 1; i < 3; i++) {
+            rowOffsets[i] = rowOffsets[i - 1] + rowHeights[i - 1];
+            colOffsets[i] = colOffsets[i - 1] + colWidths[i - 1];
+        }
+    }
+
+    public int[] getRowOffsets() {
+        return rowOffsets;
+    }
+
+    public int[] getColOffsets() {
+        return colOffsets;
+    }
 
     @Override
     public String toString() {

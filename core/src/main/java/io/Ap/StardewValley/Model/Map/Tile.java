@@ -144,8 +144,9 @@ public class Tile {
     public boolean isWalkable() {
         switch (this.type) {
             case Building:
-                if (this.buildingType.equals(BuildingType.GreenHouse)) return false;
-                return true;
+                // Phase 1:
+                //return !this.buildingType.equals(BuildingType.GreenHouse);
+                return false;
             case Ground:
                 if (this.item instanceof Tree) {
                     return false;

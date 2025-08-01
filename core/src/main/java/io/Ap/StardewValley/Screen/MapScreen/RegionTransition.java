@@ -1,61 +1,57 @@
 package io.Ap.StardewValley.Screen.MapScreen;
+
 import io.Ap.StardewValley.Model.Map.Coordinate;
 
 public enum RegionTransition {
     // Row 0
-    FROM_00_TO_01(new Coordinate(0, 0), new Coordinate(0, 1), new Coordinate(5, 0), 5 * 16f, 10 * 16f),
-    FROM_01_TO_00(new Coordinate(0, 1), new Coordinate(0, 0), new Coordinate(5, 39), 5 * 16f, 10 * 16f),
+    FROM_00_TO_01(new Coordinate(0, 0), new Coordinate(0, 1), new Coordinate(42, 80)),
+    FROM_01_TO_00(new Coordinate(0, 1), new Coordinate(0, 0), new Coordinate(17, 79)),
 
-    FROM_01_TO_02(new Coordinate(0, 1), new Coordinate(0, 2), new Coordinate(5, 0), 5 * 16f, 10 * 16f),
-    FROM_02_TO_01(new Coordinate(0, 2), new Coordinate(0, 1), new Coordinate(5, 39), 5 * 16f, 10 * 16f),
+    FROM_01_TO_02(new Coordinate(0, 1), new Coordinate(0, 2), new Coordinate(40, 210)),
+    FROM_02_TO_01(new Coordinate(0, 2), new Coordinate(0, 1), new Coordinate(15, 209)),
 
-    FROM_00_TO_10(new Coordinate(0, 0), new Coordinate(1, 0), new Coordinate(0, 5), 10 * 16f, 5 * 16f),
-    FROM_10_TO_00(new Coordinate(1, 0), new Coordinate(0, 0), new Coordinate(29, 5), 10 * 16f, 29 * 16f),
+    FROM_00_TO_10(new Coordinate(0, 0), new Coordinate(1, 0), new Coordinate(65, 37)),
+    FROM_10_TO_00(new Coordinate(1, 0), new Coordinate(0, 0), new Coordinate(64, 40)),
 
-    FROM_01_TO_11(new Coordinate(0, 1), new Coordinate(1, 1), new Coordinate(0, 5), 10 * 16f, 5 * 16f),
-    FROM_11_TO_01(new Coordinate(1, 1), new Coordinate(0, 1), new Coordinate(29, 5), 10 * 16f, 29 * 16f),
+    FROM_01_TO_11(new Coordinate(0, 1), new Coordinate(1, 1), new Coordinate(65, 161)),
+    FROM_11_TO_01(new Coordinate(1, 1), new Coordinate(0, 1), new Coordinate(64, 161)),
 
-    FROM_02_TO_12(new Coordinate(0, 2), new Coordinate(1, 2), new Coordinate(0, 5), 10 * 16f, 5 * 16f),
-    FROM_12_TO_02(new Coordinate(1, 2), new Coordinate(0, 2), new Coordinate(29, 5), 10 * 16f, 29 * 16f),
+    FROM_02_TO_12(new Coordinate(0, 2), new Coordinate(1, 2), new Coordinate(65, 248)),
+    FROM_12_TO_02(new Coordinate(1, 2), new Coordinate(0, 2), new Coordinate(64, 250)),
 
     // Row 1
-    FROM_10_TO_11(new Coordinate(1, 0), new Coordinate(1, 1), new Coordinate(5, 0), 5 * 16f, 10 * 16f),
-    FROM_11_TO_10(new Coordinate(1, 1), new Coordinate(1, 0), new Coordinate(5, 39), 5 * 16f, 10 * 16f),
+    FROM_10_TO_11(new Coordinate(1, 0), new Coordinate(1, 1), new Coordinate(119, 80)),
+    FROM_11_TO_10(new Coordinate(1, 1), new Coordinate(1, 0), new Coordinate(85, 79)),
 
-    FROM_11_TO_12(new Coordinate(1, 1), new Coordinate(1, 2), new Coordinate(5, 0), 5 * 16f, 10 * 16f),
-    FROM_12_TO_11(new Coordinate(1, 2), new Coordinate(1, 1), new Coordinate(5, 39), 5 * 16f, 10 * 16f),
+    //FROM_11_TO_12(new Coordinate(1, 1), new Coordinate(1, 2), new Coordinate(5, 0)),
+    //FROM_12_TO_11(new Coordinate(1, 2), new Coordinate(1, 1), new Coordinate(5, 39)),
 
-    FROM_10_TO_20(new Coordinate(1, 0), new Coordinate(2, 0), new Coordinate(0, 5), 10 * 16f, 5 * 16f),
-    FROM_20_TO_10(new Coordinate(2, 0), new Coordinate(1, 0), new Coordinate(29, 5), 10 * 16f, 29 * 16f),
+    FROM_10_TO_20(new Coordinate(1, 0), new Coordinate(2, 0), new Coordinate(175, 40)),
+    FROM_20_TO_10(new Coordinate(2, 0), new Coordinate(1, 0), new Coordinate(174, 67)),
 
-    FROM_11_TO_21(new Coordinate(1, 1), new Coordinate(2, 1), new Coordinate(0, 5), 10 * 16f, 5 * 16f),
-    FROM_21_TO_11(new Coordinate(2, 1), new Coordinate(1, 1), new Coordinate(29, 5), 10 * 16f, 29 * 16f),
+    FROM_11_TO_21(new Coordinate(1, 1), new Coordinate(2, 1), new Coordinate(175, 124)),
+    FROM_21_TO_11(new Coordinate(2, 1), new Coordinate(1, 1), new Coordinate(174, 134)),
 
-    FROM_12_TO_22(new Coordinate(1, 2), new Coordinate(2, 2), new Coordinate(0, 5), 10 * 16f, 5 * 16f),
-    FROM_22_TO_12(new Coordinate(2, 2), new Coordinate(1, 2), new Coordinate(29, 5), 10 * 16f, 29 * 16f),
+    FROM_12_TO_22(new Coordinate(1, 2), new Coordinate(2, 2), new Coordinate(176, 250)),
+    FROM_22_TO_12(new Coordinate(2, 2), new Coordinate(1, 2), new Coordinate(174, 245)),
 
     // Row 2
-    FROM_20_TO_21(new Coordinate(2, 0), new Coordinate(2, 1), new Coordinate(5, 0), 5 * 16f, 10 * 16f),
-    FROM_21_TO_20(new Coordinate(2, 1), new Coordinate(2, 0), new Coordinate(5, 39), 5 * 16f, 10 * 16f),
+    FROM_20_TO_21(new Coordinate(2, 0), new Coordinate(2, 1), new Coordinate(190, 80)),
+    FROM_21_TO_20(new Coordinate(2, 1), new Coordinate(2, 0), new Coordinate(192, 79)),
 
-    FROM_21_TO_22(new Coordinate(2, 1), new Coordinate(2, 2), new Coordinate(5, 0), 5 * 16f, 10 * 16f),
-    FROM_22_TO_21(new Coordinate(2, 2), new Coordinate(2, 1), new Coordinate(5, 39), 5 * 16f, 10 * 16f);
+    FROM_21_TO_22(new Coordinate(2, 1), new Coordinate(2, 2), new Coordinate(224, 210)),
+    FROM_22_TO_21(new Coordinate(2, 2), new Coordinate(2, 1), new Coordinate(224, 209));
 
     // -----------------------
 
     private final Coordinate fromRegion;
     private final Coordinate toRegion;
     private final Coordinate destinationCoordinate;
-    private final float libGdxX;
-    private final float libGdxY;
 
-    RegionTransition(Coordinate fromRegion, Coordinate toRegion, Coordinate destinationCoordinate,
-                     float libGdxX, float libGdxY) {
+    RegionTransition(Coordinate fromRegion, Coordinate toRegion, Coordinate destinationCoordinate) {
         this.fromRegion = fromRegion;
         this.toRegion = toRegion;
         this.destinationCoordinate = destinationCoordinate;
-        this.libGdxX = libGdxX;
-        this.libGdxY = libGdxY;
     }
 
     public boolean matches(Coordinate from, Coordinate to) {
@@ -82,11 +78,17 @@ public enum RegionTransition {
         return destinationCoordinate;
     }
 
-    public float getLibGdxX() {
-        return libGdxX;
+    public float getLibGdxX(int tileSize) {
+        int[] colOffsets = io.Ap.StardewValley.Model.App.getGame().getMap().getColOffsets();
+        int localY = destinationCoordinate.getY() - colOffsets[toRegion.getY()];
+        return localY * tileSize;
     }
 
-    public float getLibGdxY() {
-        return libGdxY;
+    public float getLibGdxY(int tileSize) {
+        int[] rowOffsets = io.Ap.StardewValley.Model.App.getGame().getMap().getRowOffsets();
+        int regionHeight = io.Ap.StardewValley.Model.App.getGame().getMap()
+                .getRegion(toRegion.getX(), toRegion.getY()).getTiles().length;
+        int localX = destinationCoordinate.getX() - rowOffsets[toRegion.getX()];
+        return (regionHeight - 1 - localX) * tileSize;
     }
 }

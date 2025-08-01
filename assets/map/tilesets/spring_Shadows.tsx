@@ -688,17 +688,17 @@
  </tile>
  <tile id="153">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="154">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="155">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="MarinesRanch"/>
   </properties>
  </tile>
  <tile id="156">

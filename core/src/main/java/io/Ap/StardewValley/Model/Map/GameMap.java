@@ -16,7 +16,7 @@ public class GameMap {
     private transient Tile[][] fullMap;
 
     public GameMap(int[] farmSelection) {
-        //    Phase 1:
+        // Phase 1:
 //        region[0][0] = loadRegionJson("Farming"  + farmSelection[0]);
 //        region[0][1] = loadRegionJson("Path1");
 //        region[0][2] = loadRegionJson("Farming" + farmSelection[1]);
@@ -53,11 +53,7 @@ public class GameMap {
             Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Item.class, new ItemAdapter()) // ثبت TypeAdapter
                 .create();
-            Region region = gson.fromJson(reader, Region.class);
-
-            System.out.println("Region: " + name + " h " + region.getTiles().length + " w " + region.getTiles()[0].length);
-
-            return region;
+            return gson.fromJson(reader, Region.class);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -80,8 +76,6 @@ public class GameMap {
                 int h = r.getTiles().length;
                 int w = r.getTiles()[0].length;
 
-                System.out.println("row " + i + " col " + j + " h " + h + " w " + w);
-
                 rowHeights[i] = h;
                 colWidths[j] = w;
             }
@@ -91,8 +85,6 @@ public class GameMap {
         int totalCols = 0;
         for (int h : rowHeights) totalRows += h;
         for (int w : colWidths) totalCols += w;
-
-        System.out.println("Total rows: " + totalRows + ", Total cols: " + totalCols);
 
         fullMap = new Tile[totalRows][totalCols];
 

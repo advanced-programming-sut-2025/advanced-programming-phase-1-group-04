@@ -106,8 +106,8 @@ public class GameScreenController {
     public Coordinate getPlayerCoordinate(float xLibGdx, float yLibGdx) {
         final int tileSize = 16;
 
-        //int mapHeightInTiles = App.getGame().getMap().getRegion(0, 0).getTiles().length;
-        int mapHeightInTiles = 65;
+        // TODO: curren region:
+        int mapHeightInTiles = App.getGame().getMap().getRegion(0, 0).getTiles().length;
 
         int logicX = mapHeightInTiles - 1 - (int)(yLibGdx / tileSize);
         int logicY = (int)(xLibGdx / tileSize);

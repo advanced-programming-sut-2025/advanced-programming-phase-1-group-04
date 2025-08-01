@@ -92,22 +92,24 @@ public class Player {
 
         this.id = id;
         this.farm = farm;
-        switch (farm) {
-            case 1:
-                this.houseCoordinate = new Coordinate(4, 31);
-                break;
-            case 2:
-                this.houseCoordinate = new Coordinate(4, 31 + 80);
-                break;
-            case 3:
-                this.houseCoordinate = new Coordinate(4 + 60, 31);
-                break;
-            case 4:
-                this.houseCoordinate = new Coordinate(4 + 60, 31 + 80);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid player farm");
-        }
+        // Phase 1:
+//        switch (farm) {
+//            case 1:
+//                this.houseCoordinate = new Coordinate(4, 31);
+//                break;
+//            case 2:
+//                this.houseCoordinate = new Coordinate(4, 31 + 80);
+//                break;
+//            case 3:
+//                this.houseCoordinate = new Coordinate(4 + 60, 31);
+//                break;
+//            case 4:
+//                this.houseCoordinate = new Coordinate(4 + 60, 31 + 80);
+//                break;
+//            default:
+//                throw new IllegalArgumentException("Invalid player farm");
+//        }
+        this.houseCoordinate = new Coordinate(13, 64);
 
         this.coordinate = new Coordinate(houseCoordinate.getX(), houseCoordinate.getY());
         setLibGdxPositionFromCoordinate();
@@ -115,8 +117,7 @@ public class Player {
 
     private void setLibGdxPositionFromCoordinate() {
         final int tileSize = 16;
-
-        int mapHeightInTiles = 65; // TODO: Shash?
+        int mapHeightInTiles = 65;
 
         this.xLibGdx = this.coordinate.getY() * tileSize;
         this.yLibGdx = (mapHeightInTiles - 1 - this.coordinate.getX()) * tileSize;

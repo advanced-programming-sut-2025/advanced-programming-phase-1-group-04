@@ -4,6 +4,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -15,19 +16,21 @@ import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
 import io.Ap.StardewValley.StardewValley;
 
 public class GameScreen implements Screen, InputProcessor {
+    // Map:
+    private TiledMapRendererHelper[][] mapRenderers = new TiledMapRendererHelper[3][3];
+    private final int[] farmSelections = new int[4];
+
     private Stage stage;
     private final Table dialogTable = new Table();
     private final Table controllerTable = new Table();
 
-    private TiledMapRendererHelper mapRenderer;
-
+    private OrthographicCamera camera;
 
     private boolean paused = false;
-
-    private OrthographicCamera camera;
     private final GameScreenController controller = new GameScreenController();
 
-    public GameScreen() {
+    public GameScreen(int[] farmSelections) {
+        System.arraycopy(farmSelections, 0, this.farmSelections, 0, 4);
         controller.setViews(this);
     }
 
@@ -70,12 +73,28 @@ public class GameScreen implements Screen, InputProcessor {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.zoom = 0.2f;
 
-        mapRenderer = new TiledMapRendererHelper("Farm1");
+
+        // set MapRenderers:
+        mapRenderers[0][0] = new TiledMapRendererHelper("Farm" + farmSelections[0]);
+        mapRenderers[0][1] = new TiledMapRendererHelper("path1");
+        mapRenderers[0][2] = new TiledMapRendererHelper("Farm" + farmSelections[1]);
+
+        mapRenderers[1][0] = new TiledMapRendererHelper("path4");
+        mapRenderers[1][1] = new TiledMapRendererHelper("Town");
+        mapRenderers[1][2] = new TiledMapRendererHelper("path2");
+
+        mapRenderers[2][0] = new TiledMapRendererHelper("Farm" + farmSelections[3]);
+        mapRenderers[2][1] = new TiledMapRendererHelper("path3");
+        mapRenderers[2][2] = new TiledMapRendererHelper("Farm" + farmSelections[2]);
     }
 
     @Override
     public void render(float delta) {
         if (!paused) {
+            // TODO:  current region:
+            Coordinate cr = App.getGame().getMap().getCurrentRegionCoordinate();
+            TiledMapRendererHelper currentMap = mapRenderers[cr.getX()][cr.getY()];
+
             ScreenUtils.clear(0, 0, 0, 1);
 
 
@@ -88,14 +107,14 @@ public class GameScreen implements Screen, InputProcessor {
 
             // render map
             SpriteBatch batch = StardewValley.getBatch();
-            mapRenderer.renderBeforePlayer(camera);
+            currentMap.renderBeforePlayer(camera);
 
             // update game, render player
             batch.begin();
             controller.updateGame();
             batch.end();
 
-            mapRenderer.renderAfterPlayer(camera);
+            currentMap.renderAfterPlayer(camera);
         }
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -110,7 +129,8 @@ public class GameScreen implements Screen, InputProcessor {
         controllerTable.clear();
         controllerTable.setFillParent(true);
         controllerTable.top().left();
-        controllerTable.add(new Label("Player: " + cor.getX() + ", " + cor.getY() ,skin));
+        controllerTable.add(new Label("Player: (" + cor.getX() + ", " + cor.getY() + ")" ,skin));
+        controllerTable.add(new Label("LibGdx: (" + App.getGame().getCurrentPlayer().getXLibGdx() + ", " + App.getGame().getCurrentPlayer().getYLibGdx() + ")" ,skin));
     }
 
 
@@ -265,8 +285,11 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public void dispose() {
-        mapRenderer.dispose();
-
+        for (TiledMapRendererHelper[] tiledMapRenderers: mapRenderers) {
+            for (TiledMapRendererHelper tmp: tiledMapRenderers) {
+                tmp.dispose();
+            }
+        }
     }
 
     @Override

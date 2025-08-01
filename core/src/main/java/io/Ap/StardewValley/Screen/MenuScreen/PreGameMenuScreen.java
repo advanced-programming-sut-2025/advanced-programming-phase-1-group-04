@@ -160,7 +160,7 @@ public class PreGameMenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameMenuController.newGameOffline(hairColor, pantColor, pantIndex / 12, shirtIndex, hairIndex, farmId);
-                StardewValley.getGame().setScreen(new GameScreen());
+                StardewValley.getGame().setScreen(new GameScreen(GameMenuController.farmSelections));
             }
         });
 

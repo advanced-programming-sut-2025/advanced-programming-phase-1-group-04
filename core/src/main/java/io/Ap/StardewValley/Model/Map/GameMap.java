@@ -15,6 +15,9 @@ public class GameMap {
     private final Region[][] region = new Region[3][3];
     private transient Tile[][] fullMap;
 
+    private transient final int[] rowHeights = new int[3];
+    private transient final int[] colWidths = new int[3];
+
     public GameMap(int[] farmSelection) {
         // Phase 1:
 //        region[0][0] = loadRegionJson("Farming"  + farmSelection[0]);
@@ -66,9 +69,6 @@ public class GameMap {
 
         int rows = 3;
         int cols = 3;
-
-        int[] rowHeights = new int[rows];
-        int[] colWidths = new int[cols];
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -148,6 +148,39 @@ public class GameMap {
     public Region getRegion(int i, int j) {
         return region[i][j];
     }
+
+    public Coordinate getCurrentRegionCoordinate() {
+        int x = App.getGame().getCurrentPlayer().getCoordinate().getX();
+        int y = App.getGame().getCurrentPlayer().getCoordinate().getY();
+
+        int row = 0, col = 0;
+
+        int accumulated = 0;
+        for (int i = 0; i < 3; i++) {
+            accumulated += rowHeights[i];
+            if (x < accumulated) {
+                row = i;
+                break;
+            }
+        }
+
+        accumulated = 0;
+        for (int j = 0; j < 3; j++) {
+            accumulated += colWidths[j];
+            if (y < accumulated) {
+                col = j;
+                break;
+            }
+        }
+
+        return new Coordinate(row, col);
+    }
+
+    public Region getCurrentRegion() {
+        Coordinate c = getCurrentRegionCoordinate();
+        return region[c.getX()][c.getY()];
+    }
+
 
     public void build(int x, int y, BuildingType type) {
         for (int i = x; i < type.getW() + x; i++) {

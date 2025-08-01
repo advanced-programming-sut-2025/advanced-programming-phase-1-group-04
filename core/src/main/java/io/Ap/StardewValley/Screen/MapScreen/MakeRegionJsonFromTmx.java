@@ -39,15 +39,13 @@ public class MakeRegionJsonFromTmx {
         int mapHeight = 0;
 
         for (MapLayer layer : tiledMap.getLayers()) {
-            if (layer instanceof TiledMapTileLayer) {
-                TiledMapTileLayer tileLayer = (TiledMapTileLayer) layer;
-                mapWidth = tileLayer.getWidth();    // عرض (تعداد ستون‌ها)
-                mapHeight = tileLayer.getHeight();  // ارتفاع (تعداد سطرها)
+            if (layer instanceof TiledMapTileLayer tileLayer) {
+                mapWidth = tileLayer.getWidth();
+                mapHeight = tileLayer.getHeight();
                 break;
             }
         }
 
-        // result[x][y] → x = row (ارتفاع)، y = col (طول/عرض)
         Tile[][] result = new Tile[mapHeight][mapWidth];
 
         for (int x = 0; x < mapHeight; x++) {
@@ -57,19 +55,17 @@ public class MakeRegionJsonFromTmx {
         }
 
         for (MapLayer layer : tiledMap.getLayers()) {
-            if (!(layer instanceof TiledMapTileLayer)) continue;
+            if (!(layer instanceof TiledMapTileLayer tileLayer)) continue;
             if (layer.getName().toLowerCase().contains("always")) break;
-
-            TiledMapTileLayer tileLayer = (TiledMapTileLayer) layer;
 
             for (int x = 0; x < tileLayer.getHeight(); x++) {
                 for (int y = 0; y < tileLayer.getWidth(); y++) {
-                    TiledMapTileLayer.Cell cell = tileLayer.getCell(y, x); // توجه: getCell(y, x)
+                    TiledMapTileLayer.Cell cell = tileLayer.getCell(y, x);
                     if (cell != null) {
                         TiledMapTile tile = cell.getTile();
                         if (tile != null && getTile(tile) != null) {
                             int flippedX = mapHeight - 1 - x;
-                            result[flippedX][y] = getTile(tile); // آرایه [سطر][ستون] ← بالا به پایین، چپ به راست
+                            result[flippedX][y] = getTile(tile);
                         }
                     }
                 }
@@ -160,8 +156,8 @@ public class MakeRegionJsonFromTmx {
     public static void saveTxt(TiledMap tiledMap, String fileName) {
         String[][] data = getTypes(tiledMap);
 
-        int height = data.length;         // x → سطر → ارتفاع
-        int width = data[0].length;       // y → ستون → طول (عرض)
+        int height = data.length;
+        int width = data[0].length;
 
         int maxLength = 0;
         for (int x = 0; x < height; x++) {
@@ -175,7 +171,7 @@ public class MakeRegionJsonFromTmx {
         try (BufferedWriter writer = new BufferedWriter(
                 new FileWriter("core/src/main/resources/TiledMaps/" + fileName + ".txt"))) {
 
-            for (int x = height - 1; x >= 0; x--) {   // از بالا به پایین (برعکس برای نمایش طبیعی‌تر)
+            for (int x = height - 1; x >= 0; x--) {
                 for (int y = 0; y < width; y++) {
                     writer.write(padRight(data[x][y], maxLength + 2));
                 }
@@ -195,15 +191,13 @@ public class MakeRegionJsonFromTmx {
         int mapHeight = 0;
 
         for (MapLayer layer : tiledMap.getLayers()) {
-            if (layer instanceof TiledMapTileLayer) {
-                TiledMapTileLayer tileLayer = (TiledMapTileLayer) layer;
-                mapWidth = tileLayer.getWidth();    // افقی (عرض نقشه)
-                mapHeight = tileLayer.getHeight();  // عمودی (ارتفاع نقشه)
+            if (layer instanceof TiledMapTileLayer tileLayer) {
+                mapWidth = tileLayer.getWidth();
+                mapHeight = tileLayer.getHeight();
                 break;
             }
         }
 
-        // حالا data[x][y] به‌صورت [height][width] ساخته میشه
         String[][] result = new String[mapHeight][mapWidth];
 
         for (int x = 0; x < mapHeight; x++) {
@@ -220,7 +214,7 @@ public class MakeRegionJsonFromTmx {
 
             for (int x = 0; x < tileLayer.getHeight(); x++) {
                 for (int y = 0; y < tileLayer.getWidth(); y++) {
-                    TiledMapTileLayer.Cell cell = tileLayer.getCell(y, x); // ← توجه! getCell(y, x)
+                    TiledMapTileLayer.Cell cell = tileLayer.getCell(y, x);
                     if (cell != null) {
                         TiledMapTile tile = cell.getTile();
                         if (tile != null) {

@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameMenuController {
-    private static final int[] farmSelections = new int[4];
+    public static final int[] farmSelections = new int[4];
     private static final boolean[] deleteGame = new boolean[4];
 
     public static Result newGame(String username1, String username2, String username3) {

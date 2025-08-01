@@ -79,6 +79,10 @@ public class Tile {
                         return Symbols.MarniesRanch.getColoredSymbol();
                     case TheStarDropSaloon:
                         return Symbols.TheStarDropSaloon.getColoredSymbol();
+                    case Door:
+                        return Symbols.Door.getColoredSymbol();
+                    case DontKnow:
+                        return Symbols.DontKnowBuildings.getSymbol();
                     default:
                         throw new IllegalArgumentException("Invalid tile");
                 }

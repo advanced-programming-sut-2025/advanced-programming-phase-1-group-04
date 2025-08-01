@@ -17,7 +17,6 @@ public class GameMap {
 
     public GameMap(int[] farmSelection) {
         //    Phase 1:
-
 //        region[0][0] = loadRegionJson("Farming"  + farmSelection[0]);
 //        region[0][1] = loadRegionJson("Path1");
 //        region[0][2] = loadRegionJson("Farming" + farmSelection[1]);
@@ -54,7 +53,11 @@ public class GameMap {
             Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Item.class, new ItemAdapter()) // ثبت TypeAdapter
                 .create();
-            return gson.fromJson(reader, Region.class);
+            Region region = gson.fromJson(reader, Region.class);
+
+            System.out.println("Region: " + name + " h " + region.getTiles().length + " w " + region.getTiles()[0].length);
+
+            return region;
         } catch (IOException e) {
             e.printStackTrace();
             return null;

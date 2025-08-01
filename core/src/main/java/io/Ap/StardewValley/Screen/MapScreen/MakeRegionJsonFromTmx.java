@@ -41,16 +41,17 @@ public class MakeRegionJsonFromTmx {
         for (MapLayer layer : tiledMap.getLayers()) {
             if (layer instanceof TiledMapTileLayer) {
                 TiledMapTileLayer tileLayer = (TiledMapTileLayer) layer;
-                mapWidth = tileLayer.getWidth();
-                mapHeight = tileLayer.getHeight();
+                mapWidth = tileLayer.getWidth();    // عرض (تعداد ستون‌ها)
+                mapHeight = tileLayer.getHeight();  // ارتفاع (تعداد سطرها)
                 break;
             }
         }
 
-        Tile[][] result = new Tile[mapWidth][mapHeight];
+        // result[x][y] → x = row (ارتفاع)، y = col (طول/عرض)
+        Tile[][] result = new Tile[mapHeight][mapWidth];
 
-        for (int x = 0; x < mapWidth; x++) {
-            for (int y = 0; y < mapHeight; y++) {
+        for (int x = 0; x < mapHeight; x++) {
+            for (int y = 0; y < mapWidth; y++) {
                 result[x][y] = null;
             }
         }
@@ -61,30 +62,23 @@ public class MakeRegionJsonFromTmx {
 
             TiledMapTileLayer tileLayer = (TiledMapTileLayer) layer;
 
-            for (int y = tileLayer.getHeight() - 1; y >= 0; y--) {
-                for (int x = 0; x < tileLayer.getWidth(); x++) {
-                    TiledMapTileLayer.Cell cell = tileLayer.getCell(x, y);
+            for (int x = 0; x < tileLayer.getHeight(); x++) {
+                for (int y = 0; y < tileLayer.getWidth(); y++) {
+                    TiledMapTileLayer.Cell cell = tileLayer.getCell(y, x); // توجه: getCell(y, x)
                     if (cell != null) {
                         TiledMapTile tile = cell.getTile();
-                        if (tile != null) {
-                            if (getTile(tile) != null)
-                                result[x][y] = getTile(tile); // حذف mapHeight - 1 - y
+                        if (tile != null && getTile(tile) != null) {
+                            int flippedX = mapHeight - 1 - x;
+                            result[flippedX][y] = getTile(tile); // آرایه [سطر][ستون] ← بالا به پایین، چپ به راست
                         }
                     }
                 }
             }
         }
 
-        for (int x = 0; x < mapWidth; x++) {
-            for (int y = 0; y < mapHeight; y++) {
-                if (result[x][y] == null) {
-                    throw new IOException("Tile at (" + x + "," + y + ") is null.");
-                }
-            }
-        }
-
         return result;
     }
+
 
     private static Tile getTile(TiledMapTile tile) {
         // Building: ShippingBin, MarinesRanch, Door, Building(DontKnow), WizardBuilding
@@ -144,18 +138,15 @@ public class MakeRegionJsonFromTmx {
 
         int width = layer.getWidth();
         int height = layer.getHeight();
-        Tile[][] tiles = new Tile[width][height];
 
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+        for (int y = height - 1; y >= 0; y--) {
+            for (int x = 0; x < width; x++) {
                 TiledMapTileLayer.Cell cell = layer.getCell(x, y);
 
                 String type = "void";
-
                 if (cell != null) {
                     TiledMapTile tile = cell.getTile();
                     MapProperties props = tile.getProperties();
-
                     if (props.containsKey("Type"))
                         type = props.get("Type", String.class);
                 }
@@ -164,38 +155,40 @@ public class MakeRegionJsonFromTmx {
             System.out.println();
         }
         System.out.println("width: " + width + " height: " + height);
-
     }
 
-    public static void saveTxt(TiledMap tiledMap,  String fileName) {
+    public static void saveTxt(TiledMap tiledMap, String fileName) {
         String[][] data = getTypes(tiledMap);
-        int height = data[0].length;
-        int width = data.length;
+
+        int height = data.length;         // x → سطر → ارتفاع
+        int width = data[0].length;       // y → ستون → طول (عرض)
 
         int maxLength = 0;
-        for (String[] datum : data) {
-            for (int y = 0; y < height; y++) {
-                if (datum[y] != null) {
-                    maxLength = Math.max(maxLength, datum[y].length());
+        for (int x = 0; x < height; x++) {
+            for (int y = 0; y < width; y++) {
+                if (data[x][y] != null) {
+                    maxLength = Math.max(maxLength, data[x][y].length());
                 }
             }
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("core/src/main/resources/TiledMaps/" + fileName + ".txt"))) {
-            for (int y = height - 1; y >= 0; y--) {
-                for (int x = 0; x < width; x++) {
+        try (BufferedWriter writer = new BufferedWriter(
+                new FileWriter("core/src/main/resources/TiledMaps/" + fileName + ".txt"))) {
+
+            for (int x = height - 1; x >= 0; x--) {   // از بالا به پایین (برعکس برای نمایش طبیعی‌تر)
+                for (int y = 0; y < width; y++) {
                     writer.write(padRight(data[x][y], maxLength + 2));
                 }
                 writer.newLine();
             }
+
             writer.newLine();
             writer.write("Width: " + width + " Height: " + height + " MaxLength: " + maxLength);
-
-            System.out.println("Save shod mobarake!");
         } catch (IOException e) {
             System.err.println("Failed to write file: " + e.getMessage());
         }
     }
+
 
     private static String[][] getTypes(TiledMap tiledMap) {
         int mapWidth = 0;
@@ -204,16 +197,17 @@ public class MakeRegionJsonFromTmx {
         for (MapLayer layer : tiledMap.getLayers()) {
             if (layer instanceof TiledMapTileLayer) {
                 TiledMapTileLayer tileLayer = (TiledMapTileLayer) layer;
-                mapWidth = tileLayer.getWidth();
-                mapHeight = tileLayer.getHeight();
+                mapWidth = tileLayer.getWidth();    // افقی (عرض نقشه)
+                mapHeight = tileLayer.getHeight();  // عمودی (ارتفاع نقشه)
                 break;
             }
         }
 
-        String[][] result = new String[mapWidth][mapHeight];
+        // حالا data[x][y] به‌صورت [height][width] ساخته میشه
+        String[][] result = new String[mapHeight][mapWidth];
 
-        for (int x = 0; x < mapWidth; x++) {
-            for (int y = 0; y < mapHeight; y++) {
+        for (int x = 0; x < mapHeight; x++) {
+            for (int y = 0; y < mapWidth; y++) {
                 result[x][y] = "void";
             }
         }
@@ -224,9 +218,9 @@ public class MakeRegionJsonFromTmx {
 
             TiledMapTileLayer tileLayer = (TiledMapTileLayer) layer;
 
-            for (int x = 0; x < tileLayer.getWidth(); x++) {
-                for (int y = 0; y < tileLayer.getHeight(); y++) {
-                    TiledMapTileLayer.Cell cell = tileLayer.getCell(x, y);
+            for (int x = 0; x < tileLayer.getHeight(); x++) {
+                for (int y = 0; y < tileLayer.getWidth(); y++) {
+                    TiledMapTileLayer.Cell cell = tileLayer.getCell(y, x); // ← توجه! getCell(y, x)
                     if (cell != null) {
                         TiledMapTile tile = cell.getTile();
                         if (tile != null) {
@@ -243,19 +237,9 @@ public class MakeRegionJsonFromTmx {
             }
         }
 
-        // HELP TXT IN CONSOLE:
-//        for (int y = mapHeight - 1; y >= 0; y--) {
-//            for (int x = 0; x < mapWidth; x++) {
-//                //System.out.print(result[x][y] + " ");
-//                if (x == 1 && y == 62) {
-//                    System.out.println(result[x][y]);
-//                }
-//            }
-//            //System.out.println();
-//        }
-
         return result;
     }
+
 
     private static String padRight(String text, int length) {
         StringBuilder sb = new StringBuilder(text);

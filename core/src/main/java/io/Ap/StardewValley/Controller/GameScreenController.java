@@ -86,11 +86,11 @@ public class GameScreenController {
 
         // set position LibGdx, tile base
         Coordinate newCoordinate = getPlayerCoordinate(newX, newY);
-        //if (App.getGame().getTile(newCoordinate).isWalkable()) {
+        if (App.getGame().getTile(newCoordinate).isWalkable()) {
             player.setXLibGdx(newX);
             player.setYLibGdx(newY);
             player.setCoordinate(newCoordinate);
-        //}
+        }
 
         // status
         if (isMoving) {

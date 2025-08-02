@@ -9,7 +9,7 @@ import io.Ap.StardewValley.Model.Cooking.FoodRecipe;
 import io.Ap.StardewValley.Model.Cooking.FoodType;
 import io.Ap.StardewValley.Model.Cooking.Ingredient;
 import io.Ap.StardewValley.Model.Map.BuildingType;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Plants.Crop;
 import io.Ap.StardewValley.Model.Plants.ForagingCrop;
 import io.Ap.StardewValley.Model.Plants.Fruit;

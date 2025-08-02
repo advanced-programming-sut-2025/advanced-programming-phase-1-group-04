@@ -1,6 +1,6 @@
 package io.Ap.StardewValley.Model.Animals;
 
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 
 import java.util.Random;
 

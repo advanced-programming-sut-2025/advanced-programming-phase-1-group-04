@@ -5,7 +5,7 @@ import io.Ap.StardewValley.Model.Interaction.Friend;
 import io.Ap.StardewValley.Model.Interaction.Gift;
 import io.Ap.StardewValley.Model.Interaction.Talk;
 import io.Ap.StardewValley.Model.Map.Coordinate;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Player.GiftItem;
 import io.Ap.StardewValley.Model.Player.GiftType;
 import io.Ap.StardewValley.Model.Player.Player;

@@ -4,7 +4,7 @@ import io.Ap.StardewValley.Model.Animals.AnimalProduct;
 import io.Ap.StardewValley.Model.Animals.AnimalProductType;
 import io.Ap.StardewValley.Model.Animals.Fish;
 import io.Ap.StardewValley.Model.Animals.FishType;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Plants.*;
 
 import java.util.HashMap;

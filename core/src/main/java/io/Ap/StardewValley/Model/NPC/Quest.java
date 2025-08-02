@@ -1,6 +1,6 @@
 package io.Ap.StardewValley.Model.NPC;
 
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 
 public class Quest {
     private Item questItem;

@@ -92,7 +92,11 @@ public class Game {
 
     public Tile getTile(Coordinate coordinate) {
         Tile[][] tiles = this.getMap().getFullMap();
-        return tiles[coordinate.getX()][coordinate.getY()];
+        try {
+            return tiles[coordinate.getX()][coordinate.getY()];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     public Shop getShop(ShopType type) {
@@ -166,7 +170,7 @@ public class Game {
         return npcs;
     }
 
-    // TODO: nafiseh tof:
+    // TODO: CONSTANTS:
     public int getPlayerSpeed() {
         return 2;
     }

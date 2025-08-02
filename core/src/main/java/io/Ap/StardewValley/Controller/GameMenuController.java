@@ -10,7 +10,7 @@ import io.Ap.StardewValley.Model.Crafting.CraftType;
 import io.Ap.StardewValley.Model.Game;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Map.GameMap;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Map.Tile;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Player.Skill;
@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameMenuController {
-    private static final int[] farmSelections = new int[4];
+    public static final int[] farmSelections = new int[4];
     private static final boolean[] deleteGame = new boolean[4];
 
     public static Result newGame(String username1, String username2, String username3) {

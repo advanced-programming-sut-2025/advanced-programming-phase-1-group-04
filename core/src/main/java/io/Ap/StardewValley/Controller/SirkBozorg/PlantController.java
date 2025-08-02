@@ -2,6 +2,7 @@ package io.Ap.StardewValley.Controller.SirkBozorg;
 
 import io.Ap.StardewValley.Controller.GameMenuController;
 import io.Ap.StardewValley.Model.App;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Map.*;
 import io.Ap.StardewValley.Model.Plants.*;
 import io.Ap.StardewValley.Model.Result;
@@ -283,7 +284,7 @@ public class PlantController {
         if (tile == null) {
             return new Result(false, "invalid tile!");
         }
-        if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouserBuild))) {
+        if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouseBuild))) {
             return new Result(false, "you must plant on the ground or in the greenhouse!");
         }
         if (!seed.getSeasons().contains(App.getGame().getCurrentTime().getSeason()) && tile.getType() == TileType.Ground) {
@@ -327,7 +328,7 @@ public class PlantController {
         if (tile == null) {
             return new Result(false, "invalid tile!");
         }
-        if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouserBuild))) {
+        if (!(tile.getType() == TileType.Ground || (tile.getBuildingType() == BuildingType.GreenHouseBuild))) {
             return new Result(false, "you must plant on the ground or in the greenhouse!");
         }
         if (!sapling.getSeasons().contains(App.getGame().getCurrentTime().getSeason()) && tile.getType() == TileType.Ground) {

@@ -1,6 +1,6 @@
 package io.Ap.StardewValley.Model.Player;
 
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Tool.*;
 
 import java.util.*;

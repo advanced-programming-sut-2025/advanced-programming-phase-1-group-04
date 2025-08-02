@@ -4,7 +4,7 @@ import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Map.Tile;
-import io.Ap.StardewValley.Model.Map.Wood;
+import io.Ap.StardewValley.Model.Item.Wood;
 import io.Ap.StardewValley.Model.Plants.Sapling;
 import io.Ap.StardewValley.Model.Plants.Tree;
 import io.Ap.StardewValley.Model.Player.Player;

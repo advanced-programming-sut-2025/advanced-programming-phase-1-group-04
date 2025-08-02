@@ -41,7 +41,6 @@ public enum Symbols {
     House("H", "\u001B[36m"),
     GreenHouse("9", "\u001B[36m"),
     GreenHouserBuild("%", "\u001B[36m"),
-    //Door("D"),
 
     Barn("&", "\u001B[37m"),
     BigBarn("=", "\u001B[37m"),
@@ -58,7 +57,10 @@ public enum Symbols {
     PierresGeneralStore("I", "\u001B[33m"),
     MarniesRanch("R", "\u001B[33m"),
     CarpentersShop("C", "\u001B[33m"),
-    TheStarDropSaloon("K", "\u001B[33m")
+    TheStarDropSaloon("K", "\u001B[33m"),
+
+    Door("D", "\u001B[30m"),
+    DontKnowBuildings("?", "\u001B[30m"),
     ;
 
     private final String symbol;

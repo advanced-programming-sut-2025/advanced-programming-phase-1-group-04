@@ -2,10 +2,13 @@ package io.Ap.StardewValley.Screen.PlayerScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.StardewValley;
@@ -24,7 +27,11 @@ public class PlayerRender {
     private final Map<DirectionType, TextureRegion> hairFrames = new EnumMap<>(DirectionType.class);
     private final Map<DirectionType, TextureRegion> shirtFrames = new EnumMap<>(DirectionType.class);
 
+    //private final Texture headTexture;
+
     public PlayerRender() {
+        //headTexture = new Texture(Gdx.files.internal("head.png"));
+
         int pantIndex = App.getGame().getCurrentPlayer().getPantIndex();
         int shirtIndex = App.getGame().getCurrentPlayer().getShirtIndex();
         int hairIndex = App.getGame().getCurrentPlayer().getHairIndex();
@@ -56,6 +63,42 @@ public class PlayerRender {
         this.pantAnimations = new BankPlayerAnimationFrames(pantSheet);
     }
 
+//    public static Texture createHeadTexture(TextureRegion head, TextureRegion hair, Color hairColor) {
+//        int width = 16;
+//        int height = 16;
+//
+//        FrameBuffer fbo = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
+//        SpriteBatch batch = new SpriteBatch();
+//
+//        fbo.begin();
+//        Gdx.gl.glClearColor(0, 0, 0, 0);
+//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//
+//        batch.begin();
+//
+//        // رسم سر
+//        batch.draw(head, 0, 0, width, height);
+//
+//        // اعمال رنگ و رسم مو
+//        batch.setColor(hairColor);
+//        batch.draw(hair, 0, 0, width, height);
+//
+//        batch.end();
+//        fbo.end();
+//
+//        Texture result = fbo.getColorBufferTexture();
+//
+//        // باید flipped بشه چون FBO برعکس می‌کشه
+//        TextureRegion region = new TextureRegion(result);
+//        region.flip(false, true);
+//
+//        batch.dispose();
+//        fbo.dispose(); // فقط اگه دیگه نیاز نداری
+//
+//        return new Texture(region);
+//    }
+
+
     public void render() {
         SpriteBatch batch = StardewValley.getBatch();
         stateTime += Gdx.graphics.getDeltaTime();
@@ -63,9 +106,8 @@ public class PlayerRender {
         StateType state = App.getGame().getCurrentPlayer().getState();
         DirectionType direction = App.getGame().getCurrentPlayer().getDirection();
 
-        Coordinate cord = App.getGame().getCurrentPlayer().getCoordinate();
-        float x = cord.getX();
-        float y = cord.getY();
+        float x = App.getGame().getCurrentPlayer().getXLibGdx();
+        float y = App.getGame().getCurrentPlayer().getYLibGdx();
 
         TextureRegion bodyFrame, handFrame, pantFrame, hairFrame, shirtFrame;
         int frameIndex = 0;
@@ -93,6 +135,8 @@ public class PlayerRender {
         Coordinate hairOffset = OffsetManager.getOffset(OffsetType.Hair, state, direction, frameIndex);
         Coordinate shirtOffset = OffsetManager.getOffset(OffsetType.Shirt, state, direction, frameIndex);
 
+        int longHair = (App.getGame().getCurrentPlayer().getHairIndex() < 16) ? 0 : 1;
+
         float scale = App.getGame().getPlayerScale();
         batch.draw(bodyFrame, x, y, bodyFrame.getRegionWidth() * scale, bodyFrame.getRegionHeight() * scale);
 
@@ -103,7 +147,7 @@ public class PlayerRender {
         batch.draw(shirtFrame, x + shirtOffset.getX() * scale, y + shirtOffset.getY() * scale, shirtFrame.getRegionWidth() * scale, shirtFrame.getRegionHeight() * scale);
 
         batch.setColor(App.getColor(App.getGame().getCurrentPlayer().getHairColor()));
-        batch.draw(hairFrame, x + hairOffset.getX() * scale, y + hairOffset.getY() * scale, hairFrame.getRegionWidth() * scale, hairFrame.getRegionHeight() * scale);
+        batch.draw(hairFrame, x + hairOffset.getX() * scale, y + (hairOffset.getY() + longHair) * scale, hairFrame.getRegionWidth() * scale, hairFrame.getRegionHeight() * scale);
         batch.setColor(Color.WHITE);
 
         batch.draw(handFrame, x, y, handFrame.getRegionWidth() * scale, handFrame.getRegionHeight() * scale);

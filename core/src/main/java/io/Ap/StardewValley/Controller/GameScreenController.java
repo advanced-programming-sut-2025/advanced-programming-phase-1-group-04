@@ -4,13 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
+import io.Ap.StardewValley.Model.Map.Region;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Screen.GameScreen;
+import io.Ap.StardewValley.Screen.MapScreen.RegionTransition;
 import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
 import io.Ap.StardewValley.Screen.PlayerScreen.PlayerRender;
 import io.Ap.StardewValley.Screen.PlayerScreen.StateType;
-
-import java.io.FileNotFoundException;
 
 public class GameScreenController {
     private final PlayerRender playerRender = new PlayerRender();
@@ -20,7 +20,7 @@ public class GameScreenController {
         this.view = view;
     }
 
-    public void updateGame() {
+    public void  updateGame() {
         handleInputKey();
         playerRender.render();
     }
@@ -31,8 +31,8 @@ public class GameScreenController {
         boolean isUsingTool = false;
         boolean isEating = false;
 
-        float newX = player.getCoordinate().getX();
-        float newY = player.getCoordinate().getY();
+        float newX = player.getXLibGdx();
+        float newY = player.getYLibGdx();
 
         // Player move:
         int speed = App.getGame().getPlayerSpeed();
@@ -60,11 +60,6 @@ public class GameScreenController {
             view.showPauseDialog();
         }
 
-        // reload weapon:
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getReloadWeapon())){
-
-        }
-
         // cheats:
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatTime())){
 
@@ -82,18 +77,6 @@ public class GameScreenController {
 
         }
 
-        // clamp player inside map boundaries
-        int playerWidth = 16;
-        int playerHeight = 32;
-
-        float mapWidth = 2688;
-        float mapHeight = 2688;
-        newX = MathUtils.clamp(newX, 0, mapWidth - playerWidth);
-        newY = MathUtils.clamp(newY, playerHeight, mapHeight - playerHeight);
-
-        // set position
-        player.setCoordinate(new Coordinate((int) newX, (int) newY)); //TODO: coordinate int or float
-
         // status
         if (isMoving) {
             player.setState(StateType.Walk);
@@ -102,10 +85,47 @@ public class GameScreenController {
         } else {
             player.setState(StateType.Idle);
         }
-        // ... TODO
+
+        // change region:
+        Coordinate oldRegion = App.getGame().getMap().getCurrentRegionCoordinate();
+        Coordinate newCoordinate = getPlayerCoordinate(newX, newY);
+
+        // set new coordinate:
+        if (App.getGame().getTile(newCoordinate) != null && App.getGame().getTile(newCoordinate).isWalkable()) {
+            // calculate newRegion:
+            player.setXLibGdx(newX);
+            player.setYLibGdx(newY);
+            player.setCoordinate(newCoordinate);
+
+            Coordinate newRegion = App.getGame().getMap().getCurrentRegionCoordinate(newCoordinate);
+            if (!oldRegion.equals(newRegion)) {
+                RegionTransition rt = RegionTransition.get(oldRegion, newRegion);
+                if (rt != null) {
+                    player.setXLibGdx(rt.getLibGdxX(16));
+                    player.setYLibGdx(rt.getLibGdxY(16));
+                    player.setCoordinate(rt.getDestinationCoordinate());
+                }
+            }
+        }
     }
 
-    private void handleAnimationPlayer() {
+    public Coordinate getPlayerCoordinate(float xLibGdx, float yLibGdx) {
+        final int tileSize = 16;
 
+        // TODO: curren region:
+        Coordinate cor = App.getGame().getMap().getCurrentRegionCoordinate();
+        int mapHeightInTiles = App.getGame().getMap().getCurrentRegion().getTiles().length;
+
+        int[] rowOffsets = App.getGame().getMap().getRowOffsets();
+        int[] colOffsets = App.getGame().getMap().getColOffsets();
+
+
+        int localX = mapHeightInTiles - 1 - (int)(yLibGdx / tileSize);
+        int localY = (int)((xLibGdx + tileSize / 2f) / tileSize);
+
+        int globalX = rowOffsets[cor.getX()] + localX;
+        int globalY = colOffsets[cor.getY()] + localY;
+
+        return new Coordinate(globalX, globalY);
     }
 }

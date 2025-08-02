@@ -1,6 +1,6 @@
 package io.Ap.StardewValley.Model.Crafting;
 
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Player.Skill;
 import io.Ap.StardewValley.Model.Shop.ShopType;
 

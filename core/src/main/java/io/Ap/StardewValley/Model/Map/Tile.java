@@ -6,6 +6,9 @@ import io.Ap.StardewValley.Model.Animals.Fish;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Cooking.Food;
 import io.Ap.StardewValley.Model.Crafting.Craft;
+import io.Ap.StardewValley.Model.Item.Item;
+import io.Ap.StardewValley.Model.Item.Stone;
+import io.Ap.StardewValley.Model.Item.Wood;
 import io.Ap.StardewValley.Model.NPC.NPC;
 import io.Ap.StardewValley.Model.Plants.*;
 import io.Ap.StardewValley.Model.Time.DateAndTime;
@@ -14,7 +17,6 @@ import io.Ap.StardewValley.Model.Time.DateAndTime;
 public class Tile {
     private TileType type;
 
-    //private boolean isDoor = false; TODO: baraye in faz dar hesab nakardam
     private BuildingType buildingType = null;
 
     private Item item = null;
@@ -38,7 +40,7 @@ public class Tile {
         this.buildingType = buildingType;
     }
 
-    public Tile(TileType type, boolean isPavement, Item item, NPC npc){ // For Ground
+    public Tile(TileType type, boolean isPavement, Item item, NPC npc){ // For Ground -> Wood, Rail
         this.type = type;
         this.isPavement = isPavement;
         this.item = item;
@@ -51,7 +53,7 @@ public class Tile {
                 switch (this.buildingType) {
                     case GreenHouse:
                         return Symbols.GreenHouse.getColoredSymbol();
-                    case GreenHouserBuild:
+                    case GreenHouseBuild:
                         return Symbols.GreenHouserBuild.getColoredSymbol();
                     case House:
                         return Symbols.House.getColoredSymbol();
@@ -77,6 +79,10 @@ public class Tile {
                         return Symbols.MarniesRanch.getColoredSymbol();
                     case TheStarDropSaloon:
                         return Symbols.TheStarDropSaloon.getColoredSymbol();
+                    case Door:
+                        return Symbols.Door.getColoredSymbol();
+                    case DontKnow:
+                        return Symbols.DontKnowBuildings.getSymbol();
                     default:
                         throw new IllegalArgumentException("Invalid tile");
                 }
@@ -138,8 +144,9 @@ public class Tile {
     public boolean isWalkable() {
         switch (this.type) {
             case Building:
-                if (this.buildingType.equals(BuildingType.GreenHouse)) return false;
-                return true;
+                // Phase 1:
+                //return !this.buildingType.equals(BuildingType.GreenHouse);
+                return false;
             case Ground:
                 if (this.item instanceof Tree) {
                     return false;

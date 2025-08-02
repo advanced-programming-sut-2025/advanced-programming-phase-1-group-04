@@ -1,6 +1,6 @@
 package io.Ap.StardewValley.Model.Plants;
 
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 
 public class Fertilizer implements Item {
     private final FertilizerType fertilizerType;

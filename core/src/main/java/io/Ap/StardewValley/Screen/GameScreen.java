@@ -3,34 +3,36 @@ package io.Ap.StardewValley.Screen;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import io.Ap.StardewValley.Controller.GameMenuController;
 import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.App;
-import io.Ap.StardewValley.Model.Game;
+import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
-import io.Ap.StardewValley.Screen.MenuScreen.StartMenuScreen;
 import io.Ap.StardewValley.StardewValley;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 public class GameScreen implements Screen, InputProcessor {
+    // Map:
+    private TiledMapRendererHelper[][] mapRenderers = new TiledMapRendererHelper[3][3];
+    private final int[] farmSelections = new int[4];
+    private TiledMapRendererHelper currentMap;
+
+
     private Stage stage;
-    private Table table = new Table();
-    private TiledMapRendererHelper mapRenderer;
-
-
-    private boolean paused = false;
+    private final Table dialogTable = new Table();
+    private final Table controllerTable = new Table();
 
     private OrthographicCamera camera;
-    private GameScreenController controller = new GameScreenController();
 
-    public GameScreen() {
+    private boolean paused = false;
+    private final GameScreenController controller = new GameScreenController();
+
+    public GameScreen(int[] farmSelections) {
+        System.arraycopy(farmSelections, 0, this.farmSelections, 0, 4);
         controller.setViews(this);
     }
 
@@ -38,8 +40,8 @@ public class GameScreen implements Screen, InputProcessor {
         return camera;
     }
 
-    public Table getTable() {
-        return table;
+    public Table getDialogTable() {
+        return dialogTable;
     }
 
     public Stage getStage() {
@@ -56,11 +58,12 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public void show() {
-        //stage = new Stage(new ScreenViewport(), App.getSharedBatch());
         stage = new Stage(new ScreenViewport());
-        table.setFillParent(true);
-        table.top().left();
-        stage.addActor(table);
+        dialogTable.setFillParent(true);
+        dialogTable.top().left();
+        stage.addActor(dialogTable);
+        stage.addActor(controllerTable);
+
         Gdx.input.setInputProcessor(this);
 
         // InputMultiplexer for resume menu
@@ -69,49 +72,78 @@ public class GameScreen implements Screen, InputProcessor {
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
 
-//        // set camera
-//        camera = new OrthographicCamera();
-//        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//        camera.zoom = 0.2f;
+        // set camera
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.zoom = 0.2f; // یا هر مقداری که دوست داری
+        camera.zoom = 0.2f;
 
-        mapRenderer = new TiledMapRendererHelper("map/tiled/FFarm.tmx");
+
+        // set MapRenderers:
+        mapRenderers[0][0] = new TiledMapRendererHelper("Farm" + farmSelections[0]);
+        mapRenderers[0][1] = new TiledMapRendererHelper("path1");
+        mapRenderers[0][2] = new TiledMapRendererHelper("Farm" + farmSelections[1]);
+
+        mapRenderers[1][0] = new TiledMapRendererHelper("path4");
+        mapRenderers[1][1] = new TiledMapRendererHelper("Town");
+        mapRenderers[1][2] = new TiledMapRendererHelper("path2");
+
+        mapRenderers[2][0] = new TiledMapRendererHelper("Farm" + farmSelections[3]);
+        mapRenderers[2][1] = new TiledMapRendererHelper("path3");
+        mapRenderers[2][2] = new TiledMapRendererHelper("Farm" + farmSelections[2]);
     }
 
     @Override
     public void render(float delta) {
         if (!paused) {
+            // TODO:  current region:
+            Coordinate cr = App.getGame().getMap().getCurrentRegionCoordinate();
+            currentMap = mapRenderers[cr.getX()][cr.getY()];
+
             ScreenUtils.clear(0, 0, 0, 1);
 
-            //App.getGame().updateTime(delta);
 
-            // update camera
+            // update camera, controller table
             updateCamera();
+            updateControllerTable();
 
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-            mapRenderer.render(camera);
-            // set shader
-            //TillDown.getBatch().setShader(App.getShader());
-            //App.getShader().setUniformi("u_grayscale", App.isGrayscale() ? 1 : 0);
+            // render map
+            SpriteBatch batch = StardewValley.getBatch();
+            currentMap.renderBeforePlayer(camera);
 
-            // update game
-            StardewValley.getBatch().begin();
+            // update game, render player
+            batch.begin();
             controller.updateGame();
-            StardewValley.getBatch().end();
+            batch.end();
+
+            currentMap.renderAfterPlayer(camera);
         }
 
-        //App.getShader().setUniformi("u_grayscale", App.isGrayscale() ? 1 : 0);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
 
+    private void updateControllerTable() {
+        Skin skin = StardewValley.getSkin();
+
+        Coordinate cor = App.getGame().getCurrentPlayer().getCoordinate();
+        controllerTable.clear();
+        controllerTable.setFillParent(true);
+        controllerTable.top().left();
+        controllerTable.add(new Label("Player: (" + cor.getX() + ", " + cor.getY() + ")    " ,skin));
+        //controllerTable.add(new Label("LibGdx: (" + App.getGame().getCurrentPlayer().getXLibGdx() + ", " + App.getGame().getCurrentPlayer().getYLibGdx() + ")" ,skin));
+        controllerTable.add(new Label("Zoom: " + camera.zoom ,skin));
+    }
+
     public void updateCamera() {
-        float playerX = App.getGame().getCurrentPlayer().getCoordinate().getX();
-        float playerY = App.getGame().getCurrentPlayer().getCoordinate().getY();
+        float camHalfWidth = (camera.viewportWidth * camera.zoom) / 2f;
+        float camHalfHeight = (camera.viewportHeight * camera.zoom) / 2f;
+
+
+        float playerX = App.getGame().getCurrentPlayer().getXLibGdx();
+        float playerY = App.getGame().getCurrentPlayer().getYLibGdx();
 
         float scale = App.getGame().getPlayerScale();
         float spriteWidth = 16 * scale;
@@ -119,6 +151,12 @@ public class GameScreen implements Screen, InputProcessor {
 
         float centerX = playerX + spriteWidth / 2f;
         float centerY = playerY + spriteHeight / 2f;
+
+        int mapWidth = currentMap.getWidthPixels();
+        int mapHeight = currentMap.getHeightPixels();
+
+        centerX = MathUtils.clamp(centerX, camHalfWidth, mapWidth - camHalfWidth);
+        centerY = MathUtils.clamp(centerY, camHalfHeight, mapHeight - camHalfHeight);
 
         camera.position.set(centerX, centerY, 0);
         camera.update();
@@ -183,7 +221,7 @@ public class GameScreen implements Screen, InputProcessor {
         moveLeftButton = new Label(Input.Keys.toString(App.getKeyManager().getMoveLeft()), skin);
         moveRightButton = new Label(Input.Keys.toString(App.getKeyManager().getMoveRight()), skin);
         autoAimButton = new Label(Input.Keys.toString(App.getKeyManager().getCheatBossFight()), skin);
-        reloadWeaponButton = new Label(Input.Keys.toString(App.getKeyManager().getReloadWeapon()), skin);
+        reloadWeaponButton = new Label(Input.Keys.toString(App.getKeyManager().getZoom()), skin);
         cheatTimeButton = new Label(Input.Keys.toString(App.getKeyManager().getCheatTime()), skin);
         cheatLevelButton = new Label(Input.Keys.toString(App.getKeyManager().getCheatLevel()), skin);
         cheatLifeButton = new Label(Input.Keys.toString(App.getKeyManager().getCheatLife()), skin);
@@ -260,8 +298,11 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public void dispose() {
-        mapRenderer.dispose();
-
+        for (TiledMapRendererHelper[] tiledMapRenderers: mapRenderers) {
+            for (TiledMapRendererHelper tmp: tiledMapRenderers) {
+                tmp.dispose();
+            }
+        }
     }
 
     @Override
@@ -308,6 +349,12 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
+        if (Gdx.input.isKeyPressed(App.getKeyManager().getZoom())) {
+            float zoomSpeed = 0.05f;
+            camera.zoom += amountY * zoomSpeed;
+            camera.zoom = MathUtils.clamp(camera.zoom, 0.05f, 0.6f);
+            return true;
+        }
         return false;
     }
 }

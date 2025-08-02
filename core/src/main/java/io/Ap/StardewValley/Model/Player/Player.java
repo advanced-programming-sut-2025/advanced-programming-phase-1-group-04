@@ -11,7 +11,7 @@ import io.Ap.StardewValley.Model.Interaction.Gift;
 import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Map.FarmBuilding;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Tool.Tool;
 import io.Ap.StardewValley.Model.User;
 import com.google.gson.Gson;
@@ -26,6 +26,9 @@ import java.util.*;
 import java.util.Map;
 
 public class Player {
+    private float xLibGdx;
+    private float yLibGdx;
+
     private final String hairColor, pantColor;
     private final int pantIndex, shirtIndex, hairIndex;
 
@@ -89,25 +92,38 @@ public class Player {
 
         this.id = id;
         this.farm = farm;
-        switch (farm) {
-            case 1:
-                this.houseCoordinate = new Coordinate(4, 31);
-                break;
-            case 2:
-                this.houseCoordinate = new Coordinate(4, 31 + 80);
-                break;
-            case 3:
-                this.houseCoordinate = new Coordinate(4 + 60, 31);
-                break;
-            case 4:
-                this.houseCoordinate = new Coordinate(4 + 60, 31 + 80);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid player farm");
-        }
+        // Phase 1:
+//        switch (farm) {
+//            case 1:
+//                this.houseCoordinate = new Coordinate(4, 31);
+//                break;
+//            case 2:
+//                this.houseCoordinate = new Coordinate(4, 31 + 80);
+//                break;
+//            case 3:
+//                this.houseCoordinate = new Coordinate(4 + 60, 31);
+//                break;
+//            case 4:
+//                this.houseCoordinate = new Coordinate(4 + 60, 31 + 80);
+//                break;
+//            default:
+//                throw new IllegalArgumentException("Invalid player farm");
+//        }
+        this.houseCoordinate = new Coordinate(13, 64);
 
-        this.coordinate = this.houseCoordinate;
+        this.coordinate = new Coordinate(houseCoordinate.getX(), houseCoordinate.getY());
+        setLibGdxPositionFromCoordinate();
     }
+
+    private void setLibGdxPositionFromCoordinate() {
+        final int tileSize = 16;
+        int mapHeightInTiles = 65;
+
+        this.xLibGdx = this.coordinate.getY() * tileSize;
+        this.yLibGdx = (mapHeightInTiles - 1 - this.coordinate.getX()) * tileSize;
+    }
+
+
 
     public int getAbilityLevel (Skill skill) {
         return Math.min(4, Math.max(0, (this.myAbility.get(skill) - 50) / 100));
@@ -572,5 +588,21 @@ public class Player {
 
     public String getHairColor() {
         return hairColor;
+    }
+
+    public void setXLibGdx(float xLibGdx) {
+        this.xLibGdx = xLibGdx;
+    }
+
+    public void setYLibGdx(float yLibGdx) {
+        this.yLibGdx = yLibGdx;
+    }
+
+    public float getXLibGdx() {
+        return xLibGdx;
+    }
+
+    public float getYLibGdx() {
+        return yLibGdx;
     }
 }

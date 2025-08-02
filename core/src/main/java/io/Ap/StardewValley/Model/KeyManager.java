@@ -8,7 +8,7 @@ public class KeyManager {
     private int moveLeft = Input.Keys.A;
     private int moveRight = Input.Keys.D;
 
-    private int reloadWeapon = Input.Keys.R;
+    private int zoom = Input.Keys.CONTROL_LEFT;
     private int pauseGame = Input.Keys.ESCAPE;
 
     private int cheatTime = Input.Keys.T;
@@ -50,12 +50,12 @@ public class KeyManager {
         this.moveRight = moveRight;
     }
 
-    public int getReloadWeapon() {
-        return reloadWeapon;
+    public int getZoom() {
+        return zoom;
     }
 
-    public void setReloadWeapon(int reloadWeapon) {
-        this.reloadWeapon = reloadWeapon;
+    public void setZoom(int zoom) {
+        this.zoom = zoom;
     }
 
     public int getCheatTime() {

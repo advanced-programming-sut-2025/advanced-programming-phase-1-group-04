@@ -6,7 +6,7 @@ import io.Ap.StardewValley.Model.Crafting.Craft;
 import io.Ap.StardewValley.Model.Crafting.CraftRecipe;
 import io.Ap.StardewValley.Model.Crafting.CraftType;
 import io.Ap.StardewValley.Model.Map.BuildingType;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Map.Tile;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Result;

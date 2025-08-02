@@ -1,6 +1,6 @@
 package io.Ap.StardewValley.Model.Plants;
 
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 
 public class Fruit implements Item, Plant {
     private final FruitType type;

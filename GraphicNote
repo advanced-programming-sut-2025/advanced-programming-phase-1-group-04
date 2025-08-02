@@ -15,3 +15,7 @@ player/farmer_base: 32*16, 21*18
 player/clothes/shirts: 8*8, 18*4 * 16
 player/clothes/hairs: 32*16, 7*3 * 8
 player/clothes/pants: 32*16, 2*21 * 10*12
+
+///////////////////////////////////////////
+Phase 1: Classes changed:
+Game map, Player

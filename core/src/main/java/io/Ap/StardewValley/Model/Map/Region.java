@@ -5,7 +5,7 @@ import io.Ap.StardewValley.Model.Player.Player;
 
 public class Region {
     private String name;
-    private Tile[][] tiles;
+    private final Tile[][] tiles;
 
     public Region(String name, Tile[][] tiles) {
         this.name = name;
@@ -19,8 +19,11 @@ public class Region {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < 30; i++) {
-            for(int j = 0; j < 40; j++) {
+        int rows = tiles.length;
+        int cols = tiles[0].length;
+
+        for (int i = 0; i < rows; i++) {
+            for(int j = 0; j < cols; j++) {
                 result.append(" ");
                 Coordinate coordinate = new Coordinate(i, j);
                 boolean isPlayer = false;

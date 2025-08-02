@@ -2,7 +2,6 @@ package io.Ap.StardewValley.Screen.MenuScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.*;
@@ -12,9 +11,12 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Controller.GameMenuController;
+import io.Ap.StardewValley.Controller.ProfileMenuController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Screen.GameScreen;
 import io.Ap.StardewValley.StardewValley;
+
+import java.io.IOException;
 
 
 public class PreGameMenuScreen implements Screen {
@@ -28,6 +30,11 @@ public class PreGameMenuScreen implements Screen {
     private int pantIndex, shirtIndex, hairIndex;
 
     private int farmId;
+    private ImageButton rightButton;
+    private ImageButton leftButton;
+    private final Image farmImageBackGround;
+    private Image farmIconImage;
+    private Image farmImage;
 
     private final Image bodyImage, handImage;
     private Stack characterStack;
@@ -62,6 +69,13 @@ public class PreGameMenuScreen implements Screen {
         hairIndex = 0;
 
         farmId = 1;
+
+        rightButton = new ImageButton(skin, "Right");
+        leftButton = new ImageButton(skin, "Left");
+        farmIconImage = new Image(new Texture(Gdx.files.internal("etc/farmImages/Farm" + farmId + "_Icon.png")));
+        farmImage = new Image(new Texture(Gdx.files.internal("etc/farmImages/Farm" + farmId + "_pixel.png")));
+        farmImageBackGround = new Image(new Texture(Gdx.files.internal("etc/farmImages/farmBackground.png")));
+
     }
 
     @Override
@@ -86,6 +100,46 @@ public class PreGameMenuScreen implements Screen {
         );
 
         Table contentTable = new Table();
+        //avatar row
+        Table avatarRow = new Table();
+        avatarRow.add(leftButton).pad(20, 0, 0, 0).height(60).width(120);
+        avatarRow.add(farmIconImage).pad(5).size(100, 100);
+        avatarRow.add(rightButton).pad(20, 0, 0, 0).height(60).width(120);
+
+        leftButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                farmId--;
+                if (farmId < 1) farmId = 5; // wrap around
+                updateFarmImages();
+            }
+        });
+
+        rightButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                farmId++;
+                if (farmId > 5) farmId = 1; // wrap around
+                updateFarmImages();
+            }
+        });
+
+        // rightRight column
+        Table rightRightColumn = new Table();
+
+        rightRightColumn.add(avatarRow).center().pad(15, 0, 0, 0);
+        rightRightColumn.row();
+
+        farmImage.setAlign(Align.center);
+        farmImageBackGround.setAlign(Align.center);
+
+        Stack farmImageStack = new Stack();
+        farmImageStack.add(farmImage);
+        farmImageStack.add(farmImageBackGround);
+
+
+        rightRightColumn.add(farmImageStack).pad(70, 0, 0, 0).size(farmImageBackGround.getWidth(), farmImageBackGround.getHeight());
+        rightRightColumn.row();
 
         //  left column(character):
         Table leftColumn = new Table();
@@ -115,8 +169,12 @@ public class PreGameMenuScreen implements Screen {
         rightColumn.add(shirtSelector.table).pad(10).row();
         rightColumn.add(pantSelector.table).pad(10).row();
 
-        contentTable.add(leftColumn).top().pad(10);
-        contentTable.add(rightColumn).top().pad(10);
+        Table characterWithOptions = new Table();
+        characterWithOptions.add(leftColumn).top().padRight(20);
+        characterWithOptions.add(rightColumn).top().padTop(-30);
+
+        contentTable.add(characterWithOptions).colspan(2).pad(10);
+        contentTable.add(rightRightColumn).top().pad(10, 10, 10, 10);
 
         String[] colors = {
                 "Black", "Brown", "Blonde", "Red", "Blue", "Cyan", "Green", "Magenta",
@@ -160,7 +218,7 @@ public class PreGameMenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameMenuController.newGameOffline(hairColor, pantColor, pantIndex / 12, shirtIndex, hairIndex, farmId);
-                StardewValley.getGame().setScreen(new GameScreen());
+                StardewValley.getGame().setScreen(new GameScreen(GameMenuController.farmSelections));
             }
         });
 
@@ -286,9 +344,10 @@ public class PreGameMenuScreen implements Screen {
         shirtImage.setPosition(x + 4 * scale, y + 9 * scale);
         characterGroup.addActor(shirtImage);
 
+        int longHair = (hairIndex < 16) ? 0 : -1;
         Image hairImage = new Image(hairSheet[(hairIndex / 8) * 3][hairIndex % 8]);
         hairImage.setSize(16 * scale, 32 * scale);
-        hairImage.setPosition(x, y - 1 * scale);
+        hairImage.setPosition(x, y - (1 + longHair) * scale);
         hairImage.setColor(App.getColor(hairColor));
         characterGroup.addActor(hairImage);
 
@@ -305,6 +364,19 @@ public class PreGameMenuScreen implements Screen {
         characterStack.add(characterBackground);
         characterStack.add(getCharacterGroup());
     }
+
+    private void updateFarmImages() {
+        // به‌روزرسانی آیکون فارم
+        farmIconImage.setDrawable(new TextureRegionDrawable(
+                new TextureRegion(new Texture(Gdx.files.internal("etc/farmImages/Farm" + farmId + "_Icon.png")))
+        ));
+
+        // به‌روزرسانی تصویر فارم
+        farmImage.setDrawable(new TextureRegionDrawable(
+                new TextureRegion(new Texture(Gdx.files.internal("etc/farmImages/Farm" + farmId + "_pixel.png")))
+        ));
+    }
+
 }
 
 class SelectorGroup {

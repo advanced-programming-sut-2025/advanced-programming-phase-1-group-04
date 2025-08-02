@@ -1,25 +1,12 @@
 package io.Ap.StardewValley.Screen.MapScreen;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.utils.Array;
-import io.Ap.StardewValley.Controller.GameScreenController;
-import io.Ap.StardewValley.Model.Map.Tile;
-import io.Ap.StardewValley.Screen.GameScreen;
-import io.Ap.StardewValley.Screen.PlayerScreen.PlayerRender;
-import io.Ap.StardewValley.StardewValley;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class TiledMapRendererHelper {
     private final TiledMap tiledMap;

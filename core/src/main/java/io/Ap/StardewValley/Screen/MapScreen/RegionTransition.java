@@ -66,14 +66,6 @@ public enum RegionTransition {
         return null;
     }
 
-    public Coordinate getFromRegion() {
-        return fromRegion;
-    }
-
-    public Coordinate getToRegion() {
-        return toRegion;
-    }
-
     public Coordinate getDestinationCoordinate() {
         return destinationCoordinate;
     }

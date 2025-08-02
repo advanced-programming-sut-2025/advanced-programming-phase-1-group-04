@@ -36,7 +36,6 @@ public class GameMap {
 //        region[2][2] = loadRegionJson("Farming" + farmSelection[2]);
 
 
-
         region[0][0] = loadRegionJson("Farm"  + farmSelection[0]);
         region[0][1] = loadRegionJson("path1");
         region[0][2] = loadRegionJson("Farm" + farmSelection[1]);
@@ -48,18 +47,6 @@ public class GameMap {
         region[2][0] = loadRegionJson("Farm" + farmSelection[3]);
         region[2][1] = loadRegionJson("path3");
         region[2][2] = loadRegionJson("Farm" + farmSelection[2]);
-
-//        region[0][0] = loadRegionJson("path4");
-//        region[0][1] = loadRegionJson("Town");
-//        region[0][2] = loadRegionJson("path2");
-//
-//        region[1][0] = loadRegionJson("Farm"  + farmSelection[0]);
-//        region[1][1] = loadRegionJson("path1");
-//        region[1][2] = loadRegionJson("Farm" + farmSelection[1]);
-//
-//        region[2][0] = loadRegionJson("Farm" + farmSelection[3]);
-//        region[2][1] = loadRegionJson("path3");
-//        region[2][2] = loadRegionJson("Farm" + farmSelection[2]);
     }
 
     private Region loadRegionJson(String name) {

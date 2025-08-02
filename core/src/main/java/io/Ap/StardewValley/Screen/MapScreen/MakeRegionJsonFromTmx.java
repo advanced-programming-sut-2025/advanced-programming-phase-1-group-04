@@ -10,12 +10,6 @@ import com.google.gson.GsonBuilder;
 import io.Ap.StardewValley.Gson.ItemAdapter;
 import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Map.*;
-import io.Ap.StardewValley.Model.Plants.ForagingCrop;
-import io.Ap.StardewValley.Model.Plants.ForagingCropType;
-import io.Ap.StardewValley.Model.Plants.Tree;
-import io.Ap.StardewValley.Model.Plants.TreeType;
-import io.Ap.StardewValley.Model.Time.DateAndTime;
-import io.Ap.StardewValley.Model.Time.Weather;
 
 import java.io.*;
 

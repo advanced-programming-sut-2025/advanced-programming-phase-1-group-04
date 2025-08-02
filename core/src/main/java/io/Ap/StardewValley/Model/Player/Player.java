@@ -109,8 +109,7 @@ public class Player {
 //            default:
 //                throw new IllegalArgumentException("Invalid player farm");
 //        }
-        //this.houseCoordinate = new Coordinate(13, 64);
-        this.houseCoordinate = new Coordinate(61, 40);
+        this.houseCoordinate = new Coordinate(13, 64);
 
         this.coordinate = new Coordinate(houseCoordinate.getX(), houseCoordinate.getY());
         setLibGdxPositionFromCoordinate();

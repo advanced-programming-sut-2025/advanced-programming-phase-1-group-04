@@ -135,7 +135,7 @@ public class GameScreen implements Screen, InputProcessor {
         controllerTable.setFillParent(true);
         controllerTable.top().left();
         controllerTable.add(new Label("Player: (" + cor.getX() + ", " + cor.getY() + ")" ,skin));
-        controllerTable.add(new Label("LibGdx: (" + App.getGame().getCurrentPlayer().getXLibGdx() + ", " + App.getGame().getCurrentPlayer().getYLibGdx() + ")" ,skin));
+        //controllerTable.add(new Label("LibGdx: (" + App.getGame().getCurrentPlayer().getXLibGdx() + ", " + App.getGame().getCurrentPlayer().getYLibGdx() + ")" ,skin));
     }
 
     public void updateCamera() {

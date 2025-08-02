@@ -7,7 +7,7 @@ public enum RegionTransition {
     FROM_00_TO_01(new Coordinate(0, 0), new Coordinate(0, 1), new Coordinate(58, 80)),
     FROM_01_TO_00(new Coordinate(0, 1), new Coordinate(0, 0), new Coordinate(17, 79)),
 
-    FROM_01_TO_02(new Coordinate(0, 1), new Coordinate(0, 2), new Coordinate(40, 210)),
+    FROM_01_TO_02(new Coordinate(0, 1), new Coordinate(0, 2), new Coordinate(39, 7 + 210)),
     FROM_02_TO_01(new Coordinate(0, 2), new Coordinate(0, 1), new Coordinate(15, 209)),
 
     FROM_00_TO_10(new Coordinate(0, 0), new Coordinate(1, 0), new Coordinate(65, 37)),

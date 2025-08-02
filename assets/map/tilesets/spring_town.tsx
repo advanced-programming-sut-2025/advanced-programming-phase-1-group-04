@@ -5077,12 +5077,12 @@
  </tile>
  <tile id="1009">
   <properties>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="1010">
   <properties>
-   <property name="Type" value="Building"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="1011">

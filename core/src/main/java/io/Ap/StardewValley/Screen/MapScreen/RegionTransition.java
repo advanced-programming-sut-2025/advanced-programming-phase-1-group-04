@@ -4,7 +4,7 @@ import io.Ap.StardewValley.Model.Map.Coordinate;
 
 public enum RegionTransition {
     // Row 0
-    FROM_00_TO_01(new Coordinate(0, 0), new Coordinate(0, 1), new Coordinate(42, 80)),
+    FROM_00_TO_01(new Coordinate(0, 0), new Coordinate(0, 1), new Coordinate(58, 80)),
     FROM_01_TO_00(new Coordinate(0, 1), new Coordinate(0, 0), new Coordinate(17, 79)),
 
     FROM_01_TO_02(new Coordinate(0, 1), new Coordinate(0, 2), new Coordinate(40, 210)),

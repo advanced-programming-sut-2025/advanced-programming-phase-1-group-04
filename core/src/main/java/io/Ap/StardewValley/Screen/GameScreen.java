@@ -112,12 +112,14 @@ public class GameScreen implements Screen, InputProcessor {
             // render map
             SpriteBatch batch = StardewValley.getBatch();
             currentMap.renderBeforePlayer(camera);
+            currentMap.renderDynamicBelowLayer(camera);
 
             // update game, render player
             batch.begin();
             controller.updateGame();
             batch.end();
 
+            currentMap.renderDynamicAboveLayer(camera);
             currentMap.renderAfterPlayer(camera);
         }
 

@@ -50,7 +50,7 @@ public class MakeRegionJsonFromTmx {
 
         for (MapLayer layer : tiledMap.getLayers()) {
             if (!(layer instanceof TiledMapTileLayer tileLayer)) continue;
-            if (layer.getName().toLowerCase().contains("always")) break;
+            if (layer.getName().toLowerCase().contains("front")) break;
 
             for (int x = 0; x < tileLayer.getHeight(); x++) {
                 for (int y = 0; y < tileLayer.getWidth(); y++) {
@@ -202,7 +202,7 @@ public class MakeRegionJsonFromTmx {
 
         for (MapLayer layer : tiledMap.getLayers()) {
             if (!(layer instanceof TiledMapTileLayer)) continue;
-            if (layer.getName().toLowerCase().contains("always")) break;
+            if (layer.getName().toLowerCase().contains("front")) break;
 
             TiledMapTileLayer tileLayer = (TiledMapTileLayer) layer;
 

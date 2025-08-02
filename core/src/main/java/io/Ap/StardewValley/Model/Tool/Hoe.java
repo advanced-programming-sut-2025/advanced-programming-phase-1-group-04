@@ -169,7 +169,18 @@ public class Hoe implements Tool{
 
     @Override
     public String getName() {
-        return "Hoe";
+        if (level == ToolLevel.Starter) {
+            return "hoe";
+        } if (level == ToolLevel.Copper) {
+            return "copper hoe";
+        } if (level == ToolLevel.Steel) {
+            return "steel hoe";
+        } if (level == ToolLevel.Gold) {
+            return "gold hoe";
+        } if (level == ToolLevel.Iridium) {
+            return "iridium hoe";
+        }
+        return "hoe";
     }
 
     @Override

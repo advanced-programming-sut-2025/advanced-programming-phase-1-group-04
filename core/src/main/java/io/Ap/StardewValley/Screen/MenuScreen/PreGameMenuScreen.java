@@ -286,9 +286,10 @@ public class PreGameMenuScreen implements Screen {
         shirtImage.setPosition(x + 4 * scale, y + 9 * scale);
         characterGroup.addActor(shirtImage);
 
+        int longHair = (hairIndex < 16) ? 0 : -1;
         Image hairImage = new Image(hairSheet[(hairIndex / 8) * 3][hairIndex % 8]);
         hairImage.setSize(16 * scale, 32 * scale);
-        hairImage.setPosition(x, y - 1 * scale);
+        hairImage.setPosition(x, y - (1 + longHair) * scale);
         hairImage.setColor(App.getColor(hairColor));
         characterGroup.addActor(hairImage);
 

@@ -92,6 +92,8 @@ public class PlayerRender {
         Coordinate hairOffset = OffsetManager.getOffset(OffsetType.Hair, state, direction, frameIndex);
         Coordinate shirtOffset = OffsetManager.getOffset(OffsetType.Shirt, state, direction, frameIndex);
 
+        int longHair = (App.getGame().getCurrentPlayer().getHairIndex() < 16) ? 0 : 1;
+
         float scale = App.getGame().getPlayerScale();
         batch.draw(bodyFrame, x, y, bodyFrame.getRegionWidth() * scale, bodyFrame.getRegionHeight() * scale);
 
@@ -102,7 +104,7 @@ public class PlayerRender {
         batch.draw(shirtFrame, x + shirtOffset.getX() * scale, y + shirtOffset.getY() * scale, shirtFrame.getRegionWidth() * scale, shirtFrame.getRegionHeight() * scale);
 
         batch.setColor(App.getColor(App.getGame().getCurrentPlayer().getHairColor()));
-        batch.draw(hairFrame, x + hairOffset.getX() * scale, y + hairOffset.getY() * scale, hairFrame.getRegionWidth() * scale, hairFrame.getRegionHeight() * scale);
+        batch.draw(hairFrame, x + hairOffset.getX() * scale, y + (hairOffset.getY() + longHair) * scale, hairFrame.getRegionWidth() * scale, hairFrame.getRegionHeight() * scale);
         batch.setColor(Color.WHITE);
 
         batch.draw(handFrame, x, y, handFrame.getRegionWidth() * scale, handFrame.getRegionHeight() * scale);

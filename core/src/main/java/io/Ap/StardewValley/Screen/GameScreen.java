@@ -4,7 +4,6 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -13,7 +12,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
-import io.Ap.StardewValley.Model.Map.Region;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
 import io.Ap.StardewValley.StardewValley;
 
@@ -134,8 +132,9 @@ public class GameScreen implements Screen, InputProcessor {
         controllerTable.clear();
         controllerTable.setFillParent(true);
         controllerTable.top().left();
-        controllerTable.add(new Label("Player: (" + cor.getX() + ", " + cor.getY() + ")" ,skin));
+        controllerTable.add(new Label("Player: (" + cor.getX() + ", " + cor.getY() + ")    " ,skin));
         //controllerTable.add(new Label("LibGdx: (" + App.getGame().getCurrentPlayer().getXLibGdx() + ", " + App.getGame().getCurrentPlayer().getYLibGdx() + ")" ,skin));
+        controllerTable.add(new Label("Zoom: " + camera.zoom ,skin));
     }
 
     public void updateCamera() {
@@ -222,7 +221,7 @@ public class GameScreen implements Screen, InputProcessor {
         moveLeftButton = new Label(Input.Keys.toString(App.getKeyManager().getMoveLeft()), skin);
         moveRightButton = new Label(Input.Keys.toString(App.getKeyManager().getMoveRight()), skin);
         autoAimButton = new Label(Input.Keys.toString(App.getKeyManager().getCheatBossFight()), skin);
-        reloadWeaponButton = new Label(Input.Keys.toString(App.getKeyManager().getReloadWeapon()), skin);
+        reloadWeaponButton = new Label(Input.Keys.toString(App.getKeyManager().getZoom()), skin);
         cheatTimeButton = new Label(Input.Keys.toString(App.getKeyManager().getCheatTime()), skin);
         cheatLevelButton = new Label(Input.Keys.toString(App.getKeyManager().getCheatLevel()), skin);
         cheatLifeButton = new Label(Input.Keys.toString(App.getKeyManager().getCheatLife()), skin);
@@ -350,6 +349,12 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
+        if (Gdx.input.isKeyPressed(App.getKeyManager().getZoom())) {
+            float zoomSpeed = 0.05f;
+            camera.zoom += amountY * zoomSpeed;
+            camera.zoom = MathUtils.clamp(camera.zoom, 0.05f, 0.6f);
+            return true;
+        }
         return false;
     }
 }

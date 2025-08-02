@@ -2,10 +2,13 @@ package io.Ap.StardewValley.Screen.PlayerScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.StardewValley;
@@ -24,7 +27,11 @@ public class PlayerRender {
     private final Map<DirectionType, TextureRegion> hairFrames = new EnumMap<>(DirectionType.class);
     private final Map<DirectionType, TextureRegion> shirtFrames = new EnumMap<>(DirectionType.class);
 
+    //private final Texture headTexture;
+
     public PlayerRender() {
+        //headTexture = new Texture(Gdx.files.internal("head.png"));
+
         int pantIndex = App.getGame().getCurrentPlayer().getPantIndex();
         int shirtIndex = App.getGame().getCurrentPlayer().getShirtIndex();
         int hairIndex = App.getGame().getCurrentPlayer().getHairIndex();
@@ -55,6 +62,42 @@ public class PlayerRender {
         TextureRegion[][] pantSheet = TextureRegion.split(new Texture("player/pants/pant_" + pantIndex + ".png"), 16, 32);
         this.pantAnimations = new BankPlayerAnimationFrames(pantSheet);
     }
+
+//    public static Texture createHeadTexture(TextureRegion head, TextureRegion hair, Color hairColor) {
+//        int width = 16;
+//        int height = 16;
+//
+//        FrameBuffer fbo = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
+//        SpriteBatch batch = new SpriteBatch();
+//
+//        fbo.begin();
+//        Gdx.gl.glClearColor(0, 0, 0, 0);
+//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//
+//        batch.begin();
+//
+//        // رسم سر
+//        batch.draw(head, 0, 0, width, height);
+//
+//        // اعمال رنگ و رسم مو
+//        batch.setColor(hairColor);
+//        batch.draw(hair, 0, 0, width, height);
+//
+//        batch.end();
+//        fbo.end();
+//
+//        Texture result = fbo.getColorBufferTexture();
+//
+//        // باید flipped بشه چون FBO برعکس می‌کشه
+//        TextureRegion region = new TextureRegion(result);
+//        region.flip(false, true);
+//
+//        batch.dispose();
+//        fbo.dispose(); // فقط اگه دیگه نیاز نداری
+//
+//        return new Texture(region);
+//    }
+
 
     public void render() {
         SpriteBatch batch = StardewValley.getBatch();

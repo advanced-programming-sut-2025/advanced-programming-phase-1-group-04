@@ -33,13 +33,23 @@ public class GameMenuScreen implements Screen {
         coOpButton = new TextButton("Co-op", skin, "Earth");
         backButton = new TextButton("Back", skin, "Plant");
 
-        backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_night.png")));
+        //backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_night.png")));
+        backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_start.png")));
+
         logoImage = new Image(new Texture(Gdx.files.internal("etc/menu/logo.png")));
 
-        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/Bat.png"));
-        TextureRegion[][] tmp = TextureRegion.split(sheet, 64, 64);
+//        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/Bat.png"));
+//        TextureRegion[][] tmp = TextureRegion.split(sheet, 64, 64);
+        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/companions.png"));
+        TextureRegion[][] tmp = TextureRegion.split(sheet, 16, 16);
 
-        butterflyAnimations.add(new Animation<>(0.13f, tmp[0]));
+        for (int i = 0; i < 4; i++) {
+            TextureRegion[] frames = new TextureRegion[4];
+            System.arraycopy(tmp[0], 4 * i, frames, 0, 4);
+            butterflyAnimations.add(new Animation<>(0.13f, frames));
+        }
+
+//        butterflyAnimations.add(new Animation<>(0.13f, tmp[0]));
 
         mainTable = new Table();
         stage = new Stage(new ScreenViewport());
@@ -59,17 +69,29 @@ public class GameMenuScreen implements Screen {
         mainTable.setFillParent(true);
         mainTable.center().top().padTop(100);
 
-        int numOfButterfly = 15;
+        int numOfButterfly = 10;
         for (int i = 0; i < numOfButterfly; i++) {
-            Animation<TextureRegion> randomAnimation = butterflyAnimations.random();
+            Animation<TextureRegion> baseAnimation = butterflyAnimations.random();
+            TextureRegion[] originalFrames = baseAnimation.getKeyFrames();
+            TextureRegion[] flippedFrames = new TextureRegion[originalFrames.length];
+
+            boolean shouldFlip = MathUtils.randomBoolean(0.5f);
+
+            for (int j = 0; j < originalFrames.length; j++) {
+                flippedFrames[j] = new TextureRegion(originalFrames[j]);
+                if (shouldFlip) {
+                    flippedFrames[j].flip(true, false);
+                }
+            }
+
+            Animation<TextureRegion> finalAnimation = new Animation<>(baseAnimation.getFrameDuration(), flippedFrames);
 
             float x = MathUtils.random(0, Gdx.graphics.getWidth());
             float y = MathUtils.random(0, Gdx.graphics.getHeight());
-
-            float scale = MathUtils.random(1f, 2f);
+            float scale = MathUtils.random(2f, 5.5f);
 
             animationActor butterfly = new animationActor(
-                    randomAnimation,
+                    finalAnimation,
                     x,
                     y,
                     scale,
@@ -78,6 +100,7 @@ public class GameMenuScreen implements Screen {
 
             stage.addActor(butterfly);
         }
+
 
         mainTable.add(logoImage).center().padBottom(50).row();
 

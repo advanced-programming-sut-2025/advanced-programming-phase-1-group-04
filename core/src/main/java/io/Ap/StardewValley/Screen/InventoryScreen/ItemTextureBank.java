@@ -3,7 +3,7 @@ package io.Ap.StardewValley.Screen.InventoryScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -86,6 +86,8 @@ inventory/cherry bomb.png
 inventory/coffee bean.png
 inventory/coffee.png
 inventory/cookie.png
+inventory/cooking button 0.png
+inventory/cooking button 1.png
 inventory/copper axe.png
 inventory/copper hoe.png
 inventory/copper pickaxe.png

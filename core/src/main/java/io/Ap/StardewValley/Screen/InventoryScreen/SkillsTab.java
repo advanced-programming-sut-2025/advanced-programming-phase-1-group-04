@@ -1,17 +1,12 @@
 package io.Ap.StardewValley.Screen.InventoryScreen;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Player.Skill;
-
 
 import java.util.*;
 import java.util.List;
@@ -111,13 +106,13 @@ public class SkillsTab extends Window {
     private String getSkillDescription(Skill skill) {
         switch (skill) {
             case Farming:
-                return "Farming increases your crop yield and animal care efficiency.";
+                return "related to plants and animals";
             case Mining:
-                return "Mining improves your ability to extract valuable ores.";
+                return "related to destroying stones, mines, etc";
             case Fishing:
-                return "Fishing enhances your fishing accuracy and rewards.";
+                return "whenever you catch a fish, you've increased this skill";
             case Foraging:
-                return "Foraging helps you gather wild resources more efficiently.";
+                return "related to foraging!";
             default:
                 return "No description available.";
         }
@@ -129,5 +124,4 @@ public class SkillsTab extends Window {
             skillHeartImages.get(skill).setDrawable(new TextureRegionDrawable(ItemTextureBank.getTexture(level + " levels")));
         }
     }
-
 }

@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
 import io.Ap.StardewValley.Controller.SirkBozorg.PlayerController;
 import io.Ap.StardewValley.Model.App;
-import io.Ap.StardewValley.Model.Map.Item;
+import io.Ap.StardewValley.Model.Item.Item;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,15 +38,15 @@ public class InventoryTab extends Window {
         this.align(Align.topLeft);
         this.defaults().pad(10);
 
-        // === ساخت scroll و جدول سمت چپ ===
+
         leftPart = new Table();
         scrollPane = new ScrollPane(leftPart, skin, "inventory");
         scrollPane.setFadeScrollBars(false);
         leftPart.top().left();
 
-        updateInventory();  // بارگذاری اولیه
+        updateInventory();
 
-        // === بخش وسط ===
+
         Table centerPart = new Table();
         ImageButton orderButton = new ImageButton(skin, "order");
         orderButton.setTransform(true);
@@ -66,7 +66,7 @@ public class InventoryTab extends Window {
         trashButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // مثلاً انداختن آیتم todo
+                //todo
                 PlayerController.inventoryTrashWithoutNumber(getSelectedItemName());
                 updateInventory();
 
@@ -74,7 +74,7 @@ public class InventoryTab extends Window {
         });
         centerPart.add(trashButton).size(100, 100).left().pad(10, 0, 0, 30);
 
-        // === بخش راست ===
+
         Table rightPart = new Table();
         rightPart.top();
 
@@ -87,7 +87,6 @@ public class InventoryTab extends Window {
         rightPart.add(label1).center().padTop(10).row();
         rightPart.add(label2).center().padTop(5).row();
 
-        // === اضافه کردن بخش‌ها به پنجره ===
         this.add(rightPart).width(350).top();
         this.add(centerPart).width(140).top();
         this.add(scrollPane).width(450).top();
@@ -105,7 +104,6 @@ public class InventoryTab extends Window {
         return selectedButton;
     }
 
-    // متد جدید برای آپدیت محتوا
     public void updateInventory() {
         ArrayList<Item> items = App.getGame().getCurrentPlayer().getInventory().getItemList();
         int capacity = App.getGame().getCurrentPlayer().getInventory().getCapacity();

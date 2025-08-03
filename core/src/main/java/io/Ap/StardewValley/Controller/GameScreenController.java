@@ -1,11 +1,10 @@
 package io.Ap.StardewValley.Controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
-import io.Ap.StardewValley.Model.Map.Region;
 import io.Ap.StardewValley.Model.Player.Player;
+import io.Ap.StardewValley.Model.Player.Skill;
 import io.Ap.StardewValley.Screen.GameScreen;
 import io.Ap.StardewValley.Screen.MapScreen.RegionTransition;
 import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
@@ -16,6 +15,14 @@ public class GameScreenController {
     private final PlayerRender playerRender = new PlayerRender();
     private GameScreen view;
 
+    //inventory:
+    private boolean isInventoryStageVisible = false;
+    private boolean inventoryStageNeedsUpdate = false;
+
+    //cooking:
+    private boolean isCookingStageVisible = false;
+    private boolean cookingStageNeedsUpdate = false;
+
     public void setViews(GameScreen view) {
         this.view = view;
     }
@@ -23,6 +30,17 @@ public class GameScreenController {
     public void  updateGame() {
         handleInputKey();
         playerRender.render();
+
+        //inventory bar:
+        view.getInventoryBar().updateInventoryBar();
+
+        //inventory stage:
+        view.getInventoryStage().setVisibleAll(isInventoryStageVisible);
+        if (inventoryStageNeedsUpdate) {
+            view.getInventoryStage().update();
+            inventoryStageNeedsUpdate = false;
+        }
+
     }
 
     private void handleInputKey(){
@@ -75,6 +93,21 @@ public class GameScreenController {
         }
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatBossFight())){
 
+        }
+        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getAynazCheat())) {
+            App.getGame().getCurrentPlayer().addAbility(Skill.Farming, 10);
+            App.getGame().getCurrentPlayer().setInventoryCapacity(24);
+            inventoryStageNeedsUpdate = true;
+        }
+
+        //inventory:
+        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getOpenInventory())){
+            isInventoryStageVisible = !isInventoryStageVisible;
+        }
+
+        //cooking:
+        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getOpenRefrigerator())){
+            isCookingStageVisible = !isCookingStageVisible;
         }
 
         // status

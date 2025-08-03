@@ -3,6 +3,7 @@ package io.Ap.StardewValley.Screen;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -21,9 +22,9 @@ import io.Ap.StardewValley.StardewValley;
 public class GameScreen implements Screen, InputProcessor {
     // Map:
     private TiledMapRendererHelper[][] mapRenderers = new TiledMapRendererHelper[3][3];
-    private final int[] farmSelections = new int[4];
     private TiledMapRendererHelper currentMap;
-
+    private final int[] farmSelections = new int[4];
+    private Image fullMap;
 
     private Stage stage;
     private final Table dialogTable = new Table();
@@ -71,8 +72,10 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
+
         dialogTable.setFillParent(true);
         dialogTable.top().left();
+
         stage.addActor(dialogTable);
         stage.addActor(controllerTable);
 
@@ -117,6 +120,7 @@ public class GameScreen implements Screen, InputProcessor {
         mapRenderers[2][0] = new TiledMapRendererHelper("Farm" + farmSelections[3]);
         mapRenderers[2][1] = new TiledMapRendererHelper("path3");
         mapRenderers[2][2] = new TiledMapRendererHelper("Farm" + farmSelections[2]);
+        setFullMap();
     }
 
     @Override
@@ -139,12 +143,14 @@ public class GameScreen implements Screen, InputProcessor {
             // render map
             SpriteBatch batch = StardewValley.getBatch();
             currentMap.renderBeforePlayer(camera);
+            currentMap.renderDynamicBelowLayer(camera);
 
             // update game, render player
             batch.begin();
             controller.updateGame();
             batch.end();
 
+            currentMap.renderDynamicAboveLayer(camera);
             currentMap.renderAfterPlayer(camera);
         }
 
@@ -299,7 +305,13 @@ public class GameScreen implements Screen, InputProcessor {
         table.add(reloadWeaponButton).width(325).pad(10);
         table.add(shash);
 
+        //table.add(controller.getPlayerRender().getHeadImage()).size(16*6, 16*6);
+        //table.add(fullMap).size(400, 400);
         return table;
+    }
+
+    private void setFullMap() {
+        fullMap = new Image(new Texture(Gdx.files.internal("etc/FullMap.png")));
     }
 
 

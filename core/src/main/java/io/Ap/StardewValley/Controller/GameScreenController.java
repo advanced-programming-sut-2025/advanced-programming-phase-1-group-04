@@ -1,6 +1,8 @@
 package io.Ap.StardewValley.Controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Player.Player;
@@ -167,5 +169,11 @@ public class GameScreenController {
         int globalY = colOffsets[cor.getY()] + localY;
 
         return new Coordinate(globalX, globalY);
+    }
+
+    // TODO موقت:
+
+    public PlayerRender getPlayerRender() {
+        return playerRender;
     }
 }

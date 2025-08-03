@@ -1,15 +1,13 @@
 package io.Ap.StardewValley.Screen.PlayerScreen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.ScreenUtils;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.StardewValley;
@@ -62,12 +60,11 @@ public class PlayerRender {
         this.pantAnimations = new BankPlayerAnimationFrames(pantSheet);
 
         // make head:
-        TextureRegion hairRegion = new TextureRegion(hairSheet[(hairIndex / 8) * 3][hairIndex % 8], 0, 0, 16, 16);
-        TextureRegion headRegion = new TextureRegion(bodySheet[0][1], 0, 0, 16, 16);
-        setHeadImage(headRegion, hairRegion);
+        setHeadImage(bodySheet[0][1], hairSheet[(hairIndex / 8) * 3][hairIndex % 8],
+                App.getColor(App.getGame().getCurrentPlayer().getHairColor()), hairIndex);
     }
 
-    private void setHeadImage(TextureRegion head, TextureRegion hair) {
+    private void shash(TextureRegion head, TextureRegion hair) {
 //        int width = 16;
 //        int height = 16;
 //
@@ -118,7 +115,93 @@ public class PlayerRender {
 //        Texture finalTexture = new Texture(finalPixmap);
 //
 //        headImage = new Image(finalTexture);
+
+//        Pixmap basePixmap = new Pixmap(Gdx.files.internal("etc/head.png"));
+//        Pixmap overlayPixmap = new Pixmap(Gdx.files.internal("etc/hair.png"));
+//
+//// فرض: هر دو تصویر هم‌اندازه‌اند. اگر نیستند باید هماهنگ‌شون کنی.
+//
+//        Pixmap combined = new Pixmap(basePixmap.getWidth(), basePixmap.getHeight(), Pixmap.Format.RGBA8888);
+//
+//// اول base رو رسم کن
+//        combined.drawPixmap(basePixmap, 0, 0);
+//
+//// حالا overlay رو روش بنداز
+//        combined.drawPixmap(overlayPixmap, 0, 0);
+//
+//// حالا می‌تونی از combined یک Texture بسازی
+//        Texture finalTexture = new Texture(combined);
+//
+//// (اختیاری) برای ذخیره روی دیسک
+//        //PixmapIO.writePNG(Gdx.files.local("combined_output.png"), combined);
+//
+//        headImage = new Image(finalTexture);
+//
+//        basePixmap.dispose();
+//        overlayPixmap.dispose();
+//        combined.dispose();
     }
+
+    public void setHeadImage(TextureRegion fullHeadFrame, TextureRegion fullHairFrame, Color hairColor, int hairIndex) {
+        int longHair = (hairIndex < 16) ? 1 : 0;
+
+        int regionX = fullHeadFrame.getRegionX();
+        int regionY = fullHeadFrame.getRegionY();
+        int width = 16;
+        int height = 16;
+
+        TextureData headData = fullHeadFrame.getTexture().getTextureData();
+        if (!headData.isPrepared()) headData.prepare();
+        Pixmap headPixmapFull = headData.consumePixmap();
+
+        Pixmap headPixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+        headPixmap.drawPixmap(headPixmapFull, 0, 0, regionX, regionY, width, height);
+
+        int hairX = fullHairFrame.getRegionX();
+        int hairY = fullHairFrame.getRegionY();
+
+        TextureData hairData = fullHairFrame.getTexture().getTextureData();
+        if (!hairData.isPrepared()) hairData.prepare();
+        Pixmap hairPixmapFull = hairData.consumePixmap();
+
+        Pixmap hairPixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+        hairPixmap.drawPixmap(hairPixmapFull, 0, 0, hairX, hairY, width, height);
+
+        Pixmap combined = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+
+        combined.drawPixmap(headPixmap, 0, 0);
+
+        // color:
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int pixel = hairPixmap.getPixel(x, y);
+
+                float r = ((pixel >> 24) & 0xff) / 255f;
+                float g = ((pixel >> 16) & 0xff) / 255f;
+                float b = ((pixel >> 8) & 0xff) / 255f;
+                float a = (pixel & 0xff) / 255f;
+
+                if (a > 0f) {
+                    float tintedR = r * hairColor.r;
+                    float tintedG = g * hairColor.g;
+                    float tintedB = b * hairColor.b;
+
+                    combined.setColor(tintedR, tintedG, tintedB, a);
+                    combined.drawPixel(x, y + 1 + longHair);
+                }
+
+            }
+        }
+
+        Texture finalTexture = new Texture(combined);
+        headImage = new Image(finalTexture);
+        headImage.setSize(width, height);
+
+        headPixmap.dispose();
+        hairPixmap.dispose();
+        combined.dispose();
+    }
+
 
     public Image getHeadImage() {
         return headImage;

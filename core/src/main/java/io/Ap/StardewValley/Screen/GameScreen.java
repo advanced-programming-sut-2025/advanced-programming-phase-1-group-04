@@ -3,6 +3,7 @@ package io.Ap.StardewValley.Screen;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -120,6 +121,7 @@ public class GameScreen implements Screen, InputProcessor {
         mapRenderers[2][0] = new TiledMapRendererHelper("Farm" + farmSelections[3]);
         mapRenderers[2][1] = new TiledMapRendererHelper("path3");
         mapRenderers[2][2] = new TiledMapRendererHelper("Farm" + farmSelections[2]);
+
         setFullMap();
     }
 
@@ -306,14 +308,32 @@ public class GameScreen implements Screen, InputProcessor {
         table.add(shash);
 
         //table.add(controller.getPlayerRender().getHeadImage()).size(16*6, 16*6);
-        //table.add(fullMap).size(400, 400);
+        table.add(fullMap).size(fullMap.getWidth() * 0.1f, fullMap.getHeight() * 0.1f);
         return table;
     }
 
     private void setFullMap() {
-        fullMap = new Image(new Texture(Gdx.files.internal("etc/FullMap.png")));
-    }
+        Pixmap basePixmap = new Pixmap(Gdx.files.internal("etc/mapImages/FullMap.png"));
+        Pixmap farm = new Pixmap(Gdx.files.internal("etc/mapImages/Farm1.png"));
 
+        int mapWidth = basePixmap.getWidth(), mapHeight = basePixmap.getHeight();
+        int farmWidth = farm.getWidth(), farmHeight = farm.getHeight();
+
+        Pixmap combined = new Pixmap(mapWidth, mapHeight, Pixmap.Format.RGBA8888);
+
+        combined.drawPixmap(basePixmap, 0, 0);
+        combined.drawPixmap(new Pixmap(Gdx.files.internal("etc/mapImages/Farm" + farmSelections[0] +".png")), 0, 0);
+        combined.drawPixmap(new Pixmap(Gdx.files.internal("etc/mapImages/Farm" + farmSelections[1] +".png")), mapWidth - farmWidth, 0);
+        combined.drawPixmap(new Pixmap(Gdx.files.internal("etc/mapImages/Farm" + farmSelections[2] +".png")), mapWidth - farmWidth, mapHeight - farmHeight);
+        combined.drawPixmap(new Pixmap(Gdx.files.internal("etc/mapImages/Farm" + farmSelections[3] +".png")), 0, mapHeight - farmHeight);
+
+        Texture finalTexture = new Texture(combined);
+        fullMap = new Image(finalTexture);
+
+        basePixmap.dispose();
+        farm.dispose();
+        combined.dispose();
+    }
 
     @Override
     public void resize(int width, int height) {

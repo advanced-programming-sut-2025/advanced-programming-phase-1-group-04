@@ -281,7 +281,7 @@ public class GameScreen implements Screen, InputProcessor {
         table.add(shash);
 
         //table.add(controller.getPlayerRender().getHeadImage()).size(16*6, 16*6);
-        table.add(fullMap).size(fullMap.getWidth() * 0.1f, fullMap.getHeight() * 0.1f);
+        //table.add(fullMap).size(fullMap.getWidth() * 0.1f, fullMap.getHeight() * 0.1f);
         return table;
     }
 

@@ -41,12 +41,20 @@ etc/menu/daybg.png
 etc/menu/logo.png
 etc/menu/nightbg.png
 inventory/axe.png
-inventory/backpack.png
+inventory/bamboo pole.png
+inventory/copper axe.png
+inventory/copper pickaxe.png
+inventory/fiberglass rod.png
+inventory/gold axe.png
+inventory/gold pickaxe.png
+inventory/iridium axe.png
+inventory/iridium pickaxe.png
+inventory/iridium rod.png
 inventory/milk pail.png
 inventory/pickaxe.png
-inventory/scythe.png
-inventory/shears.png
-inventory/trash can.png
+inventory/steel axe.png
+inventory/steel pickaxe.png
+inventory/training rod.png
 map/SecretNotesImages.png
 map/maps/Farm1.tmx
 map/maps/Farm2.tmx

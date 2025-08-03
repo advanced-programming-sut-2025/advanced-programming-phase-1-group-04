@@ -14,6 +14,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
+import io.Ap.StardewValley.Screen.CookingScreen.CookingStage;
+import io.Ap.StardewValley.Screen.InventoryScreen.InventoryBar;
+import io.Ap.StardewValley.Screen.InventoryScreen.InventoryStage;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
 import io.Ap.StardewValley.StardewValley;
 
@@ -32,6 +35,15 @@ public class GameScreen implements Screen, InputProcessor {
 
     private boolean paused = false;
     private final GameScreenController controller = new GameScreenController();
+
+
+    //inventory:
+    private InventoryStage inventoryStage = new InventoryStage();
+    private InventoryBar inventoryBar = new InventoryBar();
+
+    //cooking:
+    private CookingStage cookingStage = new CookingStage();
+
 
     public GameScreen(int[] farmSelections) {
         System.arraycopy(farmSelections, 0, this.farmSelections, 0, 4);
@@ -70,8 +82,23 @@ public class GameScreen implements Screen, InputProcessor {
 
         Gdx.input.setInputProcessor(this);
 
+        //inventory bar:
+        Stack stack = new Stack();
+        stack.setFillParent(true);
+        stage.addActor(stack);
+        // ساخت جدول اصلی که سمت چپ اینونتوری و وسط محتوای پنجره رو بچینه
+        Table mainLayout = new Table();
+        mainLayout.setFillParent(true);
+        ScrollPane inventoryScrollPane = inventoryBar.getInventoryScrollPane(); // تابع getInventoryScrollPane رو اضافه می‌کنی به کلاس Inventory
+        mainLayout.add(inventoryScrollPane).width(130).height(800).pad(50, 100, 50, 0); // سمت چپ نوار
+        mainLayout.add().expand(); // جای خالی برای window وسط
+        stack.add(mainLayout);
+
+
         // InputMultiplexer for resume menu
         InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(inventoryStage);
+        multiplexer.addProcessor(cookingStage);
         multiplexer.addProcessor(stage);
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
@@ -388,5 +415,21 @@ public class GameScreen implements Screen, InputProcessor {
             return true;
         }
         return false;
+    }
+
+
+
+    //getter and setters:
+
+    public InventoryStage getInventoryStage() {
+        return inventoryStage;
+    }
+
+    public InventoryBar getInventoryBar() {
+        return inventoryBar;
+    }
+
+    public CookingStage getCookingStage() {
+        return cookingStage;
     }
 }

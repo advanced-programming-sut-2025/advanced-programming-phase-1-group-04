@@ -12,7 +12,7 @@ import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Map.FarmBuilding;
 import io.Ap.StardewValley.Model.Item.Item;
-import io.Ap.StardewValley.Model.Tool.Tool;
+import io.Ap.StardewValley.Model.Tool.*;
 import io.Ap.StardewValley.Model.User;
 import com.google.gson.Gson;
 import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
@@ -52,12 +52,14 @@ public class Player {
     private int movesThisTurn = 0;
 
     private Inventory inventory = new Inventory(12, 1);
+
     private HashMap<Skill, Integer> myAbility = new HashMap<>(Map.of(Skill.Mining, 0, Skill.Foraging, 0,
             Skill.Fishing, 0, Skill.Farming, 0));
 
     private int count;
 
-    private Inventory refrigerator = new Inventory(Integer.MAX_VALUE, 1);
+    //todo: refrigerator capacity? 36?
+    private Inventory refrigerator = new Inventory(36, 1);
 
     private HashMap<Skill, Integer> skillBuff = new HashMap<>(Map.of(Skill.Mining, 0, Skill.Foraging, 0,
             Skill.Fishing, 0, Skill.Farming, 0));
@@ -113,6 +115,15 @@ public class Player {
 
         this.coordinate = new Coordinate(houseCoordinate.getX(), houseCoordinate.getY());
         setLibGdxPositionFromCoordinate();
+
+
+        inventory.addItem(new Hoe(ToolLevel.Starter), 1);
+        inventory.addItem(new Pickaxe(ToolLevel.Starter), 1);
+        inventory.addItem(new Axe(ToolLevel.Starter), 1);
+        inventory.addItem(new WateringCan(ToolLevel.Starter), 1);
+        inventory.addItem(new Scythe(), 1);
+        inventory.addItem(new MilkPail(), 1);
+        inventory.addItem(new MilkPail(), 1);
     }
 
     private void setLibGdxPositionFromCoordinate() {

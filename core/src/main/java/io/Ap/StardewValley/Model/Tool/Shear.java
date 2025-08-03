@@ -53,7 +53,7 @@ public class Shear implements Tool {
 
     @Override
     public String getName() {
-        return "Shear";
+        return "shear";
     }
 
     @Override

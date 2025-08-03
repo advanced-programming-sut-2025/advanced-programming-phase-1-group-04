@@ -132,7 +132,7 @@ public class Scythe implements Tool {
 
     @Override
     public String getName() {
-        return "Scythe";
+        return "scythe";
     }
 
     @Override

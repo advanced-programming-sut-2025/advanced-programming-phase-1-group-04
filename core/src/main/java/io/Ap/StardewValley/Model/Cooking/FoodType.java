@@ -65,7 +65,7 @@ public enum FoodType {
         player.addSkillBuff(Skill.Fishing, 5);
     },
             new HashMap<>(Map.of(Skill.Fishing, 2)), null, 220),
-    SeaformPudding ("Seaform Pudding", FoodRecipe.SeaformPudding, 175, player -> {
+    SeafoamPudding ("Seafoam Pudding", FoodRecipe.SeaformPudding, 175, player -> {
         player.addSkillBuff(Skill.Fishing, 10);
     },
             new HashMap<>(Map.of(Skill.Fishing, 3)), null, 300),

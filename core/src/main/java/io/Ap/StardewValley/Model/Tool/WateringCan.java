@@ -206,7 +206,18 @@ public class WateringCan implements Tool{
 
     @Override
     public String getName() {
-        return "Watering can";
+        if (level == ToolLevel.Starter) {
+            return "watering can";
+        } if (level == ToolLevel.Copper) {
+            return "copper watering can";
+        } if (level == ToolLevel.Steel) {
+            return "steel watering can";
+        } if (level == ToolLevel.Gold) {
+            return "gold watering can";
+        } if (level == ToolLevel.Iridium) {
+            return "iridium watering can";
+        }
+        return "watering can";
     }
 
     @Override

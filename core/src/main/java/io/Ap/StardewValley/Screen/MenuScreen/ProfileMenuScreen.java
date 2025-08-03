@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Controller.ProfileMenuController;
 import io.Ap.StardewValley.Model.App;
+import io.Ap.StardewValley.Screen.InventoryScreen.InventoryBar;
 import io.Ap.StardewValley.StardewValley;
 
 import java.io.IOException;
@@ -61,6 +62,37 @@ public class ProfileMenuScreen implements Screen {
         stack.setFillParent(true);
         stage.addActor(stack);
         stack.add(backgroundImage);
+
+
+
+/*
+
+
+        //TODO: inventory bar
+
+
+        // ساخت جدول اصلی که سمت چپ اینونتوری و وسط محتوای پنجره رو بچینه
+        Table mainLayout = new Table();
+        mainLayout.setFillParent(true);
+
+
+        InventoryBar inventoryBar = new InventoryBar(); // فرض می‌کنیم کلاس Inventory رو طبق راهنمای قبلی ساختی
+
+        ScrollPane inventoryScrollPane = inventoryBar.getInventoryScrollPane(); // تابع getInventoryScrollPane رو اضافه می‌کنی به کلاس Inventory
+
+        mainLayout.add(inventoryScrollPane).width(130).height(800).pad(50, 100, 50, 0); // سمت چپ نوار
+        mainLayout.add().expand(); // جای خالی برای window وسط
+
+        inventoryBar.setSlotImage(0,new Texture("inventory/axe.png"));
+
+        stack.add(mainLayout);
+
+
+
+*/
+
+
+
 
         Window window = new Window("", skin);
         Label titleLabel = new Label("Profile", skin, "Bold");

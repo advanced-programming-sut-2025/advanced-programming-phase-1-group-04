@@ -40,6 +40,7 @@ etc/menu/cloud_3.png
 etc/menu/daybg.png
 etc/menu/logo.png
 etc/menu/nightbg.png
+etc/shash.png
 inventory/0 hearts.png
 inventory/0 levels.png
 inventory/1 hearts.png
@@ -64,7 +65,6 @@ inventory/amaranth.png
 inventory/ancient fruit.png
 inventory/angler.png
 inventory/artichoke.png
-etc/shash.png
 inventory/axe.png
 inventory/baked fish.png
 inventory/bamboo pole.png

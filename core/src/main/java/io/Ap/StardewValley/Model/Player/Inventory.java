@@ -15,12 +15,7 @@ public class Inventory {
     public Inventory(int capacity, int trashCanLevel) {
         this.capacity = capacity;
         this.trashCanLevel = trashCanLevel;
-        addItem(new Hoe(ToolLevel.Starter), 1);
-        addItem(new Pickaxe(ToolLevel.Starter), 1);
-        addItem(new Axe(ToolLevel.Starter), 1);
-        addItem(new WateringCan(ToolLevel.Starter), 1);
-        addItem(new Scythe(), 1);
-        addItem(new MilkPail(), 1);
+
     }
 
     public boolean addItem(Item item, int quantity) {

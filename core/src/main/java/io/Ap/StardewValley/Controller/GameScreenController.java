@@ -1,10 +1,10 @@
 package io.Ap.StardewValley.Controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
+import io.Ap.StardewValley.Model.Plants.Crop;
+import io.Ap.StardewValley.Model.Plants.CropType;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Player.Skill;
 import io.Ap.StardewValley.Screen.GameScreen;
@@ -106,7 +106,9 @@ public class GameScreenController {
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getAynazCheat())) {
             App.getGame().getCurrentPlayer().addAbility(Skill.Farming, 10);
             App.getGame().getCurrentPlayer().setInventoryCapacity(24);
+            App.getGame().getCurrentPlayer().getInventory().addItem(new Crop(CropType.Potato));
             inventoryStageNeedsUpdate = true;
+            cookingStageNeedsUpdate = true;
         }
 
         //inventory:

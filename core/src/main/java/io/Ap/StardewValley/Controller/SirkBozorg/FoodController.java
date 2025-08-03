@@ -187,4 +187,88 @@ public class FoodController {
         return null;
     }
 
+
+
+
+
+    // second phase:
+
+    public static Result refrigeratorPickThroughScreen (String itemName) {
+        Player player = App.getGame().getCurrentPlayer();
+        Item item;
+        if (itemName == null) {
+            return new Result (false, "invalid item name!");
+        }
+        if ((item = player.getRefrigerator().hasItemWithName(itemName)) == null) {
+            return new Result(false, "you don't have an item with this name in your refrigerator!");
+        }
+        if (!player.addItemToInventory(item, player.getRefrigerator().getItemQuantity(item))) {
+            return new Result(false, "your inventory doesn't have enough capacity!");
+        }
+        player.getRefrigerator().removeItem(item.getName(), -1);
+        return new Result(true, "item added to inventory successfully.");
+    }
+
+    public static Result refrigeratorPutThroughScreen (String itemName) {
+        Player player = App.getGame().getCurrentPlayer();
+        Item item;
+        if (itemName == null) {
+            return new Result (false, "invalid item name!");
+        }
+        if ((item = player.getInventory().hasItemWithName(itemName)) == null) {
+            return new Result(false, "you don't have an item with this name in your inventory!");
+        }
+        if (!((item instanceof Crop) || (item instanceof Food) || (item instanceof AnimalProduct) || (item instanceof Fish) ||
+                (item instanceof Fruit) || (item instanceof Ingredient) || (item instanceof ForagingCrop))) {
+            return new Result(false, "item must be edible!");
+        }
+        if (!player.getRefrigerator().addItem(item, player.getInventory().getItemQuantity(item))) {
+            return new Result(false, "your refrigerator doesn't have capacity!");
+        }
+        player.getInventory().removeItem(item.getName(), -1);
+        return new Result(true, "item added to refrigerator successfully.");
+    }
+
+    public static Result cookThroughScreen (String foodName) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
+        Player player = App.getGame().getCurrentPlayer();
+        if (App.getGame().getTile(player.getCoordinate()).getBuildingType() != BuildingType.House) {
+            return new Result(false, "you must be at home for using this command!");
+        }
+        if (foodName == null) {
+            return new Result(false, "invalid food name!");
+        }
+        if (player.getEnergy() < 3) {
+            return new Result(false, "you don't have enough energy for cooking!");
+        }
+        if (player.getInventory().getRemainedCapacity() <= 0) {
+            return new Result(false, "your inventory doesn't have enough capacity!");
+        }
+        if (!recipeExistsAtAll(foodName)) {
+            return new Result(false, "this food doesn't exist!");
+        }
+        FoodRecipe recipe;
+        if ((recipe = findFoodRecipe(foodName)) == null) {
+            return new Result(false, "you haven't learned this recipe yet!");
+        }
+
+        boolean success = canMakeFood(recipe).isSuccessful();
+        if (!success) {
+            return canMakeFood(recipe);
+        }
+        for (Item i : recipe.getRecipe().keySet()) {
+            if (!App.getGame().getCurrentPlayer().removeItemFromInventory(i.getName(), recipe.getRecipe().get(i))) {
+                App.getGame().getCurrentPlayer().removeItemFromRefrigerator(i.getName(), recipe.getRecipe().get(i));
+            }
+        }
+        if (findFoodType(recipe) == null) {
+            return new Result(false, "invalid craft name!"); //never happens (inshallah)
+        }
+        App.getGame().getCurrentPlayer().addEnergy(-3);
+        App.getGame().getCurrentPlayer().addItemToInventory(new Food(findFoodType(recipe)), 1);
+        return new Result(false, foodName + " added to inventory.");
+    }
 }

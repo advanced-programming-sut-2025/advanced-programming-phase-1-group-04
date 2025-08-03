@@ -113,6 +113,8 @@ public class InventoryStage extends Stage {
             win = new InventoryTab((skin));
         } else if (index == 1) {
             win = new SkillsTab(skin);
+        } else if (index == 4) {
+            win = new SettingTab(skin);
         }
         else {
             win = new Window("", skin);

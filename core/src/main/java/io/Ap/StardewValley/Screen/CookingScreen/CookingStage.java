@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import io.Ap.StardewValley.Screen.InventoryScreen.InventoryTab;
 import io.Ap.StardewValley.Screen.InventoryScreen.SkillsTab;
 import io.Ap.StardewValley.StardewValley;
 
@@ -21,13 +20,13 @@ public class CookingStage extends Stage{
 
     private final Skin skin = StardewValley.getSkin();
     private final List<Window> infoWindows = new ArrayList<>();
-    private final Window refrigeratorTab = new InventoryTab(skin);
-    private final Window cookingTab = new SkillsTab(skin);
+    private final Window refrigeratorTab = new RefrigeratorTab(skin, this);
+    private final Window cookingTab = new CookingTab(skin, this);
     private final List<ImageTextButton> buttons = new ArrayList<>();
     private ImageTextButton refrigeratorButton, cookingButton;
     private ImageTextButton activeButton;
 
-    float windowWidth = 1250;
+    float windowWidth = 1050;
     float windowHeight = 650;
     float windowX = (getViewport().getScreenWidth() - windowWidth) / 2f;
     float windowY = (getViewport().getScreenHeight() - windowHeight) / 2f;
@@ -71,11 +70,11 @@ public class CookingStage extends Stage{
 
     public void update() {
         try {
-            ((InventoryTab) infoWindows.get(0)).updateInventory();
+            ((RefrigeratorTab) refrigeratorTab).update();
         } catch (Exception e) {
         }
         try {
-            ((SkillsTab) infoWindows.get(1)).updateInfo();
+            ((CookingTab) cookingTab).update();
         } catch (Exception e) {
         }
     }

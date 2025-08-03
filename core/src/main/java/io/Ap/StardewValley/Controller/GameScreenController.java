@@ -41,6 +41,13 @@ public class GameScreenController {
             inventoryStageNeedsUpdate = false;
         }
 
+        //cooking stage
+        view.getCookingStage().setVisibleAll(isCookingStageVisible);
+        if (cookingStageNeedsUpdate) {
+            view.getCookingStage().update();
+            cookingStageNeedsUpdate = false;
+        }
+
     }
 
     private void handleInputKey(){

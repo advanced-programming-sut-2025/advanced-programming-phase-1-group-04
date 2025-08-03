@@ -1,3 +1,4 @@
+etc/FullMap.png
 etc/avatar/0.png
 etc/avatar/1.png
 etc/avatar/2.png
@@ -27,6 +28,7 @@ etc/farmImages/farmBackground.png
 etc/gogoli/Bat.png
 etc/gogoli/animations.png
 etc/gogoli/companions.png
+etc/head.png
 etc/icon.png
 etc/menu/background_chill.png
 etc/menu/background_night.png
@@ -38,6 +40,7 @@ etc/menu/cloud_3.png
 etc/menu/daybg.png
 etc/menu/logo.png
 etc/menu/nightbg.png
+etc/shash.png
 inventory/axe.png
 inventory/backpack.png
 inventory/milk pail.png

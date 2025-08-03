@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.StardewValley;
@@ -27,11 +28,9 @@ public class PlayerRender {
     private final Map<DirectionType, TextureRegion> hairFrames = new EnumMap<>(DirectionType.class);
     private final Map<DirectionType, TextureRegion> shirtFrames = new EnumMap<>(DirectionType.class);
 
-    //private final Texture headTexture;
+    private Image headImage;
 
     public PlayerRender() {
-        //headTexture = new Texture(Gdx.files.internal("head.png"));
-
         int pantIndex = App.getGame().getCurrentPlayer().getPantIndex();
         int shirtIndex = App.getGame().getCurrentPlayer().getShirtIndex();
         int hairIndex = App.getGame().getCurrentPlayer().getHairIndex();
@@ -61,11 +60,22 @@ public class PlayerRender {
         this.hand02Animations = new BankPlayerAnimationFrames(hand02Sheet);
         TextureRegion[][] pantSheet = TextureRegion.split(new Texture("player/pants/pant_" + pantIndex + ".png"), 16, 32);
         this.pantAnimations = new BankPlayerAnimationFrames(pantSheet);
+
+        // make head:
+        TextureRegion hairRegion = new TextureRegion(hairSheet[(hairIndex / 8) * 3][hairIndex % 8], 0, 0, 16, 16);
+        TextureRegion headRegion = new TextureRegion(bodySheet[0][1], 0, 0, 16, 16);
+        setHeadImage(headRegion, hairRegion);
     }
 
-//    public static Texture createHeadTexture(TextureRegion head, TextureRegion hair, Color hairColor) {
+    private void setHeadImage(TextureRegion head, TextureRegion hair) {
 //        int width = 16;
 //        int height = 16;
+//
+//        TextureRegion head = new TextureRegion(new Texture("player/body_boy.png"), 0, 16, 16, 16);
+//        TextureRegion[][] hairSheet = TextureRegion.split(new Texture("player/clothes/hairstyles.png"), 16, 32);
+//        TextureRegion hair = new TextureRegion(hairSheet[(hairIndex / 8) * 3][hairIndex % 8]);
+//        String hairColor = App.getGame().getCurrentPlayer().getHairColor();
+//        Color color = App.getColor(hairColor);
 //
 //        FrameBuffer fbo = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
 //        SpriteBatch batch = new SpriteBatch();
@@ -77,27 +87,42 @@ public class PlayerRender {
 //        batch.begin();
 //
 //        // رسم سر
+//        batch.setColor(Color.WHITE);
 //        batch.draw(head, 0, 0, width, height);
 //
-//        // اعمال رنگ و رسم مو
-//        batch.setColor(hairColor);
+//        // رسم مو با رنگ
+//        batch.setColor(color);
 //        batch.draw(hair, 0, 0, width, height);
 //
+//        batch.setColor(Color.WHITE);
 //        batch.end();
 //        fbo.end();
 //
 //        Texture result = fbo.getColorBufferTexture();
-//
-//        // باید flipped بشه چون FBO برعکس می‌کشه
 //        TextureRegion region = new TextureRegion(result);
-//        region.flip(false, true);
+//        region.flip(false, true); // چون FBO تصویر رو برعکس رسم می‌کنه
 //
+//        headImage = new Image(region);
 //        batch.dispose();
-//        fbo.dispose(); // فقط اگه دیگه نیاز نداری
+//        fbo.dispose(); // اگه فقط یک بار ساختی، آزاد کن
 //
-//        return new Texture(region);
-//    }
+//        Pixmap part1 = new Pixmap(Gdx.files.internal("etc/head.png"));
+//        //Pixmap part2 = new Pixmap(Gdx.files.internal("pieces/part2.png"));
+//
+//        //int totalWidth = part1.getWidth() + part2.getWidth(); // جمع عرض‌ها
+//        //int maxHeight = Math.max(part1.getHeight(), part2.getHeight()); // بلندترین ارتفاع
+//
+//        Pixmap finalPixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
+//        finalPixmap.drawPixmap(part1, 0, 0); // قرار دادن part1 در (0, 0)
+//        //finalPixmap.drawPixmap(part2, part1.getWidth(), 0); // قرار دادن part2 در کنار part1
+//        Texture finalTexture = new Texture(finalPixmap);
+//
+//        headImage = new Image(finalTexture);
+    }
 
+    public Image getHeadImage() {
+        return headImage;
+    }
 
     public void render() {
         SpriteBatch batch = StardewValley.getBatch();

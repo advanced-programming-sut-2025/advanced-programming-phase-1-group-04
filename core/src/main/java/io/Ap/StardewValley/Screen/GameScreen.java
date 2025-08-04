@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -131,7 +132,6 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void render(float delta) {
         if (!paused) {
-            // TODO:  current region:
             Coordinate cr = App.getGame().getMap().getCurrentRegionCoordinate();
             currentMap = mapRenderers[cr.getX()][cr.getY()];
 
@@ -158,7 +158,9 @@ public class GameScreen implements Screen, InputProcessor {
             currentMap.renderDynamicAboveLayer(camera);
             currentMap.renderAfterPlayer(camera);
 
+            // update game:(inventory, time, ...)
             controller.updateGame();
+            controller.updateTime(delta);
         }
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -174,7 +176,8 @@ public class GameScreen implements Screen, InputProcessor {
         controllerTable.top().left();
         controllerTable.add(new Label("Player: (" + cor.getX() + ", " + cor.getY() + ")    " ,skin));
         //controllerTable.add(new Label("LibGdx: (" + App.getGame().getCurrentPlayer().getXLibGdx() + ", " + App.getGame().getCurrentPlayer().getYLibGdx() + ")" ,skin));
-        controllerTable.add(new Label("Zoom: " + camera.zoom ,skin));
+        controllerTable.add(new Label("Zoom: " + camera.zoom + "    ",skin));
+        controllerTable.add(new Label("Time: " + App.getGame().getCurrentTime().getFormattedTime() + "    ", skin));
     }
 
     public void updateCamera() {
@@ -231,6 +234,34 @@ public class GameScreen implements Screen, InputProcessor {
         pauseDialog.setMovable(false);
         pauseDialog.setModal(true);
         pauseDialog.show(stage);
+    }
+
+    public void showNightOverlay(Runnable onFinished) {
+        Skin skin = StardewValley.getSkin();
+
+        // Table تمام‌صفحه‌ای بساز
+        Table overlay = new Table();
+        overlay.setFillParent(true);
+        //overlay.setBackground("black"); // باید در skin تعریف شده باشه، یا دستی بسازی
+
+        Label label = new Label("GoodNight............", skin, "Bold");
+        label.setFontScale(10f);
+        overlay.add(label).center();
+
+        stage.addActor(overlay);
+
+        overlay.getColor().a = 0f;
+        overlay.addAction(Actions.sequence(
+                Actions.fadeIn(1f),
+                Actions.delay(2f),
+                Actions.fadeOut(1f),
+                Actions.run(() -> {
+                    overlay.remove(); // از Stage حذفش کن
+                    if (onFinished != null) {
+                        onFinished.run(); // callback اجرا کن
+                    }
+                })
+        ));
     }
 
     private Table getTableDialog() {
@@ -346,6 +377,7 @@ public class GameScreen implements Screen, InputProcessor {
             }
         }
     }
+
     @Override
     public void resize(int width, int height) {
 

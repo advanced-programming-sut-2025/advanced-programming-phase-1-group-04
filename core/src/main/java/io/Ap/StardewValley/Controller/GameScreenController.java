@@ -1,17 +1,21 @@
 package io.Ap.StardewValley.Controller;
 
 import com.badlogic.gdx.Gdx;
+import io.Ap.StardewValley.Controller.SirkBozorg.NightController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Plants.Crop;
 import io.Ap.StardewValley.Model.Plants.CropType;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Player.Skill;
+import io.Ap.StardewValley.Model.Time.DateAndTime;
 import io.Ap.StardewValley.Screen.GameScreen;
 import io.Ap.StardewValley.Screen.MapScreen.RegionTransition;
 import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
 import io.Ap.StardewValley.Screen.PlayerScreen.PlayerRender;
 import io.Ap.StardewValley.Screen.PlayerScreen.StateType;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameScreenController {
     private final PlayerRender playerRender = new PlayerRender();
@@ -27,6 +31,23 @@ public class GameScreenController {
 
     public void setViews(GameScreen view) {
         this.view = view;
+    }
+
+    public void updateTime(float delta) {
+        DateAndTime time = App.getGame().getCurrentTime();
+        int oldHour = time.getHour();
+
+        time.update(delta);
+
+        int newHour = time.getHour();
+
+        if (oldHour < 24 && newHour >= 24) {
+            view.setPaused(true);
+            view.showNightOverlay(() -> {
+                //NightController.nightControl();
+                view.setPaused(false);
+            });
+        }
     }
 
     public void  updateGame() {
@@ -51,6 +72,11 @@ public class GameScreenController {
     }
 
     private void handleInputKey(){
+        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getPauseGame()) && !view.isPaused()){
+            view.setPaused(true);
+            view.showPauseDialog();
+        }
+
         // cheats:
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatTime())){
 
@@ -67,6 +93,7 @@ public class GameScreenController {
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatBossFight())){
 
         }
+
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getAynazCheat())) {
             App.getGame().getCurrentPlayer().addAbility(Skill.Farming, 10);
             App.getGame().getCurrentPlayer().setInventoryCapacity(24);
@@ -75,17 +102,19 @@ public class GameScreenController {
             cookingStageNeedsUpdate = true;
         }
 
+        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheat())){
+            App.getGame().getCurrentTime().addHour(2);
+        }
+
         //inventory:
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getOpenInventory())){
             isInventoryStageVisible = !isInventoryStageVisible;
         }
-
         //cooking:
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getOpenRefrigerator())){
             isCookingStageVisible = !isCookingStageVisible;
         }
     }
-
 
     public void updatePlayer() {
         handlePlayerInputKey();
@@ -120,11 +149,6 @@ public class GameScreenController {
             newX -= speed;
             isMoving = true;
             player.setDirection(DirectionType.Left);
-        }
-
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getPauseGame()) && !view.isPaused()){
-            view.setPaused(true);
-            view.showPauseDialog();
         }
 
         // status

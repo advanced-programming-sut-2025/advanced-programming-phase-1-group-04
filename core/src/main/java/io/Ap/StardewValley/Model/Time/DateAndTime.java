@@ -2,13 +2,35 @@ package io.Ap.StardewValley.Model.Time;
 
 public class DateAndTime {
     private int hour; // (9-24):00
+    private int minute;
     private int day;
     private Weather weather;
+
+    private float accumulatedTime = 0f;
 
     public DateAndTime(int hour, int day, Weather weather) {
         this.hour = hour;
         this.day = day;
         this.weather = weather;
+        this.minute = 0;
+    }
+
+    public void update(float delta) {
+        accumulatedTime += delta;
+
+        while (accumulatedTime >= 1f) {
+            minute += 1;
+            accumulatedTime -= 1f;
+
+            if (minute >= 60) {
+                minute = 0;
+                hour++;
+            }
+        }
+    }
+
+    public String getFormattedTime() {
+        return String.format("%02d:%02d", hour, minute);
     }
 
     public void setWeather(Weather weather) {
@@ -37,6 +59,7 @@ public class DateAndTime {
 
     public void setHour(int hour) {
         this.hour = hour;
+        this.minute = 0;
     }
 
     public Weather getWeather() {

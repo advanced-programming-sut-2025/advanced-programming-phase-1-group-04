@@ -24,7 +24,7 @@ public class KeyManager {
     private int openRefrigerator = Input.Keys.C;
 
     private int aynazCheat = Input.Keys.Z;
-
+    private int nafisehCheat = Input.Keys.ENTER;
 
     public int getMoveUp() {
         return moveUp;
@@ -136,6 +136,14 @@ public class KeyManager {
 
     public void setOpenRefrigerator(int openRefrigerator) {
         this.openRefrigerator = openRefrigerator;
+    }
+
+    public int getNafisehCheat() {
+        return nafisehCheat;
+    }
+
+    public void setNafisehCheat(int nafisehCheat) {
+        this.nafisehCheat = nafisehCheat;
     }
 }
 

@@ -54,7 +54,7 @@ public class CookingTab extends Window {
         cookButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (selectedRecipeButton == null) {
+                if (selectedRecipeButton == null || getSelectedRecipe() == null) {
                     showError("no item has been selected");
                     return;
                 }
@@ -146,6 +146,7 @@ public class CookingTab extends Window {
         errorWindow.add(new Label(msg, skin));
         errorWindow.setSize(700, 90);
         errorWindow.setPosition(600, 170, Align.center);
+        errorWindow.pack();
 
         stageForErrorDisplay.addActor(errorWindow);
 

@@ -34,8 +34,6 @@ public class GameScreenController {
 
     public void  updateGame() {
         handleInputKey();
-        playerRender.render();
-
         //inventory bar:
         view.getInventoryBar().updateInventoryBar();
 
@@ -56,40 +54,6 @@ public class GameScreenController {
     }
 
     private void handleInputKey(){
-        Player player = App.getGame().getCurrentPlayer();
-        boolean isMoving = false;
-        boolean isUsingTool = false;
-        boolean isEating = false;
-
-        float newX = player.getXLibGdx();
-        float newY = player.getYLibGdx();
-
-        // Player move:
-        int speed = App.getGame().getPlayerSpeed();
-        if (Gdx.input.isKeyPressed(App.getKeyManager().getMoveUp())){
-            newY += speed;
-            isMoving = true;
-            player.setDirection(DirectionType.Up);
-        } else if (Gdx.input.isKeyPressed(App.getKeyManager().getMoveDown())){
-            newY -= speed;
-            isMoving = true;
-            player.setDirection(DirectionType.Down);
-        } else if (Gdx.input.isKeyPressed(App.getKeyManager().getMoveRight())){
-            newX += speed;
-            isMoving = true;
-            player.setDirection(DirectionType.Right);
-        } else if (Gdx.input.isKeyPressed(App.getKeyManager().getMoveLeft())){
-            newX -= speed;
-            isMoving = true;
-            player.setDirection(DirectionType.Left);
-        }
-
-
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getPauseGame()) && !view.isPaused()){
-            view.setPaused(true);
-            view.showPauseDialog();
-        }
-
         // cheats:
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatTime())){
 
@@ -131,6 +95,48 @@ public class GameScreenController {
                 isInventoryStageVisible = false;
             }
         }
+    }
+
+
+    public void updatePlayer() {
+        handlePlayerInputKey();
+        playerRender.render();
+    }
+
+    private void handlePlayerInputKey() {
+        // player inputs: walk, eat, use tool:
+        Player player = App.getGame().getCurrentPlayer();
+        boolean isMoving = false;
+        boolean isUsingTool = false;
+        boolean isEating = false;
+
+        float newX = player.getXLibGdx();
+        float newY = player.getYLibGdx();
+
+        // Player move:
+        int speed = App.getGame().getPlayerSpeed();
+        if (Gdx.input.isKeyPressed(App.getKeyManager().getMoveUp())){
+            newY += speed;
+            isMoving = true;
+            player.setDirection(DirectionType.Up);
+        } else if (Gdx.input.isKeyPressed(App.getKeyManager().getMoveDown())){
+            newY -= speed;
+            isMoving = true;
+            player.setDirection(DirectionType.Down);
+        } else if (Gdx.input.isKeyPressed(App.getKeyManager().getMoveRight())){
+            newX += speed;
+            isMoving = true;
+            player.setDirection(DirectionType.Right);
+        } else if (Gdx.input.isKeyPressed(App.getKeyManager().getMoveLeft())){
+            newX -= speed;
+            isMoving = true;
+            player.setDirection(DirectionType.Left);
+        }
+
+        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getPauseGame()) && !view.isPaused()){
+            view.setPaused(true);
+            view.showPauseDialog();
+        }
 
         // status
         if (isMoving) {
@@ -164,6 +170,7 @@ public class GameScreenController {
         }
     }
 
+
     public Coordinate getPlayerCoordinate(float xLibGdx, float yLibGdx) {
         final int tileSize = 16;
 
@@ -185,11 +192,6 @@ public class GameScreenController {
     }
 
 
-    public Image getPlayerHeadImage() {
-        return playerRender.getHeadImage();
-    }
-
-
     public static void setInventoryStageNeedsUpdate(boolean inventoryStageNeedsUpdate) {
         GameScreenController.inventoryStageNeedsUpdate = inventoryStageNeedsUpdate;
     }
@@ -197,4 +199,5 @@ public class GameScreenController {
     public static void setCookingStageNeedsUpdate(boolean cookingStageNeedsUpdate) {
         GameScreenController.cookingStageNeedsUpdate = cookingStageNeedsUpdate;
     }
+
 }

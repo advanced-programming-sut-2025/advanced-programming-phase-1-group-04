@@ -28,7 +28,7 @@ etc/mapImages/Farm4_pixel.png
 etc/mapImages/Farm5.png
 etc/mapImages/Farm5_Icon.png
 etc/mapImages/Farm5_pixel.png
-etc/mapImages/FullMap.png
+etc/mapImages/Map.png
 etc/mapImages/farmBackground.png
 etc/menu/background_chill.png
 etc/menu/background_night.png
@@ -247,6 +247,10 @@ map/maps/path1.tmx
 map/maps/path2.tmx
 map/maps/path3.tmx
 map/maps/path4.tmx
+map/tilesets/Building/GreenHouseBuilding.tsx
+map/tilesets/Building/Greenhouse.png
+map/tilesets/Building/HouseBuilding.tsx
+map/tilesets/Building/houses.png
 map/tilesets/Characters.tsx
 map/tilesets/Festivals.png
 map/tilesets/Festivals.tsx
@@ -273,6 +277,8 @@ map/tilesets/spring_outdoorsTileSheet2.png
 map/tilesets/spring_outdoorsTileSheet2.tsx
 map/tilesets/spring_town.png
 map/tilesets/spring_town.tsx
+map/tilesets/townInterior.png
+map/tilesets/townInterior.tsx
 player/body_boy.png
 player/body_girl.png
 player/clothes/accessories.png

@@ -115,6 +115,8 @@ public class InventoryStage extends Stage {
             win = new SkillsTab(skin);
         } else if (index == 4) {
             win = new SettingTab(skin);
+        } else if (index == 3) {
+            win = new MapTab(skin);
         }
         else {
             win = new Window("", skin);
@@ -127,6 +129,7 @@ public class InventoryStage extends Stage {
 
     public void update() {
         try {
+            ((MapTab) infoWindows.get(3)).updatePlayerPosition();
             ((InventoryTab) infoWindows.get(0)).updateInventory();
         } catch (Exception e) {}
         try {

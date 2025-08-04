@@ -26,7 +26,7 @@ public class PlayerRender {
     private final Map<DirectionType, TextureRegion> hairFrames = new EnumMap<>(DirectionType.class);
     private final Map<DirectionType, TextureRegion> shirtFrames = new EnumMap<>(DirectionType.class);
 
-    private Image headImage;
+    private static Image headImage;
 
     public PlayerRender() {
         int pantIndex = App.getGame().getCurrentPlayer().getPantIndex();
@@ -125,7 +125,7 @@ public class PlayerRender {
     }
 
 
-    public Image getHeadImage() {
+    public static Image getHeadImage() {
         return headImage;
     }
 

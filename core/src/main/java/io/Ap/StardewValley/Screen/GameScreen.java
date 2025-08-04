@@ -25,7 +25,7 @@ public class GameScreen implements Screen, InputProcessor {
     private TiledMapRendererHelper[][] mapRenderers = new TiledMapRendererHelper[3][3];
     private TiledMapRendererHelper currentMap;
     private final int[] farmSelections = new int[4];
-    private Image fullMap;
+    private static Image fullMap;
 
     private Stage stage;
     private final Table dialogTable = new Table();
@@ -38,12 +38,11 @@ public class GameScreen implements Screen, InputProcessor {
 
 
     //inventory:
-    private InventoryStage inventoryStage = new InventoryStage();
-    private InventoryBar inventoryBar = new InventoryBar();
+    private InventoryStage inventoryStage;
+    private InventoryBar inventoryBar;
 
     //cooking:
     private CookingStage cookingStage = new CookingStage();
-
 
     public GameScreen(int[] farmSelections) {
         System.arraycopy(farmSelections, 0, this.farmSelections, 0, 4);
@@ -82,27 +81,6 @@ public class GameScreen implements Screen, InputProcessor {
 
         Gdx.input.setInputProcessor(this);
 
-        //inventory bar:
-        Stack stack = new Stack();
-        stack.setFillParent(true);
-        stage.addActor(stack);
-        // ساخت جدول اصلی که سمت چپ اینونتوری و وسط محتوای پنجره رو بچینه
-        Table mainLayout = new Table();
-        mainLayout.setFillParent(true);
-        ScrollPane inventoryScrollPane = inventoryBar.getInventoryScrollPane(); // تابع getInventoryScrollPane رو اضافه می‌کنی به کلاس Inventory
-        mainLayout.add(inventoryScrollPane).width(130).height(800).pad(50, 100, 50, 0); // سمت چپ نوار
-        mainLayout.add().expand(); // جای خالی برای window وسط
-        stack.add(mainLayout);
-
-
-        // InputMultiplexer for resume menu
-        InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(inventoryStage);
-        multiplexer.addProcessor(cookingStage);
-        multiplexer.addProcessor(stage);
-        multiplexer.addProcessor(this);
-        Gdx.input.setInputProcessor(multiplexer);
-
         // set camera
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -123,6 +101,30 @@ public class GameScreen implements Screen, InputProcessor {
         mapRenderers[2][2] = new TiledMapRendererHelper("Farm" + farmSelections[2]);
 
         setFullMap();
+
+        // initial inventory:
+        inventoryStage = new InventoryStage();
+        inventoryBar = new InventoryBar();
+
+        // add processors
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(inventoryStage);
+        multiplexer.addProcessor(cookingStage);
+        multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(this);
+        Gdx.input.setInputProcessor(multiplexer);
+
+        // inventory bar:
+        Stack stack = new Stack();
+        stack.setFillParent(true);
+        stage.addActor(stack);
+        // ساخت جدول اصلی که سمت چپ اینونتوری و وسط محتوای پنجره رو بچینه
+        Table mainLayout = new Table();
+        mainLayout.setFillParent(true);
+        ScrollPane inventoryScrollPane = inventoryBar.getInventoryScrollPane(); // تابع getInventoryScrollPane رو اضافه می‌کنی به کلاس Inventory
+        mainLayout.add(inventoryScrollPane).width(130).height(800).pad(50, 100, 50, 0); // سمت چپ نوار
+        mainLayout.add().expand(); // جای خالی برای window وسط
+        stack.add(mainLayout);
     }
 
     @Override
@@ -149,11 +151,13 @@ public class GameScreen implements Screen, InputProcessor {
 
             // update game, render player
             batch.begin();
-            controller.updateGame();
+            controller.updatePlayer();
             batch.end();
 
             currentMap.renderDynamicAboveLayer(camera);
             currentMap.renderAfterPlayer(camera);
+
+            controller.updateGame();
         }
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -198,7 +202,6 @@ public class GameScreen implements Screen, InputProcessor {
 
         StardewValley.getBatch().setProjectionMatrix(camera.combined);
     }
-
 
     public void showPauseDialog() {
         Skin skin = StardewValley.getSkin();
@@ -308,7 +311,7 @@ public class GameScreen implements Screen, InputProcessor {
         table.add(shash);
 
         //table.add(controller.getPlayerRender().getHeadImage()).size(16*6, 16*6);
-        //table.add(fullMap).size(fullMap.getWidth() * 0.1f, fullMap.getHeight() * 0.1f);
+        //table.add(getFullMap()).size(fullMap.getWidth() * 0.1f, fullMap.getHeight() * 0.1f);
         return table;
     }
 
@@ -333,6 +336,10 @@ public class GameScreen implements Screen, InputProcessor {
         basePixmap.dispose();
         farm.dispose();
         combined.dispose();
+    }
+
+    public static Image getFullMap() {
+        return fullMap;
     }
 
     @Override
@@ -416,8 +423,6 @@ public class GameScreen implements Screen, InputProcessor {
         }
         return false;
     }
-
-
 
     //getter and setters:
 

@@ -146,51 +146,6 @@ public class TiledMapRendererHelper {
         return heightInTiles * tileHeight;
     }
 
-//    public void applySeasonTileset(String season) {
-//        // نگهداری از تکسچرهای جدید برای جلوگیری از dispose شدن ناگهانی
-//        Array<Texture> newTextures = new Array<>();
-//
-//        for (TiledMapTileSet tileset : tiledMap.getTileSets()) {
-//            for (TiledMapTile tile : tileset) {
-//                if (tile == null || tile.getTextureRegion() == null) continue;
-//
-//                Texture originalTexture = tile.getTextureRegion().getTexture();
-//                String texturePath = originalTexture.toString(); // معمولاً path هست
-//
-//                if (!texturePath.contains("tilesets")) continue;
-//
-//                // پیدا کردن مسیر جدید
-//                String newPath = texturePath
-//                        .replace("spring", season)
-//                        .replace("summer", season)
-//                        .replace("fall", season)
-//                        .replace("winter", season);
-//
-//                // اگر هنوز لود نشده
-//                Texture newTex = null;
-//                for (Texture t : newTextures) {
-//                    if (t.toString().equals(newPath)) {
-//                        newTex = t;
-//                        break;
-//                    }
-//                }
-//                System.out.println(newPath);
-//                // اگر نبود، لودش کن
-//                if (newTex == null && Gdx.files.internal(newPath).exists()) {
-//                    newTex = new Texture(Gdx.files.internal(newPath));
-//                    newTextures.add(newTex);
-//                }
-//
-//                if (newTex != null) {
-//                    tile.getTextureRegion().setTexture(newTex);
-//                }
-//            }
-//        }
-//
-//        // نگه‌داشتن textureها تا زمان dispose
-//        //this.loadedSeasonTextures = newTextures;
-//    }
-
     public void applySeasonTileset(String season) {
         for (TiledMapTileSet tileset : tiledMap.getTileSets()) {
             for (TiledMapTile tile : tileset) {

@@ -1,13 +1,11 @@
 package io.Ap.StardewValley.Screen;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -29,7 +27,12 @@ public class GameScreen implements Screen, InputProcessor {
     private final int[] farmSelections = new int[4];
     private static Image fullMap;
 
+    // Time:
+    private Image nightOverlay;
+
     private Stage stage;
+    private Stack rootStack;
+
     private final Table dialogTable = new Table();
     private final Table controllerTable = new Table();
 
@@ -74,14 +77,24 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
+        rootStack = new Stack();
+        rootStack.setFillParent(true);
 
         dialogTable.setFillParent(true);
         dialogTable.top().left();
 
-        stage.addActor(dialogTable);
-        stage.addActor(controllerTable);
+        rootStack.addActor(dialogTable);
+        rootStack.addActor(controllerTable);
 
         Gdx.input.setInputProcessor(this);
+
+        // set nightOverlay:
+        nightOverlay = new Image(new Texture("etc/pixel.png"));
+        nightOverlay.setColor(Color.valueOf("0a111d"));
+
+        nightOverlay.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        nightOverlay.setTouchable(Touchable.disabled);
+        stage.addActor(nightOverlay);
 
         // set camera
         camera = new OrthographicCamera();
@@ -119,7 +132,7 @@ public class GameScreen implements Screen, InputProcessor {
         // inventory bar:
         Stack stack = new Stack();
         stack.setFillParent(true);
-        stage.addActor(stack);
+        rootStack.addActor(stack);
         // ساخت جدول اصلی که سمت چپ اینونتوری و وسط محتوای پنجره رو بچینه
         Table mainLayout = new Table();
         mainLayout.setFillParent(true);
@@ -127,6 +140,8 @@ public class GameScreen implements Screen, InputProcessor {
         mainLayout.add(inventoryScrollPane).width(130).height(800).pad(50, 100, 50, 0); // سمت چپ نوار
         mainLayout.add().expand(); // جای خالی برای window وسط
         stack.add(mainLayout);
+
+        stage.addActor(rootStack);
     }
 
     @Override
@@ -158,9 +173,12 @@ public class GameScreen implements Screen, InputProcessor {
             currentMap.renderDynamicAboveLayer(camera);
             currentMap.renderAfterPlayer(camera);
 
-            // update game:(inventory, time, ...)
+            // update game: inventory, food:
             controller.updateGame();
+
+            // update time:
             controller.updateTime(delta);
+            updateNightOverlay();
         }
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -237,32 +255,40 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     public void showNightOverlay(Runnable onFinished) {
-        Skin skin = StardewValley.getSkin();
-
-        // Table تمام‌صفحه‌ای بساز
-        Table overlay = new Table();
+        Stack overlay = new Stack();
         overlay.setFillParent(true);
-        //overlay.setBackground("black"); // باید در skin تعریف شده باشه، یا دستی بسازی
 
-        Label label = new Label("GoodNight............", skin, "Bold");
-        label.setFontScale(10f);
-        overlay.add(label).center();
+        Texture texture = new Texture(Gdx.files.internal("etc/goodNight.png"));
+        Image background = new Image(texture);
+
+        background.setFillParent(true);
+
+        Table table = new Table();
+        table.setFillParent(true);
+
+        overlay.add(background);
+        overlay.add(table);
+
+        rootStack.setVisible(false);
 
         stage.addActor(overlay);
 
         overlay.getColor().a = 0f;
         overlay.addAction(Actions.sequence(
-                Actions.fadeIn(1f),
-                Actions.delay(2f),
-                Actions.fadeOut(1f),
+                Actions.fadeIn(2f),
+                Actions.delay(1f),
+                Actions.fadeOut(2f),
                 Actions.run(() -> {
-                    overlay.remove(); // از Stage حذفش کن
+                    overlay.remove();
+                    rootStack.setVisible(true);
+                    texture.dispose();
                     if (onFinished != null) {
-                        onFinished.run(); // callback اجرا کن
+                        onFinished.run();
                     }
                 })
         ));
     }
+
 
     private Table getTableDialog() {
         final Label moveUp, moveDown, moveLeft, moveRight, autoAim, reloadWeapon, cheatTime, cheatLevel, cheatLife, cheatHp, pauseGame, shash;
@@ -370,13 +396,34 @@ public class GameScreen implements Screen, InputProcessor {
         return fullMap;
     }
 
-    public void updateSeasonMap() {
+    public void updateSeasonMap(String season) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                mapRenderers[i][j].applySeasonTileset("winter");
+                mapRenderers[i][j].applySeasonTileset(season);
             }
         }
     }
+
+    public void updateNightOverlay() {
+        int hour = App.getGame().getCurrentTime().getHour();
+        int minute = App.getGame().getCurrentTime().getMinute();
+
+        float alpha = 0f;
+
+        if (hour >= 19) {
+            int minutesSinceStart = (hour - 19) * 60 + minute;
+            int totalNightMinutes = (24 - 19) * 60;
+
+            float progress = Math.min(1f, minutesSinceStart / (float) totalNightMinutes);
+            float maxAlpha = 0.7f;
+
+            alpha = progress * maxAlpha;
+        }
+
+        nightOverlay.getColor().a = alpha;
+        nightOverlay.setColor(nightOverlay.getColor());
+    }
+
 
     @Override
     public void resize(int width, int height) {

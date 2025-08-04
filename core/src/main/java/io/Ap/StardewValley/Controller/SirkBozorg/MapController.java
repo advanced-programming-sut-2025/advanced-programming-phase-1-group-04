@@ -153,6 +153,7 @@ public class MapController {
 
         player.getInventory().removeItem("stone", 500);
         player.addCount(-1000);
+        // TODO: Phase 1
         int x = 4,y =5;
         switch (player.getFarm()) {
             case 2:
@@ -217,8 +218,12 @@ public class MapController {
     }
 
     public static Coordinate getDestination (Player player, Coordinate destination) {
-        int lenx = 90;
-        int leny = 120;
+        // Phase 1:
+//        int lenx = 90;
+//        int leny = 120;
+        int lenx = 240;
+        int leny = 290;
+
         int sourcex = App.getGame().getCurrentPlayer().getCoordinate().getX();
         int sourcey = App.getGame().getCurrentPlayer().getCoordinate().getY();
         int destx = destination.getX();
@@ -306,8 +311,11 @@ public class MapController {
     }
 
     public static int getDestinationEnergy (Player player, Coordinate destination) {
-        int lenx = 90;
-        int leny = 120;
+        // Phase 1:
+//        int lenx = 90;
+//        int leny = 120;
+        int lenx = 240;
+        int leny = 290;
         int sourcex = App.getGame().getCurrentPlayer().getCoordinate().getX();
         int sourcey = App.getGame().getCurrentPlayer().getCoordinate().getY();
         int destx = destination.getX();
@@ -362,69 +370,6 @@ public class MapController {
         }
         return -1;
     }
-/* // ChatGPT
-    public static int getDestinationEnergy(Coordinate destination) {
-        Coordinate start = App.getCurrentGame().getCurrentPlayer().getCoordinate();
-
-        int maxEnergy = App.getCurrentGame().getCurrentPlayer().getEnergy();
-
-        int width = 90;
-        int height = 120;
-
-        int[][][] dist = new int[height][width][4];
-        for (int[][] row : dist)
-            for (int[] col : row)
-                Arrays.fill(col, Integer.MAX_VALUE);
-
-        final int[] dx = {-1, 1, 0, 0};
-        final int[] dy = {0, 0, -1, 1};
-
-        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
-        for (int dir = 0; dir < 4; dir++) {
-            dist[start.getY()][start.getX()][dir] = 0;
-            pq.offer(new int[]{0, start.getX(), start.getY(), dir});
-        }
-
-        while (!pq.isEmpty()) {
-            int[] cur = pq.poll();
-            int cost = cur[0], x = cur[1], y = cur[2], dir = cur[3];
-
-            int energyUsed = cost / 20;
-            if (energyUsed > maxEnergy) return -1;
-
-            if (x == destination.getX() && y == destination.getY())
-                return energyUsed;
-
-            for (int i = 0; i < 4; i++) {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
-                if (nx < 0 || ny < 0 || nx >= width || ny >= height)
-                    continue;
-                Coordinate coor = new Coordinate(nx, ny);
-                Tile tile = App.getCurrentGame().getTile(coor);
-                if (tile == null || !tile.isWalkable())  // مهم‌ترین بخش
-                    continue;
-
-                int newCost = cost + 1;
-                if (dir != i) newCost += 10;
-
-                if (newCost < dist[ny][nx][i]) {
-                    dist[ny][nx][i] = newCost;
-                    pq.offer(new int[]{newCost, nx, ny, i});
-                }
-            }
-        }
-
-        return -1;
-    }
-
-    public static Coordinate getDestination(Coordinate destination) {
-        int energyNeeded = getDestinationEnergy(destination);
-        if (energyNeeded == -1) {
-            return new Coordinate(-1, -1);  // unreachable
-        }
-        return destination;
-    }*/
 
     private static Result handleWorkingHours(Coordinate coordinate) {
         BuildingType buildingType = App.getGame().getTile(coordinate).getBuildingType();
@@ -481,13 +426,26 @@ public class MapController {
     private static int getFarmId(Coordinate coordinate) {
         int x = coordinate.getX();
         int y = coordinate.getY();
-        if (x >= 0 && x < 30 && y >= 0 && y < 40) {
+        // Phase 1:
+//        if (x >= 0 && x < 30 && y >= 0 && y < 40) {
+//            return 1;
+//        } else if (x >= 60 && x < 90 && y >= 0 && y < 40) {
+//            return 4;
+//        } else if (x >= 0 && x < 30 && y >= 80 && y < 120) {
+//            return 2;
+//        } else if (x >= 60 && x < 90 && y >= 80 && y < 120) {
+//            return 3;
+//        } else {
+//            return -1; // isn't farm
+//        }
+
+        if (x >= 0 && x < 65 && y >= 0 && y < 80) {
             return 1;
-        } else if (x >= 60 && x < 90 && y >= 0 && y < 40) {
+        } else if (x >= 65 + 110 && x < 130 + 110 && y >= 0 && y < 80) {
             return 4;
-        } else if (x >= 0 && x < 30 && y >= 80 && y < 120) {
+        } else if (x >= 0 && x < 65 && y >= 80 + 130 && y < 160 + 130) {
             return 2;
-        } else if (x >= 60 && x < 90 && y >= 80 && y < 120) {
+        } else if (x >= 65 + 110 && x < 130 + 110 && y >= 80 + 130 && y < 160 + 130) {
             return 3;
         } else {
             return -1; // isn't farm

@@ -178,25 +178,48 @@ public class NightController {
         Set<Tile> selected = new HashSet<>();
         Random rand = new Random();
 
+        // Phase 1:
+//        int minX = 0;
+//        int minY = 0;
+//        int maxX = 30 - 1;
+//        int maxY = 40 - 1;
+//
+//        switch (farm) {
+//            case 2:
+//                minY = 80;
+//                maxY = 120 - 1;
+//                break;
+//            case 3:
+//                minX = 60;
+//                minY = 80;
+//                maxX = 90 - 1;
+//                maxY = 120 - 1;
+//                break;
+//            case 4:
+//                minX = 60;
+//                maxX = 90 - 1;
+//                break;
+//        }
+
         int minX = 0;
         int minY = 0;
-        int maxX = 30 - 1;
-        int maxY = 40 - 1;
+        int maxX = 65 - 1;
+        int maxY = 80 - 1;
 
         switch (farm) {
             case 2:
-                minY = 80;
-                maxY = 120 - 1;
+                minY = 80 + 130;
+                maxY = 160 + 130 - 1;
                 break;
             case 3:
-                minX = 60;
-                minY = 80;
-                maxX = 90 - 1;
-                maxY = 120 - 1;
+                minX = 65 + 110;
+                minY = 80 + 130;
+                maxX = 130 + 110 - 1;
+                maxY = 160 + 130 - 1;
                 break;
             case 4:
-                minX = 60;
-                maxX = 90 - 1;
+                minX = 65 + 110;
+                maxX = 130 + 110 - 1;
                 break;
         }
 
@@ -212,15 +235,27 @@ public class NightController {
 
 
     public static void randomForagingMinerals() {
-        foragingMineralsForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
+        // Phase 1: (و ان تا کپی بعدی)
+//        foragingMineralsForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
+//        if (App.getGame().getPlayers().size() >= 2) {
+//            foragingMineralsForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
+//        }
+//        if (App.getGame().getPlayers().size() >= 3) {
+//            foragingMineralsForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
+//        }
+//        if (App.getGame().getPlayers().size() >= 4) {
+//            foragingMineralsForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
+//        }
+
+        foragingMineralsForEachFarm(new Coordinate(0, 0), new Coordinate(65, 80));
         if (App.getGame().getPlayers().size() >= 2) {
-            foragingMineralsForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
+            foragingMineralsForEachFarm(new Coordinate(0, 210), new Coordinate(65, 290));
         }
         if (App.getGame().getPlayers().size() >= 3) {
-            foragingMineralsForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
+            foragingMineralsForEachFarm(new Coordinate(175, 210), new Coordinate(240, 290));
         }
         if (App.getGame().getPlayers().size() >= 4) {
-            foragingMineralsForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
+            foragingMineralsForEachFarm(new Coordinate(175, 0), new Coordinate(240, 80));
         }
     }
 
@@ -290,15 +325,15 @@ public class NightController {
     }
 
     private static void waterControl () {
-        waterControlForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
+        waterControlForEachFarm(new Coordinate(0, 0), new Coordinate(65, 80));
         if (App.getGame().getPlayers().size() >= 2) {
-            waterControlForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
+            waterControlForEachFarm(new Coordinate(0, 210), new Coordinate(65, 290));
         }
         if (App.getGame().getPlayers().size() >= 3) {
-            waterControlForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
+            waterControlForEachFarm(new Coordinate(175, 210), new Coordinate(240, 290));
         }
         if (App.getGame().getPlayers().size() >= 4) {
-            waterControlForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
+            waterControlForEachFarm(new Coordinate(175, 0), new Coordinate(240, 80));
         }
     }
 
@@ -332,23 +367,24 @@ public class NightController {
         }
     }
 
-
     private static void crowControl () {
-        crowControlForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
+        crowControlForEachFarm(new Coordinate(0, 0), new Coordinate(65, 80));
         if (App.getGame().getPlayers().size() >= 2) {
-            crowControlForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
+            crowControlForEachFarm(new Coordinate(0, 210), new Coordinate(65, 290));
         }
         if (App.getGame().getPlayers().size() >= 3) {
-            crowControlForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
+            crowControlForEachFarm(new Coordinate(175, 210), new Coordinate(240, 290));
         }
         if (App.getGame().getPlayers().size() >= 4) {
-            crowControlForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
+            crowControlForEachFarm(new Coordinate(175, 0), new Coordinate(240, 80));
         }
     }
 
     private static void crowControlForEachFarm (Coordinate c1, Coordinate c2) {
         int numberOfPlants = 0;
-        int[][] scared = new int[90][120];
+        // Phase 1:
+        //int[][] scared = new int[90][120];
+        int[][] scared = new int[240][290];
 
 
         for (int x = c1.getX(); x < c2.getX(); x++) {
@@ -361,15 +397,15 @@ public class NightController {
                     }
                     else if (App.getGame().getTile(new Coordinate(x, y)).getItem() instanceof Craft craft) {
                         if (craft.getType() == CraftType.Scarecrow) {
-                            for (int i = Math.max(0, x - 8); i < Math.min(89, x + 8); i++) {
-                                for (int j = Math.max(0, y - 8); i < Math.min(119, y + 8); i++) {
+                            for (int i = Math.max(0, x - 8); i < Math.min(240 - 1, x + 8); i++) {
+                                for (int j = Math.max(0, y - 8); i < Math.min(290 - 1, y + 8); i++) {
                                     scared[i][j] = 1;
                                 }
                             }
                         }
                         else if (craft.getType() == CraftType.DeluxeScarecrow) {
-                            for (int i = Math.max(0, x - 12); i < Math.min(89, x + 12); i++) {
-                                for (int j = Math.max(0, y - 12); i < Math.min(119, y + 12); i++) {
+                            for (int i = Math.max(0, x - 12); i < Math.min(240 - 1, x + 12); i++) {
+                                for (int j = Math.max(0, y - 12); i < Math.min(290 - 1, y + 12); i++) {
                                     scared[i][j] = 1;
                                 }
                             }
@@ -407,7 +443,6 @@ public class NightController {
             }
         }
     }
-
 
     private static void shippingBinControl() {
         for (Player player: App.getGame().getPlayers()) {

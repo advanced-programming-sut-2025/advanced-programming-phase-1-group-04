@@ -41,10 +41,10 @@ public class GameScreenController {
 
         int newHour = time.getHour();
 
-        if (oldHour < 24 && newHour >= 24) {
+        if (oldHour <= 24 && newHour >= 24) {
             view.setPaused(true);
             view.showNightOverlay(() -> {
-                //NightController.nightControl();
+                NightController.nightControl();
                 view.setPaused(false);
             });
         }

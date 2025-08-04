@@ -122,8 +122,11 @@ public class Game {
             int y;
             NPC npc;
             while (true) {
-                x = NightController.rand.nextInt(30, 60);
-                y = NightController.rand.nextInt(40, 80);
+                // Phase 1:
+//                x = NightController.rand.nextInt(30, 60);
+//                y = NightController.rand.nextInt(40, 80);
+                x = NightController.rand.nextInt(65, 175);
+                y = NightController.rand.nextInt(80, 210);
                 Coordinate c = new Coordinate(x, y);
                 if (App.getGame().getTile(c).isWalkable()) {
                     npc = new NPC(type, c);

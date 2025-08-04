@@ -75,4 +75,8 @@ public class DateAndTime {
         int w = (this.day - 1) % 7;
         return WeekDay.values()[w];
     }
+
+    public int getMinute() {
+        return minute;
+    }
 }

@@ -12,6 +12,7 @@ etc/cursor.png
 etc/gogoli/Bat.png
 etc/gogoli/animations.png
 etc/gogoli/companions.png
+etc/goodNight.png
 etc/icon.png
 etc/mapImages/Farm1.png
 etc/mapImages/Farm1_Icon.png
@@ -40,6 +41,7 @@ etc/menu/cloud_3.png
 etc/menu/daybg.png
 etc/menu/logo.png
 etc/menu/nightbg.png
+etc/pixel.png
 inventory/0 hearts.png
 inventory/0 levels.png
 inventory/1 hearts.png

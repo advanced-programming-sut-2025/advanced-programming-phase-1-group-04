@@ -318,7 +318,8 @@ public class AnimalController {
             int newX = x + dx[i];
             int newY = y + dy[i];
 
-            if ((newX < 0 || newX >= 90) || (newY < 0 || newY >= 120)) continue;
+            // Phase 1:
+            if ((newX < 0 || newX >= 240) || (newY < 0 || newY >= 290)) continue;
 
             Tile tile = fullMap[newX][newY];
             if (tile != null && tile.getAnimal() != null) {
@@ -343,7 +344,8 @@ public class AnimalController {
             int newX = x + dx[i];
             int newY = y + dy[i];
 
-            if ((newX < 0 || newX >= 90) || (newY < 0 || newY >= 120)) continue;
+            // Phase 1:
+            if ((newX < 0 || newX >= 240) || (newY < 0 || newY >= 290)) continue;
 
             Tile tile = fullMap[newX][newY];
             if (tile.getType().equals(TileType.Water)) {

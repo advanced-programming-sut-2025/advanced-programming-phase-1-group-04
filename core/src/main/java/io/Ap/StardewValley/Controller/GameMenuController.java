@@ -106,7 +106,7 @@ public class GameMenuController {
         App.getGame().setNPCs();
         App.getGame().setFriends();
 
-        NightController.foragingPlantsForEachFarm(new Coordinate(0, 0), new Coordinate(89, 119));
+        NightController.foragingPlantsForEachFarm(new Coordinate(0, 0), new Coordinate(240, 290));
         NightController.randomForagingMinerals();
 
         return new Result(true, "Game loaded. Now you are in the game. Boro eshgh kon.");
@@ -223,6 +223,10 @@ public class GameMenuController {
                 App.getGame().getCurrentPlayer().getCoordinate().getY());
         int x = coordinate.getX();
         int y = coordinate.getY();
+        // Phase 1:
+        int maxX = 240;
+        int maxY = 290;
+
         switch (direction) {
             case "n":
                 if (x > 0) {
@@ -230,12 +234,12 @@ public class GameMenuController {
                 } else {return null;}
                 break;
             case "s":
-                if (x < 89) {
+                if (x < maxX) {
                     coordinate.setX(x + 1);
                 } else {return null;}
                 break;
             case "e":
-                if (y < 119) {
+                if (y < maxY) {
                     coordinate.setY(y + 1);
                 } else {return null;}
                 break;
@@ -245,7 +249,7 @@ public class GameMenuController {
                 } else {return null;}
                 break;
             case "ne":
-                if (x > 0 && y < 119) {
+                if (x > 0 && y < maxY) {
                     coordinate.setX(x - 1);
                     coordinate.setY(y + 1);
                 } else {return null;}
@@ -257,13 +261,13 @@ public class GameMenuController {
                 } else {return null;}
                 break;
             case "se":
-                if (x < 89 && y < 119) {
+                if (x < maxX && y < maxY) {
                     coordinate.setX(x + 1);
                     coordinate.setY(y + 1);
                 } else {return null;}
                 break;
             case "sw":
-                if (x < 89 && y > 0) {
+                if (x < maxX && y > 0) {
                     coordinate.setX(x + 1);
                     coordinate.setY(y - 1);
                 } else {return null;}
@@ -281,6 +285,10 @@ public class GameMenuController {
                 App.getGame().getCurrentPlayer().getCoordinate().getY());
         int x = coordinate.getX();
         int y = coordinate.getY();
+
+        int maxX = 240;
+        int maxY = 290;
+
         switch (direction) {
             case "n":
                 if (x > 0) {
@@ -290,14 +298,14 @@ public class GameMenuController {
                 }
                 break;
             case "s":
-                if (x < 89) {
+                if (x < maxX) {
                     coordinate.setX(x + 1);
                 } else {
                     return null;
                 }
                 break;
             case "e":
-                if (y < 119) {
+                if (y < maxY) {
                     coordinate.setY(y + 1);
                 } else {
                     return null;
@@ -311,7 +319,7 @@ public class GameMenuController {
                 }
                 break;
             case "ne":
-                if (x > 0 && y < 119) {
+                if (x > 0 && y < maxY) {
                     coordinate.setX(x - 1);
                     coordinate.setY(y + 1);
                 } else {
@@ -327,7 +335,7 @@ public class GameMenuController {
                 }
                 break;
             case "se":
-                if (x < 89 && y < 119) {
+                if (x < maxX && y < maxY) {
                     coordinate.setX(x + 1);
                     coordinate.setY(y + 1);
                 } else {
@@ -335,7 +343,7 @@ public class GameMenuController {
                 }
                 break;
             case "sw":
-                if (x < 89 && y > 0) {
+                if (x < maxX && y > 0) {
                     coordinate.setX(x + 1);
                     coordinate.setY(y - 1);
                 } else {

@@ -232,9 +232,9 @@ public class FoodController {
     public static Result cookThroughScreen (String foodName) {
 
         Player player = App.getGame().getCurrentPlayer();
-//        if (App.getGame().getTile(player.getCoordinate()).getBuildingType() != BuildingType.House) {
-//            return new Result(false, "you must be at home for using this command!");
-//        }
+        if (App.getGame().getTile(player.getCoordinate()).getBuildingType() != BuildingType.House) {
+            return new Result(false, "you must be at home for using this command!");
+        }
         if (foodName == null) {
             return new Result(false, "invalid food name!");
         }

@@ -11,6 +11,7 @@ import io.Ap.StardewValley.Model.Plants.CropType;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Player.Skill;
 import io.Ap.StardewValley.Screen.GameScreen;
+import io.Ap.StardewValley.Screen.InventoryScreen.MapTab;
 import io.Ap.StardewValley.Screen.MapScreen.RegionTransition;
 import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
 import io.Ap.StardewValley.Screen.PlayerScreen.PlayerRender;
@@ -50,6 +51,9 @@ public class GameScreenController {
             view.getCookingStage().update();
             cookingStageNeedsUpdate = false;
         }
+
+        //todo: سنگین میشه یا نه؟
+        ((MapTab) view.getInventoryStage().getInfoWindows().get(3)).updatePlayerPosition();
 
     }
 

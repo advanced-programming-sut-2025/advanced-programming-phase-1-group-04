@@ -129,11 +129,18 @@ public class InventoryStage extends Stage {
 
     public void update() {
         try {
-            ((MapTab) infoWindows.get(3)).updatePlayerPosition();
             ((InventoryTab) infoWindows.get(0)).updateInventory();
         } catch (Exception e) {}
         try {
             ((SkillsTab) infoWindows.get(1)).updateInfo();
         } catch (Exception e) {}
+        try {
+            ((MapTab) infoWindows.get(3)).updatePlayerPosition();
+        } catch (Exception e) {}
+    }
+
+
+    public List<Window> getInfoWindows() {
+        return infoWindows;
     }
 }

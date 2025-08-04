@@ -112,7 +112,7 @@ public class FoodController {
         }
         App.getGame().getCurrentPlayer().addEnergy(-3);
         App.getGame().getCurrentPlayer().addItemToInventory(new Food(findFoodType(recipe)), 1);
-        return new Result(false, foodName + " added to inventory.");
+        return new Result(true, foodName + " added to inventory.");
     }
 
     public static Result eat (String foodName) {
@@ -230,14 +230,11 @@ public class FoodController {
     }
 
     public static Result cookThroughScreen (String foodName) {
-        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
-            return new Result (false, "you have no more moves! enter next turn!");
-        }
-        GameMenuController.moveControl();
+
         Player player = App.getGame().getCurrentPlayer();
-        if (App.getGame().getTile(player.getCoordinate()).getBuildingType() != BuildingType.House) {
-            return new Result(false, "you must be at home for using this command!");
-        }
+//        if (App.getGame().getTile(player.getCoordinate()).getBuildingType() != BuildingType.House) {
+//            return new Result(false, "you must be at home for using this command!");
+//        }
         if (foodName == null) {
             return new Result(false, "invalid food name!");
         }
@@ -269,6 +266,6 @@ public class FoodController {
         }
         App.getGame().getCurrentPlayer().addEnergy(-3);
         App.getGame().getCurrentPlayer().addItemToInventory(new Food(findFoodType(recipe)), 1);
-        return new Result(false, foodName + " added to inventory.");
+        return new Result(true, foodName + " added to inventory.");
     }
 }

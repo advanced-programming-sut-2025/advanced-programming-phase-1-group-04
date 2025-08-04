@@ -7,9 +7,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
+import io.Ap.StardewValley.Controller.GameScreenController;
+import io.Ap.StardewValley.Controller.SirkBozorg.FoodController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Cooking.FoodRecipe;
-import io.Ap.StardewValley.Model.Item.Item;
+import io.Ap.StardewValley.Model.Result;
 import io.Ap.StardewValley.Screen.InventoryScreen.ItemTextureBank;
 import io.Ap.StardewValley.StardewValley;
 
@@ -56,8 +58,12 @@ public class CookingTab extends Window {
                     showError("no item has been selected");
                     return;
                 }
-                //todo
-                update();
+                Result result = FoodController.cookThroughScreen(getSelectedRecipe().getName());
+                if (!result.isSuccessful()) {
+                    showError(result.message());
+                    return;
+                }
+                GameScreenController.setCookingStageNeedsUpdate(true);
             }
         });
 
@@ -76,7 +82,7 @@ public class CookingTab extends Window {
 //            this.setDebug(true);
     }
 
-    private void selectFridgeButton(int index) {
+    private void selectRecipeButton(int index) {
         for (int i = 0; i < recipeButtons.size(); i++) {
             recipeButtons.get(i).setChecked(i == index);
         }
@@ -108,13 +114,17 @@ public class CookingTab extends Window {
             recipeButtons.add(button);
 
             if (i < foodRecipes.size()) {
-                recipeButtonToFoodRecipe.put(button, foodRecipes.get(i));
+                FoodRecipe recipe = foodRecipes.get(i);
+                recipeButtonToFoodRecipe.put(button, recipe);
+
+                TextTooltip tooltip = new TextTooltip(recipe.getName() + ":\n" + recipe.getRecipeString(), skin, "letter");
+                button.addListener(tooltip);
             }
 
             button.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    selectFridgeButton(index);
+                    selectRecipeButton(index);
                 }
             });
 

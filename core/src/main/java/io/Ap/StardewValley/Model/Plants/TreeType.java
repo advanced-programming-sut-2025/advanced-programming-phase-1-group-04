@@ -9,7 +9,6 @@ import java.util.List;
 public enum TreeType implements PlantType{
     Apricot ("Apricot Tree", SaplingType.ApricotSapling, new int[] {7, 7, 7, 7}, 28,
             FruitType.Apricot, 1, new ArrayList<>(List.of(Season.Spring))),
-
     Cherry("Cherry Tree", SaplingType.CherrySapling, new int[] {7, 7, 7, 7}, 28,
             FruitType.Cherry, 1, new ArrayList<>(List.of(Season.Spring))),
     Banana("Banana Tree", SaplingType.BananaSapling, new int[] {7, 7, 7, 7}, 28,

@@ -1,6 +1,9 @@
 package io.Ap.StardewValley.Controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import io.Ap.StardewValley.Model.Animals.AnimalProduct;
+import io.Ap.StardewValley.Model.Animals.AnimalProductType;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Plants.Crop;
@@ -18,12 +21,12 @@ public class GameScreenController {
     private GameScreen view;
 
     //inventory:
-    private boolean isInventoryStageVisible = false;
-    private boolean inventoryStageNeedsUpdate = false;
+    private static boolean isInventoryStageVisible = false;
+    private static boolean inventoryStageNeedsUpdate = false;
 
     //cooking:
-    private boolean isCookingStageVisible = false;
-    private boolean cookingStageNeedsUpdate = false;
+    private static boolean isCookingStageVisible = false;
+    private static boolean cookingStageNeedsUpdate = false;
 
     public void setViews(GameScreen view) {
         this.view = view;
@@ -106,7 +109,7 @@ public class GameScreenController {
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getAynazCheat())) {
             App.getGame().getCurrentPlayer().addAbility(Skill.Farming, 10);
             App.getGame().getCurrentPlayer().setInventoryCapacity(24);
-            App.getGame().getCurrentPlayer().getInventory().addItem(new Crop(CropType.Potato));
+            App.getGame().getCurrentPlayer().getInventory().addItem(new AnimalProduct(AnimalProductType.Egg), 10);
             inventoryStageNeedsUpdate = true;
             cookingStageNeedsUpdate = true;
         }
@@ -114,11 +117,19 @@ public class GameScreenController {
         //inventory:
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getOpenInventory())){
             isInventoryStageVisible = !isInventoryStageVisible;
+            if (isInventoryStageVisible) {
+                inventoryStageNeedsUpdate = true;
+                isCookingStageVisible = false;
+            }
         }
 
         //cooking:
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getOpenRefrigerator())){
             isCookingStageVisible = !isCookingStageVisible;
+            if (isCookingStageVisible) {
+                cookingStageNeedsUpdate = true;
+                isInventoryStageVisible = false;
+            }
         }
 
         // status
@@ -173,9 +184,17 @@ public class GameScreenController {
         return new Coordinate(globalX, globalY);
     }
 
-    // TODO موقت:
 
-    public PlayerRender getPlayerRender() {
-        return playerRender;
+    public Image getPlayerHeadImage() {
+        return playerRender.getHeadImage();
+    }
+
+
+    public static void setInventoryStageNeedsUpdate(boolean inventoryStageNeedsUpdate) {
+        GameScreenController.inventoryStageNeedsUpdate = inventoryStageNeedsUpdate;
+    }
+
+    public static void setCookingStageNeedsUpdate(boolean cookingStageNeedsUpdate) {
+        GameScreenController.cookingStageNeedsUpdate = cookingStageNeedsUpdate;
     }
 }

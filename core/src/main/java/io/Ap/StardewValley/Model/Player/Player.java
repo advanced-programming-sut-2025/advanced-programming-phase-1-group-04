@@ -123,7 +123,6 @@ public class Player {
         inventory.addItem(new WateringCan(ToolLevel.Starter), 1);
         inventory.addItem(new Scythe(), 1);
         inventory.addItem(new MilkPail(), 1);
-        inventory.addItem(new MilkPail(), 1);
     }
 
     private void setLibGdxPositionFromCoordinate() {

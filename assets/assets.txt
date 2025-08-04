@@ -40,7 +40,6 @@ etc/menu/cloud_3.png
 etc/menu/daybg.png
 etc/menu/logo.png
 etc/menu/nightbg.png
-etc/shash.png
 inventory/0 hearts.png
 inventory/0 levels.png
 inventory/1 hearts.png

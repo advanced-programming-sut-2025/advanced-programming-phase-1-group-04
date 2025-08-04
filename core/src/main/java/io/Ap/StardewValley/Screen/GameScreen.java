@@ -17,6 +17,7 @@ import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Screen.CookingScreen.CookingStage;
 import io.Ap.StardewValley.Screen.InventoryScreen.InventoryBar;
 import io.Ap.StardewValley.Screen.InventoryScreen.InventoryStage;
+import io.Ap.StardewValley.Screen.MapScreen.SeasonTextureManager;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
 import io.Ap.StardewValley.StardewValley;
 
@@ -317,24 +318,20 @@ public class GameScreen implements Screen, InputProcessor {
 
     private void setFullMap() {
         Pixmap basePixmap = new Pixmap(Gdx.files.internal("etc/mapImages/Map.png"));
-        Pixmap farm = new Pixmap(Gdx.files.internal("etc/mapImages/Farm1.png"));
-
-        int mapWidth = basePixmap.getWidth(), mapHeight = basePixmap.getHeight();
-        int farmWidth = farm.getWidth(), farmHeight = farm.getHeight();
-
-        Pixmap combined = new Pixmap(mapWidth, mapHeight, Pixmap.Format.RGBA8888);
-
+        Pixmap combined = new Pixmap(basePixmap.getWidth(), basePixmap.getHeight(), Pixmap.Format.RGBA8888);
         combined.drawPixmap(basePixmap, 0, 0);
-        combined.drawPixmap(new Pixmap(Gdx.files.internal("etc/mapImages/Farm" + farmSelections[0] +".png")), 0, 0);
-        combined.drawPixmap(new Pixmap(Gdx.files.internal("etc/mapImages/Farm" + farmSelections[1] +".png")), mapWidth - farmWidth, 0);
-        combined.drawPixmap(new Pixmap(Gdx.files.internal("etc/mapImages/Farm" + farmSelections[2] +".png")), mapWidth - farmWidth, mapHeight - farmHeight);
-        combined.drawPixmap(new Pixmap(Gdx.files.internal("etc/mapImages/Farm" + farmSelections[3] +".png")), 0, mapHeight - farmHeight);
+        basePixmap.dispose();
+
+        for (int i = 0; i < 4; i++) {
+            Pixmap farm = new Pixmap(Gdx.files.internal("etc/mapImages/Farm" + farmSelections[i] + ".png"));
+            int x = (i == 1 || i == 2) ? combined.getWidth() - farm.getWidth() : 0;
+            int y = (i >= 2) ? combined.getHeight() - farm.getHeight() : 0;
+            combined.drawPixmap(farm, x, y);
+            farm.dispose();
+        }
 
         Texture finalTexture = new Texture(combined);
         fullMap = new Image(finalTexture);
-
-        basePixmap.dispose();
-        farm.dispose();
         combined.dispose();
     }
 
@@ -342,6 +339,13 @@ public class GameScreen implements Screen, InputProcessor {
         return fullMap;
     }
 
+    public void updateSeasonMap() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                mapRenderers[i][j].applySeasonTileset("winter");
+            }
+        }
+    }
     @Override
     public void resize(int width, int height) {
 
@@ -369,6 +373,8 @@ public class GameScreen implements Screen, InputProcessor {
                 tmp.dispose();
             }
         }
+
+        SeasonTextureManager.disposeAll();
     }
 
     @Override

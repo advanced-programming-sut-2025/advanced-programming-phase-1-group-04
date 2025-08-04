@@ -66,52 +66,34 @@ public class PlayerRender {
 
     public void setHeadImage(TextureRegion fullHeadFrame, TextureRegion fullHairFrame, Color hairColor, int hairIndex) {
         int longHair = (hairIndex < 16) ? 1 : 0;
+        int width = 16, height = 16;
 
-        int regionX = fullHeadFrame.getRegionX();
-        int regionY = fullHeadFrame.getRegionY();
-        int width = 16;
-        int height = 16;
-
-        TextureData headData = fullHeadFrame.getTexture().getTextureData();
-        if (!headData.isPrepared()) headData.prepare();
-        Pixmap headPixmapFull = headData.consumePixmap();
+        Pixmap headPixmapFull = getPixmapFromTexture(fullHeadFrame.getTexture());
+        Pixmap hairPixmapFull = getPixmapFromTexture(fullHairFrame.getTexture());
 
         Pixmap headPixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-        headPixmap.drawPixmap(headPixmapFull, 0, 0, regionX, regionY, width, height);
-
-        int hairX = fullHairFrame.getRegionX();
-        int hairY = fullHairFrame.getRegionY();
-
-        TextureData hairData = fullHairFrame.getTexture().getTextureData();
-        if (!hairData.isPrepared()) hairData.prepare();
-        Pixmap hairPixmapFull = hairData.consumePixmap();
-
         Pixmap hairPixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-        hairPixmap.drawPixmap(hairPixmapFull, 0, 0, hairX, hairY, width, height);
-
         Pixmap combined = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+
+        headPixmap.drawPixmap(headPixmapFull, 0, 0, fullHeadFrame.getRegionX(), fullHeadFrame.getRegionY(), width, height);
+        hairPixmap.drawPixmap(hairPixmapFull, 0, 0, fullHairFrame.getRegionX(), fullHairFrame.getRegionY(), width, height);
 
         combined.drawPixmap(headPixmap, 0, 0);
 
-        // color:
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 int pixel = hairPixmap.getPixel(x, y);
 
+                int a = pixel & 0xff;
+                if (a == 0) continue;
+
                 float r = ((pixel >> 24) & 0xff) / 255f;
                 float g = ((pixel >> 16) & 0xff) / 255f;
                 float b = ((pixel >> 8) & 0xff) / 255f;
-                float a = (pixel & 0xff) / 255f;
+                float alpha = a / 255f;
 
-                if (a > 0f) {
-                    float tintedR = r * hairColor.r;
-                    float tintedG = g * hairColor.g;
-                    float tintedB = b * hairColor.b;
-
-                    combined.setColor(tintedR, tintedG, tintedB, a);
-                    combined.drawPixel(x, y + 1 + longHair);
-                }
-
+                combined.setColor(r * hairColor.r, g * hairColor.g, b * hairColor.b, alpha);
+                combined.drawPixel(x, y + 1 + longHair);
             }
         }
 
@@ -123,6 +105,13 @@ public class PlayerRender {
         hairPixmap.dispose();
         combined.dispose();
     }
+
+    private Pixmap getPixmapFromTexture(Texture texture) {
+        TextureData textureData = texture.getTextureData();
+        if (!textureData.isPrepared()) textureData.prepare();
+        return textureData.consumePixmap();
+    }
+
 
 
     public static Image getHeadImage() {

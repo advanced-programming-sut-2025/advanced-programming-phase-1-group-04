@@ -159,7 +159,6 @@ public class GameScreenController {
         }
     }
 
-
     public Coordinate getPlayerCoordinate(float xLibGdx, float yLibGdx) {
         final int tileSize = 16;
 

@@ -32,7 +32,7 @@ public class MapTab extends Window {
         this.defaults().pad(10);
 
         map.setSize(map.getWidth() * scale, map.getHeight() * scale);
-        playerImage.setSize(playerImage.getWidth() * 3.5f, playerImage.getHeight() * 3.5f);
+        playerImage.setSize(playerImage.getWidth() * 3.8f, playerImage.getHeight() * 3.8f);
 
         mapGroup = new Group();
         mapGroup.setSize(map.getWidth(), map.getHeight());

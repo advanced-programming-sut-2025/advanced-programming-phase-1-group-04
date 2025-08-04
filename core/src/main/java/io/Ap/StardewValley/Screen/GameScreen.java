@@ -316,7 +316,7 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     private void setFullMap() {
-        Pixmap basePixmap = new Pixmap(Gdx.files.internal("etc/mapImages/FullMap.png"));
+        Pixmap basePixmap = new Pixmap(Gdx.files.internal("etc/mapImages/Map.png"));
         Pixmap farm = new Pixmap(Gdx.files.internal("etc/mapImages/Farm1.png"));
 
         int mapWidth = basePixmap.getWidth(), mapHeight = basePixmap.getHeight();

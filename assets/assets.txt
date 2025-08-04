@@ -28,7 +28,7 @@ etc/mapImages/Farm4_pixel.png
 etc/mapImages/Farm5.png
 etc/mapImages/Farm5_Icon.png
 etc/mapImages/Farm5_pixel.png
-etc/mapImages/FullMap.png
+etc/mapImages/Map.png
 etc/mapImages/farmBackground.png
 etc/menu/background_chill.png
 etc/menu/background_night.png

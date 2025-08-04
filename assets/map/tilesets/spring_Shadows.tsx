@@ -1028,17 +1028,17 @@
  </tile>
  <tile id="229">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Building"/>
   </properties>
  </tile>
  <tile id="230">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Building"/>
   </properties>
  </tile>
  <tile id="231">
   <properties>
-   <property name="Type" value="Ground"/>
+   <property name="Type" value="Building"/>
   </properties>
  </tile>
  <tile id="232">

@@ -73,6 +73,7 @@ public class MakeRegionJsonFromTmx {
     private static Tile getTile(TiledMapTile tile) {
         // Building: ShippingBin, MarinesRanch, Door, Building(DontKnow), WizardBuilding
         //          PierresGeneralStore, CarpentersShop, Saloon, FishShop, JojaMart, BlackSmith
+        //          GreenHouse, House
         MapProperties props = tile.getProperties();
         if (props.containsKey("Type")) {
             switch (props.get("Type", String.class)) {
@@ -88,9 +89,9 @@ public class MakeRegionJsonFromTmx {
                 case "Wood", "Rail", "Stone":
                     return new Tile(TileType.Ground, true, null, null);
 
-                case "H":
+                case "House":
                     return new Tile(TileType.Building, BuildingType.House);
-                case "9":
+                case "GreenHouse":
                     return new Tile(TileType.Building, BuildingType.GreenHouse);
                 case "ShippingBin":
                     return new Tile(TileType.Building, BuildingType.ShippingBin);

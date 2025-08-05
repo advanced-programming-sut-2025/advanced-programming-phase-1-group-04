@@ -1,15 +1,28 @@
 package io.Ap.StardewValley.Screen.TimeScreen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RainLayer extends WeatherLayer {
+    private final boolean isStorm;
+    private boolean flash = false;
+    private final float flashDuration = 0.15f;
+    private float flashTimer = 0f;
 
+    private float stormCooldownTimer = 0f;
+    private float timeUntilNextStorm = 10f + MathUtils.random(5f, 10f);
+    private int flashesRemaining = 0;
+
+    private final Texture whaiteTexture;
     private static class RainDrop {
         float x, y;
         float targetY;
@@ -37,7 +50,9 @@ public class RainLayer extends WeatherLayer {
     private float spawnTimer = 0f;
     private final float spawnInterval = 0.03f;
 
-    public RainLayer(float scale) {
+    public RainLayer(float scale, boolean isStorm) {
+        this.isStorm = isStorm;
+        whaiteTexture = new Texture("etc/pixel.png");
         Texture rainTexture = new Texture("time/weather/rain.png");
         TextureRegion[] frames = TextureRegion.split(rainTexture, 16, 16)[1];
         this.lineFrame = frames[0];
@@ -48,7 +63,7 @@ public class RainLayer extends WeatherLayer {
         this.screenHeight = Gdx.graphics.getHeight();
 
         setSize(screenWidth, screenHeight);
-        setTouchable(null); // باران نباید تداخلی با کلیک‌ها داشته باشه
+        setTouchable(null);
     }
 
     private RainDrop randomDrop() {
@@ -85,11 +100,34 @@ public class RainLayer extends WeatherLayer {
             }
         }
 
-        // ایجاد قطرات جدید
         spawnTimer += delta;
         while (spawnTimer >= spawnInterval) {
             rainDrops.add(randomDrop());
             spawnTimer -= spawnInterval;
+        }
+
+        if (isStorm) {
+            stormCooldownTimer += delta;
+
+            if (flashesRemaining == 0 && stormCooldownTimer >= timeUntilNextStorm) {
+                flashesRemaining = 2;
+                stormCooldownTimer = 0f;
+                timeUntilNextStorm = 10f + MathUtils.random(5f, 10f);
+            }
+
+            if (!flash && flashesRemaining > 0) {
+                flash = true;
+                flashTimer = 0f;
+                flashesRemaining--;
+            }
+
+            if (flash) {
+                flashTimer += delta;
+                if (flashTimer >= flashDuration) {
+                    flash = false;
+                    flashTimer = 0f;
+                }
+            }
         }
     }
 
@@ -105,5 +143,12 @@ public class RainLayer extends WeatherLayer {
                         splashFrame.getRegionWidth() * scale, splashFrame.getRegionHeight() * scale);
             }
         }
+
+        if (flash) {
+            batch.setColor(1f, 1f, 1f, 0.8f);
+            batch.draw(whaiteTexture, 0, 0, screenWidth, screenHeight);
+            batch.setColor(1f, 1f, 1f, 1f);
+        }
+
     }
 }

@@ -131,8 +131,6 @@ public class GameScreen implements Screen, InputProcessor {
         inventoryStack.add(mainLayout);
 
 
-
-
         // add to stackBar:
         stackBar.addActor(dialogTable);
         stackBar.addActor(controllerTable);
@@ -142,20 +140,28 @@ public class GameScreen implements Screen, InputProcessor {
         // add to stage:
 
         // weather layers:
-        //setWeatherLayerToStage(new SnowLayer(2.5f));
-        //setWeatherLayerToStage(null);
-        //setWeatherLayerToStage(new RainLayer(4f));
-        setWeatherLayerToStage(new RainLayer(4f));
+        setWeatherLayerToStage(App.getGame().getCurrentTime().getWeather());
         stage.addActor(nightOverlay);
         stage.addActor(stackBar);
     }
 
-    public void setWeatherLayerToStage(WeatherLayer newLayer) {
+    public void setWeatherLayerToStage(Weather weather) {
+        WeatherLayer weatherLayer = getWeatherLayer(weather);
+
         if (currentWeatherLayer != null) currentWeatherLayer.remove();
 
-        currentWeatherLayer = newLayer;
+        currentWeatherLayer = weatherLayer;
 
         if (currentWeatherLayer != null) stage.addActor(currentWeatherLayer);
+    }
+
+    private WeatherLayer getWeatherLayer(Weather weather) {
+        return switch (weather) {
+            case Snow -> new SnowLayer(2.5f);
+            case Storm -> new RainLayer(4f, true);
+            case Rain -> new RainLayer(4f, false);
+            default -> null;
+        };
     }
 
     @Override
@@ -191,9 +197,8 @@ public class GameScreen implements Screen, InputProcessor {
             controller.updateTime(delta);
             updateNightOverlay();
 
-            if (currentWeatherLayer != null) {
+            if (currentWeatherLayer != null)
                 currentWeatherLayer.update(delta);
-            }
         }
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -419,23 +424,49 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     public void updateNightOverlay() {
-        int hour = App.getGame().getCurrentTime().getHour();
-        int minute = App.getGame().getCurrentTime().getMinute();
+        DateAndTime time = App.getGame().getCurrentTime();
+        int hour = time.getHour();
+        int minute = time.getMinute();
 
         float alpha = 0f;
+        boolean isRainy = time.getWeather().equals(Weather.Rain);
 
-        if (hour >= 19) {
-            int minutesSinceStart = (hour - 19) * 60 + minute;
-            int totalNightMinutes = (24 - 19) * 60;
+        if (isRainy) {
+            if (hour >= 6 && hour < 19) {
+                int minutesSinceStart = (hour - 6) * 60 + minute;
+                int totalMinutes = (19 - 6) * 60;
 
-            float progress = Math.min(1f, minutesSinceStart / (float) totalNightMinutes);
-            float maxAlpha = 0.7f;
+                float progress = Math.min(1f, minutesSinceStart / (float) totalMinutes);
+                float maxAlpha = 0.3f;
 
-            alpha = progress * maxAlpha;
+                alpha = progress * maxAlpha;
+            }
+            else if (hour >= 19) {
+                alpha = getAlpha(hour, minute);
+            }
+            else {
+                alpha = 0.7f;
+            }
+        } else {
+            if (hour >= 19) {
+                alpha = getAlpha(hour, minute);
+            }
         }
 
         nightOverlay.getColor().a = alpha;
         nightOverlay.setColor(nightOverlay.getColor());
+    }
+
+    private float getAlpha(int hour, int minute) {
+        float alpha;
+        int minutesSinceStart = (hour - 19) * 60 + minute;
+        int totalNightMinutes = (24 - 19) * 60;
+
+        float progress = Math.min(1f, minutesSinceStart / (float) totalNightMinutes);
+        float maxAlpha = 0.7f;
+
+        alpha = progress * maxAlpha;
+        return alpha;
     }
 
 

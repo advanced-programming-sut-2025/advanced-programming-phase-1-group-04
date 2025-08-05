@@ -119,14 +119,14 @@ public class GameScreenController {
         }
 
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheat())){
-//            App.getGame().getCurrentTime().addHour(14);
-//            App.getGame().getCurrentTime().setMinute(55);
-//            App.getGame().getCurrentTime().addDay(27);
-            for (int i = 0; i < 10; i++) {
-                NightController.nightControl();
-            }
-
-            goToNextDay();
+            App.getGame().getCurrentTime().addHour(14);
+            App.getGame().getCurrentTime().setMinute(55);
+            App.getGame().getCurrentTime().addDay(27);
+//            for (int i = 0; i < 10; i++) {
+//                NightController.nightControl();
+//            }
+//
+//            goToNextDay();
         }
 
         //inventory:

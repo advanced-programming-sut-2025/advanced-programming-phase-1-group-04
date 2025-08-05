@@ -1,18 +1,42 @@
+//package io.Ap.StardewValley.Screen.InventoryScreen;
+//
+//import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+//import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+//import com.badlogic.gdx.scenes.scene2d.ui.Window;
+//import com.badlogic.gdx.utils.Align;
+//
+//public class SettingTab extends Window {
+//    private final Skin skin;
+//    private final TextButton exitButton;
+//    public SettingTab(Skin skin) {
+//        super("", skin);
+//        this.skin = skin;
+//
+//        exitButton = new TextButton("Exit", skin);
+//
+//        this.setSize(1050, 650);
+//        this.setMovable(false);
+//        this.setResizable(false);
+//        this.align(Align.topLeft);
+//        this.defaults().pad(10);
+//
+//        this.add(exitButton).width(300).center();
+//    }
+//}
+
+
+
 package io.Ap.StardewValley.Screen.InventoryScreen;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 
 public class SettingTab extends Window {
-    private final Skin skin;
-    private final TextButton exitButton;
+
     public SettingTab(Skin skin) {
         super("", skin);
-        this.skin = skin;
-
-        exitButton = new TextButton("Exit", skin);
 
         this.setSize(1050, 650);
         this.setMovable(false);
@@ -20,83 +44,81 @@ public class SettingTab extends Window {
         this.align(Align.topLeft);
         this.defaults().pad(10);
 
-        this.add(exitButton).width(300).center();
+        // جدول اصلی دو ستونی
+        Table mainTable = new Table();
+        mainTable.defaults().pad(10).top();
+
+        // ستون چپ
+        Table leftTable = new Table();
+        Label settingsLabel = new Label("Settings", skin);
+        TextButton exitButton = new TextButton("Exit", skin);
+
+        exitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Exit button clicked");
+            }
+        });
+
+        leftTable.add(settingsLabel).center().row();
+        leftTable.add(exitButton).width(200).center().row();
+
+        // ستون راست
+        Table rightTable = new Table();
+        Label cheatLabel = new Label("Cheat", skin);
+        rightTable.add(cheatLabel).center().row();
+
+        TextButton cheatButton1 = new TextButton("time", skin);
+        cheatButton1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        TextButton cheatButton2 = new TextButton("storm", skin);
+        cheatButton2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        TextButton cheatButton3 = new TextButton("energy", skin);
+        cheatButton3.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+//        TextButton cheatButton4 = new TextButton("Cheat 4", skin);
+//        cheatButton4.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                System.out.println("Cheat 4 clicked");
+//            }
+//        });
+//
+//        TextButton cheatButton5 = new TextButton("Cheat 5", skin);
+//        cheatButton5.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                System.out.println("Cheat 5 clicked");
+//            }
+//        });
+
+        rightTable.add(cheatButton1).width(200).center().row();
+        rightTable.add(cheatButton2).width(200).center().row();
+        rightTable.add(cheatButton3).width(200).center().row();
+//        rightTable.add(cheatButton4).width(200).center().row();
+//        rightTable.add(cheatButton5).width(200).center().row();
+
+        // اضافه کردن دو ستون به جدول اصلی
+        mainTable.add(leftTable).expand().top();
+        mainTable.add(rightTable).expand().top();
+
+        // اضافه کردن جدول اصلی به پنجره
+        this.add(mainTable).expand().fill();
     }
 }
-
-
-
-/*
-private final Skin skin;
-    private final List<ImageTextButton> inventoryButtons;
-    private ImageTextButton selectedButton;
-    private Table leftPart;
-    private ScrollPane scrollPane;
-    private Map<ImageTextButton, String> buttonToItemName = new HashMap<>();
-
-
-    public InventoryTab(Skin skin) {
-        super("", skin);
-        this.skin = skin;
-        this.inventoryButtons = new ArrayList<>();
-
-        this.setSize(1050, 650);
-        this.setMovable(false);
-        this.setResizable(false);
-        this.align(Align.topLeft);
-        this.defaults().pad(10);
-
-
-        leftPart = new Table();
-        scrollPane = new ScrollPane(leftPart, skin, "inventory");
-        scrollPane.setFadeScrollBars(false);
-        leftPart.top().left();
-
-        updateInventory();
-
-
-        Table centerPart = new Table();
-        ImageButton orderButton = new ImageButton(skin, "order");
-        orderButton.setTransform(true);
-        orderButton.scaleBy(0.4f);
-        orderButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // مثلاً مرتب‌سازی آیتم‌ها
-            }
-        });
-        centerPart.add(orderButton).size(100, 100).left().pad(30, 0, 0, 30);
-        centerPart.row();
-
-        ImageButton trashButton = new ImageButton(skin, "trash");
-        trashButton.setTransform(true);
-        trashButton.scaleBy(0.4f);
-        trashButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //todo
-                PlayerController.inventoryTrashWithoutNumber(getSelectedItemName());
-                updateInventory();
-
-            }
-        });
-        centerPart.add(trashButton).size(100, 100).left().pad(10, 0, 0, 30);
-
-
-        Table rightPart = new Table();
-        rightPart.top();
-
-        Image topImage = new Image(new Texture("etc/menu/daybg.png"));
-        topImage.setScaling(Scaling.fit);
-        rightPart.add(topImage).width(200).height(350).center().row();
-
-        Label label1 = new Label(App.getCurrentUser().getNickname() , skin);
-        Label label2 = new Label("count: " + App.getGame().getCurrentPlayer().getCount(), skin);
-        rightPart.add(label1).center().padTop(10).row();
-        rightPart.add(label2).center().padTop(5).row();
-
-        this.add(rightPart).width(350).top();
-        this.add(centerPart).width(140).top();
-        this.add(scrollPane).width(450).top();
-    }
- */

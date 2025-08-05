@@ -81,7 +81,7 @@ public class SecurityQuestionScreen implements Screen {
 
         Label selectLabel = new Label("Question:", skin);
         SelectBox<Integer> questionSelect = new SelectBox<>(skin);
-        Integer[] numbers = new Integer[10];
+        Integer[] numbers = new Integer[6];
         for (int i = 0; i < 6; i++) numbers[i] = i + 1;
         questionSelect.setItems(numbers);
 

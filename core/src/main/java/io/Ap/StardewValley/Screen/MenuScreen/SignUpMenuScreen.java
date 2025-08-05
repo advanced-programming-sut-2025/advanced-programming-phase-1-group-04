@@ -192,6 +192,7 @@ public class SignUpMenuScreen implements Screen {
 
                 if (result.isSuccessful()) {
                     StardewValley.getGame().setScreen(new SecurityQuestionScreen(usernameField.getText()));
+
                 }
                 else {
                     String error = result.toString();

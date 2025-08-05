@@ -156,6 +156,7 @@ public class NightController {
             if (MapController.getDestinationEnergy(player, player.getHouseCoordinate()) <= player.getEnergy() &&
                 MapController.getDestinationEnergy(player, player.getHouseCoordinate()) != -1) {
                 player.setCoordinate(player.getHouseCoordinate());
+                player.setLibGdxPositionFromCoordinate();
                 player.setEnergy(200);
             } else {
                 player.setCoordinate(MapController.getDestination(player, player.getHouseCoordinate()));

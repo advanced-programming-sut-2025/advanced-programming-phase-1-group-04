@@ -37,6 +37,10 @@ public class DateAndTime {
         this.weather = weather;
     }
 
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
     public void addHour(int hour) {
         this.hour += hour;
     }

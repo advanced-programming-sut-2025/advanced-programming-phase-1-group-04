@@ -18,6 +18,7 @@ import io.Ap.StardewValley.Screen.InventoryScreen.InventoryBar;
 import io.Ap.StardewValley.Screen.InventoryScreen.InventoryStage;
 import io.Ap.StardewValley.Screen.MapScreen.SeasonTextureManager;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
+import io.Ap.StardewValley.Screen.TimeScreen.TimeBar;
 import io.Ap.StardewValley.StardewValley;
 
 public class GameScreen implements Screen, InputProcessor {
@@ -29,6 +30,7 @@ public class GameScreen implements Screen, InputProcessor {
 
     // Time:
     private Image nightOverlay;
+    private TimeBar timeBar;
 
     private Stage stage;
     private Stack rootStack;
@@ -77,21 +79,17 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
+        // rootStack:
         rootStack = new Stack();
         rootStack.setFillParent(true);
-
         dialogTable.setFillParent(true);
         dialogTable.top().left();
-
         rootStack.addActor(dialogTable);
         rootStack.addActor(controllerTable);
-
-        Gdx.input.setInputProcessor(this);
 
         // set nightOverlay:
         nightOverlay = new Image(new Texture("etc/pixel.png"));
         nightOverlay.setColor(Color.valueOf("0a111d"));
-
         nightOverlay.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         nightOverlay.setTouchable(Touchable.disabled);
         stage.addActor(nightOverlay);
@@ -117,29 +115,37 @@ public class GameScreen implements Screen, InputProcessor {
 
         setFullMap();
 
-        // initial inventory:
+        // initial stage & bars::
         inventoryStage = new InventoryStage();
         inventoryBar = new InventoryBar();
+        timeBar = new TimeBar();
+
+        // timeBar:
+        Table timeTable = new Table();
+        timeTable.setFillParent(true);
+        timeTable.top().right().padTop(10).padRight(10);
+        timeTable.add(timeBar.getGroup());
+
+        rootStack.addActor(timeTable);
 
         // add processors
-        InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(inventoryStage);
-        multiplexer.addProcessor(cookingStage);
-        multiplexer.addProcessor(stage);
-        multiplexer.addProcessor(this);
-        Gdx.input.setInputProcessor(multiplexer);
+        Gdx.input.setInputProcessor(new InputMultiplexer(
+                inventoryStage,
+                cookingStage,
+                stage,
+                this
+        ));
 
         // inventory bar:
         Stack stack = new Stack();
         stack.setFillParent(true);
-        rootStack.addActor(stack);
-        // ساخت جدول اصلی که سمت چپ اینونتوری و وسط محتوای پنجره رو بچینه
         Table mainLayout = new Table();
         mainLayout.setFillParent(true);
-        ScrollPane inventoryScrollPane = inventoryBar.getInventoryScrollPane(); // تابع getInventoryScrollPane رو اضافه می‌کنی به کلاس Inventory
-        mainLayout.add(inventoryScrollPane).width(130).height(800).pad(50, 100, 50, 0); // سمت چپ نوار
-        mainLayout.add().expand(); // جای خالی برای window وسط
+        ScrollPane inventoryScrollPane = inventoryBar.getInventoryScrollPane();
+        mainLayout.add(inventoryScrollPane).width(130).height(800).pad(50, 100, 50, 0);
+        mainLayout.add().expand();
         stack.add(mainLayout);
+        rootStack.addActor(stack);
 
         stage.addActor(rootStack);
     }
@@ -160,16 +166,13 @@ public class GameScreen implements Screen, InputProcessor {
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-            // render map
+            // render map, player:
             SpriteBatch batch = StardewValley.getBatch();
             currentMap.renderBeforePlayer(camera);
             currentMap.renderDynamicBelowLayer(camera);
-
-            // update game, render player
             batch.begin();
             controller.updatePlayer();
             batch.end();
-
             currentMap.renderDynamicAboveLayer(camera);
             currentMap.renderAfterPlayer(camera);
 
@@ -288,7 +291,6 @@ public class GameScreen implements Screen, InputProcessor {
                 })
         ));
     }
-
 
     private Table getTableDialog() {
         final Label moveUp, moveDown, moveLeft, moveRight, autoAim, reloadWeapon, cheatTime, cheatLevel, cheatLife, cheatHp, pauseGame, shash;
@@ -521,5 +523,9 @@ public class GameScreen implements Screen, InputProcessor {
 
     public CookingStage getCookingStage() {
         return cookingStage;
+    }
+
+    public TimeBar getTimeBar() {
+        return timeBar;
     }
 }

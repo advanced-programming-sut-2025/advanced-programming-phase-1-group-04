@@ -126,7 +126,7 @@ public class Player {
         inventory.addItem(new MilkPail(), 1);
     }
 
-    private void setLibGdxPositionFromCoordinate() {
+    public void setLibGdxPositionFromCoordinate() {
         final int tileSize = 16;
         int mapHeightInTiles = 65;
 

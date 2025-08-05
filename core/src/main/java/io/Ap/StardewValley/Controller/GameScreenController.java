@@ -9,6 +9,7 @@ import io.Ap.StardewValley.Model.Plants.CropType;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Player.Skill;
 import io.Ap.StardewValley.Model.Time.DateAndTime;
+import io.Ap.StardewValley.Model.Time.Season;
 import io.Ap.StardewValley.Screen.GameScreen;
 import io.Ap.StardewValley.Screen.MapScreen.RegionTransition;
 import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
@@ -41,17 +42,32 @@ public class GameScreenController {
 
         int newHour = time.getHour();
 
-        if (oldHour <= 24 && newHour >= 24) {
-            view.setPaused(true);
-            view.showNightOverlay(() -> {
-                NightController.nightControl();
-                view.setPaused(false);
-            });
-        }
+        if (oldHour <= 24 && newHour >= 24)
+            goToNextDay();
+
+        view.getTimeBar().updateTime();
+    }
+
+    public void goToNextDay() {
+        view.setPaused(true);
+        view.showNightOverlay(() -> {
+            Season oldSeason = App.getGame().getCurrentTime().getSeason();
+            NightController.nightControl();
+            Season newSeason = App.getGame().getCurrentTime().getSeason();
+            if (oldSeason != newSeason) {
+                view.updateSeasonMap(newSeason.name().toLowerCase());
+                view.getTimeBar().updateSeason(newSeason);
+            }
+            // time bar:
+            view.getTimeBar().updateWeather();
+            view.setPaused(false);
+        });
+        view.getTimeBar().updateTime();
     }
 
     public void  updateGame() {
         handleInputKey();
+
         //inventory bar:
         view.getInventoryBar().updateInventoryBar();
 
@@ -103,7 +119,10 @@ public class GameScreenController {
         }
 
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheat())){
-            App.getGame().getCurrentTime().addHour(2);
+            App.getGame().getCurrentTime().addHour(14);
+            App.getGame().getCurrentTime().setMinute(55);
+            App.getGame().getCurrentTime().addDay(27);
+            //goToNextDay();
         }
 
         //inventory:

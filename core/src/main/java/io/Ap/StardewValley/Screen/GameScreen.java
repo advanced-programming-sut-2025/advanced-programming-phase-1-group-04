@@ -13,17 +13,22 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
+import io.Ap.StardewValley.Model.Time.DateAndTime;
+import io.Ap.StardewValley.Model.Time.Weather;
 import io.Ap.StardewValley.Screen.CookingScreen.CookingStage;
 import io.Ap.StardewValley.Screen.InventoryScreen.InventoryBar;
 import io.Ap.StardewValley.Screen.InventoryScreen.InventoryStage;
 import io.Ap.StardewValley.Screen.MapScreen.SeasonTextureManager;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
+import io.Ap.StardewValley.Screen.TimeScreen.RainLayer;
+import io.Ap.StardewValley.Screen.TimeScreen.SnowLayer;
 import io.Ap.StardewValley.Screen.TimeScreen.TimeBar;
+import io.Ap.StardewValley.Screen.TimeScreen.WeatherLayer;
 import io.Ap.StardewValley.StardewValley;
 
 public class GameScreen implements Screen, InputProcessor {
     // Map:
-    private TiledMapRendererHelper[][] mapRenderers = new TiledMapRendererHelper[3][3];
+    private final TiledMapRendererHelper[][] mapRenderers = new TiledMapRendererHelper[3][3];
     private TiledMapRendererHelper currentMap;
     private final int[] farmSelections = new int[4];
     private static Image fullMap;
@@ -31,9 +36,10 @@ public class GameScreen implements Screen, InputProcessor {
     // Time:
     private Image nightOverlay;
     private TimeBar timeBar;
+    private WeatherLayer currentWeatherLayer; // null-RainLayer(isStorm)-SnowLayer
 
     private Stage stage;
-    private Stack rootStack;
+    private Stack stackBar;
 
     private final Table dialogTable = new Table();
     private final Table controllerTable = new Table();
@@ -56,43 +62,22 @@ public class GameScreen implements Screen, InputProcessor {
         controller.setViews(this);
     }
 
-    public OrthographicCamera getCamera() {
-        return camera;
-    }
-
-    public Table getDialogTable() {
-        return dialogTable;
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public void setPaused(boolean paused) {
-        this.paused = paused;
-    }
-
-    public boolean isPaused() {
-        return paused;
-    }
-
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
         // rootStack:
-        rootStack = new Stack();
-        rootStack.setFillParent(true);
+        stackBar = new Stack();
+        stackBar.setFillParent(true);
         dialogTable.setFillParent(true);
         dialogTable.top().left();
-        rootStack.addActor(dialogTable);
-        rootStack.addActor(controllerTable);
+
 
         // set nightOverlay:
         nightOverlay = new Image(new Texture("etc/pixel.png"));
         nightOverlay.setColor(Color.valueOf("0a111d"));
         nightOverlay.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         nightOverlay.setTouchable(Touchable.disabled);
-        stage.addActor(nightOverlay);
+
 
         // set camera
         camera = new OrthographicCamera();
@@ -126,7 +111,6 @@ public class GameScreen implements Screen, InputProcessor {
         timeTable.top().right().padTop(10).padRight(10);
         timeTable.add(timeBar.getGroup());
 
-        rootStack.addActor(timeTable);
 
         // add processors
         Gdx.input.setInputProcessor(new InputMultiplexer(
@@ -137,17 +121,41 @@ public class GameScreen implements Screen, InputProcessor {
         ));
 
         // inventory bar:
-        Stack stack = new Stack();
-        stack.setFillParent(true);
+        Stack inventoryStack = new Stack();
+        inventoryStack.setFillParent(true);
         Table mainLayout = new Table();
         mainLayout.setFillParent(true);
         ScrollPane inventoryScrollPane = inventoryBar.getInventoryScrollPane();
         mainLayout.add(inventoryScrollPane).width(130).height(800).pad(50, 100, 50, 0);
         mainLayout.add().expand();
-        stack.add(mainLayout);
-        rootStack.addActor(stack);
+        inventoryStack.add(mainLayout);
 
-        stage.addActor(rootStack);
+
+
+
+        // add to stackBar:
+        stackBar.addActor(dialogTable);
+        stackBar.addActor(controllerTable);
+        stackBar.addActor(timeTable);
+        stackBar.addActor(inventoryStack);
+
+        // add to stage:
+
+        // weather layers:
+        //setWeatherLayerToStage(new SnowLayer(2.5f));
+        //setWeatherLayerToStage(null);
+        //setWeatherLayerToStage(new RainLayer(4f));
+        setWeatherLayerToStage(new RainLayer(4f));
+        stage.addActor(nightOverlay);
+        stage.addActor(stackBar);
+    }
+
+    public void setWeatherLayerToStage(WeatherLayer newLayer) {
+        if (currentWeatherLayer != null) currentWeatherLayer.remove();
+
+        currentWeatherLayer = newLayer;
+
+        if (currentWeatherLayer != null) stage.addActor(currentWeatherLayer);
     }
 
     @Override
@@ -182,6 +190,10 @@ public class GameScreen implements Screen, InputProcessor {
             // update time:
             controller.updateTime(delta);
             updateNightOverlay();
+
+            if (currentWeatherLayer != null) {
+                currentWeatherLayer.update(delta);
+            }
         }
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -272,7 +284,7 @@ public class GameScreen implements Screen, InputProcessor {
         overlay.add(background);
         overlay.add(table);
 
-        rootStack.setVisible(false);
+        stackBar.setVisible(false);
 
         stage.addActor(overlay);
 
@@ -283,7 +295,7 @@ public class GameScreen implements Screen, InputProcessor {
                 Actions.fadeOut(2f),
                 Actions.run(() -> {
                     overlay.remove();
-                    rootStack.setVisible(true);
+                    stackBar.setVisible(true);
                     texture.dispose();
                     if (onFinished != null) {
                         onFinished.run();
@@ -528,4 +540,17 @@ public class GameScreen implements Screen, InputProcessor {
     public TimeBar getTimeBar() {
         return timeBar;
     }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
 }

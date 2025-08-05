@@ -368,3 +368,5 @@ time/Summer.png
 time/Sunny.png
 time/Winter.png
 time/timeBar.png
+time/weather/rain.png
+time/weather/snow.png

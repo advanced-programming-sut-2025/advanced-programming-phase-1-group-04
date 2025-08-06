@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
+import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Time.DateAndTime;
 import io.Ap.StardewValley.Model.Time.Weather;
 import io.Ap.StardewValley.Screen.CookingScreen.CookingStage;
@@ -210,13 +211,19 @@ public class GameScreen implements Screen, InputProcessor {
         Skin skin = StardewValley.getSkin();
 
         Coordinate cor = App.getGame().getCurrentPlayer().getCoordinate();
+        Player player = App.getGame().getCurrentPlayer();
+        DateAndTime time = App.getGame().getCurrentTime();
+
         controllerTable.clear();
         controllerTable.setFillParent(true);
         controllerTable.top().left();
         controllerTable.add(new Label("Player: (" + cor.getX() + ", " + cor.getY() + ")    " ,skin));
-        //controllerTable.add(new Label("LibGdx: (" + App.getGame().getCurrentPlayer().getXLibGdx() + ", " + App.getGame().getCurrentPlayer().getYLibGdx() + ")" ,skin));
-        controllerTable.add(new Label("Zoom: " + camera.zoom + "    ",skin));
-        controllerTable.add(new Label("Time: " + App.getGame().getCurrentTime().getFormattedTime() + "    ", skin));
+        //controllerTable.add(new Label("LibGdx: (" + player).getXLibGdx() + ", " + App.getGame().getCurrentPlayer().getYLibGdx() + ")" ,skin));
+        //controllerTable.add(new Label("Zoom: " + camera.zoom + "    ",skin));
+        controllerTable.add(new Label("Energy: " + player.getEnergy() + "    ", skin));
+        controllerTable.add(new Label("Max Energy: " + player.getMaxEnergy() + "    ", skin));
+        controllerTable.add(new Label("Season: " + time.getSeason() + "    ", skin));
+        controllerTable.add(new Label("Weather: " + time.getWeather() + "    ", skin));
     }
 
     public void updateCamera() {
@@ -429,47 +436,30 @@ public class GameScreen implements Screen, InputProcessor {
         int hour = time.getHour();
         int minute = time.getMinute();
 
-        float alpha = 0f;
-        boolean isRainy = time.getWeather().equals(Weather.Rain);
+        float alpha;
+        boolean isRainy = time.getWeather().equals(Weather.Rain) || time.getWeather().equals(Weather.Storm);
 
         if (isRainy) {
-            if (hour >= 6 && hour < 19) {
-                int minutesSinceStart = (hour - 6) * 60 + minute;
-                int totalMinutes = (19 - 6) * 60;
-
-                float progress = Math.min(1f, minutesSinceStart / (float) totalMinutes);
-                float maxAlpha = 0.3f;
-
-                alpha = progress * maxAlpha;
-            }
-            else if (hour >= 19) {
-                alpha = getAlpha(hour, minute);
-            }
-            else {
-                alpha = 0.7f;
-            }
+            alpha = getAlpha(hour, minute, 9);
         } else {
-            if (hour >= 19) {
-                alpha = getAlpha(hour, minute);
-            }
+            alpha = getAlpha(hour, minute, 18);
         }
 
         nightOverlay.getColor().a = alpha;
         nightOverlay.setColor(nightOverlay.getColor());
     }
 
-    private float getAlpha(int hour, int minute) {
-        float alpha;
-        int minutesSinceStart = (hour - 19) * 60 + minute;
-        int totalNightMinutes = (24 - 19) * 60;
+    private float getAlpha(int hour, int minute, int start) {
+        int minutesSinceStart = (hour - start) * 60 + minute;
 
+        if (minutesSinceStart < 0) return 0f;
+
+        int totalNightMinutes = (24 - start) * 60;
         float progress = Math.min(1f, minutesSinceStart / (float) totalNightMinutes);
         float maxAlpha = 0.7f;
 
-        alpha = progress * maxAlpha;
-        return alpha;
+        return progress * maxAlpha;
     }
-
 
     @Override
     public void resize(int width, int height) {

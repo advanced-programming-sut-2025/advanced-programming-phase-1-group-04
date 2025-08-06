@@ -360,6 +360,7 @@ skin/impact(3).fnt
 skin/mac's Extended Minecraft Bold Italic.fnt
 skin/mac's Minecraft(1).fnt
 time/Fall.png
+time/Green.png
 time/Rain.png
 time/Snow.png
 time/Spring.png

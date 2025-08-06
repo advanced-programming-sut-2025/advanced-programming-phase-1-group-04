@@ -22,7 +22,7 @@ public class BankPlayerAnimationFrames {
     public BankPlayerAnimationFrames(TextureRegion[][] sheet) {
         float frameDuration = 0.12f;
 
-        faintAnimation = new Animation<>(frameDuration + 3f, sheet[0][0], sheet[2][4], sheet[0][4], sheet[0][5]);
+        faintAnimation = new Animation<>(frameDuration + 1.88f, sheet[0][0], sheet[2][4], sheet[0][4], sheet[0][5]);
         eatAnimation = new Animation<>(frameDuration, sheet[2][2]);
 
         walkAnimations.put(DirectionType.Down,

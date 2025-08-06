@@ -10,6 +10,8 @@ import io.Ap.StardewValley.Model.Time.Season;
 import io.Ap.StardewValley.Model.Time.Weather;
 import io.Ap.StardewValley.StardewValley;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -17,7 +19,8 @@ import java.util.Map;
 public class TimeBar {
     private final Map<Weather, Image> weathersImage = new EnumMap<>(Weather.class);
     private final Map<Season, Image> seasonsImage = new EnumMap<>(Season.class);
-
+    private final Image green = new Image(new Texture(Gdx.files.internal("time/Green.png")));
+    private final List<Image> energyBars = new ArrayList<>();
 
     private final Group group;
 
@@ -72,13 +75,38 @@ public class TimeBar {
         currentWeather.setPosition(254, 168);
         group.addActor(currentWeather);
 
+        // energy:
+//        green.setSize(green.getWidth() * scale, green.getHeight() * scale + 1);
+//        green.setPosition(77, 9);
+//        group.addActor(green);
+
+
+        for (int i = 0; i < 8; i++) {
+            Image energy = new Image(new Texture(Gdx.files.internal("time/Green.png")));
+            energy.setSize(energy.getWidth() * scale, energy.getHeight() * scale + 1);
+            energy.setPosition(77 + i * 29, 9);
+            energyBars.add(energy);
+            group.addActor(energy);
+        }
+
         group.setSize(background.getWidth(), background.getHeight());
+
     }
 
     public void updateTime() {
         DateAndTime time = App.getGame().getCurrentTime();
         timeLabel.setText(time.getFormattedTime());
         dateLabel.setText(time.getDayOfWeek().getAbbreviation() + " " + time.getDay());
+    }
+
+    public void updateEnergy() {
+        int energy = App.getGame().getCurrentPlayer().getEnergy();
+        int maxEnergy = App.getGame().getCurrentPlayer().getMaxEnergy();
+
+        int visibleBars = Math.min(8, Math.max(0, energy * 8 / maxEnergy));
+        for (int i = 0; i < 8; i++) {
+            energyBars.get(i).setVisible(i < visibleBars);
+        }
     }
 
     public void updateSeason(Season season) {

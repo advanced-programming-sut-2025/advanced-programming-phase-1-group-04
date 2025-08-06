@@ -25,6 +25,7 @@ public class KeyManager {
 
     private int aynazCheat = Input.Keys.Z;
     private int nafisehCheat = Input.Keys.ENTER;
+    private int nafisehCheatTime = Input.Keys.RIGHT;
 
     public int getMoveUp() {
         return moveUp;
@@ -144,6 +145,14 @@ public class KeyManager {
 
     public void setNafisehCheat(int nafisehCheat) {
         this.nafisehCheat = nafisehCheat;
+    }
+
+    public int getNafisehCheatTime() {
+        return nafisehCheatTime;
+    }
+
+    public void setNafisehCheatTime(int nafisehCheatTime) {
+        this.nafisehCheatTime = nafisehCheatTime;
     }
 }
 

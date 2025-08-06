@@ -53,6 +53,16 @@ public class OffsetManager {
         hairIdle.put(DirectionType.Down, List.of(new Coordinate(0, -1)));
         hairOffsets.put(StateType.Idle, hairIdle);
 
+        // faint:
+        EnumMap<DirectionType, List<Coordinate>> hairFaint = new EnumMap<>(DirectionType.class);
+        hairFaint.put(DirectionType.Down, List.of(
+                new Coordinate(0, -1),
+                new Coordinate(0, -2),
+                new Coordinate(0, -6),
+                new Coordinate(0, -7)
+        ));
+        hairOffsets.put(StateType.Faint, hairFaint);
+
         allOffsets.put(OffsetType.Hair, hairOffsets);
 
         // ---------------------------------------------------------------------------------------------
@@ -98,6 +108,15 @@ public class OffsetManager {
         shirtIdle.put(DirectionType.Up, List.of(new Coordinate(4, 10)));
         shirtIdle.put(DirectionType.Down, List.of(new Coordinate(4, 9)));
         shirtOffsets.put(StateType.Idle, shirtIdle);
+
+        EnumMap<DirectionType, List<Coordinate>> shirtFaint = new EnumMap<>(DirectionType.class);
+        shirtFaint.put(DirectionType.Down, List.of(
+                new Coordinate(4, 10),
+                new Coordinate(4, 8),
+                new Coordinate(4, 5),
+                new Coordinate(4, 4)
+        ));
+        shirtOffsets.put(StateType.Faint, shirtFaint);
 
         allOffsets.put(OffsetType.Shirt, shirtOffsets);
     }

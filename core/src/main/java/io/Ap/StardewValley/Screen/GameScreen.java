@@ -197,6 +197,7 @@ public class GameScreen implements Screen, InputProcessor {
             controller.updateTime(delta);
             updateNightOverlay();
 
+            // update weather:
             if (currentWeatherLayer != null)
                 currentWeatherLayer.update(delta);
         }

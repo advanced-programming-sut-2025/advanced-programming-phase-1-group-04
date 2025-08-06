@@ -119,13 +119,10 @@ public class GameScreenController {
         }
 
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheat())){
-            App.getGame().getCurrentTime().addHour(14);
-            App.getGame().getCurrentTime().setMinute(55);
-            App.getGame().getCurrentTime().addDay(27);
-//            for (int i = 0; i < 10; i++) {
-//                NightController.nightControl();
-//            }
-//
+            App.getGame().getCurrentPlayer().setEnergy(-1);
+//            App.getGame().getCurrentTime().addHour(14);
+//            App.getGame().getCurrentTime().setMinute(55);
+//            App.getGame().getCurrentTime().addDay(27);
 //            goToNextDay();
         }
 
@@ -140,7 +137,14 @@ public class GameScreenController {
     }
 
     public void updatePlayer() {
-        handlePlayerInputKey();
+        Player player = App.getGame().getCurrentPlayer();
+        if (player.getEnergy() > 0) {
+            handlePlayerInputKey();
+        } else {
+            player.setState(StateType.Faint);
+            player.setDirection(DirectionType.Down);
+        }
+
         playerRender.render();
     }
 

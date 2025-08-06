@@ -132,16 +132,20 @@ public class PlayerRender {
         int frameIndex = 0;
         if (!state.equals(StateType.Idle)) {
             Animation<TextureRegion> bodyAnim = bodyAnimations.getAnimation(state, direction);
-            bodyAnim.setPlayMode(Animation.PlayMode.LOOP);
+
+            boolean looping = !(state.equals(StateType.Eat) || state.equals(StateType.Faint));
+            if (looping)
+                bodyAnim.setPlayMode(Animation.PlayMode.LOOP);
+
             frameIndex = bodyAnim.getKeyFrameIndex(stateTime);
 
             Animation<TextureRegion> handAnim = hand01Animations.getAnimation(state, direction);
             Animation<TextureRegion> pantAnim = pantAnimations.getAnimation(state, direction);
 
 
-            bodyFrame = bodyAnim.getKeyFrame(stateTime, true);
-            handFrame = handAnim.getKeyFrame(stateTime, true);
-            pantFrame = pantAnim.getKeyFrame(stateTime, true);
+            bodyFrame = bodyAnim.getKeyFrame(stateTime, looping);
+            handFrame = handAnim.getKeyFrame(stateTime, looping);
+            pantFrame = pantAnim.getKeyFrame(stateTime, looping);
         } else {
             bodyFrame = bodyAnimations.getIdleFrame(direction);
             handFrame = hand01Animations.getIdleFrame(direction);
@@ -159,11 +163,11 @@ public class PlayerRender {
         float scale = App.getGame().getPlayerScale();
         batch.draw(bodyFrame, x, y, bodyFrame.getRegionWidth() * scale, bodyFrame.getRegionHeight() * scale);
 
+        batch.draw(shirtFrame, x + shirtOffset.getX() * scale, y + shirtOffset.getY() * scale, shirtFrame.getRegionWidth() * scale, shirtFrame.getRegionHeight() * scale);
+
         batch.setColor(App.getColor(App.getGame().getCurrentPlayer().getPantColor()));
         batch.draw(pantFrame, x, y, pantFrame.getRegionWidth() * scale, pantFrame.getRegionHeight() * scale);
         batch.setColor(Color.WHITE);
-
-        batch.draw(shirtFrame, x + shirtOffset.getX() * scale, y + shirtOffset.getY() * scale, shirtFrame.getRegionWidth() * scale, shirtFrame.getRegionHeight() * scale);
 
         batch.setColor(App.getColor(App.getGame().getCurrentPlayer().getHairColor()));
         batch.draw(hairFrame, x + hairOffset.getX() * scale, y + (hairOffset.getY() + longHair) * scale, hairFrame.getRegionWidth() * scale, hairFrame.getRegionHeight() * scale);

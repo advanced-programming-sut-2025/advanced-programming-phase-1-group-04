@@ -89,7 +89,7 @@ public class Player {
         this.shirtIndex = shirtIndex;
         this.hairIndex = hairIndex;
 
-        this.direction = DirectionType.Up;
+        this.direction = DirectionType.Down;
         this.state = StateType.Idle;
 
         this.id = id;

@@ -9,8 +9,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Cooking.FoodRecipe;
-import io.Ap.StardewValley.Model.Item.Item;
-import io.Ap.StardewValley.Screen.InventoryScreen.ItemTextureBank;
+import io.Ap.StardewValley.Screen.ItemScreen.ItemTextureBank;
 import io.Ap.StardewValley.StardewValley;
 
 import java.util.*;

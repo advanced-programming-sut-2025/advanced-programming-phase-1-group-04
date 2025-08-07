@@ -186,7 +186,7 @@ public class GameScreenController {
         // status
         if (isMoving) {
             player.setState(StateType.Walk);
-            player.addEnergy(-1);
+            //player.addEnergy(-1);
         } else if (isEating) {
             player.setState(StateType.Eat);
         } else {

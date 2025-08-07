@@ -19,6 +19,7 @@ import io.Ap.StardewValley.Model.Time.Weather;
 import io.Ap.StardewValley.Screen.CookingScreen.CookingStage;
 import io.Ap.StardewValley.Screen.InventoryScreen.InventoryBar;
 import io.Ap.StardewValley.Screen.InventoryScreen.InventoryStage;
+import io.Ap.StardewValley.Screen.ItemScreen.ItemTextureBank;
 import io.Ap.StardewValley.Screen.MapScreen.SeasonTextureManager;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
 import io.Ap.StardewValley.Screen.TimeScreen.RainLayer;
@@ -490,6 +491,7 @@ public class GameScreen implements Screen, InputProcessor {
         }
 
         SeasonTextureManager.disposeAll();
+        ItemTextureBank.dispose();
     }
 
     @Override

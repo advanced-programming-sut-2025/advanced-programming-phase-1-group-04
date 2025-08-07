@@ -142,7 +142,7 @@ public enum CropType implements PlantType{
             7, false, 5, 75, true, 38,
             new ArrayList<>(List.of(Season.Fall)), false, false),
 
-    Eggplant ("Eggplant", SeedType.EggplantSeeds, new int[] {1, 1, 1, 1},
+    Eggplant ("Eggplant", SeedType.EggplantSeeds, new int[] {1, 1, 1, 1, 1},
             5, false, 5, 60, true, 20,
             new ArrayList<>(List.of(Season.Fall)), false, false),
 

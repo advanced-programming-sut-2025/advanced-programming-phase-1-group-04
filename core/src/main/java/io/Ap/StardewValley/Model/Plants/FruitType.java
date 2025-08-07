@@ -10,7 +10,7 @@ public enum FruitType implements PlantType{
     Peach("Peach", 140, true, 38, TreeType.Peach),
     Apple("Apple", 100, true, 38, TreeType.Apple),
     Pomegranate("Pomegranate", 140, true, 38, TreeType.Pomegranate),
-    OakResin("Oak Resin ", 150, false, 0, TreeType.Oak),
+    OakResin("Oak Resin", 150, false, 0, TreeType.Oak),
     MapleSyrup("Maple Syrup", 200, false, 0, TreeType.Maple),
     PineTar("Pine Tar", 100, false, 0, TreeType.Pine),
     Sap("Sap", 2, true, -2, TreeType.Mahogany),

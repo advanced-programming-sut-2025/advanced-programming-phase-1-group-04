@@ -18,8 +18,8 @@ public class ItemTextureBank {
 
     // Map Item:
     private static final Map<ForagingCropType, Texture> foragingCrops = new EnumMap<>(ForagingCropType.class);
-    private static final Texture stone = new Texture(Gdx.files.internal("stone.png"));
-    private static final Texture wood = new Texture(Gdx.files.internal("wood.png"));
+    //private static final Texture stone = new Texture(Gdx.files.internal("stone.png"));
+    //private static final Texture wood = new Texture(Gdx.files.internal("wood.png"));
 
     private static final Map<TreeType, List<Texture>> treeStages = new EnumMap<>(TreeType.class);
     private static final Map<CropType, List<Texture>> cropStages = new EnumMap<>(CropType.class);

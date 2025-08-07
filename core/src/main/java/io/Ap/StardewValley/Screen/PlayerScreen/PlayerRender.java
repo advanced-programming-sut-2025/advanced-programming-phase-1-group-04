@@ -10,7 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
+import io.Ap.StardewValley.Model.Tool.*;
+import io.Ap.StardewValley.Model.Tool.Tool;
 import io.Ap.StardewValley.StardewValley;
+import org.w3c.dom.Text;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -22,6 +25,8 @@ public class PlayerRender {
     private BankPlayerAnimationFrames hand01Animations;
     private BankPlayerAnimationFrames hand02Animations;
     private BankPlayerAnimationFrames pantAnimations;
+
+    private BankToolAnimation toolAnimations;
 
     private final Map<DirectionType, TextureRegion> hairFrames = new EnumMap<>(DirectionType.class);
     private final Map<DirectionType, TextureRegion> shirtFrames = new EnumMap<>(DirectionType.class);
@@ -62,6 +67,10 @@ public class PlayerRender {
         // make head:
         setHeadImage(bodySheet[0][1], hairSheet[(hairIndex / 8) * 3][hairIndex % 8],
                 App.getColor(App.getGame().getCurrentPlayer().getHairColor()), hairIndex);
+//
+//        //tool
+        TextureRegion[][] toolsSheet = TextureRegion.split(new Texture("player/tools/tools.png"), 16, 24);
+        this.toolAnimations = new BankToolAnimation(toolsSheet);
     }
 
     public void setHeadImage(TextureRegion fullHeadFrame, TextureRegion fullHairFrame, Color hairColor, int hairIndex) {
@@ -140,6 +149,7 @@ public class PlayerRender {
         float y = App.getGame().getCurrentPlayer().getYLibGdx();
 
         TextureRegion bodyFrame, handFrame, pantFrame, hairFrame, shirtFrame;
+        TextureRegion toolFrame = null;
         int frameIndex = 0;
         if (!state.equals(StateType.Idle)) {
             Animation<TextureRegion> bodyAnim = bodyAnimations.getAnimation(state, direction);
@@ -149,6 +159,22 @@ public class PlayerRender {
             Animation<TextureRegion> handAnim = hand01Animations.getAnimation(state, direction);
             Animation<TextureRegion> pantAnim = pantAnimations.getAnimation(state, direction);
 
+            Tool tool = App.getGame().getCurrentPlayer().getCurrentTool();
+            if (tool != null) {
+                Animation<TextureRegion> toolAnim = null;
+                if (tool instanceof Hoe hoe) {
+                    toolAnim = toolAnimations.getAnimation(tool.getType(), hoe.getLevel(), direction);
+                } else if (tool instanceof Axe axe) {
+                    toolAnim = toolAnimations.getAnimation(tool.getType(), axe.getLevel(), direction);
+                } else if (tool instanceof Pickaxe pickaxe) {
+                    toolAnim = toolAnimations.getAnimation(tool.getType(), pickaxe.getLevel(), direction);
+                } else if (tool instanceof WateringCan wateringCan) {
+                    toolAnim = toolAnimations.getAnimation(tool.getType(), wateringCan.getLevel(), direction);
+                }
+                if (toolAnim != null) {
+                    toolFrame = toolAnim.getKeyFrame(stateTime, true);
+                }
+            }
 
             bodyFrame = bodyAnim.getKeyFrame(stateTime, true);
             handFrame = handAnim.getKeyFrame(stateTime, true);
@@ -165,9 +191,22 @@ public class PlayerRender {
         Coordinate hairOffset = OffsetManager.getOffset(OffsetType.Hair, state, direction, frameIndex);
         Coordinate shirtOffset = OffsetManager.getOffset(OffsetType.Shirt, state, direction, frameIndex);
 
+        ToolRenderTransform toolTransform = ToolOffsetManager.getTransform(state, direction, frameIndex);
+
         int longHair = (App.getGame().getCurrentPlayer().getHairIndex() < 16) ? 0 : 1;
 
         float scale = App.getGame().getPlayerScale();
+
+        if (toolFrame != null && direction == DirectionType.Up && (state == StateType.ToolHoe || state == StateType.ToolAxe || state == StateType.ToolPickaxe || state == StateType.ToolWateringCan)) {
+            batch.draw(toolFrame,
+                    x + toolTransform.getX(), y + toolTransform.getY(),
+                    toolTransform.getOriginX(), toolTransform.getOriginY(), // origin for rotation
+                    toolFrame.getRegionWidth(), toolFrame.getRegionHeight(),
+                    1.1f, 1.1f, // scale
+                    toolTransform.getRotation()
+            );
+        }
+
         batch.draw(bodyFrame, x, y, bodyFrame.getRegionWidth() * scale, bodyFrame.getRegionHeight() * scale);
 
         batch.setColor(App.getColor(App.getGame().getCurrentPlayer().getPantColor()));
@@ -180,6 +219,27 @@ public class PlayerRender {
         batch.draw(hairFrame, x + hairOffset.getX() * scale, y + (hairOffset.getY() + longHair) * scale, hairFrame.getRegionWidth() * scale, hairFrame.getRegionHeight() * scale);
         batch.setColor(Color.WHITE);
 
+
+        if (toolFrame != null && direction != DirectionType.Up && direction != DirectionType.Down && (state == StateType.ToolHoe || state == StateType.ToolAxe || state == StateType.ToolPickaxe || state == StateType.ToolWateringCan)) {
+            batch.draw(toolFrame,
+                    x + toolTransform.getX(), y + toolTransform.getY(),
+                    toolTransform.getOriginX(), toolTransform.getOriginY(), // origin for rotation
+                    toolFrame.getRegionWidth(), toolFrame.getRegionHeight(),
+                    0.95f, 0.95f, // scale
+                    toolTransform.getRotation()
+            );
+        }
+
         batch.draw(handFrame, x, y, handFrame.getRegionWidth() * scale, handFrame.getRegionHeight() * scale);
+
+        if (toolFrame != null && direction == DirectionType.Down && (state == StateType.ToolHoe || state == StateType.ToolAxe || state == StateType.ToolPickaxe || state == StateType.ToolWateringCan)) {
+            batch.draw(toolFrame,
+                    x + toolTransform.getX(), y + toolTransform.getY(),
+                    toolTransform.getOriginX(), toolTransform.getOriginY(), // origin for rotation
+                    toolFrame.getRegionWidth(), toolFrame.getRegionHeight(),
+                    0.95f, 0.95f, // scale
+                    toolTransform.getRotation()
+            );
+        }
     }
 }

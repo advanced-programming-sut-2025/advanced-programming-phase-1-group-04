@@ -16,6 +16,7 @@ public class KeyManager {
     private int cheatLife = Input.Keys.J;
     private int cheatHp = Input.Keys.H;
     private int cheatBossFight = Input.Keys.B;
+    private int aynazCheat = Input.Keys.Z;
 
     //inventory:
     private int openInventory = Input.Keys.I;
@@ -23,7 +24,9 @@ public class KeyManager {
     //cooking:
     private int openRefrigerator = Input.Keys.C;
 
-    private int aynazCheat = Input.Keys.Z;
+    //tools
+    private int leftClick = Input.Buttons.LEFT;
+
 
 
     public int getMoveUp() {
@@ -136,6 +139,14 @@ public class KeyManager {
 
     public void setOpenRefrigerator(int openRefrigerator) {
         this.openRefrigerator = openRefrigerator;
+    }
+
+    public int getLeftClick() {
+        return leftClick;
+    }
+
+    public void setLeftClick(int leftClick) {
+        this.leftClick = leftClick;
     }
 }
 

@@ -53,6 +53,111 @@ public class OffsetManager {
         hairIdle.put(DirectionType.Down, List.of(new Coordinate(0, -1)));
         hairOffsets.put(StateType.Idle, hairIdle);
 
+
+        //shear
+        EnumMap<DirectionType, List<Coordinate>> hairToolShear = new EnumMap<>(DirectionType.class);
+        hairToolShear.put(DirectionType.Right, List.of(
+                new Coordinate(0, 0),
+                new Coordinate(0, 0),
+                new Coordinate(0, 0),
+                new Coordinate(0, 0),
+                new Coordinate(0, 0),
+                new Coordinate(0, 0)
+        ));
+        hairToolShear.put(DirectionType.Left, List.of(
+                new Coordinate(0, 0),
+                new Coordinate(0, 0),
+                new Coordinate(0, 0),
+                new Coordinate(0, 0),
+                new Coordinate(0, 0),
+                new Coordinate(0, 0)
+        ));
+        hairToolShear.put(DirectionType.Up, List.of(
+                new Coordinate(0, -1),
+                new Coordinate(0, -1),
+                new Coordinate(0, -1),
+                new Coordinate(0, -1),
+                new Coordinate(0, -1),
+                new Coordinate(0, -1)
+        ));
+        hairToolShear.put(DirectionType.Down, List.of(
+                new Coordinate(0, -1),
+                new Coordinate(0, -1),
+                new Coordinate(0, -1),
+                new Coordinate(0, -1),
+                new Coordinate(0, -1),
+                new Coordinate(0, -1)
+        ));
+        hairOffsets.put(StateType.ToolShear, hairToolShear);
+
+        //hoe
+        EnumMap<DirectionType, List<Coordinate>> hairToolHoe = new EnumMap<>(DirectionType.class);
+        hairToolHoe.put(DirectionType.Right, List.of(
+                new Coordinate(-1, -1),
+                new Coordinate(-1, 0),
+                new Coordinate(-1, 1),
+                new Coordinate(-1, 2),
+                new Coordinate(-1, 1)
+        ));
+        hairToolHoe.put(DirectionType.Left, List.of(
+                new Coordinate(1, -1),
+                new Coordinate(1, 0),
+                new Coordinate(1, 1),
+                new Coordinate(1, 2),
+                new Coordinate(1, 1)
+        ));
+        hairToolHoe.put(DirectionType.Up, List.of(
+                new Coordinate(0, -1),
+                new Coordinate(0, -1),
+                new Coordinate(0, -2),
+                new Coordinate(0, -3),
+                new Coordinate(0, -3)
+        ));
+        hairToolHoe.put(DirectionType.Down, List.of(
+                new Coordinate(0, -2),
+                new Coordinate(0, -1),
+                new Coordinate(0, 0),
+                new Coordinate(0, 1),
+                new Coordinate(0, 0)
+
+        ));
+        hairOffsets.put(StateType.ToolHoe, hairToolHoe);
+        hairOffsets.put(StateType.ToolAxe, hairToolHoe);
+        hairOffsets.put(StateType.ToolPickaxe, hairToolHoe);
+
+        //hoe
+        EnumMap<DirectionType, List<Coordinate>> hairWateringTool = new EnumMap<>(DirectionType.class);
+        hairWateringTool.put(DirectionType.Right, List.of(
+                new Coordinate(-1, -1),
+                new Coordinate(-1, 0),
+                new Coordinate(-1, 1),
+                new Coordinate(-1, 1),
+                new Coordinate(-1, 1)
+        ));
+        hairWateringTool.put(DirectionType.Left, List.of(
+                new Coordinate(1, -1),
+                new Coordinate(1, 0),
+                new Coordinate(1, 1),
+                new Coordinate(1, 1),
+                new Coordinate(1, 1)
+        ));
+        hairWateringTool.put(DirectionType.Up, List.of(
+                new Coordinate(0, -2),
+                new Coordinate(0, -2),
+                new Coordinate(0, -2),
+                new Coordinate(0, -2),
+                new Coordinate(0, -2)
+        ));
+        hairWateringTool.put(DirectionType.Down, List.of(
+                new Coordinate(0, -1),
+                new Coordinate(0, 0),
+                new Coordinate(0, 0),
+                new Coordinate(0, 0),
+                new Coordinate(0, 0)
+
+        ));
+        hairOffsets.put(StateType.ToolWateringCan, hairWateringTool);
+
         allOffsets.put(OffsetType.Hair, hairOffsets);
 
         // ---------------------------------------------------------------------------------------------
@@ -98,6 +203,110 @@ public class OffsetManager {
         shirtIdle.put(DirectionType.Up, List.of(new Coordinate(4, 10)));
         shirtIdle.put(DirectionType.Down, List.of(new Coordinate(4, 9)));
         shirtOffsets.put(StateType.Idle, shirtIdle);
+
+        //shear
+        EnumMap<DirectionType, List<Coordinate>> shirtToolShear = new EnumMap<>(DirectionType.class);
+        shirtToolShear.put(DirectionType.Right, List.of(
+                new Coordinate(3, 9),
+                new Coordinate(3, 9),
+                new Coordinate(3, 9),
+                new Coordinate(3, 9),
+                new Coordinate(3, 9),
+                new Coordinate(3, 9)
+        ));
+        shirtToolShear.put(DirectionType.Left, List.of(
+                new Coordinate(5, 9),
+                new Coordinate(5, 9),
+                new Coordinate(5, 9),
+                new Coordinate(5, 9),
+                new Coordinate(5, 9),
+                new Coordinate(5, 9)
+        ));
+        shirtToolShear.put(DirectionType.Up, List.of(
+                new Coordinate(4, 10),
+                new Coordinate(4, 10),
+                new Coordinate(4, 10),
+                new Coordinate(4, 10),
+                new Coordinate(4, 10),
+                new Coordinate(4, 10)
+        ));
+        shirtToolShear.put(DirectionType.Down, List.of(
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9)
+        ));
+        shirtOffsets.put(StateType.ToolShear, shirtToolShear);
+
+        //hoe
+        EnumMap<DirectionType, List<Coordinate>> shirtToolHoe = new EnumMap<>(DirectionType.class);
+        shirtToolHoe.put(DirectionType.Right, List.of(
+                new Coordinate(3, 9),
+                new Coordinate(3, 9),
+                new Coordinate(3, 10),
+                new Coordinate(3, 10),
+                new Coordinate(3, 10)
+        ));
+        shirtToolHoe.put(DirectionType.Left, List.of(
+                new Coordinate(5, 9),
+                new Coordinate(5, 9),
+                new Coordinate(5, 10),
+                new Coordinate(5, 10),
+                new Coordinate(5, 10)
+        ));
+        shirtToolHoe.put(DirectionType.Up, List.of(
+                new Coordinate(4, 10),
+                new Coordinate(4, 10),
+                new Coordinate(4, 9),
+                new Coordinate(4, 8),
+                new Coordinate(4, 8)
+        ));
+        shirtToolHoe.put(DirectionType.Down, List.of(
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 10),
+                new Coordinate(4, 11),
+                new Coordinate(4, 9)
+
+        ));
+        shirtOffsets.put(StateType.ToolHoe, shirtToolHoe);
+        shirtOffsets.put(StateType.ToolAxe, shirtToolHoe);
+        shirtOffsets.put(StateType.ToolPickaxe, shirtToolHoe);
+
+        EnumMap<DirectionType, List<Coordinate>> shirtWateringTool = new EnumMap<>(DirectionType.class);
+        shirtWateringTool.put(DirectionType.Right, List.of(
+                new Coordinate(3, 9),
+                new Coordinate(3, 9),
+                new Coordinate(3, 10),
+                new Coordinate(3, 10),
+                new Coordinate(3, 10)
+        ));
+        shirtWateringTool.put(DirectionType.Left, List.of(
+                new Coordinate(5, 9),
+                new Coordinate(5, 9),
+                new Coordinate(5, 10),
+                new Coordinate(5, 10),
+                new Coordinate(5, 10)
+        ));
+        shirtWateringTool.put(DirectionType.Up, List.of(
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9)
+        ));
+        shirtWateringTool.put(DirectionType.Down, List.of(
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 10),
+                new Coordinate(4, 11),
+                new Coordinate(4, 9)
+
+        ));
+        shirtOffsets.put(StateType.ToolWateringCan, shirtWateringTool);
+
 
         allOffsets.put(OffsetType.Shirt, shirtOffsets);
     }

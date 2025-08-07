@@ -10,6 +10,8 @@ import io.Ap.StardewValley.Model.Plants.Crop;
 import io.Ap.StardewValley.Model.Plants.CropType;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Player.Skill;
+import io.Ap.StardewValley.Model.Tool.Shear;
+import io.Ap.StardewValley.Model.Tool.ToolType;
 import io.Ap.StardewValley.Screen.GameScreen;
 import io.Ap.StardewValley.Screen.InventoryScreen.MapTab;
 import io.Ap.StardewValley.Screen.MapScreen.RegionTransition;
@@ -28,6 +30,12 @@ public class GameScreenController {
     //cooking:
     private static boolean isCookingStageVisible = false;
     private static boolean cookingStageNeedsUpdate = false;
+
+    //tools:
+    private boolean isToolActionInProgress = false;
+    private float toolActionStartTime = 0f;
+    private float toolActionDuration = 0.6f;
+
 
     public void setViews(GameScreen view) {
         this.view = view;
@@ -54,6 +62,8 @@ public class GameScreenController {
 
         //todo: سنگین میشه یا نه؟
         ((MapTab) view.getInventoryStage().getInfoWindows().get(3)).updatePlayerPosition();
+        updateToolAction(Gdx.graphics.getDeltaTime());
+
 
     }
 
@@ -78,6 +88,7 @@ public class GameScreenController {
             App.getGame().getCurrentPlayer().addAbility(Skill.Farming, 10);
             App.getGame().getCurrentPlayer().setInventoryCapacity(24);
             App.getGame().getCurrentPlayer().getInventory().addItem(new AnimalProduct(AnimalProductType.Egg), 10);
+            App.getGame().getCurrentPlayer().getInventory().addItem(new Shear(), 1);
             inventoryStageNeedsUpdate = true;
             cookingStageNeedsUpdate = true;
         }
@@ -111,7 +122,8 @@ public class GameScreenController {
         // player inputs: walk, eat, use tool:
         Player player = App.getGame().getCurrentPlayer();
         boolean isMoving = false;
-        boolean isUsingTool = false;
+//        boolean isUsingTool = false;
+        boolean isUsingTool = isToolActionActive();
         boolean isEating = false;
 
         float newX = player.getXLibGdx();
@@ -135,6 +147,9 @@ public class GameScreenController {
             newX -= speed;
             isMoving = true;
             player.setDirection(DirectionType.Left);
+        } else if (Gdx.input.isButtonPressed(App.getKeyManager().getLeftClick())){
+            isUsingTool = true;
+            startToolAction(); // اینو اضافه کن!
         }
 
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getPauseGame()) && !view.isPaused()){
@@ -147,6 +162,22 @@ public class GameScreenController {
             player.setState(StateType.Walk);
         } else if (isEating) {
             player.setState(StateType.Eat);
+        } else if (isUsingTool && player.getCurrentTool() == null) {
+            player.setState(StateType.Idle);
+        } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.Shear) {
+            player.setState(StateType.ToolShear);
+        } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.MilkPail) {
+//            player.setState(StateType.ToolMilkPail);
+        } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.Hoe) {
+            player.setState(StateType.ToolHoe);
+        } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.Axe) {
+            player.setState(StateType.ToolAxe);
+        } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.Pickaxe) {
+            player.setState(StateType.ToolPickaxe);
+        } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.Scythe) {
+//            player.setState(StateType.ToolScythe);
+        } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.WateringCan) {
+            player.setState(StateType.ToolWateringCan);
         } else {
             player.setState(StateType.Idle);
         }
@@ -203,5 +234,25 @@ public class GameScreenController {
     public static void setCookingStageNeedsUpdate(boolean cookingStageNeedsUpdate) {
         GameScreenController.cookingStageNeedsUpdate = cookingStageNeedsUpdate;
     }
+
+
+    public void startToolAction() {
+        isToolActionInProgress = true;
+        toolActionStartTime = 0f;
+    }
+
+    public void updateToolAction(float deltaTime) {
+        if (isToolActionInProgress) {
+            toolActionStartTime += deltaTime;
+            if (toolActionStartTime >= toolActionDuration) {
+                isToolActionInProgress = false;
+            }
+        }
+    }
+
+    public boolean isToolActionActive() {
+        return isToolActionInProgress;
+    }
+
 
 }

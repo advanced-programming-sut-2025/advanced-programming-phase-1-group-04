@@ -48,12 +48,12 @@ public class Shear implements Tool {
 
     @Override
     public String getLevelString() {
-        return "Shear";
+        return "Shears";
     }
 
     @Override
     public String getName() {
-        return "shear";
+        return "shears";
     }
 
     @Override

@@ -302,6 +302,7 @@ player/pants/pant_6.png
 player/pants/pant_7.png
 player/pants/pant_8.png
 player/pants/pant_9.png
+player/tools/tools.png
 skin/04B_30__.fnt
 skin/NzSkin.atlas
 skin/NzSkin.json

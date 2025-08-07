@@ -97,18 +97,12 @@ public class PlantController {
             return new Result(false, "you don't have " + seedName + " in your inventory!");
         }
         if (seedType != null) {
-
-            //CONFLICT:
-// <<<<<<< HEAD
-            // if (seedName.equalsIgnoreCase("mixed seeds")) {
-            //     App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
-            //     return plantInTile(GameMenuController.getCoordinateByDirection(direction), new Seed(getRandomSeed(), true), GameMenuController.getTileByDirection(direction),
-            //             App.getCurrentGame().getCurrentTime());
-            // }
-            // App.getCurrentGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
-// =======
+            if (seedName.equalsIgnoreCase("mixed seeds")) {
+                 App.getGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
+                 return plantInTile(GameMenuController.getCoordinateByDirection(direction), new Seed(getRandomSeed(), true), GameMenuController.getTileByDirection(direction),
+                         App.getGame().getCurrentTime());
+            }
             App.getGame().getCurrentPlayer().removeItemFromInventory(seedName, 1);
-// >>>>>>> origin/menu
             return plantInTile(GameMenuController.getCoordinateByDirection(direction), new Seed(seedType, true), GameMenuController.getTileByDirection(direction),
                     App.getGame().getCurrentTime());
         }

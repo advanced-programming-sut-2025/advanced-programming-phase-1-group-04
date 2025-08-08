@@ -97,7 +97,7 @@ public class GameScreenController {
 
         // cheats:
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatTime())){
-
+            //App.getGame().getMap().getFullMap()[App.getGame().getCurrentPlayer().getCoordinate().getX() + 1][App.getGame().getCurrentPlayer().getCoordinate().getY() + 1].setWatered(true);
         }
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatLevel())){
 
@@ -127,16 +127,21 @@ public class GameScreenController {
             //App.getGame().getCurrentTime().addDay(27);
             //goToNextDay();
             //App.getGame().getMap().getFullMap()[App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()].setFertilize(1);
-            App.getGame().getMap().getFullMap()
-                    [App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()]
-                    .setPlowed(true);
+
+//            App.getGame().getMap().getFullMap()
+//                    [App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()]
+//                    .setPlowed(true);
+
+//            App.getGame().getMap().getFullMap()
+//                    [App.getGame().getCurrentPlayer().getCoordinate().getX() + 1][App.getGame().getCurrentPlayer().getCoordinate().getY() + 1]
+//                    .setItem(new Crop(CropType.Potato));
         }
 
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheatTime())){
             //App.getGame().getCurrentTime().addHour(1);
-            App.getGame().getMap().getFullMap()
-                    [App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()]
-                    .setWatered(true);
+//            App.getGame().getMap().getFullMap()
+//                    [App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()]
+//                    .setWatered(true);
         }
 
         //inventory:

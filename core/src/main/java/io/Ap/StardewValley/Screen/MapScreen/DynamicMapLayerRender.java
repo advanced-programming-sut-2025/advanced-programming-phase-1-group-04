@@ -43,26 +43,19 @@ public class DynamicMapLayerRender {
     {
         TextureRegion[][] cropSheet = TextureRegion.split(new Texture("map/items/CropStages.png"), 16, 32);
 
-        int rows = cropSheet.length;
-        int cols = cropSheet[0].length;
+        CropType[] cropTypes = CropType.values();
 
-        int col = 0;
-        for (CropType type : CropType.values()) {
-            int stagesCount = type.getStages().length + 1;
+        for (int i = 0; i < cropTypes.length - 1; i++) {
+            CropType type = cropTypes[i];
+            List<TextureRegion> stages;
+            int len = type.getStages().length + 1;
 
-            List<TextureRegion> stagesList = new ArrayList<>();
+            if (i < 21)
+                stages = new ArrayList<>(Arrays.asList(cropSheet[i]).subList(0, len));
+            else
+                stages = new ArrayList<>(Arrays.asList(cropSheet[i-21]).subList(6, 6 + len));
 
-            for (int row = 0; row < stagesCount; row++) {
-                if (row >= rows) break;
-
-                TextureRegion region = cropSheet[row][col];
-                stagesList.add(region);
-            }
-
-            cropStages.put(type, stagesList);
-
-            col++;
-            if (col >= cols) break;
+            cropStages.put(type, stages);
         }
     }
 

@@ -174,12 +174,12 @@ public enum CropType implements PlantType{
             28, false, 7, 550, false, 0,
             new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall)), false, false),
 
-    Mixed (null, null, null, 0, false, 0,
-            0, false, 0, null, false, true),
-
     Grass ("Grass", SeedType.GrassStarter, new int[] {0}, 0, true, 0,
             50, false, 0, new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)),
-            false, false);
+            false, false),
+
+    Mixed (null, null, null, 0, false, 0,
+                   0, false, 0, null, false, true);
 
 
     private final String name;

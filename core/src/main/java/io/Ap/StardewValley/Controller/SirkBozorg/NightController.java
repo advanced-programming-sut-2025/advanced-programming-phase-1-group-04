@@ -25,9 +25,9 @@ public class NightController {
     public static Random rand = new Random();
     private static Coordinate thorCoordinate = null;
 
-    private static final int randomPercentForagingPlant = 20;
-    private static final int randomPercentForagingMineral = 20;
-    private static final int randomPercentStoneWood = 10;
+    private static final int randomPercentForagingPlant = 10;
+    private static final int randomPercentForagingMineral = 10;
+    private static final int randomPercentStoneWood = 15;
 
     public static void nightControl() {
         // Map:
@@ -57,8 +57,8 @@ public class NightController {
         rainyWeatherEffect();
         randomForagingPlants();
         randomForagingMinerals();
-        randomStoneWood();
-//        crowControl();
+        //randomStoneWood();
+        //crowControl();
     }
 
     // Randoms:

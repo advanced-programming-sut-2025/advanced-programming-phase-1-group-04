@@ -23,6 +23,8 @@ public enum TreeType implements PlantType{
             FruitType.Apple, 1, new ArrayList<>(List.of(Season.Fall))),
     Pomegranate("Pomegranate Tree", SaplingType.PomegranateSapling, new int[] {7, 7, 7, 7}, 28,
             FruitType.Pomegranate, 1, new ArrayList<>(List.of(Season.Fall))),
+
+
     Oak("Oak Tree", SaplingType.Acorns, new int[] {7, 7, 7, 7}, 28,
             FruitType.OakResin, 7, new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter))),
     Maple("Maple Tree", SaplingType.MapleSeeds, new int[] {7, 7, 7, 7}, 28,
@@ -44,7 +46,6 @@ public enum TreeType implements PlantType{
     private final FruitType fruitType;
     private final int fruitHarvestCycle;
     private final ArrayList<Season> seasons;
-
 
     TreeType (String name, SaplingType source, int[] stages, int totalHarvestTime,
               FruitType fruitType, int fruitHarvestCycle, ArrayList<Season> seasons) {

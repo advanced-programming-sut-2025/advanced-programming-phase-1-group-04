@@ -3,21 +3,16 @@ package io.Ap.StardewValley.Screen.MapScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
+
+import java.util.*;
+
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Item.Stone;
 import io.Ap.StardewValley.Model.Item.Wood;
 import io.Ap.StardewValley.Model.Map.Tile;
-import io.Ap.StardewValley.Model.Plants.CropType;
-import io.Ap.StardewValley.Model.Plants.ForagingCrop;
-import io.Ap.StardewValley.Model.Plants.ForagingCropType;
-import io.Ap.StardewValley.Model.Plants.TreeType;
+import io.Ap.StardewValley.Model.Plants.*;
 import io.Ap.StardewValley.StardewValley;
-
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DynamicMapLayerRender {
     private final Map<String, TextureRegion> additional = new HashMap<>();
@@ -25,13 +20,53 @@ public class DynamicMapLayerRender {
     // Map Item:
     private final Map<ForagingCropType, TextureRegion> foragingCrops = new EnumMap<>(ForagingCropType.class);
 
-    private final Map<TreeType, List<Texture>> treeStages = new EnumMap<>(TreeType.class);
-    private final Map<CropType, List<Texture>> cropStages = new EnumMap<>(CropType.class);
+    private final Map<TreeType, List<TextureRegion>> treeStages = new EnumMap<>(TreeType.class);
+    private final Map<CropType, List<TextureRegion>> cropStages = new EnumMap<>(CropType.class);
 
     {
-        TextureRegion[][] cropSheet = TextureRegion.split(new Texture("map/items/ForagingCrops.png"), 16, 16);
+        TextureRegion[][] treeSheet1 = TextureRegion.split(new Texture("map/items/TreeStages.png"), 48, 5 * 16);
+        TextureRegion[][] treeSheet2 = TextureRegion.split(new Texture("map/items/TreeStages2.png"), 48, 6 * 16);
 
+        TreeType[] treeTypes = TreeType.values();
+
+        for (int i = 0; i < 14; i++) {
+            TreeType type = treeTypes[i];
+            List<TextureRegion> stages;
+            if (i < 8)
+                stages = new ArrayList<>(Arrays.asList(treeSheet1[i]).subList(0, 5));
+            else
+                stages = new ArrayList<>(Arrays.asList(treeSheet2[i-8]).subList(0, 5));
+
+            treeStages.put(type, stages);
+        }
     }
+    {
+        TextureRegion[][] cropSheet = TextureRegion.split(new Texture("map/items/CropStages.png"), 16, 32);
+
+        int rows = cropSheet.length;
+        int cols = cropSheet[0].length;
+
+        int col = 0;
+        for (CropType type : CropType.values()) {
+            int stagesCount = type.getStages().length + 1;
+
+            List<TextureRegion> stagesList = new ArrayList<>();
+
+            for (int row = 0; row < stagesCount; row++) {
+                if (row >= rows) break;
+
+                TextureRegion region = cropSheet[row][col];
+                stagesList.add(region);
+            }
+
+            cropStages.put(type, stagesList);
+
+            col++;
+            if (col >= cols) break;
+        }
+    }
+
+
     {
         TextureRegion[][] foragingSheet = TextureRegion.split(new Texture("map/items/ForagingCrops.png"), 16, 16);
 
@@ -67,8 +102,7 @@ public class DynamicMapLayerRender {
 
     }
 
-    public void render() {
-        // for plowed, fertilized
+    public void renderGround() {
         int tileSize = 16;
         Tile[][] tiles = App.getGame().getMap().getCurrentRegion().getTiles();
 
@@ -89,6 +123,22 @@ public class DynamicMapLayerRender {
 
                 if (tile.isWatered())
                     batch.draw(additional.get("watered"), drawX, drawY);
+            }
+        }
+    }
+
+    public void renderItem() {
+        int tileSize = 16;
+        Tile[][] tiles = App.getGame().getMap().getCurrentRegion().getTiles();
+
+        SpriteBatch batch = StardewValley.getBatch();
+
+        for (int y = 0; y < tiles.length; y++) {
+            for (int x = 0; x < tiles[y].length; x++) {
+                Tile tile = tiles[y][x];
+
+                float drawX = x * tileSize;
+                float drawY = (tiles.length - 1 - y) * tileSize;
 
                 Item item = tile.getItem();
                 if (item != null) {
@@ -101,6 +151,16 @@ public class DynamicMapLayerRender {
                     }
                     else if (item instanceof Wood) {
                         batch.draw(additional.get("wood"), drawX, drawY);
+                    }
+                    else if (item instanceof Crop crop) {
+                        int stageIndex = crop.getCurrentStage() - 1;
+                        List<TextureRegion> stages = cropStages.get(crop.getType());
+                        batch.draw(stages.get(stageIndex), drawX, drawY);
+                    }
+                    else if (item instanceof Tree tree) {
+                        int stageIndex = tree.getCurrentStage() - 1;
+                        List<TextureRegion> stages = treeStages.get(tree.getType());
+                        batch.draw(stages.get(stageIndex), drawX, drawY);
                     }
                 }
             }

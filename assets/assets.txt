@@ -237,7 +237,10 @@ inventory/wheat flour.png
 inventory/wheat.png
 inventory/yam.png
 map/SecretNotesImages.png
+map/items/CropStages.png
 map/items/ForagingCrops.png
+map/items/TreeStages.png
+map/items/TreeStages2.png
 map/items/additional.png
 map/maps/Farm1.tmx
 map/maps/Farm2.tmx

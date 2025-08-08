@@ -67,8 +67,8 @@ public class PlayerRender {
         // make head:
         setHeadImage(bodySheet[0][1], hairSheet[(hairIndex / 8) * 3][hairIndex % 8],
                 App.getColor(App.getGame().getCurrentPlayer().getHairColor()), hairIndex);
-//
-//        //tool
+
+        //tool
         TextureRegion[][] toolsSheet = TextureRegion.split(new Texture("player/tools/tools.png"), 16, 24);
         this.toolAnimations = new BankToolAnimation(toolsSheet);
     }

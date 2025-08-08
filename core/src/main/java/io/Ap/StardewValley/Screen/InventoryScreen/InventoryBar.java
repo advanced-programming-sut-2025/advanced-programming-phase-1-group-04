@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.Ap.StardewValley.Controller.SirkBozorg.ToolController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Tool.Tool;
@@ -195,10 +196,11 @@ public class InventoryBar extends Stage {
         try {
             Item item = getSelectedItem(index);
             if (item instanceof Tool tool) {
-                App.getGame().getCurrentPlayer().setCurrentTool(tool);
+//                App.getGame().getCurrentPlayer().setCurrentTool(tool);
+                ToolController.equipThroughScreen(tool.getName());
             }
 
-            //TODO: تکمیل شوددددد
+            //TODO: تکمیل شوددددد. هر چیزی که انتخاب میشه اضافه کن.
 
         } catch (Exception ignored) {}
     }

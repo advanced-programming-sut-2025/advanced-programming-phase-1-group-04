@@ -164,6 +164,11 @@ public class Tile {
                 } else {
                     return true;
                 }
+//                if (item != null) {
+//                    return true;
+//                } else {
+//                    return false;
+//                }
             case Water, Mountain:
                 return false;
             case Mine:

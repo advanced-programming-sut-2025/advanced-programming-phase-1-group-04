@@ -7,6 +7,8 @@ import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Crafting.Craft;
 import io.Ap.StardewValley.Model.Crafting.CraftType;
 import io.Ap.StardewValley.Model.Interaction.Friend;
+import io.Ap.StardewValley.Model.Item.Stone;
+import io.Ap.StardewValley.Model.Item.Wood;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Map.Tile;
 import io.Ap.StardewValley.Model.Map.TileType;
@@ -22,6 +24,10 @@ import java.util.*;
 public class NightController {
     public static Random rand = new Random();
     private static Coordinate thorCoordinate = null;
+
+    private static final int randomPercentForagingPlant = 20;
+    private static final int randomPercentForagingMineral = 20;
+    private static final int randomPercentStoneWood = 10;
 
     public static void nightControl() {
         // Map:
@@ -51,19 +57,21 @@ public class NightController {
         rainyWeatherEffect();
         randomForagingPlants();
         randomForagingMinerals();
+        randomStoneWood();
 //        crowControl();
     }
 
-    private static void randomForagingPlants() {
-        foragingPlantsForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
+    // Randoms:
+    public static void randomForagingPlants() {
+        foragingPlantsForEachFarm(new Coordinate(0, 0), new Coordinate(65, 80));
         if (App.getGame().getPlayers().size() >= 2) {
-            foragingPlantsForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
+            foragingPlantsForEachFarm(new Coordinate(0, 210), new Coordinate(65, 290));
         }
         if (App.getGame().getPlayers().size() >= 3) {
-            foragingPlantsForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
+            foragingPlantsForEachFarm(new Coordinate(175, 210), new Coordinate(240, 290));
         }
         if (App.getGame().getPlayers().size() >= 4) {
-            foragingPlantsForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
+            foragingPlantsForEachFarm(new Coordinate(175, 0), new Coordinate(240, 80));
         }
     }
 
@@ -74,9 +82,82 @@ public class NightController {
             for (int y = c1.getY(); y < c2.getY(); y++) {
                 if (App.getGame().getTile(new Coordinate(x, y)).getItem() == null &&
                         App.getGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground){
-                    if (rand.nextInt(100) < 5) {
+                    if (rand.nextInt(100) < randomPercentForagingPlant) {
                         plantForageable(App.getGame().getTile(new Coordinate(x, y)),
                                 listOfPlants.get(rand.nextInt(listOfPlants.size())));
+                    }
+                }
+            }
+        }
+    }
+
+    public static void randomForagingMinerals() {
+        // Phase 1: (و ان تا کپی بعدی)
+//        foragingMineralsForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
+//        if (App.getGame().getPlayers().size() >= 2) {
+//            foragingMineralsForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
+//        }
+//        if (App.getGame().getPlayers().size() >= 3) {
+//            foragingMineralsForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
+//        }
+//        if (App.getGame().getPlayers().size() >= 4) {
+//            foragingMineralsForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
+//        }
+
+        foragingMineralsForEachFarm(new Coordinate(0, 0), new Coordinate(65, 80));
+        if (App.getGame().getPlayers().size() >= 2) {
+            foragingMineralsForEachFarm(new Coordinate(0, 210), new Coordinate(65, 290));
+        }
+        if (App.getGame().getPlayers().size() >= 3) {
+            foragingMineralsForEachFarm(new Coordinate(175, 210), new Coordinate(240, 290));
+        }
+        if (App.getGame().getPlayers().size() >= 4) {
+            foragingMineralsForEachFarm(new Coordinate(175, 0), new Coordinate(240, 80));
+        }
+    }
+
+    private static void foragingMineralsForEachFarm(Coordinate c1, Coordinate c2) {
+        ArrayList<Forageable> listOfMinerals = ForageableFactory.getMineralForageables();
+        for (int x = c1.getX(); x < c2.getX(); x++) {
+            for (int y = c1.getY(); y < c2.getY(); y++) {
+                if (App.getGame().getTile(new Coordinate(x, y)).getItem() == null &&
+                        App.getGame().getTile(new Coordinate(x, y)).getType() == TileType.Mine){
+                    if (rand.nextInt(100) < randomPercentForagingMineral) {
+                        App.getGame().getTile(new Coordinate(x, y)).
+                                setItem(new ForagingMineral((ForagingMineralType) listOfMinerals.get(rand.nextInt(listOfMinerals.size()))));
+
+                    }
+                }
+            }
+        }
+    }
+
+    public static void randomStoneWood() {
+        stoneWoodForEachFarm(new Coordinate(0, 0), new Coordinate(65, 80));
+        if (App.getGame().getPlayers().size() >= 2) {
+            stoneWoodForEachFarm(new Coordinate(0, 210), new Coordinate(65, 290));
+        }
+        if (App.getGame().getPlayers().size() >= 3) {
+            stoneWoodForEachFarm(new Coordinate(175, 210), new Coordinate(240, 290));
+        }
+        if (App.getGame().getPlayers().size() >= 4) {
+            stoneWoodForEachFarm(new Coordinate(175, 0), new Coordinate(240, 80));
+        }
+    }
+
+    public static void stoneWoodForEachFarm(Coordinate c1, Coordinate c2) {
+        for (int x = c1.getX(); x < c2.getX(); x++) {
+            for (int y = c1.getY(); y < c2.getY(); y++) {
+                if (App.getGame().getTile(new Coordinate(x, y)).getItem() == null &&
+                        App.getGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground){
+                    if (rand.nextInt(100) < randomPercentStoneWood) {
+                        if (rand.nextInt(10) < 5) {
+                            App.getGame().getTile(new Coordinate(x, y)).
+                                    setItem(new Stone());
+                        } else {
+                            App.getGame().getTile(new Coordinate(x, y)).
+                                    setItem(new Wood());
+                        }
                     }
                 }
             }
@@ -232,48 +313,6 @@ public class NightController {
         }
 
         return new ArrayList<>(selected);
-    }
-
-
-    public static void randomForagingMinerals() {
-        // Phase 1: (و ان تا کپی بعدی)
-//        foragingMineralsForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
-//        if (App.getGame().getPlayers().size() >= 2) {
-//            foragingMineralsForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
-//        }
-//        if (App.getGame().getPlayers().size() >= 3) {
-//            foragingMineralsForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
-//        }
-//        if (App.getGame().getPlayers().size() >= 4) {
-//            foragingMineralsForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
-//        }
-
-        foragingMineralsForEachFarm(new Coordinate(0, 0), new Coordinate(65, 80));
-        if (App.getGame().getPlayers().size() >= 2) {
-            foragingMineralsForEachFarm(new Coordinate(0, 210), new Coordinate(65, 290));
-        }
-        if (App.getGame().getPlayers().size() >= 3) {
-            foragingMineralsForEachFarm(new Coordinate(175, 210), new Coordinate(240, 290));
-        }
-        if (App.getGame().getPlayers().size() >= 4) {
-            foragingMineralsForEachFarm(new Coordinate(175, 0), new Coordinate(240, 80));
-        }
-    }
-
-    private static void foragingMineralsForEachFarm(Coordinate c1, Coordinate c2) {
-        ArrayList<Forageable> listOfMinerals = ForageableFactory.getMineralForageables();
-        for (int x = c1.getX(); x < c2.getX(); x++) {
-            for (int y = c1.getY(); y < c2.getY(); y++) {
-                if (App.getGame().getTile(new Coordinate(x, y)).getItem() == null &&
-                App.getGame().getTile(new Coordinate(x, y)).getType() == TileType.Mine){
-                    if (rand.nextInt(100) < 5) {
-                        App.getGame().getTile(new Coordinate(x, y)).
-                                setItem(new ForagingMineral((ForagingMineralType) listOfMinerals.get(rand.nextInt(listOfMinerals.size()))));
-
-                    }
-                }
-            }
-        }
     }
 
     private static void calculateFriendshipAnimal() {

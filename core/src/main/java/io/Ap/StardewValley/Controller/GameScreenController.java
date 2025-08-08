@@ -11,6 +11,7 @@ import io.Ap.StardewValley.Model.Player.Skill;
 import io.Ap.StardewValley.Model.Time.DateAndTime;
 import io.Ap.StardewValley.Model.Time.Season;
 import io.Ap.StardewValley.Screen.GameScreen;
+import io.Ap.StardewValley.Screen.MapScreen.DynamicMapLayerRender;
 import io.Ap.StardewValley.Screen.MapScreen.RegionTransition;
 import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
 import io.Ap.StardewValley.Screen.PlayerScreen.PlayerRender;
@@ -121,14 +122,21 @@ public class GameScreenController {
 
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheat())){
             //App.getGame().getCurrentPlayer().setEnergy(-1);
-            App.getGame().getCurrentTime().addHour(14);
-            App.getGame().getCurrentTime().setMinute(55);
+//            App.getGame().getCurrentTime().addHour(14);
+//            App.getGame().getCurrentTime().setMinute(55);
             //App.getGame().getCurrentTime().addDay(27);
             //goToNextDay();
+            //App.getGame().getMap().getFullMap()[App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()].setFertilize(1);
+            App.getGame().getMap().getFullMap()
+                    [App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()]
+                    .setPlowed(true);
         }
 
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheatTime())){
-            App.getGame().getCurrentTime().addHour(1);
+            //App.getGame().getCurrentTime().addHour(1);
+            App.getGame().getMap().getFullMap()
+                    [App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()]
+                    .setWatered(true);
         }
 
         //inventory:
@@ -142,6 +150,7 @@ public class GameScreenController {
     }
 
     public void updatePlayer() {
+        // handle energy:
         Player player = App.getGame().getCurrentPlayer();
         if (player.getEnergy() > 0) {
             handlePlayerInputKey();

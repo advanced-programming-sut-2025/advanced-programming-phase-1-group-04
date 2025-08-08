@@ -106,8 +106,9 @@ public class GameMenuController {
         App.getGame().setNPCs();
         App.getGame().setFriends();
 
-        NightController.foragingPlantsForEachFarm(new Coordinate(0, 0), new Coordinate(240, 290));
+        NightController.randomForagingPlants();
         NightController.randomForagingMinerals();
+        NightController.randomStoneWood();
 
         return new Result(true, "Game loaded. Now you are in the game. Boro eshgh kon.");
     }

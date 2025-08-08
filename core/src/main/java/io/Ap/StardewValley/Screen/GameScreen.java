@@ -20,6 +20,7 @@ import io.Ap.StardewValley.Screen.CookingScreen.CookingStage;
 import io.Ap.StardewValley.Screen.InventoryScreen.InventoryBar;
 import io.Ap.StardewValley.Screen.InventoryScreen.InventoryStage;
 import io.Ap.StardewValley.Screen.ItemScreen.ItemTextureBank;
+import io.Ap.StardewValley.Screen.MapScreen.DynamicMapLayerRender;
 import io.Ap.StardewValley.Screen.MapScreen.SeasonTextureManager;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
 import io.Ap.StardewValley.Screen.TimeScreen.RainLayer;
@@ -30,10 +31,14 @@ import io.Ap.StardewValley.StardewValley;
 
 public class GameScreen implements Screen, InputProcessor {
     // Map:
+        // static
     private final TiledMapRendererHelper[][] mapRenderers = new TiledMapRendererHelper[3][3];
     private TiledMapRendererHelper currentMap;
     private final int[] farmSelections = new int[4];
     private static Image fullMap;
+        // dynamic
+    private final DynamicMapLayerRender dynamicMapLayerRender = new DynamicMapLayerRender();
+
 
     // Time:
     private Image nightOverlay;
@@ -147,25 +152,6 @@ public class GameScreen implements Screen, InputProcessor {
         stage.addActor(stackBar);
     }
 
-    public void setWeatherLayerToStage(Weather weather) {
-        WeatherLayer weatherLayer = getWeatherLayer(weather);
-
-        if (currentWeatherLayer != null) currentWeatherLayer.remove();
-
-        currentWeatherLayer = weatherLayer;
-
-        if (currentWeatherLayer != null) stage.addActor(currentWeatherLayer);
-    }
-
-    private WeatherLayer getWeatherLayer(Weather weather) {
-        return switch (weather) {
-            case Snow -> new SnowLayer(2.5f);
-            case Storm -> new RainLayer(4f, true);
-            case Rain -> new RainLayer(4f, false);
-            default -> null;
-        };
-    }
-
     @Override
     public void render(float delta) {
         if (!paused) {
@@ -182,11 +168,12 @@ public class GameScreen implements Screen, InputProcessor {
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-            // render map, player:
+            // render static map, player(+ dynamic layer):
             SpriteBatch batch = StardewValley.getBatch();
             currentMap.renderBeforePlayer(camera);
             currentMap.renderDynamicBelowLayer(camera);
             batch.begin();
+            dynamicMapLayerRender.render();
             controller.updatePlayer();
             batch.end();
             currentMap.renderDynamicAboveLayer(camera);
@@ -223,8 +210,10 @@ public class GameScreen implements Screen, InputProcessor {
         //controllerTable.add(new Label("Zoom: " + camera.zoom + "    ",skin));
         controllerTable.add(new Label("Energy: " + player.getEnergy() + "    ", skin));
         controllerTable.add(new Label("Max Energy: " + player.getMaxEnergy() + "    ", skin));
-        controllerTable.add(new Label("Season: " + time.getSeason() + "    ", skin));
-        controllerTable.add(new Label("Weather: " + time.getWeather() + "    ", skin));
+        //controllerTable.add(new Label("Season: " + time.getSeason() + "    ", skin));
+        //controllerTable.add(new Label("Weather: " + time.getWeather() + "    ", skin));
+        //controllerTable.row();
+        controllerTable.add(new Label("TileInfo: " + App.getGame().getTile(cor).toString() + "    ", skin));
     }
 
     public void updateCamera() {
@@ -252,6 +241,25 @@ public class GameScreen implements Screen, InputProcessor {
         camera.update();
 
         StardewValley.getBatch().setProjectionMatrix(camera.combined);
+    }
+
+    public void setWeatherLayerToStage(Weather weather) {
+        WeatherLayer weatherLayer = getWeatherLayer(weather);
+
+        if (currentWeatherLayer != null) currentWeatherLayer.remove();
+
+        currentWeatherLayer = weatherLayer;
+
+        if (currentWeatherLayer != null) stage.addActor(currentWeatherLayer);
+    }
+
+    private WeatherLayer getWeatherLayer(Weather weather) {
+        return switch (weather) {
+            case Snow -> new SnowLayer(2.5f);
+            case Storm -> new RainLayer(4f, true);
+            case Rain -> new RainLayer(4f, false);
+            default -> null;
+        };
     }
 
     public void showPauseDialog() {

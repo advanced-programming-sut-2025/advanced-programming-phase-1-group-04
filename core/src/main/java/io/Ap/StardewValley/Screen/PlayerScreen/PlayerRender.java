@@ -17,6 +17,7 @@ import java.util.Map;
 
 public class PlayerRender {
     private float stateTime = 0f;
+    private final Texture shadow = new Texture("etc/shadow.png");
 
     private BankPlayerAnimationFrames bodyAnimations;
     private BankPlayerAnimationFrames hand01Animations;
@@ -161,6 +162,8 @@ public class PlayerRender {
         int longHair = (App.getGame().getCurrentPlayer().getHairIndex() < 16) ? 0 : 1;
 
         float scale = App.getGame().getPlayerScale();
+        batch.draw(shadow, x + (bodyFrame.getRegionWidth() * scale - 12 * scale) / 2f , y - (shadow.getHeight() * scale) * 0.25f, shadow.getWidth() * scale, shadow.getHeight() * scale);
+
         batch.draw(bodyFrame, x, y, bodyFrame.getRegionWidth() * scale, bodyFrame.getRegionHeight() * scale);
 
         batch.draw(shirtFrame, x + shirtOffset.getX() * scale, y + shirtOffset.getY() * scale, shirtFrame.getRegionWidth() * scale, shirtFrame.getRegionHeight() * scale);

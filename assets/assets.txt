@@ -42,6 +42,7 @@ etc/menu/daybg.png
 etc/menu/logo.png
 etc/menu/nightbg.png
 etc/pixel.png
+etc/shadow.png
 inventory/0 hearts.png
 inventory/0 levels.png
 inventory/1 hearts.png
@@ -236,6 +237,8 @@ inventory/wheat flour.png
 inventory/wheat.png
 inventory/yam.png
 map/SecretNotesImages.png
+map/items/ForagingCrops.png
+map/items/additional.png
 map/maps/Farm1.tmx
 map/maps/Farm2.tmx
 map/maps/Farm3.tmx
@@ -249,6 +252,9 @@ map/maps/path1.tmx
 map/maps/path2.tmx
 map/maps/path3.tmx
 map/maps/path4.tmx
+map/tiles/hoeDirt.png
+map/tiles/hoeDirtDark.png
+map/tiles/hoeDirtSnow.png
 map/tilesets/Building/GreenHouseBuilding.tsx
 map/tilesets/Building/Greenhouse.png
 map/tilesets/Building/HouseBuilding.tsx

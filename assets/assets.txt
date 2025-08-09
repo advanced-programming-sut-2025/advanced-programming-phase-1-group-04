@@ -365,6 +365,13 @@ player/pants/pant_7.png
 player/pants/pant_8.png
 player/pants/pant_9.png
 player/tools/tools.png
+shop/Clint.png
+shop/Gus.png
+shop/Marnie.png
+shop/Morris.png
+shop/Pierre.png
+shop/Robin.png
+shop/Willy.png
 skin/04B_30__.fnt
 skin/NzSkin.atlas
 skin/NzSkin.json

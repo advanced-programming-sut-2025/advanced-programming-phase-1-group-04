@@ -42,6 +42,10 @@ public class GameScreenController {
     private float toolActionStartTime = 0f;
     private float toolActionDuration = 0.6f;
 
+    //shops:
+    private boolean isBlackSmithVisible = false;
+    private boolean blackSmithNeedsUpdate = false;
+
 
     public void setViews(GameScreen view) {
         this.view = view;
@@ -103,6 +107,13 @@ public class GameScreenController {
         ((MapTab) view.getInventoryStage().getInfoWindows().get(3)).updatePlayerPosition();
         updateToolAction(Gdx.graphics.getDeltaTime());
 
+        //shops:
+        view.getBlackSmithStage().setVisibleAll(isBlackSmithVisible);
+        if (blackSmithNeedsUpdate) {
+            view.getBlackSmithStage().update();
+            blackSmithNeedsUpdate = false;
+        }
+
 
     }
 
@@ -136,6 +147,7 @@ public class GameScreenController {
             App.getGame().getCurrentPlayer().getInventory().addItem(new Shear(), 1);
             inventoryStageNeedsUpdate = true;
             cookingStageNeedsUpdate = true;
+            isBlackSmithVisible = !isBlackSmithVisible;
         }
 
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheat())){
@@ -168,6 +180,7 @@ public class GameScreenController {
             if (isInventoryStageVisible) {
                 inventoryStageNeedsUpdate = true;
                 isCookingStageVisible = false;
+                isBlackSmithVisible = false;
             }
         }
 
@@ -177,6 +190,7 @@ public class GameScreenController {
             if (isCookingStageVisible) {
                 cookingStageNeedsUpdate = true;
                 isInventoryStageVisible = false;
+                isBlackSmithVisible = false;
             }
         }
     }

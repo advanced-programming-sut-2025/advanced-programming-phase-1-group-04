@@ -23,6 +23,7 @@ import io.Ap.StardewValley.Screen.ItemScreen.ItemTextureBank;
 import io.Ap.StardewValley.Screen.MapScreen.DynamicMapLayerRender;
 import io.Ap.StardewValley.Screen.MapScreen.SeasonTextureManager;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
+import io.Ap.StardewValley.Screen.ShopScreen.BlackSmithScreen.BlackSmithMenu;
 import io.Ap.StardewValley.Screen.TimeScreen.RainLayer;
 import io.Ap.StardewValley.Screen.TimeScreen.SnowLayer;
 import io.Ap.StardewValley.Screen.TimeScreen.TimeBar;
@@ -63,6 +64,9 @@ public class GameScreen implements Screen, InputProcessor {
 
     //cooking:
     private CookingStage cookingStage = new CookingStage();
+
+    //shops:
+    private BlackSmithMenu blackSmithStage = new BlackSmithMenu();
 
     public GameScreen(int[] farmSelections) {
         System.arraycopy(farmSelections, 0, this.farmSelections, 0, 4);
@@ -120,6 +124,13 @@ public class GameScreen implements Screen, InputProcessor {
 
 
         // add processors
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(inventoryStage);
+        multiplexer.addProcessor(cookingStage);
+        multiplexer.addProcessor(blackSmithStage);
+        multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(this);
+        Gdx.input.setInputProcessor(multiplexer);
         Gdx.input.setInputProcessor(new InputMultiplexer(
                 inventoryStage,
                 cookingStage,
@@ -571,6 +582,10 @@ public class GameScreen implements Screen, InputProcessor {
 
     public CookingStage getCookingStage() {
         return cookingStage;
+    }
+
+    public BlackSmithMenu getBlackSmithStage() {
+        return blackSmithStage;
     }
 
     public TimeBar getTimeBar() {

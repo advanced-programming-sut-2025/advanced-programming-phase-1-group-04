@@ -2,6 +2,8 @@ package io.Ap.StardewValley.Model.Shop;
 
 import io.Ap.StardewValley.Model.Result;
 
+import java.util.ArrayList;
+
 public interface Shop {
     public ShopType getType();
     public String getName();
@@ -16,4 +18,6 @@ public interface Shop {
     public Result buy (String productName, int number, String animalName);
 
     public void resetStock();
+
+//    public ArrayList<ProductData> getProductData;
 }

@@ -18,6 +18,7 @@ import io.Ap.StardewValley.Screen.CookingScreen.CookingStage;
 import io.Ap.StardewValley.Screen.InventoryScreen.InventoryBar;
 import io.Ap.StardewValley.Screen.InventoryScreen.InventoryStage;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
+import io.Ap.StardewValley.Screen.ShopScreen.BlackSmithScreen.BlackSmithMenu;
 import io.Ap.StardewValley.StardewValley;
 
 public class GameScreen implements Screen, InputProcessor {
@@ -43,6 +44,9 @@ public class GameScreen implements Screen, InputProcessor {
 
     //cooking:
     private CookingStage cookingStage = new CookingStage();
+
+    //shops:
+    private BlackSmithMenu blackSmithStage = new BlackSmithMenu();
 
     public GameScreen(int[] farmSelections) {
         System.arraycopy(farmSelections, 0, this.farmSelections, 0, 4);
@@ -110,6 +114,7 @@ public class GameScreen implements Screen, InputProcessor {
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(inventoryStage);
         multiplexer.addProcessor(cookingStage);
+        multiplexer.addProcessor(blackSmithStage);
         multiplexer.addProcessor(stage);
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
@@ -436,5 +441,9 @@ public class GameScreen implements Screen, InputProcessor {
 
     public CookingStage getCookingStage() {
         return cookingStage;
+    }
+
+    public BlackSmithMenu getBlackSmithStage() {
+        return blackSmithStage;
     }
 }

@@ -2,6 +2,7 @@ package io.Ap.StardewValley;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,6 +25,9 @@ public class StardewValley extends Game {
 
         // setCursor
         setCustomCursor();
+
+        //Graphics.DisplayMode displayMode = Gdx.graphics.getDisplayMode();
+        //Gdx.graphics.setFullscreenMode(displayMode);
 
         // loadApp(stayLoggedIn)
         try {

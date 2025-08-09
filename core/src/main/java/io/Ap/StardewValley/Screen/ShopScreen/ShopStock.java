@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import io.Ap.StardewValley.Model.Shop.ProductData;
-import io.Ap.StardewValley.Screen.InventoryScreen.ItemTextureBank;
+import io.Ap.StardewValley.Screen.ItemScreen.ItemTextureBank;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -134,6 +134,7 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(new InputMultiplexer(
                 inventoryStage,
                 cookingStage,
+                blackSmithStage,
                 stage,
                 this
         ));

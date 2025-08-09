@@ -122,8 +122,8 @@ public class GameScreenController {
 
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheat())){
             //App.getGame().getCurrentPlayer().setEnergy(-1);
-//            App.getGame().getCurrentTime().addHour(14);
-//            App.getGame().getCurrentTime().setMinute(55);
+            App.getGame().getCurrentTime().addHour(14);
+            App.getGame().getCurrentTime().setMinute(59);
             //App.getGame().getCurrentTime().addDay(27);
             //goToNextDay();
             //App.getGame().getMap().getFullMap()[App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()].setFertilize(1);

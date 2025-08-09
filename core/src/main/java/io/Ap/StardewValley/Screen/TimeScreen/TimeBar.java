@@ -114,8 +114,10 @@ public class TimeBar {
     }
 
     public void updateWeather() {
-        currentWeather.setDrawable(weathersImage.get(App.getGame().getCurrentTime().getWeather()).getDrawable());
+        Image src = weathersImage.get(App.getGame().getCurrentTime().getWeather());
+        currentWeather.setDrawable(src.getDrawable());
     }
+
 
     public Group getGroup() {
         return group;

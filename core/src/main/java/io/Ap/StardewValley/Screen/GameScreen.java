@@ -163,7 +163,6 @@ public class GameScreen implements Screen, InputProcessor {
 
             // update camera, controller table
             updateCamera();
-            updateControllerTable();
 
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -186,6 +185,9 @@ public class GameScreen implements Screen, InputProcessor {
             // update time:
             controller.updateTime(delta);
             updateNightOverlay();
+
+            updateControllerTable();
+
 
             // update weather:
             if (currentWeatherLayer != null)
@@ -212,7 +214,7 @@ public class GameScreen implements Screen, InputProcessor {
         controllerTable.add(new Label("Energy: " + player.getEnergy() + "    ", skin));
         controllerTable.add(new Label("Max Energy: " + player.getMaxEnergy() + "    ", skin));
         //controllerTable.add(new Label("Season: " + time.getSeason() + "    ", skin));
-        //controllerTable.add(new Label("Weather: " + time.getWeather() + "    ", skin));
+        controllerTable.add(new Label("Weather: " + time.getWeather() + "    ", skin));
         //controllerTable.row();
         controllerTable.add(new Label("TileInfo: " + App.getGame().getTile(cor).toString() + "    ", skin));
     }
@@ -296,7 +298,8 @@ public class GameScreen implements Screen, InputProcessor {
         Stack overlay = new Stack();
         overlay.setFillParent(true);
 
-        Texture texture = new Texture(Gdx.files.internal("etc/goodNight.png"));
+        int rand = MathUtils.random(1,5);
+        Texture texture = new Texture(Gdx.files.internal("etc/goodNight/goodNight" + rand + ".png"));
         Image background = new Image(texture);
 
         background.setFillParent(true);

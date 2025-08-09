@@ -40,12 +40,12 @@ public class GameMenuScreen implements Screen {
 
 //        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/Bat.png"));
 //        TextureRegion[][] tmp = TextureRegion.split(sheet, 64, 64);
-        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/companions.png"));
-        TextureRegion[][] tmp = TextureRegion.split(sheet, 16, 16);
+//        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/companions.png"));
+//        TextureRegion[][] tmp = TextureRegion.split(sheet, 16, 16);
 
         for (int i = 0; i < 4; i++) {
-            TextureRegion[] frames = new TextureRegion[4];
-            System.arraycopy(tmp[0], 4 * i, frames, 0, 4);
+            TextureRegion[] frames = new TextureRegion[]{new TextureRegion(new Texture("etc/sherekVane.png"))};
+            //System.arraycopy(tmp[0], 4 * i, frames, 0, 4);
             butterflyAnimations.add(new Animation<>(0.13f, frames));
         }
 
@@ -88,7 +88,7 @@ public class GameMenuScreen implements Screen {
 
             float x = MathUtils.random(0, Gdx.graphics.getWidth());
             float y = MathUtils.random(0, Gdx.graphics.getHeight());
-            float scale = MathUtils.random(2f, 5.5f);
+            float scale = MathUtils.random(1f, 2f);
 
             animationActor butterfly = new animationActor(
                     finalAnimation,

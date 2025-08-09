@@ -55,7 +55,7 @@ public class InventoryTab extends Window {
         orderButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // مثلاً مرتب‌سازی آیتم‌ها
+                //todo
             }
         });
         centerPart.add(orderButton).size(100, 100).left().pad(30, 0, 0, 30);

@@ -96,4 +96,25 @@ public class ToolController {
                 .findFirst()
                 .orElse(null);
     }
+
+
+    public static Result equipThroughScreen (String toolName) {
+        List<Tool> tools = extractTools(App.getGame().getCurrentPlayer().getInventory().getItemList());
+        Tool tool = findToolByName(tools, toolName);
+        if (tool == null) {
+            return new Result(false, "you don't have this tool in your inventory!");
+        }
+        else {
+            App.getGame().getCurrentPlayer().setCurrentTool(tool);
+            return new Result(true, "you're now equipped with a " + toolName.toLowerCase());
+        }
+    }
+
+    public static Result useToolThroughScreen (String direction) {
+        if (App.getGame().getCurrentPlayer().getCurrentTool() == null) {
+            return new Result (false, "you are not equipped with any tool yet!");
+        }
+        return App.getGame().getCurrentPlayer().getCurrentTool().
+                use(GameMenuController.getCoordinateByDirection(direction));
+    }
 }

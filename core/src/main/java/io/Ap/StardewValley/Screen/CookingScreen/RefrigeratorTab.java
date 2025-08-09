@@ -259,6 +259,7 @@ public class RefrigeratorTab extends Window {
         errorWindow.add(new Label(msg, skin));
         errorWindow.setSize(700, 90);
         errorWindow.setPosition(600, 170, Align.center);
+        errorWindow.pack();
 
         stageForErrorDisplay.addActor(errorWindow);
 

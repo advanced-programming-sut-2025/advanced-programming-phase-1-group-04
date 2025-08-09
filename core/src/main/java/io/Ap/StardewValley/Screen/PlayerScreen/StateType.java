@@ -8,5 +8,11 @@ public enum StateType {
     Eat,
 
     ToolMilkPail,
+    ToolShear,
+    ToolHoe,
+    ToolAxe,
+    ToolPickaxe,
+    ToolScythe,
+    ToolWateringCan,
     //...
 }

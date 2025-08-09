@@ -24,6 +24,7 @@ public class BlackSmithMenu extends Stage {
 
     float windowWidth = 1050;
     float windowHeight = 650;
+
     float windowX = (getViewport().getScreenWidth() - windowWidth) / 2f;
     float windowY = (getViewport().getScreenHeight() - windowHeight) / 2f;
 

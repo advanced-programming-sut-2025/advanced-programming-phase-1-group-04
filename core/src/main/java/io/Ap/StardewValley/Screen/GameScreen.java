@@ -310,7 +310,7 @@ public class GameScreen implements Screen, InputProcessor {
         Stack overlay = new Stack();
         overlay.setFillParent(true);
 
-        int rand = MathUtils.random(1,5);
+        int rand = MathUtils.random(1, 3);
         Texture texture = new Texture(Gdx.files.internal("etc/goodNight/goodNight" + rand + ".png"));
         Image background = new Image(texture);
 

@@ -20,6 +20,7 @@ public enum SeedType implements Forageable, PlantType {
     StrawberrySeeds("Strawberry Seeds", new ArrayList<>(List.of(Season.Spring)), CropType.Strawberry, "Strawberry"),
     TulipBulb("Tulip Bulb", new ArrayList<>(List.of(Season.Spring)), CropType.Tulip, "Tulip"),
     RiceShoot("Rice Shoot", new ArrayList<>(List.of(Season.Spring)), CropType.UnmilledRice, "Unmilled Rice"),
+
     BlueberrySeeds("Blueberry Seeds", new ArrayList<>(List.of(Season.Summer)), CropType.Blueberry, "Blueberry"),
     CornSeeds("Corn Seeds", new ArrayList<>(List.of(Season.Summer)), CropType.Corn, "Corn"),
     HopsStarter("Hops Starter", new ArrayList<>(List.of(Season.Summer)), CropType.Hops, "Hops"),
@@ -34,6 +35,7 @@ public enum SeedType implements Forageable, PlantType {
     SunflowerSeeds("Sunflower Seeds", new ArrayList<>(List.of(Season.Summer)), CropType.Sunflower, "Sunflower"),
     TomatoSeeds("Tomato Seeds", new ArrayList<>(List.of(Season.Summer)), CropType.Tomato, "Tomato"),
     WheatSeeds("Wheat Seeds", new ArrayList<>(List.of(Season.Summer)), CropType.Wheat, "Wheat"),
+
     AmaranthSeeds("Amaranth Seeds", new ArrayList<>(List.of(Season.Fall)), CropType.Amaranth, "Amaranth"),
     ArtichokeSeeds("Artichoke Seeds", new ArrayList<>(List.of(Season.Fall)), CropType.Artichoke, "Artichoke"),
     BeetSeeds("Beet Seeds", new ArrayList<>(List.of(Season.Fall)), CropType.Beet, "Beet"),
@@ -46,6 +48,7 @@ public enum SeedType implements Forageable, PlantType {
     PumpkinSeeds("Pumpkin Seeds", new ArrayList<>(List.of(Season.Fall)), CropType.Pumpkin, "Pumpkin"),
     YamSeeds("Yam Seeds", new ArrayList<>(List.of(Season.Fall)), CropType.Yam, "Yam"),
     RareSeed("Rare Seed", new ArrayList<>(List.of(Season.Fall)), CropType.SweetGemBerry, "Sweet Gem Berry"),
+
     PowdermelonSeeds("Powdermelon Seeds", new ArrayList<>(List.of(Season.Winter)), CropType.Powdermelon, "Powdermelon"),
     AncientSeeds("Ancient Seeds", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall)), CropType.AncientFruit, "Ancient Fruit"),
     GrassStarter("Grass Starter", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), CropType.Grass, "Grass"),

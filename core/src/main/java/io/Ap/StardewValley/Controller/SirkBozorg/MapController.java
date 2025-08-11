@@ -172,7 +172,7 @@ public class MapController {
         return new Result(true, "Now you have Greenhouse:)");
     }
 
-    public static Result buildFarmBuilding(String name, String stringX, String stringY){
+    public static Result buildFarmBuilding(String name, String stringX, String stringY) {
         if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
             return new Result (false, "you have no more moves! enter next turn!");
         }

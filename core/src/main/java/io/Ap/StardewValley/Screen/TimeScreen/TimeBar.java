@@ -17,9 +17,9 @@ import java.util.Map;
 
 
 public class TimeBar {
+    private final float scale  = 1.2f;
     private final Map<Weather, Image> weathersImage = new EnumMap<>(Weather.class);
     private final Map<Season, Image> seasonsImage = new EnumMap<>(Season.class);
-    private final Image green = new Image(new Texture(Gdx.files.internal("time/Green.png")));
     private final List<Image> energyBars = new ArrayList<>();
 
     private final Group group;
@@ -34,7 +34,7 @@ public class TimeBar {
             Image image = new Image(new Texture(Gdx.files.internal( "time/" + weather.name() + ".png")));
             weathersImage.put(weather, image);
         }
-
+        
         for (Season season : Season.values()) {
             Image image = new Image(new Texture(Gdx.files.internal("time/" + season.name() + ".png")));
             seasonsImage.put(season, image);
@@ -45,7 +45,6 @@ public class TimeBar {
         Skin skin = StardewValley.getSkin();
         group = new Group();
 
-        float scale  = 1.2f;
         DateAndTime time = App.getGame().getCurrentTime();
 
         Image background = new Image(new Texture("time/timeBar.png"));
@@ -76,11 +75,6 @@ public class TimeBar {
         group.addActor(currentWeather);
 
         // energy:
-//        green.setSize(green.getWidth() * scale, green.getHeight() * scale + 1);
-//        green.setPosition(77, 9);
-//        group.addActor(green);
-
-
         for (int i = 0; i < 8; i++) {
             Image energy = new Image(new Texture(Gdx.files.internal("time/Green.png")));
             energy.setSize(energy.getWidth() * scale, energy.getHeight() * scale + 1);
@@ -114,9 +108,14 @@ public class TimeBar {
     }
 
     public void updateWeather() {
-        Image src = weathersImage.get(App.getGame().getCurrentTime().getWeather());
-        currentWeather.setDrawable(src.getDrawable());
+        group.removeActor(currentWeather);
+        Weather newWeather = App.getGame().getCurrentTime().getWeather();
+        currentWeather = new Image(weathersImage.get(newWeather).getDrawable());
+        currentWeather.setSize(currentWeather.getWidth() * scale, currentWeather.getHeight() * scale);
+        currentWeather.setPosition(254, 168);
+        group.addActor(currentWeather);
     }
+
 
 
     public Group getGroup() {

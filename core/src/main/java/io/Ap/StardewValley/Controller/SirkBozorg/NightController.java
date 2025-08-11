@@ -58,7 +58,7 @@ public class NightController {
         randomForagingPlants();
         randomForagingMinerals();
         //randomStoneWood();
-        //crowControl();
+        crowControl();
     }
 
     // Randoms:
@@ -151,12 +151,16 @@ public class NightController {
                 if (App.getGame().getTile(new Coordinate(x, y)).getItem() == null &&
                         App.getGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground){
                     if (rand.nextInt(100) < randomPercentStoneWood) {
-                        if (rand.nextInt(10) < 5) {
+                        int mio = rand.nextInt(10);
+                        if (mio < 3) {
                             App.getGame().getTile(new Coordinate(x, y)).
                                     setItem(new Stone());
-                        } else {
+                        } else if (mio < 6){
                             App.getGame().getTile(new Coordinate(x, y)).
                                     setItem(new Wood());
+                        } else {
+                            App.getGame().getTile(new Coordinate(x, y)).
+                                    setItem(new ForagingCrop(ForagingCropType.Grass));
                         }
                     }
                 }
@@ -207,6 +211,8 @@ public class NightController {
             }
         }
     }
+
+
 
     private static void thorEffect() {
         if (thorCoordinate != null) {

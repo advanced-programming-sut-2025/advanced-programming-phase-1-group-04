@@ -9,12 +9,15 @@ import java.util.List;
 public enum SaplingType implements Forageable, PlantType{
     ApricotSapling("Apricot Sapling", new ArrayList<>(List.of(Season.Spring)), TreeType.Apricot, false),
     CherrySapling("Cherry Sapling", new ArrayList<>(List.of(Season.Spring)), TreeType.Cherry, false),
+
     BananaSapling("Banana Sapling", new ArrayList<>(List.of(Season.Summer)), TreeType.Banana, false),
     MangoSapling("Mango Sapling", new ArrayList<>(List.of(Season.Summer)), TreeType.Mango, false),
     OrangeSapling("Orange Sapling", new ArrayList<>(List.of(Season.Summer)), TreeType.Orange, false),
     PeachSapling("Peach Sapling", new ArrayList<>(List.of(Season.Summer)), TreeType.Peach, false),
+
     AppleSapling("Apple Sapling", new ArrayList<>(List.of(Season.Fall)), TreeType.Apple, false),
     PomegranateSapling("Pomegranate Sapling", new ArrayList<>(List.of(Season.Fall)), TreeType.Pomegranate, false),
+
     Acorns("Acorns", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), TreeType.Oak, true),
     MapleSeeds("Maple Seeds", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), TreeType.Maple, true),
     PineCones("Pine Cones", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), TreeType.Pine, true),

@@ -10,7 +10,12 @@ import io.Ap.StardewValley.Model.Cooking.FoodType;
 import io.Ap.StardewValley.Model.Crafting.Craft;
 import io.Ap.StardewValley.Model.Crafting.CraftType;
 import io.Ap.StardewValley.Model.Map.BuildingType;
+import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Coordinate;
+import io.Ap.StardewValley.Model.Map.Tile;
+import io.Ap.StardewValley.Model.Map.TileType;
+import io.Ap.StardewValley.Model.Plants.Crop;
+import io.Ap.StardewValley.Model.Plants.CropType;
 import io.Ap.StardewValley.Model.Plants.*;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Player.Skill;
@@ -121,22 +126,6 @@ public class GameScreenController {
         }
 
         // cheats:
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatTime())){
-            //App.getGame().getMap().getFullMap()[App.getGame().getCurrentPlayer().getCoordinate().getX() + 1][App.getGame().getCurrentPlayer().getCoordinate().getY() + 1].setWatered(true);
-        }
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatLevel())){
-
-        }
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatLife())){
-
-        }
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatHp())){
-
-        }
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatBossFight())){
-
-        }
-
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getAynazCheat())) {
             App.getGame().getCurrentPlayer().addAbility(Skill.Farming, 10);
             App.getGame().getCurrentPlayer().setInventoryCapacity(24);
@@ -162,8 +151,9 @@ public class GameScreenController {
 
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheat())){
             //App.getGame().getCurrentPlayer().setEnergy(-1);
-            App.getGame().getCurrentTime().addHour(14);
-            App.getGame().getCurrentTime().setMinute(59);
+            //App.getGame().getCurrentTime().setHour(23);
+            //App.getGame().getCurrentTime().setMinute(59);
+            //App.getGame().getMap().build(new Coordinate(7, 27), BuildingType.GreenHouseBuild);
             //App.getGame().getCurrentTime().addDay(27);
             //goToNextDay();
             //App.getGame().getMap().getFullMap()[App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()].setFertilize(1);
@@ -175,13 +165,6 @@ public class GameScreenController {
 //            App.getGame().getMap().getFullMap()
 //                    [App.getGame().getCurrentPlayer().getCoordinate().getX() + 1][App.getGame().getCurrentPlayer().getCoordinate().getY() + 1]
 //                    .setItem(new Crop(CropType.Potato));
-        }
-
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheatTime())){
-            //App.getGame().getCurrentTime().addHour(1);
-//            App.getGame().getMap().getFullMap()
-//                    [App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()]
-//                    .setWatered(true);
         }
 
         //inventory:
@@ -446,6 +429,31 @@ public class GameScreenController {
         } else if (visibleShop == ShopType.TheStarDropSaloon) {
             view.getStardropStage().update();
         }
+    private boolean isShopBesideMe(BuildingType buildingType) {
+        Tile[][] fullMap = App.getGame().getMap().getFullMap();
+
+        int x = App.getGame().getCurrentPlayer().getCoordinate().getX();
+        int y = App.getGame().getCurrentPlayer().getCoordinate().getY();
+
+        int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
+        int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};
+
+        for (int i = 0; i < 8; i++) {
+            int newX = x + dx[i];
+            int newY = y + dy[i];
+
+            // Phase 1:
+            if ((newX < 0 || newX >= 240) || (newY < 0 || newY >= 290)) continue;
+
+            Tile tile = fullMap[newX][newY];
+            if (tile != null && tile.getType().equals(TileType.Building)) {
+                if (tile.getBuildingType().equals(buildingType))
+                    return true;
+            }
+        }
+
+        return false;
+    }
 
     }
 

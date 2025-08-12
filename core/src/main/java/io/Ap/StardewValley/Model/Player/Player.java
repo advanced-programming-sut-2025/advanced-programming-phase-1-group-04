@@ -347,14 +347,14 @@ public class Player {
             return true;
         }
         return switch (farm) {
-            case 1 -> coordinate.getX() < 30 && coordinate.getY() < 40
+            case 1 -> coordinate.getX() < 65 && coordinate.getY() < 80
                     && coordinate.getX() >= 0 && coordinate.getY() >= 0;
-            case 2 -> coordinate.getX() < 30 && coordinate.getY() < 120
-                    && coordinate.getX() >= 0 && coordinate.getY() >= 80;
-            case 3 -> coordinate.getX() < 90 && coordinate.getY() < 120
-                    && coordinate.getX() >= 60 && coordinate.getY() >= 80;
-            case 4 -> coordinate.getX() < 90 && coordinate.getY() < 40
-                    && coordinate.getX() >= 60 && coordinate.getY() >= 0;
+            case 2 -> coordinate.getX() < 65 && coordinate.getY() < 290
+                    && coordinate.getX() >= 0 && coordinate.getY() >= 210;
+            case 3 -> coordinate.getX() < 240 && coordinate.getY() < 290
+                    && coordinate.getX() >= 175 && coordinate.getY() >= 210;
+            case 4 -> coordinate.getX() < 240 && coordinate.getY() < 80
+                    && coordinate.getX() >= 175 && coordinate.getY() >= 0;
             default -> throw new IllegalArgumentException("Invalid player farm");
         };
     }
@@ -364,14 +364,14 @@ public class Player {
             return false;
         Player partner = App.getGame().getPlayerByID(partnerID);
         return switch (partner.getFarm()) {
-            case 1 -> coordinate.getX() < 30 && coordinate.getY() < 40
+            case 1 -> coordinate.getX() < 65 && coordinate.getY() < 80
                     && coordinate.getX() >= 0 && coordinate.getY() >= 0;
-            case 2 -> coordinate.getX() < 30 && coordinate.getY() < 120
-                    && coordinate.getX() >= 0 && coordinate.getY() >= 80;
-            case 3 -> coordinate.getX() < 90 && coordinate.getY() < 120
-                    && coordinate.getX() >= 60 && coordinate.getY() >= 80;
-            case 4 -> coordinate.getX() < 90 && coordinate.getY() < 40
-                    && coordinate.getX() >= 60 && coordinate.getY() >= 0;
+            case 2 -> coordinate.getX() < 65 && coordinate.getY() < 290
+                    && coordinate.getX() >= 0 && coordinate.getY() >= 210;
+            case 3 -> coordinate.getX() < 240 && coordinate.getY() < 290
+                    && coordinate.getX() >= 175 && coordinate.getY() >= 210;
+            case 4 -> coordinate.getX() < 240 && coordinate.getY() < 80
+                    && coordinate.getX() >= 175 && coordinate.getY() >= 0;
             default -> throw new IllegalArgumentException("Invalid player farm");
         };
     }

@@ -7,14 +7,17 @@ public enum FishType {
     Sardine("Sardine", 40 , Season.Fall, false),
     Shad("Shad", 60 , Season.Fall, false),
     BlueDiscus("Blue Discus", 120 , Season.Fall, false),
+
     MidnightCarp("Midnight Carp", 150 , Season.Winter, false),
     Squid("Squid", 80 , Season.Winter, false),
     Tuna("Tuna", 100 , Season.Winter, false),
     Perch("Perch", 55 , Season.Winter, false),
+
     Flounder("Flounder", 100 , Season.Spring, false),
     Lionfish("Lionfish", 100 , Season.Spring, false),
     Herring("Herring", 30 , Season.Spring, false),
     Ghostfish("Ghostfish", 45 , Season.Spring, false),
+
     Tilapia("Tilapia", 75 , Season.Summer, false),
     Dorado("Dorado", 100 , Season.Summer, false),
     Sunfish("Sunfish", 30 , Season.Summer, false),

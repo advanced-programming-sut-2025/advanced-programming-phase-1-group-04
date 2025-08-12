@@ -31,7 +31,7 @@ public class NightController {
 
     public static void nightControl() {
         // Map:
-        waterControl();
+        plantController();
 
         //Time:
         setWeather();
@@ -58,7 +58,7 @@ public class NightController {
         randomForagingPlants();
         randomForagingMinerals();
         //randomStoneWood();
-        //crowControl();
+        crowControl();
     }
 
     // Randoms:
@@ -92,18 +92,6 @@ public class NightController {
     }
 
     public static void randomForagingMinerals() {
-        // Phase 1: (و ان تا کپی بعدی)
-//        foragingMineralsForEachFarm(new Coordinate(0, 0), new Coordinate(29, 39));
-//        if (App.getGame().getPlayers().size() >= 2) {
-//            foragingMineralsForEachFarm(new Coordinate(0, 80), new Coordinate(29, 119));
-//        }
-//        if (App.getGame().getPlayers().size() >= 3) {
-//            foragingMineralsForEachFarm(new Coordinate(60, 80), new Coordinate(89, 119));
-//        }
-//        if (App.getGame().getPlayers().size() >= 4) {
-//            foragingMineralsForEachFarm(new Coordinate(60, 0), new Coordinate(89, 39));
-//        }
-
         foragingMineralsForEachFarm(new Coordinate(0, 0), new Coordinate(65, 80));
         if (App.getGame().getPlayers().size() >= 2) {
             foragingMineralsForEachFarm(new Coordinate(0, 210), new Coordinate(65, 290));
@@ -151,12 +139,16 @@ public class NightController {
                 if (App.getGame().getTile(new Coordinate(x, y)).getItem() == null &&
                         App.getGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground){
                     if (rand.nextInt(100) < randomPercentStoneWood) {
-                        if (rand.nextInt(10) < 5) {
+                        int mio = rand.nextInt(10);
+                        if (mio < 3) {
                             App.getGame().getTile(new Coordinate(x, y)).
                                     setItem(new Stone());
-                        } else {
+                        } else if (mio < 6){
                             App.getGame().getTile(new Coordinate(x, y)).
                                     setItem(new Wood());
+                        } else {
+                            App.getGame().getTile(new Coordinate(x, y)).
+                                    setItem(new ForagingCrop(ForagingCropType.Grass));
                         }
                     }
                 }
@@ -198,11 +190,26 @@ public class NightController {
 
     private static void rainyWeatherEffect() {
         if (App.getGame().getCurrentTime().getWeather().equals(Weather.Rain) || App.getGame().getCurrentTime().getWeather().equals(Weather.Storm)) {
-            Tile[][] fullMap = App.getGame().getMap().getFullMap();
-            for (int i = 0; i < 90; i++) {
-                for (int j = 0; j < 120; j++) {
-                    if (fullMap[i][j].getType().equals(TileType.Ground))
-                        fullMap[i][j].setWatered(true);
+            rainyEffectForEachFarm(new Coordinate(0, 0), new Coordinate(65, 80));
+            if (App.getGame().getPlayers().size() >= 2) {
+                rainyEffectForEachFarm(new Coordinate(0, 210), new Coordinate(65, 290));
+            }
+            if (App.getGame().getPlayers().size() >= 3) {
+                rainyEffectForEachFarm(new Coordinate(175, 210), new Coordinate(240, 290));
+            }
+            if (App.getGame().getPlayers().size() >= 4) {
+                rainyEffectForEachFarm(new Coordinate(175, 0), new Coordinate(240, 80));
+            }
+        }
+    }
+
+    private static void rainyEffectForEachFarm(Coordinate c1, Coordinate c2) {
+        for (int x = c1.getX(); x < c2.getX(); x++) {
+            for (int y = c1.getY(); y < c2.getY(); y++) {
+                if (App.getGame().getTile(new Coordinate(x, y)).getItem() == null &&
+                        App.getGame().getTile(new Coordinate(x, y)).getType() == TileType.Ground){
+                    App.getGame().getTile(new Coordinate(x, y)).
+                            setWatered(true);
                 }
             }
         }
@@ -259,29 +266,6 @@ public class NightController {
     private static List<Tile> getRandomTilesFromFarm(int farm, int count) {
         Set<Tile> selected = new HashSet<>();
         Random rand = new Random();
-
-        // Phase 1:
-//        int minX = 0;
-//        int minY = 0;
-//        int maxX = 30 - 1;
-//        int maxY = 40 - 1;
-//
-//        switch (farm) {
-//            case 2:
-//                minY = 80;
-//                maxY = 120 - 1;
-//                break;
-//            case 3:
-//                minX = 60;
-//                minY = 80;
-//                maxX = 90 - 1;
-//                maxY = 120 - 1;
-//                break;
-//            case 4:
-//                minX = 60;
-//                maxX = 90 - 1;
-//                break;
-//        }
 
         int minX = 0;
         int minY = 0;
@@ -364,20 +348,21 @@ public class NightController {
         animal.setProduct(new AnimalProduct(selectedProductType, animal.getFriendship()));
     }
 
-    private static void waterControl () {
-        waterControlForEachFarm(new Coordinate(0, 0), new Coordinate(65, 80));
+    private static void plantController() {
+        plantControllerForEachFarm(new Coordinate(0, 0), new Coordinate(65, 80));
         if (App.getGame().getPlayers().size() >= 2) {
-            waterControlForEachFarm(new Coordinate(0, 210), new Coordinate(65, 290));
+            plantControllerForEachFarm(new Coordinate(0, 210), new Coordinate(65, 290));
         }
         if (App.getGame().getPlayers().size() >= 3) {
-            waterControlForEachFarm(new Coordinate(175, 210), new Coordinate(240, 290));
+            plantControllerForEachFarm(new Coordinate(175, 210), new Coordinate(240, 290));
         }
         if (App.getGame().getPlayers().size() >= 4) {
-            waterControlForEachFarm(new Coordinate(175, 0), new Coordinate(240, 80));
+            plantControllerForEachFarm(new Coordinate(175, 0), new Coordinate(240, 80));
         }
     }
 
-    private static void waterControlForEachFarm (Coordinate c1, Coordinate c2) {
+    private static void plantControllerForEachFarm(Coordinate c1, Coordinate c2) {
+        // TODO: Aynaz ab? khoshk nemikone
         for (int x = c1.getX(); x < c2.getX(); x++) {
             for (int y = c1.getY(); y < c2.getY(); y++) {
                 Tile tile = App.getGame().getTile(new Coordinate(x, y));
@@ -421,6 +406,7 @@ public class NightController {
     }
 
     private static void crowControlForEachFarm (Coordinate c1, Coordinate c2) {
+        // TODO: Aynaz darsad biar payin
         int numberOfPlants = 0;
         // Phase 1:
         //int[][] scared = new int[90][120];

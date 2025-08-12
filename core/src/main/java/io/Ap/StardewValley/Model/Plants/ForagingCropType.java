@@ -51,8 +51,9 @@ public enum ForagingCropType implements Forageable, PlantType{
 
     SnowYam("Snow Yam", new ArrayList<>(List.of(Season.Winter)), 100, 30),
 
-    WinterRoot("Winter Root", new ArrayList<>(List.of(Season.Winter)), 70, 25);
+    WinterRoot("Winter Root", new ArrayList<>(List.of(Season.Winter)), 70, 25),
 
+    Grass("Grass", new ArrayList<>(List.of(Season.Spring)), 70, 25);
 
     private final String name;
     private final ArrayList<Season> seasons;

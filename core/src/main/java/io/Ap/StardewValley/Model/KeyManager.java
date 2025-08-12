@@ -11,12 +11,8 @@ public class KeyManager {
     private int zoom = Input.Keys.CONTROL_LEFT;
     private int pauseGame = Input.Keys.ESCAPE;
 
-    private int cheatTime = Input.Keys.T;
-    private int cheatLevel = Input.Keys.L;
-    private int cheatLife = Input.Keys.J;
-    private int cheatHp = Input.Keys.H;
-    private int cheatBossFight = Input.Keys.B;
     private int aynazCheat = Input.Keys.Z;
+    private int nafisehCheat = Input.Keys.ENTER;
 
     //inventory:
     private int openInventory = Input.Keys.I;
@@ -24,8 +20,6 @@ public class KeyManager {
     //cooking:
     private int openRefrigerator = Input.Keys.C;
 
-    private int nafisehCheat = Input.Keys.ENTER;
-    private int nafisehCheatTime = Input.Keys.RIGHT;
     //tools
     private int leftClick = Input.Buttons.LEFT;
 
@@ -71,52 +65,12 @@ public class KeyManager {
         this.zoom = zoom;
     }
 
-    public int getCheatTime() {
-        return cheatTime;
-    }
-
-    public void setCheatTime(int cheatTime) {
-        this.cheatTime = cheatTime;
-    }
-
-    public int getCheatLevel() {
-        return cheatLevel;
-    }
-
-    public void setCheatLevel(int cheatLevel) {
-        this.cheatLevel = cheatLevel;
-    }
-
-    public int getCheatLife() {
-        return cheatLife;
-    }
-
-    public void setCheatLife(int cheatLife) {
-        this.cheatLife = cheatLife;
-    }
-
-    public int getCheatHp() {
-        return cheatHp;
-    }
-
-    public void setCheatHp(int cheatHp) {
-        this.cheatHp = cheatHp;
-    }
-
     public int getPauseGame() {
         return pauseGame;
     }
 
     public void setPauseGame(int pauseGame) {
         this.pauseGame = pauseGame;
-    }
-
-    public int getCheatBossFight() {
-        return cheatBossFight;
-    }
-
-    public void setCheatBossFight(int cheatBossFight) {
-        this.cheatBossFight = cheatBossFight;
     }
 
     public int getOpenInventory() {
@@ -157,14 +111,6 @@ public class KeyManager {
 
     public void setNafisehCheat(int nafisehCheat) {
         this.nafisehCheat = nafisehCheat;
-    }
-
-    public int getNafisehCheatTime() {
-        return nafisehCheatTime;
-    }
-
-    public void setNafisehCheatTime(int nafisehCheatTime) {
-        this.nafisehCheatTime = nafisehCheatTime;
     }
 }
 

@@ -229,9 +229,11 @@ public class GameMap {
     }
 
 
-    public void build(int x, int y, BuildingType type) {
-        for (int i = x; i < type.getW() + x; i++) {
-            for (int j = y; j < type.getL() + y; j++) {
+    public void build(Coordinate coordinate, BuildingType type) {
+        fullMap[coordinate.getX()][coordinate.getY()].setBuildingOrigin(true);
+
+        for (int i = coordinate.getX(); i < type.getL() + coordinate.getX(); i++) {
+            for (int j = coordinate.getY(); j < type.getW() + coordinate.getY(); j++) {
                 fullMap[i][j].setType(TileType.Building);
                 fullMap[i][j].setBuildingType(type);
             }

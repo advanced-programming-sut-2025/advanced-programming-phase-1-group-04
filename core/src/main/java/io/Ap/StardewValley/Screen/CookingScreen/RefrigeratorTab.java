@@ -180,8 +180,7 @@ public class RefrigeratorTab extends Window {
             );
 
             if (i < fridgeItems.size()) {
-                Texture texture = ItemTextureBank.getTexture(fridgeItems.get(i).getName());
-                style.imageUp = new TextureRegionDrawable(new TextureRegion(texture));
+                style.imageUp = new TextureRegionDrawable(ItemTextureBank.getTexture(fridgeItems.get(i).getName()));
             }
 
             ImageTextButton button = new ImageTextButton("", style);
@@ -222,8 +221,7 @@ public class RefrigeratorTab extends Window {
             );
 
             if (i < inventoryItems.size()) {
-                Texture texture = ItemTextureBank.getTexture(inventoryItems.get(i).getName());
-                style.imageUp = new TextureRegionDrawable(new TextureRegion(texture));
+                style.imageUp = new TextureRegionDrawable(ItemTextureBank.getTexture(inventoryItems.get(i).getName()));
             }
 
             ImageTextButton button = new ImageTextButton("", style);

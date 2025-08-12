@@ -10,6 +10,7 @@ public enum ForagingMineralType implements Forageable, PlantType {
     EarthCrystal ("Earth Crystal", 50),
     FrozenTear ("Frozen Tear", 75),
     FireQuartz ("Fire Quartz", 100),
+
     Emerald ("Emerald", 250),
     Aquamarine ("Aquamarine", 180),
     Ruby ("Ruby", 250),
@@ -18,6 +19,7 @@ public enum ForagingMineralType implements Forageable, PlantType {
     Jade ("Jade", 200),
     Diamond ("Diamond", 750),
     PrismaticShard ("Prismatic Shard", 2000),
+
     Copper ("Copper", 5),
     Iron ("Iron", 10),
     Gold ("Gold", 25),

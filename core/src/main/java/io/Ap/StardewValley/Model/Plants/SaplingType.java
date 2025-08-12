@@ -15,6 +15,7 @@ public enum SaplingType implements Forageable, PlantType{
     PeachSapling("Peach Sapling", new ArrayList<>(List.of(Season.Summer)), TreeType.Peach, false),
     AppleSapling("Apple Sapling", new ArrayList<>(List.of(Season.Fall)), TreeType.Apple, false),
     PomegranateSapling("Pomegranate Sapling", new ArrayList<>(List.of(Season.Fall)), TreeType.Pomegranate, false),
+
     Acorns("Acorns", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), TreeType.Oak, true),
     MapleSeeds("Maple Seeds", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), TreeType.Maple, true),
     PineCones("Pine Cones", new ArrayList<>(List.of(Season.Spring, Season.Summer, Season.Fall, Season.Winter)), TreeType.Pine, true),

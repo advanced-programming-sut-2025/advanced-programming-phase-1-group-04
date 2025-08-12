@@ -121,8 +121,7 @@ public class InventoryTab extends Window {
             );
 
             if (i < items.size()) {
-                Texture texture = ItemTextureBank.getTexture(items.get(i).getName());
-                TextureRegionDrawable icon = new TextureRegionDrawable(new TextureRegion(texture));
+                TextureRegionDrawable icon = new TextureRegionDrawable(ItemTextureBank.getTexture(items.get(i).getName()));
                 style.imageUp = icon;
 
             }

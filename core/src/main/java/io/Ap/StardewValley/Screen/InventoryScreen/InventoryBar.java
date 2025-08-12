@@ -140,8 +140,7 @@ public class InventoryBar extends Stage {
             if (i < items.size()) {
                 Item item = items.get(i);
                 String itemName = item.getName();
-                Texture texture = ItemTextureBank.getTexture(itemName);
-                setSlotImage(i, texture);
+                setSlotImage(i, ItemTextureBank.getTexture(itemName));
 
                 int quantity = App.getGame().getCurrentPlayer().getInventory().getItemQuantity(item);
                 if (quantity > 1) {
@@ -163,7 +162,7 @@ public class InventoryBar extends Stage {
         }
     }
 
-    public void setSlotImage(int index, Texture texture) {
+    public void setSlotImage(int index, TextureRegion texture) {
         if (index >= 0 && index < slotButtons.size()) {
             Drawable image = (texture != null)
                     ? new TextureRegionDrawable(new TextureRegion(texture))

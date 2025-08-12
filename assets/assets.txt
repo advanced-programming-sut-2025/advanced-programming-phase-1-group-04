@@ -241,6 +241,16 @@ inventory/wedding ring.png
 inventory/wheat flour.png
 inventory/wheat.png
 inventory/yam.png
+items/AnimalProducts.png
+items/Crafts.png
+items/Fishes.png
+items/Foods.png
+items/ForagingCrops.png
+items/ForagingMinerals.png
+items/Gifts.png
+items/Ingredients.png
+items/Saplings.png
+items/Seeds.png
 map/SecretNotesImages.png
 map/buildings/Barn.png
 map/buildings/BuildGreenHouse.png
@@ -248,7 +258,6 @@ map/buildings/Coop.png
 map/buildings/ShippingBin.png
 map/buildings/Well.png
 map/items/CropStages.png
-map/items/ForagingCrops.png
 map/items/TreeStages.png
 map/items/TreeStages2.png
 map/items/additional.png

@@ -6,14 +6,24 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.*;
 
+import io.Ap.StardewValley.Model.Animals.AnimalProductType;
+import io.Ap.StardewValley.Model.Animals.FishType;
 import io.Ap.StardewValley.Model.App;
+import io.Ap.StardewValley.Model.Cooking.Food;
+import io.Ap.StardewValley.Model.Cooking.FoodType;
+import io.Ap.StardewValley.Model.Cooking.IngredientType;
+import io.Ap.StardewValley.Model.Crafting.Craft;
+import io.Ap.StardewValley.Model.Crafting.CraftType;
+import io.Ap.StardewValley.Model.Interaction.Gift;
 import io.Ap.StardewValley.Model.Item.Item;
+import io.Ap.StardewValley.Model.Item.ItemType;
 import io.Ap.StardewValley.Model.Item.Stone;
 import io.Ap.StardewValley.Model.Item.Wood;
 import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Tile;
 import io.Ap.StardewValley.Model.Map.TileType;
 import io.Ap.StardewValley.Model.Plants.*;
+import io.Ap.StardewValley.Model.Player.GiftType;
 import io.Ap.StardewValley.StardewValley;
 
 public class DynamicMapLayerRender {
@@ -23,10 +33,20 @@ public class DynamicMapLayerRender {
     // Map Item:
     private final Map<String, TextureRegion> additional = new HashMap<>();
     private final Map<ForagingCropType, TextureRegion> foragingCrops = new EnumMap<>(ForagingCropType.class);
+    private final Map<ForagingMineralType, TextureRegion> foragingMinerals = new EnumMap<>(ForagingMineralType.class);
+    private final Map<CraftType, TextureRegion> crafts = new EnumMap<>(CraftType.class);
+    private final Map<AnimalProductType, TextureRegion> animalProducts = new EnumMap<>(AnimalProductType.class);
+    private final Map<FishType, TextureRegion> fishes = new EnumMap<>(FishType.class);
+    private final Map<FoodType, TextureRegion> foods = new EnumMap<>(FoodType.class);
+    private final Map<GiftType, TextureRegion> gifts = new EnumMap<>(GiftType.class);
+    private final Map<SeedType, TextureRegion> seeds = new EnumMap<>(SeedType.class);
+    private final Map<SaplingType, TextureRegion> saplings = new EnumMap<>(SaplingType.class);
+    private final Map<IngredientType, TextureRegion> ingredients = new EnumMap<>(IngredientType.class);
 
     private final Map<TreeType, List<TextureRegion>> treeStages = new EnumMap<>(TreeType.class);
     private final Map<CropType, List<TextureRegion>> cropStages = new EnumMap<>(CropType.class);
 
+    // building:
     {
         TextureRegion[][] buildGreenHouse = TextureRegion.split(new Texture("map/buildings/BuildGreenHouse.png"), 16, 16);
         TextureRegion[][] barn = TextureRegion.split(new Texture("map/buildings/Barn.png"), 16, 16);
@@ -40,6 +60,7 @@ public class DynamicMapLayerRender {
         buildings.put(BuildingType.ShippingBin, ShippingBin);
         buildings.put(BuildingType.Barn, barn);
     }
+    // tree stages:
     {
         TextureRegion[][] treeSheet1 = TextureRegion.split(new Texture("map/items/TreeStages.png"), 48, 5 * 16);
         TextureRegion[][] treeSheet2 = TextureRegion.split(new Texture("map/items/TreeStages2.png"), 48, 6 * 16);
@@ -57,6 +78,7 @@ public class DynamicMapLayerRender {
             treeStages.put(type, stages);
         }
     }
+    // crop stages:
     {
         TextureRegion[][] cropSheet = TextureRegion.split(new Texture("map/items/CropStages.png"), 16, 32);
 
@@ -75,10 +97,9 @@ public class DynamicMapLayerRender {
             cropStages.put(type, stages);
         }
     }
-
-
+    // foraging crops:
     {
-        TextureRegion[][] foragingSheet = TextureRegion.split(new Texture("map/items/ForagingCrops.png"), 16, 16);
+        TextureRegion[][] foragingSheet = TextureRegion.split(new Texture("items/ForagingCrops.png"), 16, 16);
 
         int rows = foragingSheet.length;
         int cols = foragingSheet[0].length;
@@ -94,7 +115,169 @@ public class DynamicMapLayerRender {
             index++;
         }
     }
+    // foraging minerals:
+    {
+        TextureRegion[][] foragingSheet = TextureRegion.split(new Texture("items/ForagingMinerals.png"), 16, 16);
 
+        int rows = foragingSheet.length;
+        int cols = foragingSheet[0].length;
+
+        int index = 0;
+        for (ForagingMineralType type : ForagingMineralType.values()) {
+            int row = index / cols;
+            int col = index % cols;
+
+            if (row >= rows) break;
+
+            foragingMinerals.put(type, foragingSheet[row][col]);
+            index++;
+        }
+    }
+    // crafts:
+    {
+        TextureRegion[][] craftSheet = TextureRegion.split(new Texture("items/Crafts.png"), 16, 32);
+
+        int rows = craftSheet.length;
+        int cols = craftSheet[0].length;
+
+        int index = 0;
+        for (CraftType type : CraftType.values()) {
+            int row = index / cols;
+            int col = index % cols;
+
+            if (row >= rows) break;
+
+            crafts.put(type, craftSheet[row][col]);
+            index++;
+        }
+    }
+    // animal products:
+    {
+        TextureRegion[][] animalProductsSheet = TextureRegion.split(new Texture("items/AnimalProducts.png"), 16, 16);
+
+        int rows = animalProductsSheet.length;
+        int cols = animalProductsSheet[0].length;
+
+        int index = 0;
+        for (AnimalProductType type : AnimalProductType.values()) {
+            int row = index / cols;
+            int col = index % cols;
+
+            if (row >= rows) break;
+
+            animalProducts.put(type, animalProductsSheet[row][col]);
+            index++;
+        }
+    }
+    // fishes:
+    {
+        TextureRegion[][] sheet = TextureRegion.split(new Texture("items/Fishes.png"), 16, 16);
+
+        int rows = sheet.length;
+        int cols = sheet[0].length;
+
+        int index = 0;
+        for (FishType type : FishType.values()) {
+            int row = index / cols;
+            int col = index % cols;
+
+            if (row >= rows) break;
+
+            fishes.put(type, sheet[row][col]);
+            index++;
+        }
+    }
+    // foods:
+    {
+        TextureRegion[][] sheet = TextureRegion.split(new Texture("items/Foods.png"), 16, 16);
+
+        int rows = sheet.length;
+        int cols = sheet[0].length;
+
+        int index = 0;
+        for (FoodType type : FoodType.values()) {
+            int row = index / cols;
+            int col = index % cols;
+
+            if (row >= rows) break;
+
+            foods.put(type, sheet[row][col]);
+            index++;
+        }
+    }
+    // gifts:
+    {
+        TextureRegion[][] sheet = TextureRegion.split(new Texture("items/Gifts.png"), 16, 16);
+
+        int rows = sheet.length;
+        int cols = sheet[0].length;
+
+        int index = 0;
+        for (GiftType type : GiftType.values()) {
+            int row = index / cols;
+            int col = index % cols;
+
+            if (row >= rows) break;
+
+            gifts.put(type, sheet[row][col]);
+            index++;
+        }
+    }
+    // seeds:
+    {
+        TextureRegion[][] sheet = TextureRegion.split(new Texture("items/Seeds.png"), 16, 16);
+
+        int rows = sheet.length;
+        int cols = sheet[0].length;
+
+        int index = 0;
+        for (SeedType type : SeedType.values()) {
+            int col = index / rows;
+            int row = index % rows;
+
+            if (col >= cols) break;
+
+            seeds.put(type, sheet[row][col]);
+            index++;
+        }
+    }
+    // saplings:
+    {
+        TextureRegion[][] sheet = TextureRegion.split(new Texture("items/Saplings.png"), 16, 16);
+
+        int rows = sheet.length;
+        int cols = sheet[0].length;
+
+        int index = 0;
+        for (SaplingType type : SaplingType.values()) {
+            int col = index / rows;
+            int row = index % rows;
+
+            if (col >= cols) break;
+
+            saplings.put(type, sheet[row][col]);
+            index++;
+        }
+    }
+    // ingredients:
+    {
+        TextureRegion[][] sheet = TextureRegion.split(new Texture("items/Ingredients.png"), 16, 16);
+
+        int rows = sheet.length;
+        int cols = sheet[0].length;
+
+        int index = 0;
+        for (IngredientType type : IngredientType.values()) {
+            int row = index / cols;
+            int col = index % cols;
+
+            if (row >= rows) break;
+
+            ingredients.put(type, sheet[row][col]);
+            index++;
+        }
+    }
+    // additional:
     {
         TextureRegion[][] tiledSheet = TextureRegion.split(new Texture("map/tiles/hoeDirt.png"), 16, 16);
         additional.put("plowed", tiledSheet[1][2]);
@@ -142,12 +325,21 @@ public class DynamicMapLayerRender {
                         batch.draw(additional.get("shadow"), drawX, drawY);
                         batch.draw(foragingCrops.get(foragingCrop.getType()), drawX, drawY);
                     }
+                    else if (item instanceof ForagingMineral foragingMineral) {
+                        batch.draw(additional.get("shadow"), drawX, drawY);
+                        batch.draw(foragingMinerals.get(foragingMineral.getType()), drawX, drawY);
+                    }
                     else if (item instanceof Stone) {
                         batch.draw(additional.get("stone"), drawX, drawY);
                     }
                     else if (item instanceof Wood) {
                         batch.draw(additional.get("wood"), drawX, drawY);
                     }
+                    else if (item instanceof Craft craft) {
+                        batch.draw(crafts.get(craft.getType()), drawX, drawY);
+                    }
+
+                    // stage:
                     else if (item instanceof Crop crop) {
                         int stageIndex = crop.getCurrentStage() - 1;
                         List<TextureRegion> stages = cropStages.get(crop.getType());
@@ -158,6 +350,7 @@ public class DynamicMapLayerRender {
                         List<TextureRegion> stages = treeStages.get(tree.getType());
                         batch.draw(stages.get(stageIndex), drawX, drawY);
                     }
+
                 }
 
             }

@@ -106,8 +106,7 @@ public class CookingTab extends Window {
             );
 
             if (i < foodRecipes.size()) {
-                Texture texture = ItemTextureBank.getTexture(foodRecipes.get(i).getName());
-                style.imageUp = new TextureRegionDrawable(new TextureRegion(texture));
+                style.imageUp = new TextureRegionDrawable(ItemTextureBank.getTexture(foodRecipes.get(i).getName()));
             }
 
             ImageTextButton button = new ImageTextButton("", style);

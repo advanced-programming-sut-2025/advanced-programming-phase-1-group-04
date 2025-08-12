@@ -107,8 +107,7 @@ public class ShopStock extends Window {
 
     private ImageTextButton createProductButton(ProductData product) {
         // گرفتن تکسچر از بانک
-        Texture texture = ItemTextureBank.getTexture(product.getName());
-        Image image = new Image(texture);
+        Image image = new Image(ItemTextureBank.getTexture(product.getName()));
 
         // ساخت Table برای چیدمان داخل دکمه
         Table contentTable = new Table();

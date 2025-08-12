@@ -232,19 +232,19 @@ public class GameScreenController {
             player.setDirection(DirectionType.Left);
         } else if (Gdx.input.isButtonJustPressed(App.getKeyManager().getLeftClick())){
             try {
-                if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.Blacksmith && visibleShop != ShopType.Blacksmith) {
+                if (isShopBesideMe(BuildingType.Blacksmith) && visibleShop != ShopType.Blacksmith) {
                     visibleShop = ShopType.Blacksmith;
-                } else if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.CarpentersShop && visibleShop != ShopType.CarpentersShop) {
+                } else if (isShopBesideMe(BuildingType.CarpentersShop) && visibleShop != ShopType.CarpentersShop) {
                     visibleShop = ShopType.CarpentersShop;
-                } else if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.FishShop && visibleShop != ShopType.FishShop) {
+                } else if (isShopBesideMe (BuildingType.FishShop) && visibleShop != ShopType.FishShop) {
                     visibleShop = ShopType.FishShop;
-                } else if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.JojaMart) {
+                } else if (isShopBesideMe(BuildingType.JojaMart)) {
                     visibleShop = ShopType.JojaMart;
-                } else if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.MarniesRanch) {
+                } else if (isShopBesideMe(BuildingType.MarniesRanch)) {
                     visibleShop = ShopType.MarniesRanch;
-                } else if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.PierresGeneralStore) {
+                } else if (isShopBesideMe(BuildingType.PierresGeneralStore)) {
                     visibleShop = ShopType.PierresGeneralStore;
-                } else if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.TheStarDropSaloon) {
+                } else if (isShopBesideMe(BuildingType.TheStarDropSaloon)) {
                     visibleShop = ShopType.TheStarDropSaloon;
                 }
                 else if (view.getInventoryBar().getSelectedItem() instanceof Tool && player.getCurrentTool() != null) {
@@ -429,6 +429,8 @@ public class GameScreenController {
         } else if (visibleShop == ShopType.TheStarDropSaloon) {
             view.getStardropStage().update();
         }
+    }
+
     private boolean isShopBesideMe(BuildingType buildingType) {
         Tile[][] fullMap = App.getGame().getMap().getFullMap();
 
@@ -451,10 +453,7 @@ public class GameScreenController {
                     return true;
             }
         }
-
         return false;
-    }
-
     }
 
     public static void setVisibleShop(ShopType visibleShop) {

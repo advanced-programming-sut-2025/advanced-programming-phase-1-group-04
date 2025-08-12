@@ -1,6 +1,7 @@
 package io.Ap.StardewValley.Screen.ShopScreen;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -129,7 +130,7 @@ public class ShopStock extends Window {
     }
 
     private ImageTextButton createProductButton(ProductData product) {
-        Texture texture = ItemTextureBank.getTexture(product.getName());
+        TextureRegion texture = ItemTextureBank.getTexture(product.getName());
         Image image = new Image(texture);
 
         Table contentTable = new Table();

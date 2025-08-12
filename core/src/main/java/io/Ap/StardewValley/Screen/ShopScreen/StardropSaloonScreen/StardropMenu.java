@@ -39,7 +39,7 @@ public class StardropMenu extends Stage {
         firstMenu.setVisible(true);
         this.addActor(firstMenu);
 
-        shopMenu = new ShopMenu(skin, stardrop, texturePath);
+        shopMenu = new ShopMenu(skin, stardrop, texturePath, this);
         shopMenu.setPosition(900, 540);
         shopMenu.setVisible(false);
         this.addActor(shopMenu);

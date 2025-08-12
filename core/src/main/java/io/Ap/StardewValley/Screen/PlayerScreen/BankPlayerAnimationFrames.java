@@ -26,7 +26,7 @@ public class BankPlayerAnimationFrames {
         float frameDuration = 0.12f;
 
         faintAnimation = new Animation<>(frameDuration + 1.88f, sheet[0][0], sheet[2][4], sheet[0][4], sheet[0][5]);
-        eatAnimation = new Animation<>(frameDuration, sheet[2][2]);
+        eatAnimation = new Animation<>(frameDuration * 2, sheet[14][2], sheet[14][3], sheet[14][4], sheet[14][3], sheet[14][4], sheet[14][3]);
 
         //DOWN
         walkAnimations.put(DirectionType.Down,

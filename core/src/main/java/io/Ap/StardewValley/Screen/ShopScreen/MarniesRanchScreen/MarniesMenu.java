@@ -41,7 +41,7 @@ public class MarniesMenu extends Stage {
         firstMenu.setVisible(true);
         this.addActor(firstMenu);
 
-        shopMenu = new ShopMenu(skin, marniesRanch, texturePath);
+        shopMenu = new ShopMenu(skin, marniesRanch, texturePath, this);
         shopMenu.setPosition(900, 540);
         shopMenu.setVisible(false);
         this.addActor(shopMenu);

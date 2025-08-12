@@ -151,7 +151,7 @@ public class ShopStock extends Window {
 
         if (!product.exists()) {
             button.setDisabled(true);
-            nameLabel.setColor(0.6f, 0.6f, 0.6f, 1f);
+            nameLabel.setColor(0f, 0f, 0f, 1f);
             priceLabel.setColor(0.6f, 0.6f, 0.6f, 1f);
         }
 

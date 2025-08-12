@@ -53,6 +53,16 @@ public class GameScreenController {
     //shops:
     private static ShopType visibleShop = null;
 
+    //shipping bin:
+    private static boolean isShippingBinVisible = false;
+    private static boolean shippingBinNeedsUpdate = false;
+
+    //food:
+    private boolean isFoodActionInProgress = false;
+    private float foodActionStartTime = 0f;
+    private float foodActionDuration = 1.44f;
+    boolean callFoodUse = false;
+
 
     public void setViews(GameScreen view) {
         this.view = view;
@@ -113,9 +123,18 @@ public class GameScreenController {
         //todo: سنگین میشه یا نه؟
         ((MapTab) view.getInventoryStage().getInfoWindows().get(3)).updatePlayerPosition();
         updateToolAction(Gdx.graphics.getDeltaTime());
+        updateFoodAction(Gdx.graphics.getDeltaTime());
 
         //shops:
         updateShops();
+
+        //shipping bin:
+        //inventory stage:
+        view.getShippingBin().setVisibleAll(isShippingBinVisible);
+        if (shippingBinNeedsUpdate) {
+            view.getShippingBin().update();
+            shippingBinNeedsUpdate = false;
+        }
 
     }
 
@@ -141,7 +160,7 @@ public class GameScreenController {
             inventoryStageNeedsUpdate = true;
             cookingStageNeedsUpdate = true;
             if (visibleShop == null) {
-                visibleShop = ShopType.FishShop;
+                visibleShop = ShopType.TheStarDropSaloon;
             } else {
                 visibleShop = null;
             }
@@ -173,6 +192,7 @@ public class GameScreenController {
             if (isInventoryStageVisible) {
                 inventoryStageNeedsUpdate = true;
                 isCookingStageVisible = false;
+                isShippingBinVisible = false;
                 visibleShop = null;
             }
         }
@@ -183,7 +203,21 @@ public class GameScreenController {
             if (isCookingStageVisible) {
                 cookingStageNeedsUpdate = true;
                 isInventoryStageVisible = false;
+                isShippingBinVisible = false;
                 visibleShop = null;
+            }
+        }
+
+        //shipping bin:
+        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getOpenShippingBin())) {
+            if (isShopBesideMe(BuildingType.ShippingBin)) {
+                isShippingBinVisible = !isShippingBinVisible;
+                if (isShippingBinVisible) {
+                    shippingBinNeedsUpdate = true;
+                    isCookingStageVisible = false;
+                    isInventoryStageVisible = false;
+                    visibleShop = null;
+                }
             }
         }
     }
@@ -205,9 +239,8 @@ public class GameScreenController {
         // player inputs: walk, eat, use tool:
         Player player = App.getGame().getCurrentPlayer();
         boolean isMoving = false;
-//        boolean isUsingTool = false;
         boolean isUsingTool = isToolActionActive();
-        boolean isEating = false;
+        boolean isEating = isFoodActionActive();
 
         float newX = player.getXLibGdx();
         float newY = player.getYLibGdx();
@@ -246,6 +279,14 @@ public class GameScreenController {
                     visibleShop = ShopType.PierresGeneralStore;
                 } else if (isShopBesideMe(BuildingType.TheStarDropSaloon)) {
                     visibleShop = ShopType.TheStarDropSaloon;
+                } else if (isShopBesideMe(BuildingType.ShippingBin)) {
+//                    isShippingBinVisible = !isShippingBinVisible;
+//                    if (isShippingBinVisible) {
+//                        shippingBinNeedsUpdate = true;
+//                        isCookingStageVisible = false;
+//                        isInventoryStageVisible = false;
+//                        visibleShop = null;
+//                    }
                 }
                 else if (view.getInventoryBar().getSelectedItem() instanceof Tool && player.getCurrentTool() != null) {
                     isUsingTool = true;
@@ -262,11 +303,20 @@ public class GameScreenController {
                     view.setCurrentResult(CraftController.placeCraftThroughScreen(craft.getName(), ToolController.directionTypeToString(App.getGame().getCurrentPlayer().getDirection())));
                 }
                 else if (view.getInventoryBar().getSelectedItem() instanceof Food food) {
-                    view.setCurrentResult(FoodController.eatThroughScreen(food.getName()));
+                    if (view.setCurrentResult(FoodController.eatThroughScreen(food.getName()))) {
+                        isEating = true;
+                        startFoodAction();
+                    }
                 } else if (view.getInventoryBar().getSelectedItem() instanceof Crop food) {
-                    view.setCurrentResult(FoodController.eatThroughScreen(food.getName()));
+                    if (view.setCurrentResult(FoodController.eatThroughScreen(food.getName()))) {
+                        isEating = true;
+                        startFoodAction();
+                    }
                 } else if (view.getInventoryBar().getSelectedItem() instanceof Fruit food) {
-                    view.setCurrentResult(FoodController.eatThroughScreen(food.getName()));
+                    if (view.setCurrentResult(FoodController.eatThroughScreen(food.getName()))) {
+                        isEating = true;
+                        startFoodAction();
+                    }
                 }
             }catch (Exception e) {}
 
@@ -458,5 +508,23 @@ public class GameScreenController {
 
     public static void setVisibleShop(ShopType visibleShop) {
         GameScreenController.visibleShop = visibleShop;
+    }
+
+    public boolean isFoodActionActive() {
+        return isFoodActionInProgress;
+    }
+
+    public void updateFoodAction(float deltaTime) {
+        if (isFoodActionInProgress) {
+            foodActionStartTime += deltaTime;
+            if (foodActionStartTime >= foodActionDuration) {
+                isFoodActionInProgress = false;
+            }
+        }
+    }
+
+    public void startFoodAction() {
+        isFoodActionInProgress = true;
+        foodActionStartTime = 0f;
     }
 }

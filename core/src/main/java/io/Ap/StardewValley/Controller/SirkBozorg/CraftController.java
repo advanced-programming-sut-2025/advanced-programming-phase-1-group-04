@@ -178,4 +178,41 @@ public class CraftController {
         App.getGame().getCurrentPlayer().removeItemFromInventory(craft.getName(), 1);
         return new Result(false, craft.getName() + " has been successfully placed in the selected tile.");
     }
+
+    public static Result makeCraftThroughScreen (String craftName) {
+        if (App.getGame().getCurrentPlayer().getMovesThisTurn() >= App.getGame().getCurrentPlayer().getMaxMovesInTurn()) {
+            return new Result (false, "you have no more moves! enter next turn!");
+        }
+        GameMenuController.moveControl();
+        if (App.getGame().getTile(App.getGame().getCurrentPlayer().getCoordinate()).getBuildingType() != BuildingType.House) {
+            return new Result(false, "you must be at home for using this command!");
+        }
+        CraftRecipe recipe;
+        if (craftName == null) {
+            return new Result(false, "craft name is invalid");
+        }
+        if((recipe = findCraftRecipe(craftName)) == null) {
+            return new Result(false, "you haven't learned this recipe yet!");
+        }
+        if (App.getGame().getCurrentPlayer().getInventory().getRemainedCapacity() <= 0) {
+            return new Result(false, "your inventory doesn't have enough capacity!");
+        }
+        boolean success = canMakeCraft(recipe).isSuccessful();
+        if (!success) {
+            return canMakeCraft(recipe);
+        }
+        for (Item i : recipe.getRecipe().keySet()) {
+            App.getGame().getCurrentPlayer().removeItemFromInventory(i.getName(), recipe.getRecipe().get(i));
+        }
+        if (findCraftType(recipe) == null) {
+            return new Result(false, "invalid craft name!"); //never happens (inshallah)
+        }
+        if (App.getGame().getCurrentPlayer().getEnergy() < 2) {
+            return new Result(false, "you don't have enough energy\n" + GameMenuController.nextTurn().message());
+            //TODO: next turn call mishe?
+        }
+        App.getGame().getCurrentPlayer().addEnergy(-2);
+        App.getGame().getCurrentPlayer().addItemToInventory(new Craft(findCraftType(recipe)), 1);
+        return new Result(false, craftName + " added to inventory.");
+    }
 }

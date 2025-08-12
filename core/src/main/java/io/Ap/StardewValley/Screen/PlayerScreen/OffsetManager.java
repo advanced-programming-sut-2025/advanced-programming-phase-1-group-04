@@ -214,6 +214,43 @@ public class OffsetManager {
         shirtIdle.put(DirectionType.Down, List.of(new Coordinate(4, 9)));
         shirtOffsets.put(StateType.Idle, shirtIdle);
 
+        //eat
+        EnumMap<DirectionType, List<Coordinate>> shirtEat = new EnumMap<>(DirectionType.class);
+        shirtEat.put(DirectionType.Right, List.of(
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9)
+        ));
+        shirtEat.put(DirectionType.Left, List.of(
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9),
+                new Coordinate(4, 9)
+        ));
+        shirtEat.put(DirectionType.Up, List.of(
+                new Coordinate(4, 10),
+                new Coordinate(4, 10),
+                new Coordinate(4, 10),
+                new Coordinate(4, 10),
+                new Coordinate(4, 10),
+                new Coordinate(4, 10)
+        ));
+        shirtEat.put(DirectionType.Down, List.of(
+                new Coordinate(4, 11),
+                new Coordinate(4, 11),
+                new Coordinate(4, 11),
+                new Coordinate(4, 11),
+                new Coordinate(4, 11),
+                new Coordinate(4, 11)
+        ));
+        shirtOffsets.put(StateType.Eat, shirtEat);
+
+        //faint
         EnumMap<DirectionType, List<Coordinate>> shirtFaint = new EnumMap<>(DirectionType.class);
         shirtFaint.put(DirectionType.Down, List.of(
                 new Coordinate(4, 10),

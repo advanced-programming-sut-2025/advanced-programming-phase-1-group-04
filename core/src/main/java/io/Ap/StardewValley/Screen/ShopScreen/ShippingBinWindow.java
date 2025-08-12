@@ -1,16 +1,19 @@
-package io.Ap.StardewValley.Screen.InventoryScreen;
+package io.Ap.StardewValley.Screen.ShopScreen;
+
 
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.utils.*;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.Timer;
 import io.Ap.StardewValley.Controller.SirkBozorg.PlayerController;
+import io.Ap.StardewValley.Controller.SirkBozorg.ShopController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Item.Item;
+import io.Ap.StardewValley.Model.Result;
 import io.Ap.StardewValley.Screen.ItemScreen.ItemTextureBank;
 
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class InventoryTab extends Window {
+public class ShippingBinWindow extends Window {
     private final Skin skin;
     private final List<ImageTextButton> inventoryButtons;
     private ImageTextButton selectedButton;
@@ -29,13 +32,16 @@ public class InventoryTab extends Window {
 
     private Label label1;
     private Label label2;
+    private Stage stage;
 
-    public InventoryTab(Skin skin) {
-        super("", skin);
+
+    public ShippingBinWindow(Skin skin, Stage stage) {
+        super("Shipping bin", skin);
         this.skin = skin;
         this.inventoryButtons = new ArrayList<>();
         label1 = new Label(App.getCurrentUser().getNickname() , skin);
         label2 = new Label("count: " + App.getGame().getCurrentPlayer().getCount(), skin);
+        this.stage = stage;
 
         this.setSize(1050, 650);
         this.setMovable(false);
@@ -53,31 +59,31 @@ public class InventoryTab extends Window {
 
 
         Table centerPart = new Table();
-        ImageButton orderButton = new ImageButton(skin, "order");
-        orderButton.setTransform(true);
-        orderButton.scaleBy(0.4f);
-        orderButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //todo
-            }
-        });
-        centerPart.add(orderButton).size(100, 100).left().pad(30, 0, 0, 30);
-        centerPart.row();
 
-        ImageButton trashButton = new ImageButton(skin, "trash");
-        trashButton.setTransform(true);
-        trashButton.scaleBy(0.4f);
-        trashButton.addListener(new ClickListener() {
+        ImageButton sellButton = new ImageButton(skin, "trash");
+        sellButton.setTransform(true);
+        sellButton.scaleBy(0.4f);
+        sellButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //todo
-                PlayerController.inventoryTrashWithoutNumber(getSelectedItemName());
+                System.out.println("11111111");
+                if (selectedButton == null || getSelectedItemName() == null) {
+                    System.out.println("2222");
+                    showError("choose an item to sell!");
+                    return;
+                }
+                Result result = ShopController.sellThroughScreen(getSelectedItemName());
+                if (!result.isSuccessful()) {
+                    System.out.println("3333");
+                    showError(result.message());
+                    return;
+                }
+                System.out.println("44");
                 updateInventory();
 
             }
         });
-        centerPart.add(trashButton).size(100, 100).left().pad(10, 0, 0, 30);
+        centerPart.add(sellButton).size(100, 100).left().pad(10, 0, 0, 30);
 
 
         Table rightPart = new Table();
@@ -87,6 +93,8 @@ public class InventoryTab extends Window {
         topImage.setScaling(Scaling.fit);
         rightPart.add(topImage).width(200).height(350).center().row();
 
+        label1 = new Label(App.getCurrentUser().getNickname() , skin);
+        label2 = new Label("count: " + App.getGame().getCurrentPlayer().getCount(), skin);
         rightPart.add(label1).center().padTop(10).row();
         rightPart.add(label2).center().padTop(5).row();
 
@@ -149,12 +157,32 @@ public class InventoryTab extends Window {
             } catch (Exception e) {}
 
             if ((i + 1) % columns == 0) leftPart.row();
+
         }
 
         scrollPane.setWidget(leftPart);  // اطمینان از بروزرسانی محتوا
-
         label2.setText("count: " + App.getGame().getCurrentPlayer().getCount());
     }
+
+    private void showError(String msg) {
+        final Window errorWindow = new Window("", skin, "Letter");
+        errorWindow.setMovable(false);
+        errorWindow.setKeepWithinStage(true);
+        errorWindow.add(new Label(msg, skin));
+        errorWindow.setSize(700, 90);
+        errorWindow.setPosition(600, 170, Align.center);
+        errorWindow.pack();
+
+        stage.addActor(errorWindow);
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                errorWindow.remove();
+            }
+        }, 5);
+    }
+
 
     private String getSelectedItemName () {
         return buttonToItemName.get(selectedButton);

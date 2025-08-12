@@ -5,8 +5,12 @@ import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Item.ItemType;
 import io.Ap.StardewValley.Model.Map.*;
+import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Result;
 import io.Ap.StardewValley.Model.Shop.ShopType;
+import io.Ap.StardewValley.Model.Tool.Tool;
+
+import java.util.ArrayList;
 
 public class ShopController {
     public static Result cheatAddCount(String stringCount) {
@@ -189,4 +193,23 @@ public class ShopController {
 
         return false;
     }
+
+    public static Result sellThroughScreen(String name) {
+        Player player = App.getGame().getCurrentPlayer();
+        ArrayList<Item> items = player.getInventory().getItemList();
+        Item wanted = null;
+        for (Item i : items) {
+            if (i.getName().equalsIgnoreCase(name)) {
+                wanted = i;
+            }
+        }
+        if (wanted instanceof Tool) {
+            return new Result(false, "you can't sell a tool!");
+        }
+        player.removeItemFromInventory(name, 1);
+        player.addCount(wanted.getPrice());
+
+        return new Result(true, "Now you send this item to hell(shipping bin). Tomorrow به حسابت زده میشه");
+    }
+
 }

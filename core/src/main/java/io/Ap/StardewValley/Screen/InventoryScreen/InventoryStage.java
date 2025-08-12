@@ -33,7 +33,7 @@ public class InventoryStage extends Stage {
         float buttonWidth = 160;
         float buttonHeight = 80;
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             final int index = i;
 
             ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(
@@ -117,6 +117,8 @@ public class InventoryStage extends Stage {
             win = new cheatTab(skin);
         } else if (index == 3) {
             win = new MapTab(skin);
+        } else if (index == 5) {
+            win = new CraftTab(skin, this);
         }
         else {
             win = new Window("", skin);

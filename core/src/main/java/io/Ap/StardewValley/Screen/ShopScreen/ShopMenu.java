@@ -1,8 +1,13 @@
 package io.Ap.StardewValley.Screen.ShopScreen;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.Shop.ProductData;
 import io.Ap.StardewValley.Model.Shop.Shop;
 
@@ -12,33 +17,50 @@ public class ShopMenu extends Table {
     private ShopStock shopStock;
     private ProductInformation productInformation;
     private Shop shop;
+    private ImageButton closeButton;
 
 
-    public ShopMenu(Skin skin, Shop shop, String texturePath) {
+    public ShopMenu(Skin skin, Shop shop, String texturePath, Stage stage) {
         super(skin);
         this.shop = shop;
 
+        closeButton = new ImageButton(skin, "trash");
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameScreenController.setVisibleShop(null);
+            }
+        });
+
+        Table up = new Table();
         Table left = new Table();
         Table middle = new Table();
         Table right = new Table();
+
+        up.add(closeButton).right().size(100, 100);
 
         Texture sellerTexture = new Texture(texturePath);
         sellerPicture = new SellerPicture(skin, sellerTexture, shop.getName());
         sellerDescription = new SellerDescription(skin, shop.getShopInformation());
 
-        left.add(sellerPicture).size(350, 350).row();
-        left.add(sellerDescription).size(350, 350).row();
+        left.add(sellerPicture).size(330, 320).row();
+        left.add(sellerDescription).size(330, 380).row();
 
 
         shopStock = new ShopStock(skin, shop.getProductData(), shop.getType());
-        middle.add(shopStock).size(500, 700);
+        middle.add(shopStock).size(600, 700);
 
-        productInformation = new ProductInformation(skin, new ProductData("", 0, 0, ""), shop);
-        right.add(productInformation).size(450, 700);
+        productInformation = new ProductInformation(skin, new ProductData("", 0, 0, ""), shop, stage);
+        right.add(productInformation).size(350, 700);
 
-        this.add(left);
-        this.add(middle);
-        this.add(right);
+        this.add(up).right().row();
+
+        Table windowsTable = new Table();
+        windowsTable.add(left);
+        windowsTable.add(middle);
+        windowsTable.add(right);
+
+        this.add(windowsTable);
 
     }
 

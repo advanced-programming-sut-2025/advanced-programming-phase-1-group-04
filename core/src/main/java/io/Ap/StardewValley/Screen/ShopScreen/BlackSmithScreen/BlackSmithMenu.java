@@ -41,7 +41,7 @@ public class BlackSmithMenu extends Stage {
         blackSmithFirstMenu.setVisible(true);
         this.addActor(blackSmithFirstMenu);
 
-        blackSmithShopMenu = new ShopMenu(skin, blackSmith, texturePath);
+        blackSmithShopMenu = new ShopMenu(skin, blackSmith, texturePath, this);
         blackSmithShopMenu.setPosition(900, 540);
         blackSmithShopMenu.setVisible(false);
         this.addActor(blackSmithShopMenu);

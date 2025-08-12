@@ -145,7 +145,7 @@ public class PlayerRender {
         if (!state.equals(StateType.Idle)) {
             Animation<TextureRegion> bodyAnim = bodyAnimations.getAnimation(state, direction);
 
-            boolean looping = !(state.equals(StateType.Eat) || state.equals(StateType.Faint));
+            boolean looping = !(state.equals(StateType.Faint));
             if (looping)
                 bodyAnim.setPlayMode(Animation.PlayMode.LOOP);
 

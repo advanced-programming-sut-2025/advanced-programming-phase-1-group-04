@@ -146,7 +146,6 @@ inventory/inventory button 2.png
 inventory/inventory button 3.png
 inventory/inventory button 4.png
 inventory/inventory button 5.png
-inventory/inventory button 6.png
 inventory/inventory button 7.png
 inventory/inventory button 8.png
 inventory/iridium axe.png

@@ -32,6 +32,7 @@ import io.Ap.StardewValley.Screen.ShopScreen.FishShopScreen.FishShopMenu;
 import io.Ap.StardewValley.Screen.ShopScreen.JojaMartScreen.JojaMartMenu;
 import io.Ap.StardewValley.Screen.ShopScreen.MarniesRanchScreen.MarniesMenu;
 import io.Ap.StardewValley.Screen.ShopScreen.PierresScreen.PierresMenu;
+import io.Ap.StardewValley.Screen.ShopScreen.ShippingBin;
 import io.Ap.StardewValley.Screen.ShopScreen.StardropSaloonScreen.StardropMenu;
 import io.Ap.StardewValley.Screen.TimeScreen.RainLayer;
 import io.Ap.StardewValley.Screen.TimeScreen.SnowLayer;
@@ -82,6 +83,9 @@ public class GameScreen implements Screen, InputProcessor {
     private MarniesMenu marniesStage = new MarniesMenu();
     private PierresMenu pierresStage = new PierresMenu();
     private StardropMenu stardropStage = new StardropMenu();
+
+    //shipping bin:
+    private ShippingBin shippingBin = new ShippingBin();
 
 
     //errorHandling:
@@ -153,6 +157,7 @@ public class GameScreen implements Screen, InputProcessor {
         multiplexer.addProcessor(marniesStage);
         multiplexer.addProcessor(pierresStage);
         multiplexer.addProcessor(stardropStage);
+        multiplexer.addProcessor(shippingBin);
         multiplexer.addProcessor(stage);
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
@@ -553,6 +558,10 @@ public class GameScreen implements Screen, InputProcessor {
 
     public StardropMenu getStardropStage() {
         return stardropStage;
+    }
+
+    public ShippingBin getShippingBin() {
+        return shippingBin;
     }
 
     public TimeBar getTimeBar() {

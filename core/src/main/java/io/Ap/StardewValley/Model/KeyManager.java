@@ -23,6 +23,9 @@ public class KeyManager {
     //tools
     private int leftClick = Input.Buttons.LEFT;
 
+    //shipping bin
+    private int openShippingBin = Input.Keys.B;
+
 
 
     public int getMoveUp() {
@@ -111,6 +114,14 @@ public class KeyManager {
 
     public void setNafisehCheat(int nafisehCheat) {
         this.nafisehCheat = nafisehCheat;
+    }
+
+    public int getOpenShippingBin() {
+        return openShippingBin;
+    }
+
+    public void setOpenShippingBin(int openShippingBin) {
+        this.openShippingBin = openShippingBin;
     }
 }
 

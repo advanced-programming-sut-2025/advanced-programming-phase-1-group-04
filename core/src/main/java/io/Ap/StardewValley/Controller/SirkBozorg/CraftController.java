@@ -73,16 +73,10 @@ public class CraftController {
             return new Result (false, "you have no more moves! enter next turn!");
         }
         GameMenuController.moveControl();
-        
-        //CONFLICT:
-// <<<<<<< HEAD
-        // Player player = App.getCurrentGame().getCurrentPlayer();
-        // if (direction == null) {
-        //     return new Result(false, "invalid direction!");
-        // }
-// =======
+         if (direction == null) {
+             return new Result(false, "invalid direction!");
+         }
         Player player = App.getGame().getCurrentPlayer();
-// >>>>>>> origin/menu
         Tile tile = GameMenuController.getTileByDirection(direction);
         Craft craft;
 
@@ -151,5 +145,37 @@ public class CraftController {
             }
         }
         return null;
+    }
+
+
+    public static Result placeCraftThroughScreen (String craftName, String direction) {
+        if (direction == null) {
+            return new Result(false, "invalid direction!");
+        }
+        Player player = App.getGame().getCurrentPlayer();
+        Tile tile = GameMenuController.getTileByDirection(direction);
+        Craft craft;
+
+        if (tile == null) {
+            return new Result(false, "invalid direction!");
+        }
+        if (tile.getType() != TileType.Ground) {
+            return new Result(false, "the selected tile is not ground!");
+        }
+        if (craftName == null) {
+            return new Result(false, "invalid craft name!");
+        }
+        if ((craft = PlayerController.getCraft(craftName)) == null) {
+            return new Result(false, "there's no such craft!");
+        }
+        if ((player.getInventory().hasItemWithName(craftName)) == null) {
+            return new Result(false, "you don't have this craft in your inventory!");
+        }
+        if (tile.getItem() != null) {
+            return new Result(false, "the selected tile isn't empty!");
+        }
+        tile.setItem(craft);
+        App.getGame().getCurrentPlayer().removeItemFromInventory(craft.getName(), 1);
+        return new Result(false, craft.getName() + " has been successfully placed in the selected tile.");
     }
 }

@@ -5,6 +5,7 @@ import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Result;
 import io.Ap.StardewValley.Model.Tool.Tool;
+import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -110,7 +111,25 @@ public class ToolController {
         }
     }
 
-    public static Result useToolThroughScreen (String direction) {
+    public static String directionTypeToString (DirectionType directionType) {
+        switch (directionType) {
+            case Up -> {
+                return "n";
+            }
+            case Down -> {
+                return "s";
+            }
+            case Right -> {
+                return "e";
+            }
+            case Left -> {
+                return "w";
+            }
+        }
+        return "n";
+    }
+
+    public static Result useToolThoughScreen (String direction) {
         if (App.getGame().getCurrentPlayer().getCurrentTool() == null) {
             return new Result (false, "you are not equipped with any tool yet!");
         }

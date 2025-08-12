@@ -1,14 +1,16 @@
 package io.Ap.StardewValley.Screen.ShopScreen;
 
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import io.Ap.StardewValley.Model.Shop.ProductData;
+import io.Ap.StardewValley.Model.Shop.Shop;
 
 public class ProductInformation extends Window {
 
+    private Shop shop;
+    private ProductData product;
     private final Label nameLabel;
     private final Label descriptionLabel;
 
@@ -20,13 +22,18 @@ public class ProductInformation extends Window {
 
     private int quantity = 1;
 
-    public ProductInformation(Skin skin, ProductData product) {
-        super("Product Information", skin);
+    private boolean shopStockNeedsUpdate = false;
 
-        setSize(400, 800);
+    public ProductInformation(Skin skin, ProductData product, Shop shop) {
+        super("", skin);
+        this.shop = shop;
+        this.product = product;
+
+        setSize(450, 700);
         setMovable(false);
         setResizable(false);
-        setModal(true);
+//        setModal(true);
+        setModal(false);
         setKeepWithinStage(true);
 
         // Labels for name and description
@@ -41,8 +48,8 @@ public class ProductInformation extends Window {
         quantityLabel = new Label(String.valueOf(quantity), skin);
         quantityLabel.setAlignment(Align.center);
 
-        plusButton = new ImageButton(skin, "plus");
-        minusButton = new ImageButton(skin, "minus");
+        plusButton = new ImageButton(skin, "Right");
+        minusButton = new ImageButton(skin, "Left");
 
         // Add listeners to plus and minus buttons
         plusButton.addListener(new ClickListener() {
@@ -68,8 +75,7 @@ public class ProductInformation extends Window {
 
         // Layout setup
         Table mainTable = new Table(skin);
-        mainTable.top().left().pad(10);
-        mainTable.setFillParent(true);
+        mainTable.top().center().pad(20);
 
         // Add name and description
         mainTable.add(nameLabel).left().expandX().fillX().row();
@@ -81,12 +87,14 @@ public class ProductInformation extends Window {
         quantityTable.add(quantityLabel).width(50).center();
         quantityTable.add(plusButton).size(50, 50).padLeft(10);
 
-        mainTable.add(quantityTable).center().padTop(30).row();
+        mainTable.add(quantityTable).center().padTop(300).row();
 
         // Buy button at bottom
-        mainTable.add(buyButton).expandX().fillX().padTop(50).row();
+        mainTable.add(buyButton)/*.expandX().fillX()*/.padTop(50).row();
 
         add(mainTable).expand().fill();
+
+        addBuyListener();
     }
 
     private void updateQuantityLabel() {
@@ -94,12 +102,21 @@ public class ProductInformation extends Window {
     }
 
     // متد برای اضافه کردن listener به دکمه Buy
-    public void addBuyListener(EventListener listener) {
+    public void addBuyListener() {
+        ClickListener listener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (shop.buy(product.getName(), quantity, null).isSuccessful()) {
+                    shopStockNeedsUpdate = true;
+                }
+            }
+        };
         buyButton.addListener(listener);
     }
 
     // متد update برای بروز کردن اطلاعات محصول
     public void update(ProductData product) {
+        this.product = product;
         nameLabel.setText(product.getName());
         descriptionLabel.setText(product.getDescription());
         quantity = 1;
@@ -109,5 +126,13 @@ public class ProductInformation extends Window {
     // متد برای گرفتن تعداد انتخاب شده
     public int getQuantity() {
         return quantity;
+    }
+
+    public boolean shopStockNeedsUpdate() {
+        return shopStockNeedsUpdate;
+    }
+
+    public void setShopStockNeedsUpdate(boolean shopStockNeedsUpdate) {
+        this.shopStockNeedsUpdate = shopStockNeedsUpdate;
     }
 }

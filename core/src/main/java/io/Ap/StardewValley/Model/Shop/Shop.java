@@ -19,5 +19,5 @@ public interface Shop {
 
     public void resetStock();
 
-//    public ArrayList<ProductData> getProductData;
+    public ArrayList<ProductData> getProductData();
 }

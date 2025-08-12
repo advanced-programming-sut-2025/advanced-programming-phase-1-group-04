@@ -1,7 +1,9 @@
 package io.Ap.StardewValley.Screen.InventoryScreen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -32,6 +34,7 @@ public class InventoryBar extends Stage {
     private int selectedIndex = -1;
     private boolean noProblem = false;
     private int lastKnownCapacity = -1;
+    private Item selectedItem = null;
 
     public InventoryBar() {
         super(new ScreenViewport());
@@ -43,7 +46,7 @@ public class InventoryBar extends Stage {
         inventoryTable = new Table();
 
         scrollPane = new ScrollPane(inventoryTable, skin);
-        scrollPane.setScrollingDisabled(true, false);
+//        scrollPane.setScrollingDisabled(true, false);
         scrollPane.setFadeScrollBars(false);
 
         root.add(scrollPane).width(140).expandY().left();
@@ -196,6 +199,7 @@ public class InventoryBar extends Stage {
 
         try {
             Item item = getSelectedItem(index);
+            selectedItem = item;
             if (item instanceof Tool tool) {
 //                App.getGame().getCurrentPlayer().setCurrentTool(tool);
                 ToolController.equipThroughScreen(tool.getName());
@@ -221,11 +225,65 @@ public class InventoryBar extends Stage {
         return scrollPane;
     }
 
-    private Item getSelectedItem(int index) {
+    public Item getSelectedItem(int index) {
         try {
             return indexToItem.get(index);
         } catch (Exception e) {
             return null;
         }
     }
+
+    public Item getSelectedItem() {
+        return selectedItem;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        // موقعیت موس رو به stage محاسبه کن
+        Vector2 mousePos = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+        // تبدیل مختصات پنجره به مختصات local stage
+        this.screenToStageCoordinates(mousePos);
+
+        if (scrollPane.hit(mousePos.x, mousePos.y, true) != null) {
+            // اگر موس روی ScrollPane هست، اسکرول رو consume کن
+//            scrollPane.scrolled(amountX, amountY);
+            return true;
+        }
+
+        // در غیر این صورت رویداد رو consume نکن، بده به بقیه
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        boolean handled = super.touchDown(screenX, screenY, pointer, button);
+        return handled; // فقط اگه Stage خودش چیزی هندل کرد true میده
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        boolean handled = super.touchDragged(screenX, screenY, pointer);
+        return handled;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        boolean handled = super.touchUp(screenX, screenY, pointer, button);
+        return handled;
+    }
+    @Override
+    public boolean keyDown(int keyCode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keyCode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
 }

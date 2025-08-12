@@ -5,11 +5,15 @@ import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Cooking.Ingredient;
 import io.Ap.StardewValley.Model.Cooking.IngredientType;
 import io.Ap.StardewValley.Model.Result;
+import io.Ap.StardewValley.Model.Shop.JojaMart.*;
+import io.Ap.StardewValley.Model.Shop.ProductData;
 import io.Ap.StardewValley.Model.Shop.Shop;
 import io.Ap.StardewValley.Model.Shop.ShopType;
+import io.Ap.StardewValley.Model.Time.Season;
 import io.Ap.StardewValley.Model.Tool.MilkPail;
 import io.Ap.StardewValley.Model.Tool.Shear;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MarniesRanch implements Shop {
@@ -176,5 +180,14 @@ public class MarniesRanch implements Shop {
         for(MarniesAnimals a : MarniesAnimals.values()) {
             animals.put(a, 2);
         }
+    }
+
+    @Override
+    public ArrayList<ProductData> getProductData() {
+        ArrayList<ProductData> productData = new ArrayList<>();
+        for (MarniesInventory s : MarniesInventory.values()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), s.getDailyLimit(), s.getDescription()));
+        }
+        return productData;
     }
 }

@@ -268,4 +268,35 @@ public class FoodController {
         App.getGame().getCurrentPlayer().addItemToInventory(new Food(findFoodType(recipe)), 1);
         return new Result(true, foodName + " added to inventory.");
     }
+
+    public static Result eatThroughScreen (String foodName) {
+        Player player = App.getGame().getCurrentPlayer();
+        if (foodName == null) {
+            return new Result(false, "invalid food name!");
+        }
+        Item item;
+        if ((item = player.getInventory().hasItemWithName(foodName)) == null) {
+            return new Result(false, foodName + " doesn't exist in your inventory!");
+        }
+        if (item instanceof Food food) {
+            food.eat(player);
+            player.removeItemFromInventory(foodName, 1);
+            return new Result(true, "ate successfully.");
+        }
+        if (item instanceof Crop crop) {
+            if (!crop.isEdible()) {
+                return new Result(false, foodName + " is not edible!");
+            }
+            player.addEnergy(crop.getEnergy());
+            player.removeItemFromInventory(foodName, 1);
+        }
+        if (item instanceof Fruit fruit) {
+            if (!fruit.isEdible()) {
+                return new Result(false, foodName + " is not edible!");
+            }
+            player.addEnergy(fruit.getEnergy());
+            player.removeItemFromInventory(foodName, 1);
+        }
+        return new Result(false, "you can't eat this!");
+    }
 }

@@ -5,11 +5,14 @@ import io.Ap.StardewValley.Model.Cooking.Food;
 import io.Ap.StardewValley.Model.Cooking.FoodType;
 import io.Ap.StardewValley.Model.Crafting.CraftRecipe;
 import io.Ap.StardewValley.Model.Result;
+import io.Ap.StardewValley.Model.Shop.BlackSmith.BlackSmithStock;
+import io.Ap.StardewValley.Model.Shop.ProductData;
 import io.Ap.StardewValley.Model.Shop.Shop;
 import io.Ap.StardewValley.Model.Shop.ShopType;
 import io.Ap.StardewValley.Model.Tool.FishingPole;
 import io.Ap.StardewValley.Model.Tool.FishingPoleType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FishShop implements Shop {
@@ -133,5 +136,14 @@ public class FishShop implements Shop {
         for (FishShopStock s : FishShopStock.values()) {
             stock.put(s, 1);
         }
+    }
+
+    @Override
+    public ArrayList<ProductData> getProductData() {
+        ArrayList<ProductData> productData = new ArrayList<>();
+        for (FishShopStock s : FishShopStock.values()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), stock.get(s), s.getDescription()));
+        }
+        return productData;
     }
 }

@@ -12,7 +12,15 @@ public class ProductData {
         this.price = price;
         this.number = number;
         this.description = description;
-        this.exists = !(number == -1 || number > 0);
+        this.exists = (number == -1 || number > 0);
+    }
+
+    public ProductData(String name, int price, int number, String description, boolean exists) {
+        this.name = name;
+        this.price = price;
+        this.number = number;
+        this.description = description;
+        this.exists = (exists && (number == -1 || number > 0));
     }
 
     public String getName() {

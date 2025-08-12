@@ -8,12 +8,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Player.Player;
+import io.Ap.StardewValley.Model.Result;
 import io.Ap.StardewValley.Model.Time.DateAndTime;
 import io.Ap.StardewValley.Model.Time.Weather;
 import io.Ap.StardewValley.Screen.CookingScreen.CookingStage;
@@ -24,6 +27,12 @@ import io.Ap.StardewValley.Screen.MapScreen.DynamicMapLayerRender;
 import io.Ap.StardewValley.Screen.MapScreen.SeasonTextureManager;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
 import io.Ap.StardewValley.Screen.ShopScreen.BlackSmithScreen.BlackSmithMenu;
+import io.Ap.StardewValley.Screen.ShopScreen.CarpentersScreen.CarpentersMenu;
+import io.Ap.StardewValley.Screen.ShopScreen.FishShopScreen.FishShopMenu;
+import io.Ap.StardewValley.Screen.ShopScreen.JojaMartScreen.JojaMartMenu;
+import io.Ap.StardewValley.Screen.ShopScreen.MarniesRanchScreen.MarniesMenu;
+import io.Ap.StardewValley.Screen.ShopScreen.PierresScreen.PierresMenu;
+import io.Ap.StardewValley.Screen.ShopScreen.StardropSaloonScreen.StardropMenu;
 import io.Ap.StardewValley.Screen.TimeScreen.RainLayer;
 import io.Ap.StardewValley.Screen.TimeScreen.SnowLayer;
 import io.Ap.StardewValley.Screen.TimeScreen.TimeBar;
@@ -67,6 +76,16 @@ public class GameScreen implements Screen, InputProcessor {
 
     //shops:
     private BlackSmithMenu blackSmithStage = new BlackSmithMenu();
+    private CarpentersMenu carpentersStage = new CarpentersMenu();
+    private FishShopMenu fishShopStage = new FishShopMenu();
+    private JojaMartMenu jojaMartStage = new JojaMartMenu();
+    private MarniesMenu marniesStage = new MarniesMenu();
+    private PierresMenu pierresStage = new PierresMenu();
+    private StardropMenu stardropStage = new StardropMenu();
+
+
+    //errorHandling:
+    Result currentResult = null;
 
     public GameScreen(int[] farmSelections) {
         System.arraycopy(farmSelections, 0, this.farmSelections, 0, 4);
@@ -128,16 +147,22 @@ public class GameScreen implements Screen, InputProcessor {
         multiplexer.addProcessor(inventoryStage);
         multiplexer.addProcessor(cookingStage);
         multiplexer.addProcessor(blackSmithStage);
+        multiplexer.addProcessor(carpentersStage);
+        multiplexer.addProcessor(fishShopStage);
+        multiplexer.addProcessor(jojaMartStage);
+        multiplexer.addProcessor(marniesStage);
+        multiplexer.addProcessor(pierresStage);
+        multiplexer.addProcessor(stardropStage);
         multiplexer.addProcessor(stage);
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
-        Gdx.input.setInputProcessor(new InputMultiplexer(
-                inventoryStage,
-                cookingStage,
-                blackSmithStage,
-                stage,
-                this
-        ));
+//        Gdx.input.setInputProcessor(new InputMultiplexer(
+//                inventoryStage,
+//                cookingStage,
+//                blackSmithStage,
+//                stage,
+//                this
+//        ));
 
         // inventory bar:
         Stack inventoryStack = new Stack();
@@ -145,7 +170,7 @@ public class GameScreen implements Screen, InputProcessor {
         Table mainLayout = new Table();
         mainLayout.setFillParent(true);
         ScrollPane inventoryScrollPane = inventoryBar.getInventoryScrollPane();
-        mainLayout.add(inventoryScrollPane).width(130).height(800).pad(50, 100, 50, 0);
+        mainLayout.add(inventoryScrollPane).width(130).height(800).pad(50, 40, 50, 0);
         mainLayout.add().expand();
         inventoryStack.add(mainLayout);
 
@@ -589,6 +614,30 @@ public class GameScreen implements Screen, InputProcessor {
         return blackSmithStage;
     }
 
+    public CarpentersMenu getCarpentersStage() {
+        return carpentersStage;
+    }
+
+    public FishShopMenu getFishShopStage() {
+        return fishShopStage;
+    }
+
+    public JojaMartMenu getJojaMartStage() {
+        return jojaMartStage;
+    }
+
+    public MarniesMenu getMarniesStage() {
+        return marniesStage;
+    }
+
+    public PierresMenu getPierresStage() {
+        return pierresStage;
+    }
+
+    public StardropMenu getStardropStage() {
+        return stardropStage;
+    }
+
     public TimeBar getTimeBar() {
         return timeBar;
     }
@@ -605,4 +654,35 @@ public class GameScreen implements Screen, InputProcessor {
         return paused;
     }
 
+    private void showError(String msg) {
+        final Window errorWindow = new Window("", StardewValley.getSkin(), "Letter");
+        errorWindow.setMovable(false);
+        errorWindow.setKeepWithinStage(true);
+        errorWindow.add(new Label(msg, StardewValley.getSkin()));
+        errorWindow.setSize(700, 90);
+        errorWindow.setPosition(600, 170, Align.center);
+        errorWindow.pack();
+
+        stage.addActor(errorWindow);
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                errorWindow.remove();
+            }
+        }, 5);
+    }
+
+    public Result getCurrentResult() {
+        return currentResult;
+    }
+
+    public boolean setCurrentResult(Result currentResult) {
+        this.currentResult = currentResult;
+        if (currentResult != null && !currentResult.isSuccessful()) {
+            showError(currentResult.message());
+            return false;
+        }
+        return true;
+    }
 }

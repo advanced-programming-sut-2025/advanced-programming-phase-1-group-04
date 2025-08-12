@@ -215,6 +215,7 @@ inventory/steel axe.png
 inventory/steel hoe.png
 inventory/steel pickaxe.png
 inventory/steel watering can.png
+inventory/stone.png
 inventory/strawberry.png
 inventory/sugar.png
 inventory/summer spangle.png
@@ -240,6 +241,7 @@ inventory/watering can.png
 inventory/wedding ring.png
 inventory/wheat flour.png
 inventory/wheat.png
+inventory/wood.png
 inventory/yam.png
 map/SecretNotesImages.png
 map/items/CropStages.png

@@ -7,6 +7,8 @@ import io.Ap.StardewValley.Model.Plants.Sapling;
 import io.Ap.StardewValley.Model.Plants.Seed;
 import io.Ap.StardewValley.Model.Player.GiftItem;
 import io.Ap.StardewValley.Model.Result;
+import io.Ap.StardewValley.Model.Shop.JojaMart.*;
+import io.Ap.StardewValley.Model.Shop.ProductData;
 import io.Ap.StardewValley.Model.Shop.Shop;
 import io.Ap.StardewValley.Model.Shop.ShopType;
 import io.Ap.StardewValley.Model.Time.Season;
@@ -454,5 +456,39 @@ public class PierresStore implements Shop {
         for (WinterSeeds a : WinterSeeds.values()) {
             winterSeeds.put(a, a.getDailyLimit());
         }
+    }
+
+    @Override
+    public ArrayList<ProductData> getProductData() {
+        Season season = App.getGame().getCurrentTime().getSeason();
+        ArrayList<ProductData> productData = new ArrayList<>();
+        for (Backpacks s : backpack.keySet()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), backpack.get(s), s.getDescription()));
+        }
+        for (PierresCraftRecipes s : recipes.keySet()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), recipes.get(s), s.getDescription()));
+        }
+        for (PierresFertilizers s : fertilizers) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 10000, s.getDescription()));
+        }
+        for (PierresGifts s : gifts.keySet()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), gifts.get(s), s.getDescription()));
+        }
+        for (PierresIngredients s : ingredients) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 10000, s.getDescription()));
+        }
+        for (SpringSeeds s : springSeeds.keySet()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 10000, s.getDescription(), season == Season.Spring));
+        }
+        for (SummerSeeds s : summerSeeds.keySet()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 10000, s.getDescription(), season == Season.Summer));
+        }
+        for (FallSeeds s : fallSeeds.keySet()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 10000, s.getDescription(), season == Season.Fall));
+        }
+        for (WinterSeeds s : winterSeeds.keySet()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 10000, s.getDescription(), season == Season.Winter));
+        }
+        return productData;
     }
 }

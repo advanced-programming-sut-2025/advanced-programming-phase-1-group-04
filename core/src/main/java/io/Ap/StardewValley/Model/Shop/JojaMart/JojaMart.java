@@ -4,6 +4,8 @@ import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Cooking.Ingredient;
 import io.Ap.StardewValley.Model.Plants.Seed;
 import io.Ap.StardewValley.Model.Result;
+import io.Ap.StardewValley.Model.Shop.BlackSmith.BlackSmithStock;
+import io.Ap.StardewValley.Model.Shop.ProductData;
 import io.Ap.StardewValley.Model.Shop.Shop;
 import io.Ap.StardewValley.Model.Shop.ShopType;
 import io.Ap.StardewValley.Model.Time.Season;
@@ -281,5 +283,27 @@ public class JojaMart implements Shop {
         for (JojaWinterSeeds s : JojaWinterSeeds.values()) {
             winterSeeds.put(s, s.getDailyLimit());
         }
+    }
+
+    @Override
+    public ArrayList<ProductData> getProductData() {
+        Season season = App.getGame().getCurrentTime().getSeason();
+        ArrayList<ProductData> productData = new ArrayList<>();
+        for (JojaIngredients s : ingredients) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 10000, s.getDescription()));
+        }
+        for (JojaSpringSeeds s : springSeeds.keySet()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 10000, s.getDescription(), season == Season.Spring));
+        }
+        for (JojaSummerSeeds s : summerSeeds.keySet()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 10000, s.getDescription(), season == Season.Summer));
+        }
+        for (JojaFallSeeds s : fallSeeds.keySet()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 10000, s.getDescription(), season == Season.Fall));
+        }
+        for (JojaWinterSeeds s : winterSeeds.keySet()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 10000, s.getDescription(), season == Season.Winter));
+        }
+        return productData;
     }
 }

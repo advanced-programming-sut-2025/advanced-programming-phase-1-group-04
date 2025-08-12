@@ -3,9 +3,11 @@ package io.Ap.StardewValley.Model.Shop.BlackSmith;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Plants.ForagingMineral;
 import io.Ap.StardewValley.Model.Result;
+import io.Ap.StardewValley.Model.Shop.ProductData;
 import io.Ap.StardewValley.Model.Shop.Shop;
 import io.Ap.StardewValley.Model.Shop.ShopType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BlackSmith implements Shop {
@@ -234,6 +236,15 @@ public class BlackSmith implements Shop {
         iridiumTrashCan = 1;
     }
 
+    @Override
+    public ArrayList<ProductData> getProductData() {
+        ArrayList<ProductData> productData = new ArrayList<>();
+        for (BlackSmithStock s : BlackSmithStock.values()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), stock.get(s), s.getDescription()));
+        }
+        return productData;
+    }
+
     public int getCopperTool() {
         return copperTool;
     }
@@ -293,4 +304,7 @@ public class BlackSmith implements Shop {
         return new Result(true, number + " " + s.getName() + " added to inventory.");
 
     }
+
+
+
 }

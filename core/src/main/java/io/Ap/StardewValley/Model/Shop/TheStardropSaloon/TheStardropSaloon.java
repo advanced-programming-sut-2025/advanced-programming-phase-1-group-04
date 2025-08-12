@@ -4,8 +4,11 @@ import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Cooking.Food;
 import io.Ap.StardewValley.Model.Cooking.Ingredient;
 import io.Ap.StardewValley.Model.Result;
+import io.Ap.StardewValley.Model.Shop.PierresGeneralStore.*;
+import io.Ap.StardewValley.Model.Shop.ProductData;
 import io.Ap.StardewValley.Model.Shop.Shop;
 import io.Ap.StardewValley.Model.Shop.ShopType;
+import io.Ap.StardewValley.Model.Time.Season;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -151,5 +154,19 @@ public class TheStardropSaloon implements Shop {
         for (StardropFoodRecipes r : StardropFoodRecipes.values()) {
             recipes.put(r, 1);
         }
+    }
+
+    public ArrayList<ProductData> getProductData() {
+        ArrayList<ProductData> productData = new ArrayList<>();
+        for (StardropFood s : food) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 10000, s.getDescription()));
+        }
+        for (StardropFoodRecipes s : recipes.keySet()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), recipes.get(s), s.getDescription()));
+        }
+        for (StardropIngredients s : ingredients) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 10000, s.getDescription()));
+        }
+        return productData;
     }
 }

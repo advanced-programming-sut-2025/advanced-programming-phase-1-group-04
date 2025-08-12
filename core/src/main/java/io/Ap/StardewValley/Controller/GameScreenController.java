@@ -1,29 +1,31 @@
 package io.Ap.StardewValley.Controller;
 
 import com.badlogic.gdx.Gdx;
-import io.Ap.StardewValley.Controller.SirkBozorg.NightController;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import io.Ap.StardewValley.Controller.SirkBozorg.*;
 import io.Ap.StardewValley.Model.Animals.AnimalProduct;
 import io.Ap.StardewValley.Model.Animals.AnimalProductType;
 import io.Ap.StardewValley.Model.App;
+import io.Ap.StardewValley.Model.Cooking.Food;
+import io.Ap.StardewValley.Model.Cooking.FoodType;
+import io.Ap.StardewValley.Model.Crafting.Craft;
+import io.Ap.StardewValley.Model.Crafting.CraftType;
+import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Coordinate;
-import io.Ap.StardewValley.Model.Plants.Crop;
-import io.Ap.StardewValley.Model.Plants.CropType;
+import io.Ap.StardewValley.Model.Plants.*;
 import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Player.Skill;
+import io.Ap.StardewValley.Model.Shop.ShopType;
 import io.Ap.StardewValley.Model.Time.DateAndTime;
 import io.Ap.StardewValley.Model.Time.Season;
 import io.Ap.StardewValley.Model.Tool.Shear;
+import io.Ap.StardewValley.Model.Tool.Tool;
 import io.Ap.StardewValley.Model.Tool.ToolType;
 import io.Ap.StardewValley.Screen.GameScreen;
-import io.Ap.StardewValley.Screen.MapScreen.DynamicMapLayerRender;
 import io.Ap.StardewValley.Screen.InventoryScreen.MapTab;
 import io.Ap.StardewValley.Screen.MapScreen.RegionTransition;
 import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
 import io.Ap.StardewValley.Screen.PlayerScreen.PlayerRender;
 import io.Ap.StardewValley.Screen.PlayerScreen.StateType;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameScreenController {
     private final PlayerRender playerRender = new PlayerRender();
@@ -41,10 +43,10 @@ public class GameScreenController {
     private boolean isToolActionInProgress = false;
     private float toolActionStartTime = 0f;
     private float toolActionDuration = 0.6f;
+    boolean callToolUse = false;
 
     //shops:
-    private boolean isBlackSmithVisible = false;
-    private boolean blackSmithNeedsUpdate = false;
+    private static ShopType visibleShop = null;
 
 
     public void setViews(GameScreen view) {
@@ -108,12 +110,7 @@ public class GameScreenController {
         updateToolAction(Gdx.graphics.getDeltaTime());
 
         //shops:
-        view.getBlackSmithStage().setVisibleAll(isBlackSmithVisible);
-        if (blackSmithNeedsUpdate) {
-            view.getBlackSmithStage().update();
-            blackSmithNeedsUpdate = false;
-        }
-
+        updateShops();
 
     }
 
@@ -145,9 +142,22 @@ public class GameScreenController {
             App.getGame().getCurrentPlayer().setInventoryCapacity(24);
             App.getGame().getCurrentPlayer().getInventory().addItem(new AnimalProduct(AnimalProductType.Egg), 10);
             App.getGame().getCurrentPlayer().getInventory().addItem(new Shear(), 1);
+            App.getGame().getCurrentPlayer().getInventory().addItem(new Seed(SeedType.JazzSeeds));
+            App.getGame().getCurrentPlayer().getInventory().addItem(new Craft(CraftType.BeeHouse));
+            App.getGame().getCurrentPlayer().getInventory().addItem(new Craft(CraftType.Scarecrow));
+            App.getGame().getCurrentPlayer().getInventory().addItem(new Craft(CraftType.DeluxeScarecrow));
+            App.getGame().getCurrentPlayer().getInventory().addItem(new Food(FoodType.BakedFish));
+            App.getGame().getCurrentPlayer().getInventory().addItem(new Crop(CropType.Wheat));
+            App.getGame().getCurrentPlayer().getInventory().addItem(new Fruit(FruitType.Apricot));
             inventoryStageNeedsUpdate = true;
             cookingStageNeedsUpdate = true;
-            isBlackSmithVisible = !isBlackSmithVisible;
+            if (visibleShop == null) {
+                visibleShop = ShopType.FishShop;
+            } else {
+                visibleShop = null;
+            }
+            App.getGame().getCurrentPlayer().addCount(1000);
+
         }
 
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheat())){
@@ -180,7 +190,7 @@ public class GameScreenController {
             if (isInventoryStageVisible) {
                 inventoryStageNeedsUpdate = true;
                 isCookingStageVisible = false;
-                isBlackSmithVisible = false;
+                visibleShop = null;
             }
         }
 
@@ -190,7 +200,7 @@ public class GameScreenController {
             if (isCookingStageVisible) {
                 cookingStageNeedsUpdate = true;
                 isInventoryStageVisible = false;
-                isBlackSmithVisible = false;
+                visibleShop = null;
             }
         }
     }
@@ -237,11 +247,49 @@ public class GameScreenController {
             newX -= speed;
             isMoving = true;
             player.setDirection(DirectionType.Left);
-        } else if (Gdx.input.isButtonPressed(App.getKeyManager().getLeftClick())){
-            isUsingTool = true;
-            startToolAction(); // اینو اضافه کن!
+        } else if (Gdx.input.isButtonJustPressed(App.getKeyManager().getLeftClick())){
+            try {
+                if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.Blacksmith && visibleShop != ShopType.Blacksmith) {
+                    visibleShop = ShopType.Blacksmith;
+                } else if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.CarpentersShop && visibleShop != ShopType.CarpentersShop) {
+                    visibleShop = ShopType.CarpentersShop;
+                } else if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.FishShop && visibleShop != ShopType.FishShop) {
+                    visibleShop = ShopType.FishShop;
+                } else if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.JojaMart) {
+                    visibleShop = ShopType.JojaMart;
+                } else if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.MarniesRanch) {
+                    visibleShop = ShopType.MarniesRanch;
+                } else if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.PierresGeneralStore) {
+                    visibleShop = ShopType.PierresGeneralStore;
+                } else if (App.getGame().getTile(player.getCoordinate()).getBuildingType() == BuildingType.TheStarDropSaloon) {
+                    visibleShop = ShopType.TheStarDropSaloon;
+                }
+                else if (view.getInventoryBar().getSelectedItem() instanceof Tool && player.getCurrentTool() != null) {
+                    isUsingTool = true;
+                    startToolAction();
+                    callToolUse = true;
+                }
+                else if (view.getInventoryBar().getSelectedItem() instanceof Seed seed) {
+                    view.setCurrentResult(PlantController.plantThroughScreen(seed.getName(), ToolController.directionTypeToString(App.getGame().getCurrentPlayer().getDirection())));
+                }
+                else if (view.getInventoryBar().getSelectedItem() instanceof Sapling sapling) {
+                    view.setCurrentResult(PlantController.plantThroughScreen(sapling.getName(), ToolController.directionTypeToString(App.getGame().getCurrentPlayer().getDirection())));
+                }
+                else if (view.getInventoryBar().getSelectedItem() instanceof Craft craft) {
+                    view.setCurrentResult(CraftController.placeCraftThroughScreen(craft.getName(), ToolController.directionTypeToString(App.getGame().getCurrentPlayer().getDirection())));
+                }
+                else if (view.getInventoryBar().getSelectedItem() instanceof Food food) {
+                    view.setCurrentResult(FoodController.eatThroughScreen(food.getName()));
+                } else if (view.getInventoryBar().getSelectedItem() instanceof Crop food) {
+                    view.setCurrentResult(FoodController.eatThroughScreen(food.getName()));
+                } else if (view.getInventoryBar().getSelectedItem() instanceof Fruit food) {
+                    view.setCurrentResult(FoodController.eatThroughScreen(food.getName()));
+                }
+            }catch (Exception e) {}
+
         }
 
+        Tool tool = player.getCurrentTool();
         // status
         if (isMoving) {
             player.setState(StateType.Walk);
@@ -251,19 +299,54 @@ public class GameScreenController {
         } else if (isUsingTool && player.getCurrentTool() == null) {
             player.setState(StateType.Idle);
         } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.Shear) {
-            player.setState(StateType.ToolShear);
+            if (callToolUse) {
+                if (view.setCurrentResult(ToolController.useToolThoughScreen(ToolController.directionTypeToString(player.getDirection())))) {
+                    player.setState(StateType.ToolShear);
+                }
+                callToolUse = false;
+            }
         } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.MilkPail) {
-//            player.setState(StateType.ToolMilkPail);
+            if (callToolUse) {
+                if (view.setCurrentResult(ToolController.useToolThoughScreen(ToolController.directionTypeToString(player.getDirection())))) {
+//                    player.setState(StateType.ToolMilkPail);
+                }
+                callToolUse = false;
+            }
         } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.Hoe) {
-            player.setState(StateType.ToolHoe);
+            if (callToolUse) {
+                if (view.setCurrentResult(ToolController.useToolThoughScreen(ToolController.directionTypeToString(player.getDirection())))) {
+                    player.setState(StateType.ToolHoe);
+                }
+                callToolUse = false;
+            }
         } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.Axe) {
-            player.setState(StateType.ToolAxe);
+            if (callToolUse) {
+                if (view.setCurrentResult(ToolController.useToolThoughScreen(ToolController.directionTypeToString(player.getDirection())))) {
+                    player.setState(StateType.ToolAxe);
+                }
+                callToolUse = false;
+            }
         } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.Pickaxe) {
-            player.setState(StateType.ToolPickaxe);
+            if (callToolUse) {
+                if (view.setCurrentResult(ToolController.useToolThoughScreen(ToolController.directionTypeToString(player.getDirection())))) {
+                    player.setState(StateType.ToolPickaxe);
+                }
+                callToolUse = false;
+            }
         } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.Scythe) {
-//            player.setState(StateType.ToolScythe);
+            if (callToolUse) {
+                if (view.setCurrentResult(ToolController.useToolThoughScreen(ToolController.directionTypeToString(player.getDirection())))) {
+//                    player.setState(StateType.ToolScythe);
+                }
+                callToolUse = false;
+            }
         } else if (isUsingTool && player.getCurrentTool().getType() == ToolType.WateringCan) {
-            player.setState(StateType.ToolWateringCan);
+            if (callToolUse) {
+                if (view.setCurrentResult(ToolController.useToolThoughScreen(ToolController.directionTypeToString(player.getDirection())))) {
+                    player.setState(StateType.ToolWateringCan);
+                }
+                callToolUse = false;
+            }
         } else {
             player.setState(StateType.Idle);
         }
@@ -339,5 +422,34 @@ public class GameScreenController {
         return isToolActionInProgress;
     }
 
+    public void updateShops () {
+        view.getBlackSmithStage().setVisibleAll((visibleShop == ShopType.Blacksmith));
+        view.getCarpentersStage().setVisibleAll((visibleShop == ShopType.CarpentersShop));
+        view.getFishShopStage().setVisibleAll((visibleShop == ShopType.FishShop));
+        view.getJojaMartStage().setVisibleAll((visibleShop == ShopType.JojaMart));
+        view.getMarniesStage().setVisibleAll((visibleShop == ShopType.MarniesRanch));
+        view.getPierresStage().setVisibleAll((visibleShop == ShopType.PierresGeneralStore));
+        view.getStardropStage().setVisibleAll((visibleShop == ShopType.TheStarDropSaloon));
 
+        if (visibleShop == ShopType.Blacksmith) {
+            view.getBlackSmithStage().update();
+        } else if (visibleShop == ShopType.CarpentersShop) {
+            view.getCarpentersStage().update();
+        } else if (visibleShop == ShopType.FishShop) {
+            view.getFishShopStage().update();
+        } else if (visibleShop == ShopType.JojaMart) {
+            view.getJojaMartStage().update();
+        } else if (visibleShop == ShopType.MarniesRanch) {
+            view.getMarniesStage().update();
+        } else if (visibleShop == ShopType.PierresGeneralStore) {
+            view.getPierresStage().update();
+        } else if (visibleShop == ShopType.TheStarDropSaloon) {
+            view.getStardropStage().update();
+        }
+
+    }
+
+    public static void setVisibleShop(ShopType visibleShop) {
+        GameScreenController.visibleShop = visibleShop;
+    }
 }

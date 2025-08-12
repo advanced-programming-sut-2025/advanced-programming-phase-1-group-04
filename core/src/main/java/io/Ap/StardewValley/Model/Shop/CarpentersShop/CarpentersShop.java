@@ -5,6 +5,8 @@ import io.Ap.StardewValley.Model.Map.FarmBuilding;
 import io.Ap.StardewValley.Model.Item.Stone;
 import io.Ap.StardewValley.Model.Item.Wood;
 import io.Ap.StardewValley.Model.Result;
+import io.Ap.StardewValley.Model.Shop.BlackSmith.BlackSmithStock;
+import io.Ap.StardewValley.Model.Shop.ProductData;
 import io.Ap.StardewValley.Model.Shop.Shop;
 import io.Ap.StardewValley.Model.Shop.ShopType;
 
@@ -171,6 +173,15 @@ public class CarpentersShop implements Shop {
         buildings.put(CarpenterBuildings.DeluxeCoop, 1);
         buildings.put(CarpenterBuildings.Well, 1);
         buildings.put(CarpenterBuildings.ShippingBin, Integer.MAX_VALUE);
+    }
+
+    @Override
+    public ArrayList<ProductData> getProductData() {
+        ArrayList<ProductData> productData = new ArrayList<>();
+        for (CarpenterStock s : CarpenterStock.values()) {
+            productData.add(new ProductData(s.getName(), s.getPrice(), 100000, s.getDescription()));
+        }
+        return productData;
     }
 
 }

@@ -149,7 +149,12 @@ public class Crop implements Item, Plant {
     } //TODO: in bashe ya na?
 
     public void setLastTimeHarvested(DateAndTime t) {
-        this.lastTimeHarvested = new DateAndTime(t.getHour(), t.getDay(), t.getWeather());
+        if (t != null) {
+            this.lastTimeHarvested = new DateAndTime(t.getHour(), t.getDay(), t.getWeather());
+        }
+        else {
+            this.lastTimeHarvested = null;
+        }
     }
 
     public void setTotalHarvestTime (int t) {
@@ -157,9 +162,9 @@ public class Crop implements Item, Plant {
     }
 
     public boolean isHarvestable () {
-        if (isOneTime()) {
-            return true;
-        }
+//        if (isOneTime()) {
+//            return true;
+//        }
         if (lastTimeHarvested == null) {
             if (App.getGame().getCurrentTime().getDay() - plantingDate.getDay() >= totalHarvestTime) {
                 return true;

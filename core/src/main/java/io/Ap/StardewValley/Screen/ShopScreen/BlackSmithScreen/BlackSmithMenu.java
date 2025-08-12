@@ -6,15 +6,17 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.Shop.BlackSmith.BlackSmith;
+import io.Ap.StardewValley.Screen.ShopScreen.ShopMenu;
 import io.Ap.StardewValley.Screen.ShopScreen.FirstMenu;
 import io.Ap.StardewValley.StardewValley;
 
 public class BlackSmithMenu extends Stage {
 
     private final Skin skin = StardewValley.getSkin();
-    private BlackSmithShopMenu blackSmithShopMenu;
-    private BlackSmithToolsMenu blackSmithToolsMenu;
+    private ShopMenu blackSmithShopMenu;
+    //    private ShopMenu blackSmithToolsMenu;
     private FirstMenu blackSmithFirstMenu;
     private TextButton shopMenuButton, toolsButton, leaveButton;
     private BlackSmith blackSmith = new BlackSmith();
@@ -22,14 +24,10 @@ public class BlackSmithMenu extends Stage {
     boolean isShopMenuVisible = false;
     boolean isToolsMenuVisible = false;
 
-    float windowWidth = 1050;
-    float windowHeight = 650;
-
-    float windowX = (getViewport().getScreenWidth() - windowWidth) / 2f;
-    float windowY = (getViewport().getScreenHeight() - windowHeight) / 2f;
-
     float buttonWidth = 1000;
     float buttonHeight = 100;
+
+    String texturePath = "shop/Clint.png";
 
     public BlackSmithMenu() {
         super(new ScreenViewport());
@@ -43,24 +41,13 @@ public class BlackSmithMenu extends Stage {
         blackSmithFirstMenu.setVisible(true);
         this.addActor(blackSmithFirstMenu);
 
-        blackSmithShopMenu = new BlackSmithShopMenu(skin);
-        blackSmithShopMenu.setPosition(500, 540);
+        blackSmithShopMenu = new ShopMenu(skin, blackSmith, texturePath);
+        blackSmithShopMenu.setPosition(900, 540);
         blackSmithShopMenu.setVisible(false);
         this.addActor(blackSmithShopMenu);
 
 
-
     }
-
-//    @Override
-//    public Actor hit(float stageX, float stageY, boolean touchable) {
-//        Actor hit = super.hit(stageX, stageY, touchable);
-//
-//        for (Window win : infoWindows) {
-//            if (hit == win) return null;
-//        }
-//        return hit;
-//    }
 
     public void setVisibleAll(boolean visible) {
 
@@ -82,14 +69,7 @@ public class BlackSmithMenu extends Stage {
     }
 
     public void update() {
-//        try {
-//            ((RefrigeratorTab) refrigeratorTab).update();
-//        } catch (Exception e) {
-//        }
-//        try {
-//            ((CookingTab) cookingTab).update();
-//        } catch (Exception e) {
-//        }
+        blackSmithShopMenu.updateShop();
     }
 
     private void makeShopButton() {
@@ -115,15 +95,7 @@ public class BlackSmithMenu extends Stage {
         toolsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                for (int j = 0; j < buttons.size(); j++) {
-//                    buttons.get(j).setChecked(false);
-//                    infoWindows.get(j).setVisible(false);
-//                }
-//
-//                cookingButton.setChecked(true);
-//                infoWindows.get(1).setVisible(true);
-//                infoWindows.get(1).toFront();
-//                activeButton = cookingButton;
+
             }
         });
         this.addActor(toolsButton);
@@ -136,17 +108,20 @@ public class BlackSmithMenu extends Stage {
         leaveButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                for (int j = 0; j < buttons.size(); j++) {
-//                    buttons.get(j).setChecked(false);
-//                    infoWindows.get(j).setVisible(false);
-//                }
-//
-//                refrigeratorButton.setChecked(true);
-//                infoWindows.get(0).setVisible(true);
-//                infoWindows.get(0).toFront();
-//                activeButton = refrigeratorButton;
+                GameScreenController.setVisibleShop(null);
             }
         });
         this.addActor(leaveButton);
     }
+
+
+//    @Override
+//    public Actor hit(float stageX, float stageY, boolean touchable) {
+//        Actor hit = super.hit(stageX, stageY, touchable);
+//
+//        for (Window win : infoWindows) {
+//            if (hit == win) return null;
+//        }
+//        return hit;
+//    }
 }

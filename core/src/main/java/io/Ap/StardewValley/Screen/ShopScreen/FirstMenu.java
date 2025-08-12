@@ -9,7 +9,7 @@ public class FirstMenu extends Window {
     public FirstMenu(Skin skin, String name, TextButton firstButton, TextButton secondButton) {
         super(name, skin);
 
-        this.setSize(1050, 240);
+        this.setSize(1050, 270);
         this.setMovable(false);
         this.setResizable(false);
         this.align(Align.topLeft);
@@ -18,8 +18,8 @@ public class FirstMenu extends Window {
         Table table = new Table();
         table.top().left();
 
-        table.add(firstButton).center().size(1000, 100).center().pad(10).row();
-        table.add(secondButton).center().size(1000, 100).center().pad(10).row();
+        table.add(firstButton).center().size(950, 80).center().pad(10).row();
+        table.add(secondButton).center().size(950, 80).center().pad(10).row();
 
         this.add(table).expand().fill();
 

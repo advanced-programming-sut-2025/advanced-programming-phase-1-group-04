@@ -1,20 +1,24 @@
 package io.Ap.StardewValley.Screen.ShopScreen;
 
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.Shop.ProductData;
+import io.Ap.StardewValley.Model.Shop.ShopType;
 import io.Ap.StardewValley.Screen.ItemScreen.ItemTextureBank;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShopStock extends Window {
 
+    private final ShopType shopType;
     private final CheckBox onlyAvailableCheckBox;
     private final ScrollPane allItemsScroll;
     private final ScrollPane availableItemsScroll;
@@ -27,18 +31,29 @@ public class ShopStock extends Window {
 
     private final Skin skin;
 
-    public ShopStock(Skin skin, List<ProductData> products) {
+    private final Map<ImageTextButton, ProductData> buttonToProduct = new HashMap<>();
+    private ImageTextButton selectedButton = null;
+
+    private boolean productDataNeedsUpdate = false;
+
+    public ShopStock(Skin skin, List<ProductData> products, ShopType shopType) {
         super("Shop Stock", skin);
         this.skin = skin;
+        this.shopType = shopType;
 
         setSize(500, 700);
         setMovable(false);
         setResizable(false);
-        setModal(true);
+        setModal(false);
         setKeepWithinStage(true);
 
-        // چک‌باکس بالای ویندو
-        onlyAvailableCheckBox = new CheckBox("Only availables", skin);
+        onlyAvailableCheckBox = new CheckBox("", skin);
+        allItemsTable = new Table(skin);
+        availableItemsTable = new Table(skin);
+
+        allItemsScroll = new ScrollPane(allItemsTable, skin, "inventory");
+        availableItemsScroll = new ScrollPane(availableItemsTable, skin, "inventory");
+
         onlyAvailableCheckBox.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -48,29 +63,14 @@ public class ShopStock extends Window {
         add(onlyAvailableCheckBox).left().pad(10).colspan(1);
         row();
 
-        // جدول ها برای دکمه ها
-        allItemsTable = new Table(skin);
-        availableItemsTable = new Table(skin);
-
-        // ساخت دو اسکرول‌پین
-        allItemsScroll = new ScrollPane(allItemsTable, skin);
-        availableItemsScroll = new ScrollPane(availableItemsTable, skin);
-
-        // اندازه اسکرول‌پین ها (کل فضای باقی‌مانده)
-        allItemsScroll.setFadeScrollBars(false);
-        availableItemsScroll.setFadeScrollBars(false);
-
-        add(allItemsScroll).expand().fill();
-        row();
-        add(availableItemsScroll).expand().fill();
-
-        // اول فقط allItemsScroll نشون داده بشه
+        Stack scrollStack = new Stack();
+        scrollStack.add(allItemsScroll);
+        scrollStack.add(availableItemsScroll);
         availableItemsScroll.setVisible(false);
+        add(scrollStack).expand().fill();
 
-        // مقداردهی اولیه با داده‌ها
         update(products);
     }
-
 
     private void updateVisibleScrollPane() {
         if (onlyAvailableCheckBox.isChecked()) {
@@ -80,25 +80,48 @@ public class ShopStock extends Window {
             allItemsScroll.setVisible(true);
             availableItemsScroll.setVisible(false);
         }
+        // وقتی visible عوض شد، اگر selectedButton داخل آن ScrollPane نیست، باید انتخاب رو تغییر بدیم:
+        if (availableItemsScroll.isVisible()) {
+            if (selectedButton == null || !availableButtons.contains(selectedButton)) {
+                selectButtonIfExists(availableButtons);
+            }
+        } else {
+            if (selectedButton == null || !allButtons.contains(selectedButton)) {
+                selectButtonIfExists(allButtons);
+            }
+        }
     }
 
     public void update(List<ProductData> products) {
-        // پاک کردن جدول‌ها و لیست دکمه‌ها
         allItemsTable.clear();
         availableItemsTable.clear();
         allButtons.clear();
         availableButtons.clear();
+        buttonToProduct.clear();
+        selectedButton = null;
 
         for (ProductData product : products) {
             ImageTextButton btn = createProductButton(product);
             allButtons.add(btn);
+            buttonToProduct.put(btn, product);
             allItemsTable.add(btn).expandX().fillX().row();
 
             if (product.exists()) {
                 ImageTextButton btnAvailable = createProductButton(product);
                 availableButtons.add(btnAvailable);
+                buttonToProduct.put(btnAvailable, product);
                 availableItemsTable.add(btnAvailable).expandX().fillX().row();
             }
+        }
+
+        // اضافه کردن لیسنر به همه دکمه‌ها
+        addClickListenerToButtons();
+
+        // انتخاب اولین دکمه لیست available به صورت پیش‌فرض
+        if (!availableButtons.isEmpty()) {
+            selectButton(availableButtons.get(0));
+        } else if (!allButtons.isEmpty()) {
+            selectButton(allButtons.get(0));
         }
 
         updateVisibleScrollPane();
@@ -106,32 +129,25 @@ public class ShopStock extends Window {
     }
 
     private ImageTextButton createProductButton(ProductData product) {
-        // گرفتن تکسچر از بانک
         Texture texture = ItemTextureBank.getTexture(product.getName());
         Image image = new Image(texture);
 
-        // ساخت Table برای چیدمان داخل دکمه
         Table contentTable = new Table();
 
-        // چپ: عکس
         contentTable.add(image).size(50, 50).padRight(10);
 
-        // وسط: نام محصول
         Label nameLabel = new Label(product.getName(), skin);
         nameLabel.setAlignment(Align.left);
         contentTable.add(nameLabel).expandX().left();
 
-        // راست: قیمت
         Label priceLabel = new Label(String.valueOf(product.getPrice()), skin);
         priceLabel.setAlignment(Align.right);
         contentTable.add(priceLabel).width(70).right();
 
-        // ساخت ImageTextButton خالی و اضافه کردن contentTable بهش
         ImageTextButton button = new ImageTextButton("", skin);
         button.clearChildren();
         button.add(contentTable).expand().fill();
 
-        // disable کردن دکمه اگر محصول موجود نیست
         if (!product.exists()) {
             button.setDisabled(true);
             nameLabel.setColor(0.6f, 0.6f, 0.6f, 1f);
@@ -141,8 +157,16 @@ public class ShopStock extends Window {
         return button;
     }
 
-    // متدی برای اضافه کردن Listener به همه دکمه‌ها
-    public void addListenerToButtons(EventListener listener) {
+    private void addClickListenerToButtons() {
+        ClickListener listener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ImageTextButton btn = (ImageTextButton) event.getListenerActor();
+                selectButton(btn);
+                productDataNeedsUpdate = true;
+            }
+        };
+
         for (ImageTextButton btn : allButtons) {
             btn.addListener(listener);
         }
@@ -151,4 +175,36 @@ public class ShopStock extends Window {
         }
     }
 
+    private void selectButton(ImageTextButton btn) {
+        if (selectedButton != null) {
+            selectedButton.setChecked(false);
+        }
+        selectedButton = btn;
+        selectedButton.setChecked(true);
+    }
+
+    private void selectButtonIfExists(List<ImageTextButton> buttons) {
+        if (!buttons.isEmpty()) {
+            selectButton(buttons.get(0));
+        } else {
+            if (selectedButton != null) {
+                selectedButton.setChecked(false);
+                selectedButton = null;
+            }
+        }
+    }
+
+    public ProductData getSelectedProductData() {
+        if (selectedButton == null) return null;
+        return buttonToProduct.get(selectedButton);
+    }
+
+
+    public boolean productDataNeedsUpdate() {
+        return productDataNeedsUpdate;
+    }
+
+    public void setProductDataNeedsUpdate(boolean productDataNeedsUpdate) {
+        this.productDataNeedsUpdate = productDataNeedsUpdate;
+    }
 }

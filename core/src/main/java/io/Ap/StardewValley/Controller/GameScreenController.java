@@ -8,6 +8,8 @@ import io.Ap.StardewValley.Model.Animals.AnimalProductType;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Coordinate;
+import io.Ap.StardewValley.Model.Map.Tile;
+import io.Ap.StardewValley.Model.Map.TileType;
 import io.Ap.StardewValley.Model.Plants.Crop;
 import io.Ap.StardewValley.Model.Plants.CropType;
 import io.Ap.StardewValley.Model.Player.Player;
@@ -319,5 +321,30 @@ public class GameScreenController {
         return isToolActionInProgress;
     }
 
+    private boolean isShopBesideMe(BuildingType buildingType) {
+        Tile[][] fullMap = App.getGame().getMap().getFullMap();
+
+        int x = App.getGame().getCurrentPlayer().getCoordinate().getX();
+        int y = App.getGame().getCurrentPlayer().getCoordinate().getY();
+
+        int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
+        int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};
+
+        for (int i = 0; i < 8; i++) {
+            int newX = x + dx[i];
+            int newY = y + dy[i];
+
+            // Phase 1:
+            if ((newX < 0 || newX >= 240) || (newY < 0 || newY >= 290)) continue;
+
+            Tile tile = fullMap[newX][newY];
+            if (tile != null && tile.getType().equals(TileType.Building)) {
+                if (tile.getBuildingType().equals(buildingType))
+                    return true;
+            }
+        }
+
+        return false;
+    }
 
 }

@@ -318,6 +318,28 @@ public class DynamicMapLayerRender {
                 if (tile.isWatered())
                     batch.draw(additional.get("watered"), drawX, drawY);
 
+                // Building:
+                if (tile.getType() == TileType.Building && tile.isBuildingOrigin()) {
+                    BuildingType type = tile.getBuildingType();
+                    TextureRegion[][] buildingTexture = buildings.get(type);
+                    if (buildingTexture == null) continue;
+
+                    float originDrawX = x * tileSize;
+                    float originDrawY = (tiles.length - 1 - y) * tileSize;
+
+                    for (int row = 0; row < type.getL(); row++) {
+                        for (int col = 0; col < type.getW(); col++) {
+                            TextureRegion region = buildingTexture[row][col];
+                            if (region == null) continue;
+
+                            float drawXBuilding = originDrawX + col * tileSize;
+                            float drawYBuilding = originDrawY - row * tileSize;
+
+                            batch.draw(region, drawXBuilding, drawYBuilding, tileSize, tileSize);
+                        }
+                    }
+                }
+
                 // Items:
                 Item item = tile.getItem();
                 if (item != null) {
@@ -356,56 +378,4 @@ public class DynamicMapLayerRender {
             }
         }
     }
-
-    public void renderItem() {
-        int tileSize = 16;
-        Tile[][] tiles = App.getGame().getMap().getCurrentRegion().getTiles();
-
-        SpriteBatch batch = StardewValley.getBatch();
-
-        for (int y = 0; y < tiles.length; y++) {
-            for (int x = 0; x < tiles[y].length; x++) {
-                Tile tile = tiles[y][x];
-
-                float drawX = x * tileSize;
-                float drawY = (tiles.length - 1 - y) * tileSize;
-
-
-            }
-        }
-    }
-
-    public void renderBuildings() {
-        Tile[][] tiles = App.getGame().getMap().getCurrentRegion().getTiles();
-        SpriteBatch batch = StardewValley.getBatch();
-        int tileSize = 16;
-
-        for (int y = 0; y < tiles.length; y++) {
-            for (int x = 0; x < tiles[y].length; x++) {
-                Tile tile = tiles[y][x];
-
-                if (tile.getType() == TileType.Building && tile.isBuildingOrigin()) {
-                    BuildingType type = tile.getBuildingType();
-                    TextureRegion[][] buildingTexture = buildings.get(type);
-                    if (buildingTexture == null) continue;
-
-                    float originDrawX = x * tileSize;
-                    float originDrawY = (tiles.length - 1 - y) * tileSize;
-
-                    for (int row = 0; row < type.getL(); row++) {
-                        for (int col = 0; col < type.getW(); col++) {
-                            TextureRegion region = buildingTexture[row][col];
-                            if (region == null) continue;
-
-                            float drawX = originDrawX + col * tileSize;
-                            float drawY = originDrawY - row * tileSize;
-
-                            batch.draw(region, drawX, drawY, tileSize, tileSize);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
 }

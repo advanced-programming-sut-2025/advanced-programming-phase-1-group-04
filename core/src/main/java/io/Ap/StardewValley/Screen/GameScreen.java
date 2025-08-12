@@ -124,20 +124,14 @@ public class GameScreen implements Screen, InputProcessor {
 
 
         // add processors
-        InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(inventoryStage);
-        multiplexer.addProcessor(cookingStage);
-        multiplexer.addProcessor(blackSmithStage);
-        multiplexer.addProcessor(stage);
-        multiplexer.addProcessor(this);
-        Gdx.input.setInputProcessor(multiplexer);
-        Gdx.input.setInputProcessor(new InputMultiplexer(
+        InputMultiplexer multiplexer = new InputMultiplexer(
                 inventoryStage,
                 cookingStage,
                 blackSmithStage,
                 stage,
                 this
-        ));
+        );
+        Gdx.input.setInputProcessor(multiplexer);
 
         // inventory bar:
         Stack inventoryStack = new Stack();
@@ -157,7 +151,6 @@ public class GameScreen implements Screen, InputProcessor {
         stackBar.addActor(inventoryStack);
 
         // add to stage:
-
         // weather layers:
         setWeatherLayerToStage(App.getGame().getCurrentTime().getWeather());
         stage.addActor(nightOverlay);

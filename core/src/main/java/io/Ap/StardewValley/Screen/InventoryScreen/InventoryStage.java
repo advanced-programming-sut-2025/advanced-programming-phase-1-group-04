@@ -114,7 +114,7 @@ public class InventoryStage extends Stage {
         } else if (index == 1) {
             win = new SkillsTab(skin);
         } else if (index == 4) {
-            win = new SettingTab(skin);
+            win = new cheatTab(skin);
         } else if (index == 3) {
             win = new MapTab(skin);
         }

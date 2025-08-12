@@ -227,6 +227,10 @@ public class cheatTab extends Window {
             type = parts[0];
             name = parts[1];
             count = parts[2];
+
+            if (!count.matches("^\\d+$")) {
+                return new Result(false, "count must be a number");
+            }
         }
 
         // check:

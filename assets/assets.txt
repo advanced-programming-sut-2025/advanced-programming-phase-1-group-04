@@ -242,6 +242,11 @@ inventory/wheat flour.png
 inventory/wheat.png
 inventory/yam.png
 map/SecretNotesImages.png
+map/buildings/Barn.png
+map/buildings/BuildGreenHouse.png
+map/buildings/Coop.png
+map/buildings/ShippingBin.png
+map/buildings/Well.png
 map/items/CropStages.png
 map/items/ForagingCrops.png
 map/items/TreeStages.png

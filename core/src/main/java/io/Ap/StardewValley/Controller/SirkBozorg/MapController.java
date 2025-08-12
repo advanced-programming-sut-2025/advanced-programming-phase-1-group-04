@@ -168,7 +168,7 @@ public class MapController {
                 break;
         }
 
-        App.getGame().getMap().build(x, y, BuildingType.GreenHouseBuild);
+        App.getGame().getMap().build(new Coordinate(x, y), BuildingType.GreenHouseBuild);
         return new Result(true, "Now you have Greenhouse:)");
     }
 
@@ -200,7 +200,7 @@ public class MapController {
             return result;
         }
 
-        buildInMap(coordinate, type);
+        App.getGame().getMap().build(coordinate, type);
         return result;
     }
 
@@ -467,19 +467,6 @@ public class MapController {
             }
         }
         return true;
-    }
-
-    private static void buildInMap(Coordinate coordinate, BuildingType type) {
-        Tile[][] fullMap = App.getGame().getMap().getFullMap();
-        for (int i = coordinate.getX(); i < coordinate.getX() + type.getL(); i++) {
-            for (int j = coordinate.getY(); j < coordinate.getY() + type.getW(); j++) {
-                Tile tile = fullMap[i][j];
-                tile.setType(TileType.Building);
-                tile.setBuildingType(type);
-                tile.setWatered(false);
-                tile.setPlowed(false);
-            }
-        }
     }
 
     private static BuildingType getBuildingType(String name) {

@@ -178,7 +178,8 @@ public class GameScreen implements Screen, InputProcessor {
             currentMap.renderDynamicBelowLayer(camera);
             batch.begin();
             dynamicMapLayerRender.renderGround();
-            dynamicMapLayerRender.renderItem();
+            //dynamicMapLayerRender.renderItem();
+            dynamicMapLayerRender.renderBuildings();
             controller.updatePlayer();
             batch.end();
             currentMap.renderDynamicAboveLayer(camera);

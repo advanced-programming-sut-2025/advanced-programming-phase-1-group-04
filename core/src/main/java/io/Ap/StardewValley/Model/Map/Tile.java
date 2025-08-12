@@ -18,6 +18,7 @@ public class Tile {
     private TileType type;
 
     private BuildingType buildingType = null;
+    private boolean BuildingOrigin = false;
 
     private Item item = null;
     private Animal animal = null;
@@ -252,6 +253,14 @@ public class Tile {
 
     public void setNpc(NPC npc) {
         this.npc = npc;
+    }
+
+    public void setBuildingOrigin(boolean buildingOrigin) {
+        BuildingOrigin = buildingOrigin;
+    }
+
+    public boolean isBuildingOrigin() {
+        return BuildingOrigin;
     }
 
     @Override

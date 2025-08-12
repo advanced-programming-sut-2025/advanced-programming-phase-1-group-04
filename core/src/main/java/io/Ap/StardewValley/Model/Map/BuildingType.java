@@ -5,13 +5,13 @@ public enum BuildingType {
     Door(1,2), // add door in isWalkable
 
     GreenHouse(5, 7),
-    GreenHouseBuild(5, 7),
     House(4, 5),
 
-    Barn(4, 7),
-    Coop(6 , 3),
-    Well( 3 , 3),
-    ShippingBin(1, 1),
+    GreenHouseBuild(7, 10),
+    Barn(7, 7),
+    Coop(6 , 7),
+    Well( 3 , 5),
+    ShippingBin(2, 2),
 
     Blacksmith(4 , 6),
     JojaMart(3 , 7),

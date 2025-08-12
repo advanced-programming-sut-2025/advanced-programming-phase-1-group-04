@@ -10,19 +10,36 @@ import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Item.Stone;
 import io.Ap.StardewValley.Model.Item.Wood;
+import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Tile;
+import io.Ap.StardewValley.Model.Map.TileType;
 import io.Ap.StardewValley.Model.Plants.*;
 import io.Ap.StardewValley.StardewValley;
 
 public class DynamicMapLayerRender {
-    private final Map<String, TextureRegion> additional = new HashMap<>();
+    // Buildings:
+    private final Map<BuildingType, TextureRegion[][]> buildings = new EnumMap<>(BuildingType.class);
 
     // Map Item:
+    private final Map<String, TextureRegion> additional = new HashMap<>();
     private final Map<ForagingCropType, TextureRegion> foragingCrops = new EnumMap<>(ForagingCropType.class);
 
     private final Map<TreeType, List<TextureRegion>> treeStages = new EnumMap<>(TreeType.class);
     private final Map<CropType, List<TextureRegion>> cropStages = new EnumMap<>(CropType.class);
 
+    {
+        TextureRegion[][] buildGreenHouse = TextureRegion.split(new Texture("map/buildings/BuildGreenHouse.png"), 16, 16);
+        TextureRegion[][] barn = TextureRegion.split(new Texture("map/buildings/Barn.png"), 16, 16);
+        TextureRegion[][] coop = TextureRegion.split(new Texture("map/buildings/Coop.png"), 16, 16);
+        TextureRegion[][] well = TextureRegion.split(new Texture("map/buildings/Well.png"), 16, 16);
+        TextureRegion[][] ShippingBin = TextureRegion.split(new Texture("map/buildings/ShippingBin.png"), 16, 16);
+
+        buildings.put(BuildingType.GreenHouseBuild, buildGreenHouse);
+        buildings.put(BuildingType.Coop, coop);
+        buildings.put(BuildingType.Well, well);
+        buildings.put(BuildingType.ShippingBin, ShippingBin);
+        buildings.put(BuildingType.Barn, barn);
+    }
     {
         TextureRegion[][] treeSheet1 = TextureRegion.split(new Texture("map/items/TreeStages.png"), 48, 5 * 16);
         TextureRegion[][] treeSheet2 = TextureRegion.split(new Texture("map/items/TreeStages2.png"), 48, 6 * 16);
@@ -108,6 +125,7 @@ public class DynamicMapLayerRender {
                 float drawX = x * tileSize;
                 float drawY = (tiles.length - 1 - y) * tileSize;
 
+                // Ground:
                 if (tile.isPlowed())
                     batch.draw(additional.get("plowed"), drawX, drawY);
 
@@ -116,23 +134,8 @@ public class DynamicMapLayerRender {
 
                 if (tile.isWatered())
                     batch.draw(additional.get("watered"), drawX, drawY);
-            }
-        }
-    }
 
-    public void renderItem() {
-        int tileSize = 16;
-        Tile[][] tiles = App.getGame().getMap().getCurrentRegion().getTiles();
-
-        SpriteBatch batch = StardewValley.getBatch();
-
-        for (int y = 0; y < tiles.length; y++) {
-            for (int x = 0; x < tiles[y].length; x++) {
-                Tile tile = tiles[y][x];
-
-                float drawX = x * tileSize;
-                float drawY = (tiles.length - 1 - y) * tileSize;
-
+                // Items:
                 Item item = tile.getItem();
                 if (item != null) {
                     if (item instanceof ForagingCrop foragingCrop) {
@@ -156,7 +159,60 @@ public class DynamicMapLayerRender {
                         batch.draw(stages.get(stageIndex), drawX, drawY);
                     }
                 }
+
             }
         }
     }
+
+    public void renderItem() {
+        int tileSize = 16;
+        Tile[][] tiles = App.getGame().getMap().getCurrentRegion().getTiles();
+
+        SpriteBatch batch = StardewValley.getBatch();
+
+        for (int y = 0; y < tiles.length; y++) {
+            for (int x = 0; x < tiles[y].length; x++) {
+                Tile tile = tiles[y][x];
+
+                float drawX = x * tileSize;
+                float drawY = (tiles.length - 1 - y) * tileSize;
+
+
+            }
+        }
+    }
+
+    public void renderBuildings() {
+        Tile[][] tiles = App.getGame().getMap().getCurrentRegion().getTiles();
+        SpriteBatch batch = StardewValley.getBatch();
+        int tileSize = 16;
+
+        for (int y = 0; y < tiles.length; y++) {
+            for (int x = 0; x < tiles[y].length; x++) {
+                Tile tile = tiles[y][x];
+
+                if (tile.getType() == TileType.Building && tile.isBuildingOrigin()) {
+                    BuildingType type = tile.getBuildingType();
+                    TextureRegion[][] buildingTexture = buildings.get(type);
+                    if (buildingTexture == null) continue;
+
+                    float originDrawX = x * tileSize;
+                    float originDrawY = (tiles.length - 1 - y) * tileSize;
+
+                    for (int row = 0; row < type.getL(); row++) {
+                        for (int col = 0; col < type.getW(); col++) {
+                            TextureRegion region = buildingTexture[row][col];
+                            if (region == null) continue;
+
+                            float drawX = originDrawX + col * tileSize;
+                            float drawY = originDrawY - row * tileSize;
+
+                            batch.draw(region, drawX, drawY, tileSize, tileSize);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import io.Ap.StardewValley.Model.Animals.AnimalProduct;
 import io.Ap.StardewValley.Model.Animals.AnimalProductType;
 import io.Ap.StardewValley.Model.App;
+import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Coordinate;
 import io.Ap.StardewValley.Model.Plants.Crop;
 import io.Ap.StardewValley.Model.Plants.CropType;
@@ -85,6 +86,7 @@ public class GameScreenController {
     }
 
     public void  updateGame() {
+
         handleInputKey();
         //inventory bar:
         view.getInventoryBar().updateInventoryBar();
@@ -152,8 +154,9 @@ public class GameScreenController {
 
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheat())){
             //App.getGame().getCurrentPlayer().setEnergy(-1);
-            App.getGame().getCurrentTime().setHour(23);
-            App.getGame().getCurrentTime().setMinute(59);
+            //App.getGame().getCurrentTime().setHour(23);
+            //App.getGame().getCurrentTime().setMinute(59);
+            App.getGame().getMap().build(new Coordinate(7, 27), BuildingType.GreenHouseBuild);
             //App.getGame().getCurrentTime().addDay(27);
             //goToNextDay();
             //App.getGame().getMap().getFullMap()[App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()].setFertilize(1);

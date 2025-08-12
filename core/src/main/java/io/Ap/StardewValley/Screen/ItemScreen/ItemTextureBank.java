@@ -227,8 +227,8 @@ public class ItemTextureBank {
     public static TextureRegion getTexture (String itemName) {
         if (items.get(itemName) != null) {
             return items.get(itemName);
-        } else if (itemTextures.get(itemName) != null) {
-            return new TextureRegion(itemTextures.get(itemName));
+        } else if (itemTextures.get(itemName.toLowerCase()) != null) {
+            return new TextureRegion(itemTextures.get(itemName.toLowerCase()));
         }
 
         return new TextureRegion(itemTextures.get("unknown"));

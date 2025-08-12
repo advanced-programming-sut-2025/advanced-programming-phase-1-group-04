@@ -126,22 +126,6 @@ public class GameScreenController {
         }
 
         // cheats:
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatTime())){
-            //App.getGame().getMap().getFullMap()[App.getGame().getCurrentPlayer().getCoordinate().getX() + 1][App.getGame().getCurrentPlayer().getCoordinate().getY() + 1].setWatered(true);
-        }
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatLevel())){
-
-        }
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatLife())){
-
-        }
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatHp())){
-
-        }
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getCheatBossFight())){
-
-        }
-
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getAynazCheat())) {
             App.getGame().getCurrentPlayer().addAbility(Skill.Farming, 10);
             App.getGame().getCurrentPlayer().setInventoryCapacity(24);
@@ -156,7 +140,7 @@ public class GameScreenController {
             //App.getGame().getCurrentPlayer().setEnergy(-1);
             //App.getGame().getCurrentTime().setHour(23);
             //App.getGame().getCurrentTime().setMinute(59);
-            App.getGame().getMap().build(new Coordinate(7, 27), BuildingType.GreenHouseBuild);
+            //App.getGame().getMap().build(new Coordinate(7, 27), BuildingType.GreenHouseBuild);
             //App.getGame().getCurrentTime().addDay(27);
             //goToNextDay();
             //App.getGame().getMap().getFullMap()[App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()].setFertilize(1);
@@ -168,13 +152,6 @@ public class GameScreenController {
 //            App.getGame().getMap().getFullMap()
 //                    [App.getGame().getCurrentPlayer().getCoordinate().getX() + 1][App.getGame().getCurrentPlayer().getCoordinate().getY() + 1]
 //                    .setItem(new Crop(CropType.Potato));
-        }
-
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheatTime())){
-            //App.getGame().getCurrentTime().addHour(1);
-//            App.getGame().getMap().getFullMap()
-//                    [App.getGame().getCurrentPlayer().getCoordinate().getX()][App.getGame().getCurrentPlayer().getCoordinate().getY()]
-//                    .setWatered(true);
         }
 
         //inventory:

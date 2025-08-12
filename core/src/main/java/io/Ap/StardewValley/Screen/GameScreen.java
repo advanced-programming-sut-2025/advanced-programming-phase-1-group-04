@@ -273,7 +273,7 @@ public class GameScreen implements Screen, InputProcessor {
 
     public void showPauseDialog() {
         Skin skin = StardewValley.getSkin();
-        Table table = getTableDialog();
+        Table table = new Table();
         Dialog pauseDialog = new Dialog("Pause", skin) {
             @Override
             protected void result(Object object) {
@@ -334,89 +334,6 @@ public class GameScreen implements Screen, InputProcessor {
                     }
                 })
         ));
-    }
-
-    private Table getTableDialog() {
-        final Label moveUp, moveDown, moveLeft, moveRight, autoAim, reloadWeapon, cheatTime, cheatLevel, cheatLife, cheatHp, pauseGame, shash;
-        final Label moveUpButton, moveDownButton, moveLeftButton, moveRightButton, autoAimButton,pauseGameButton,  reloadWeaponButton, cheatTimeButton, cheatLevelButton, cheatLifeButton, cheatHpButton;
-
-        Skin skin = StardewValley.getSkin();
-
-        shash = new Label("     ", skin);
-
-        moveUp = new Label("up", skin);
-        moveDown = new Label("down", skin);
-        moveLeft = new Label("left", skin);
-        moveRight = new Label("right", skin);
-        autoAim = new Label("autoAim", skin);
-        reloadWeapon = new Label("reload", skin);
-        cheatTime = new Label("cheatTime", skin);
-        cheatLevel = new Label("cheatLevel", skin);
-        cheatLife = new Label("cheatLife", skin);
-        cheatHp = new Label("cheatHP", skin);
-        pauseGame = new Label("pause", skin);
-
-        float labelFontScale = 1.5f;
-
-        moveUpButton = new Label(Input.Keys.toString(App.getKeyManager().getMoveUp()), skin);
-        moveDownButton = new Label(Input.Keys.toString(App.getKeyManager().getMoveDown()), skin);
-        moveLeftButton = new Label(Input.Keys.toString(App.getKeyManager().getMoveLeft()), skin);
-        moveRightButton = new Label(Input.Keys.toString(App.getKeyManager().getMoveRight()), skin);
-        autoAimButton = new Label(Input.Keys.toString(App.getKeyManager().getCheatBossFight()), skin);
-        reloadWeaponButton = new Label(Input.Keys.toString(App.getKeyManager().getZoom()), skin);
-        cheatTimeButton = new Label(Input.Keys.toString(App.getKeyManager().getCheatTime()), skin);
-        cheatLevelButton = new Label(Input.Keys.toString(App.getKeyManager().getCheatLevel()), skin);
-        cheatLifeButton = new Label(Input.Keys.toString(App.getKeyManager().getCheatLife()), skin);
-        cheatHpButton = new Label(Input.Keys.toString(App.getKeyManager().getCheatHp()), skin);
-        pauseGameButton = new Label(Input.Keys.toString(App.getKeyManager().getPauseGame()), skin);
-
-
-        moveUpButton.setFontScale(labelFontScale);
-        moveDownButton.setFontScale(labelFontScale);
-        moveLeftButton.setFontScale(labelFontScale);
-        moveRightButton.setFontScale(labelFontScale);
-        autoAimButton.setFontScale(labelFontScale);
-        reloadWeaponButton.setFontScale(labelFontScale);
-        cheatTimeButton.setFontScale(labelFontScale);
-        cheatLevelButton.setFontScale(labelFontScale);
-        cheatLifeButton.setFontScale(labelFontScale);
-        cheatHpButton.setFontScale(labelFontScale);
-        pauseGameButton.setFontScale(labelFontScale);
-
-
-        Table table = new Table();
-        table.add(moveUp);
-        table.add(moveUpButton).width(300).pad(10);
-        table.add(cheatTime);
-        table.add(cheatTimeButton).width(300).pad(10).row();
-
-        table.add(moveDown);
-        table.add(moveDownButton).width(325).pad(10);
-        table.add(cheatLevel);
-        table.add(cheatLevelButton).width(325).pad(10).row();
-
-        table.add(moveLeft);
-        table.add(moveLeftButton).width(325).pad(10);
-        table.add(cheatLife);
-        table.add(cheatLifeButton).width(325).pad(10).row();
-
-        table.add(moveRight);
-        table.add(moveRightButton).width(325).pad(10);
-        table.add(cheatHp);
-        table.add(cheatHpButton).width(325).pad(10).row();
-
-        table.add(autoAim);
-        table.add(autoAimButton).width(325).pad(10);
-        table.add(pauseGame);
-        table.add(pauseGameButton).width(325).pad(10).row();
-
-        table.add(reloadWeapon);
-        table.add(reloadWeaponButton).width(325).pad(10);
-        table.add(shash);
-
-        //table.add(controller.getPlayerRender().getHeadImage()).size(16*6, 16*6);
-        //table.add(getFullMap()).size(fullMap.getWidth() * 0.1f, fullMap.getHeight() * 0.1f);
-        return table;
     }
 
     private void setFullMap() {

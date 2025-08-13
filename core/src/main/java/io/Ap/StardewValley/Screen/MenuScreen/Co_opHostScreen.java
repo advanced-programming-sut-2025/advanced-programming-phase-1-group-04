@@ -138,7 +138,7 @@ public class Co_opHostScreen implements Screen {
         ScreenUtils.clear(0, 0, 0, 1);
         stage.act(delta);
         stage.draw();
-        updatePlayers();
+        refreshList();
     }
 
     @Override

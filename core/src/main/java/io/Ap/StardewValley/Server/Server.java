@@ -39,27 +39,24 @@ public class Server {
         ServerSocket serverSocket = new ServerSocket(tcpPort);
         System.out.println("TCP Server started on port " + tcpPort);
 
-        DatagramSocket udpSocket = new DatagramSocket(udpPort);
+        DatagramSocket udpSocket = new DatagramSocket(udpPort, InetAddress.getByName("0.0.0.0"));
         System.out.println("UDP Server started on port " + udpPort);
 
-        Thread udpThread = new Thread(() -> {
-            try {
-                byte[] buffer = new byte[4096];
-                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-                while (true) {
-                    udpSocket.receive(packet);
+        byte[] buffer = new byte[4096];
 
-                    byte[] data = new byte[packet.getLength()];
-                    System.arraycopy(packet.getData(), 0, data, 0, packet.getLength());
+        while (true) {
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+            udpSocket.receive(packet);
 
-                    ChatMessage pos = KryoUtils.deserialize(data, ChatMessage.class);
-                    System.out.println("Received UDP PlayerPosition: " + pos.text);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        udpThread.start();
+            byte[] data = new byte[packet.getLength()];
+            System.arraycopy(packet.getData(), 0, data, 0, packet.getLength());
+
+            ChatMessage msg = KryoUtils.deserialize(data, ChatMessage.class);
+
+            System.out.println("Received from "
+                    + packet.getAddress().getHostAddress() + ":" + packet.getPort()
+                    + " → " + msg.text);
+        }
     }
 
     public static void main(String[] args) throws Exception {

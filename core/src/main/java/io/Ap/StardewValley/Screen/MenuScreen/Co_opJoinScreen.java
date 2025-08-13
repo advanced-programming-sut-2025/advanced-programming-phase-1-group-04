@@ -10,49 +10,51 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import io.Ap.StardewValley.Screen.GameScreen;
+import io.Ap.StardewValley.Model.App;
+import io.Ap.StardewValley.Server.Client;
+import io.Ap.StardewValley.Server.Server;
+import io.Ap.StardewValley.Server.StardewValleyServers;
 import io.Ap.StardewValley.StardewValley;
 
-public class GameMenuScreen implements Screen {
+import java.util.ArrayList;
+
+public class Co_opJoinScreen implements Screen {
     private final Stage stage;
     private final Table mainTable;
 
-    private final TextButton newButton, loadButton, coOpButton, backButton;
-    private final Image backgroundImage, logoImage;
+    private final TextButton joinButton, backButton;
+    private final Image backgroundImage;
+    private final ArrayList<String> serversName;
+    private final TextField ipAddress;
 
-    private final Array<Animation<TextureRegion>> butterflyAnimations = new Array<>();
+    private final Array<Animation<TextureRegion>> butterflyAnimations;
 
-    public GameMenuScreen() {
+    public Co_opJoinScreen() {
+        serversName = new ArrayList<>();
+        butterflyAnimations = new Array<>();
         Skin skin = StardewValley.getSkin();
-
-        newButton = new TextButton("New", skin, "Chicken");
-        loadButton = new TextButton("Load", skin, "Strawberry");
-        coOpButton = new TextButton("Co-op", skin, "Earth");
+        joinButton = new TextButton("Join", skin , "Chicken");
         backButton = new TextButton("Back", skin, "Plant");
-
-        //backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_night.png")));
+        ipAddress = new TextField("", skin);
         backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_start.png")));
-
-        logoImage = new Image(new Texture(Gdx.files.internal("etc/menu/logo.png")));
-
-//        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/Bat.png"));
-//        TextureRegion[][] tmp = TextureRegion.split(sheet, 64, 64);
-//        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/companions.png"));
-//        TextureRegion[][] tmp = TextureRegion.split(sheet, 16, 16);
-
-        for (int i = 0; i < 4; i++) {
-            TextureRegion[] frames = new TextureRegion[]{new TextureRegion(new Texture("etc/sherekVane.png"))};
-            //System.arraycopy(tmp[0], 4 * i, frames, 0, 4);
-            butterflyAnimations.add(new Animation<>(0.13f, frames));
-        }
-
-//        butterflyAnimations.add(new Animation<>(0.13f, tmp[0]));
-
         mainTable = new Table();
         stage = new Stage(new ScreenViewport());
+
+        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/companions.png"));
+        TextureRegion[][] tmp = TextureRegion.split(sheet, 16, 16);
+
+        for (int i = 0; i < 4; i++) {
+            TextureRegion[] frames = new TextureRegion[4];
+            System.arraycopy(tmp[0], 4 * i, frames, 0, 4);
+            butterflyAnimations.add(new Animation<>(0.13f, frames));
+        }
+        for (Server server : StardewValleyServers.getServers()) {
+            serversName.add(server.getHostName());
+        }
     }
 
     @Override
@@ -88,7 +90,7 @@ public class GameMenuScreen implements Screen {
 
             float x = MathUtils.random(0, Gdx.graphics.getWidth());
             float y = MathUtils.random(0, Gdx.graphics.getHeight());
-            float scale = MathUtils.random(1f, 2f);
+            float scale = MathUtils.random(2f, 5.5f);
 
             animationActor butterfly = new animationActor(
                     finalAnimation,
@@ -101,44 +103,57 @@ public class GameMenuScreen implements Screen {
             stage.addActor(butterfly);
         }
 
-
-        mainTable.add(logoImage).center().padBottom(50).row();
-
         Table buttonRow = new Table();
-        buttonRow.add(newButton).width(240).pad(10);
-        buttonRow.add(loadButton).width(240).pad(10);
-        buttonRow.add(coOpButton).width(240).pad(10);
-        buttonRow.add(backButton).width(240).pad(10);
+        buttonRow.add(joinButton).width(240).pad(10);
+        buttonRow.add(backButton).width(240).padBottom(10);
+        buttonRow.row();
+        buttonRow.add(ipAddress).width(240).pad(10);
 
         mainTable.add(buttonRow).center().row();
 
-        newButton.addListener(new ClickListener() {
+        joinButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                StardewValley.getGame().setScreen(new PreGameMenuScreen());
-            }
-        });
-
-        loadButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //StardewValley.getGame().setScreen(new HelpScreen());
+                for (Server server : StardewValleyServers.getServers()) {
+                    if (server.isVisibility() && server.getHostName().equals(ipAddress.getText()) ||
+                            server.getIPv4Address().equals(ipAddress.getText())) {
+                        try {
+                            server.addClient(new Client(server.getIPv4Address(), server.getUdpPort(),
+                                    App.getCurrentUser().getId(), App.getCurrentUser().getUsername()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                StardewValley.getGame().setScreen(new Co_opScreen());
             }
         });
 
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                StardewValley.getGame().setScreen(new MainMenuScreen());
-            }
-        });
-
-        coOpButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
                 StardewValley.getGame().setScreen(new Co_opScreen());
             }
         });
+
+        Window window = new Window("", StardewValley.getSkin());
+        Label titleLabel = new Label("Available Games", StardewValley.getSkin(), "Bold");
+        titleLabel.setAlignment(Align.center);
+        window.getTitleTable().clear();
+        window.getTitleTable().add(titleLabel).expandX().center().padTop(5).padBottom(10);
+
+        window.setMovable(false);
+        window.setResizable(false);
+        window.setSize(900, 600);
+        window.setPosition(
+                (stage.getWidth() - window.getWidth()) / 2,
+                (stage.getHeight() - window.getHeight()) / 2 - 200
+        );
+        for (String player : serversName)
+        {
+            window.add(new Label(player, StardewValley.getSkin())).row();
+        }
+        stage.addActor(window);
     }
 
     @Override
@@ -149,21 +164,27 @@ public class GameMenuScreen implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+    public void resize(int i, int i1) {
+
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+
+    }
 
     @Override
     public void dispose() {
-        stage.dispose();
+
     }
 }

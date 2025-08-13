@@ -13,46 +13,44 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import io.Ap.StardewValley.Screen.GameScreen;
+import io.Ap.StardewValley.Server.StardewValleyServers;
 import io.Ap.StardewValley.StardewValley;
 
-public class GameMenuScreen implements Screen {
+public class Co_opScreen implements Screen {
+
     private final Stage stage;
     private final Table mainTable;
 
-    private final TextButton newButton, loadButton, coOpButton, backButton;
+    private final TextButton hostButton, joinButton, backButton;
+    private final Label hostLabel;
+    private final TextField hostName;
+    private final Label ipAddressLabel;
     private final Image backgroundImage, logoImage;
 
-    private final Array<Animation<TextureRegion>> butterflyAnimations = new Array<>();
+    private final Array<Animation<TextureRegion>> butterflyAnimations;
 
-    public GameMenuScreen() {
+    public Co_opScreen() {
+        butterflyAnimations = new Array<>();
         Skin skin = StardewValley.getSkin();
-
-        newButton = new TextButton("New", skin, "Chicken");
-        loadButton = new TextButton("Load", skin, "Strawberry");
-        coOpButton = new TextButton("Co-op", skin, "Earth");
+        hostButton = new TextButton("Host", skin , "Chicken");
+        joinButton = new TextButton("Join", skin, "Strawberry");
         backButton = new TextButton("Back", skin, "Plant");
-
-        //backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_night.png")));
+        hostLabel = new Label("Host Name", skin);
+        hostName = new TextField("", skin);
+        ipAddressLabel = new Label("Your IP Address: " + StardewValleyServers.getIPv4(), skin);
         backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_start.png")));
-
         logoImage = new Image(new Texture(Gdx.files.internal("etc/menu/logo.png")));
-
-//        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/Bat.png"));
-//        TextureRegion[][] tmp = TextureRegion.split(sheet, 64, 64);
-//        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/companions.png"));
-//        TextureRegion[][] tmp = TextureRegion.split(sheet, 16, 16);
-
-        for (int i = 0; i < 4; i++) {
-            TextureRegion[] frames = new TextureRegion[]{new TextureRegion(new Texture("etc/sherekVane.png"))};
-            //System.arraycopy(tmp[0], 4 * i, frames, 0, 4);
-            butterflyAnimations.add(new Animation<>(0.13f, frames));
-        }
-
-//        butterflyAnimations.add(new Animation<>(0.13f, tmp[0]));
-
         mainTable = new Table();
         stage = new Stage(new ScreenViewport());
+
+        Texture sheet = new Texture(Gdx.files.internal("etc/gogoli/companions.png"));
+        TextureRegion[][] tmp = TextureRegion.split(sheet, 16, 16);
+
+        for (int i = 0; i < 4; i++) {
+            TextureRegion[] frames = new TextureRegion[4];
+            System.arraycopy(tmp[0], 4 * i, frames, 0, 4);
+            butterflyAnimations.add(new Animation<>(0.13f, frames));
+        }
     }
 
     @Override
@@ -88,7 +86,7 @@ public class GameMenuScreen implements Screen {
 
             float x = MathUtils.random(0, Gdx.graphics.getWidth());
             float y = MathUtils.random(0, Gdx.graphics.getHeight());
-            float scale = MathUtils.random(1f, 2f);
+            float scale = MathUtils.random(2f, 5.5f);
 
             animationActor butterfly = new animationActor(
                     finalAnimation,
@@ -101,42 +99,36 @@ public class GameMenuScreen implements Screen {
             stage.addActor(butterfly);
         }
 
-
-        mainTable.add(logoImage).center().padBottom(50).row();
+        mainTable.add(logoImage).center().row();
 
         Table buttonRow = new Table();
-        buttonRow.add(newButton).width(240).pad(10);
-        buttonRow.add(loadButton).width(240).pad(10);
-        buttonRow.add(coOpButton).width(240).pad(10);
+        buttonRow.add(ipAddressLabel).width(200).pad(10).row();
+        buttonRow.add(hostLabel).pad(10).row();
+        buttonRow.add(hostName).width(200).row();
+        buttonRow.add(hostButton).width(240).pad(10);
+        buttonRow.add(joinButton).width(240).pad(10);
         buttonRow.add(backButton).width(240).pad(10);
 
         mainTable.add(buttonRow).center().row();
 
-        newButton.addListener(new ClickListener() {
+        hostButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                StardewValley.getGame().setScreen(new PreGameMenuScreen());
+                StardewValley.getGame().setScreen(new Co_opHostScreen(hostName.getText()));
             }
         });
 
-        loadButton.addListener(new ClickListener() {
+        joinButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //StardewValley.getGame().setScreen(new HelpScreen());
+                StardewValley.getGame().setScreen(new Co_opJoinScreen());
             }
         });
 
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                StardewValley.getGame().setScreen(new MainMenuScreen());
-            }
-        });
-
-        coOpButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                StardewValley.getGame().setScreen(new Co_opScreen());
+                StardewValley.getGame().setScreen(new GameMenuScreen());
             }
         });
     }
@@ -149,21 +141,27 @@ public class GameMenuScreen implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+    public void resize(int i, int i1) {
+
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+
+    }
 
     @Override
     public void dispose() {
-        stage.dispose();
+
     }
 }

@@ -102,7 +102,7 @@ public class GameMenuController {
                 new JojaMart(), new MarniesRanch(), new PierresStore(), new TheStardropSaloon())));
 
         App.getGame().setMap(new GameMap(farmSelections));
-        App.getGame().getMap().setFulMap();
+        App.getGame().getMap().setFullMap();
         App.getGame().setNPCs();
         App.getGame().setFriends();
 
@@ -126,7 +126,7 @@ public class GameMenuController {
             return new Result(false, "Sorry something went wrong!");
         }
         App.getGame().setMainPlayer(player);
-        App.getGame().getMap().setFulMap();
+        App.getGame().getMap().setFullMap();
         return new Result(true, "Game successfully loaded.");
     }
 

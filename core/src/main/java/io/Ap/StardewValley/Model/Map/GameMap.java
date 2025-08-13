@@ -65,7 +65,7 @@ public class GameMap {
         }
     }
 
-    public void setFulMap() {
+    public void setFullMap() {
         // Phase 1:
         // total rows = 3 * 30, total cols = 3 * 40;
 

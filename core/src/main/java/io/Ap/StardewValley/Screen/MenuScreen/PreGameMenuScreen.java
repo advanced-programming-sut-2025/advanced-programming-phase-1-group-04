@@ -11,12 +11,9 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Controller.GameMenuController;
-import io.Ap.StardewValley.Controller.ProfileMenuController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Screen.GameScreen;
 import io.Ap.StardewValley.StardewValley;
-
-import java.io.IOException;
 
 
 public class PreGameMenuScreen implements Screen {
@@ -217,7 +214,11 @@ public class PreGameMenuScreen implements Screen {
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameMenuController.newGameOffline(hairColor, pantColor, pantIndex / 12, shirtIndex, hairIndex, farmId);
+                try {
+                    GameMenuController.newGameOffline(hairColor, pantColor, pantIndex / 12, shirtIndex, hairIndex, farmId);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
                 StardewValley.getGame().setScreen(new GameScreen(GameMenuController.farmSelections));
             }
         });

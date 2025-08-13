@@ -1,23 +1,35 @@
 package io.Ap.StardewValley.Server;
 
+import java.io.IOException;
 import java.net.*;
 
 public class UdpClient {
+    private DatagramSocket socket;
+
+    public UdpClient(){
+        try {
+            socket = new DatagramSocket(6000);
+        }
+        catch (SocketException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws Exception {
-        DatagramSocket socket = new DatagramSocket();
-        InetAddress address = InetAddress.getByName("127.0.0.1");
 
-        String msg = "Hello UDP Server!";
-        byte[] buffer = msg.getBytes();
-        DatagramPacket packet = new DatagramPacket(buffer, buffer.length, address, 6000);
-        socket.send(packet);
+    }
 
+    public String receiveMessage () {
         byte[] receiveBuffer = new byte[1024];
         DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
-        socket.receive(receivePacket);
+        try {
+            socket.receive(receivePacket);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        String reply = new String(receivePacket.getData(), 0, receivePacket.getLength());
-        System.out.println("Server says: " + reply);
+        return new String(receivePacket.getData(), 0, receivePacket.getLength());
     }
 }
 

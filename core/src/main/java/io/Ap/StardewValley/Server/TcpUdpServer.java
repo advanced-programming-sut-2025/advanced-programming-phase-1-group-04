@@ -23,19 +23,6 @@ public class TcpUdpServer {
             try {
                 udpSocket = new DatagramSocket(udpPort);
                 System.out.println("UDP Server started on port " + udpPort);
-                byte[] buffer = new byte[1024];
-                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-                while (true) {
-                    udpSocket.receive(packet);
-                    String msg = new String(packet.getData(), 0, packet.getLength());
-                    System.out.println("UDP Received: " + msg);
-
-                    byte[] reply = ("Echo: " + msg).getBytes();
-                    DatagramPacket replyPacket = new DatagramPacket(
-                            reply, reply.length, packet.getAddress(), packet.getPort());
-                    udpSocket.send(replyPacket);
-                    clients.add(new InetSocketAddress(packet.getAddress(), packet.getPort()));
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

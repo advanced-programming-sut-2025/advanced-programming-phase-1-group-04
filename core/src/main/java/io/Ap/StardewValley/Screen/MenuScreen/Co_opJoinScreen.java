@@ -35,6 +35,8 @@ public class Co_opJoinScreen implements Screen {
 
     private final Array<Animation<TextureRegion>> butterflyAnimations;
 
+    private final Window window = new Window("", StardewValley.getSkin());
+
     private float stateTime = 0f;
 
     public Co_opJoinScreen() {
@@ -116,7 +118,6 @@ public class Co_opJoinScreen implements Screen {
         joinButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
                 StardewValley.getGame().setScreen(new Co_opScreen());
             }
         });
@@ -128,7 +129,7 @@ public class Co_opJoinScreen implements Screen {
             }
         });
 
-        Window window = new Window("", StardewValley.getSkin());
+
         Label titleLabel = new Label("Available Games", StardewValley.getSkin(), "Bold");
         titleLabel.setAlignment(Align.center);
         window.getTitleTable().clear();
@@ -156,7 +157,10 @@ public class Co_opJoinScreen implements Screen {
         stateTime += delta;
         if (stateTime >= 2) {
             stateTime = 0;
-            client.receiveLobbies();
+            String msg = client.receiveLobbies();
+            if (msg.startsWith("Lobby: ")) {
+                window.add("KIR");
+            }
         }
     }
 

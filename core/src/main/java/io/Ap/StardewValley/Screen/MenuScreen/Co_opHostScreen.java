@@ -137,7 +137,7 @@ public class Co_opHostScreen implements Screen {
         stateTime += delta;
         if (stateTime >= 2) {
             stateTime = 0;
-            tcpUdpServer.sendServer(App.getCurrentUser().getUsername());
+            tcpUdpServer.sendServer("Lobby: " + App.getCurrentUser().getUsername());
         }
     }
 

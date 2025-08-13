@@ -42,11 +42,11 @@ public class LanHost {
                 }
             }
         }
-        // اگه هیچی پیدا نشد، Broadcast کلی رو اضافه کن
         if (list.isEmpty()) {
             list.add(InetAddress.getByName("255.255.255.255"));
         }
         return list;
     }
 }
+
 

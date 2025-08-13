@@ -49,7 +49,7 @@ public class StardewValleyServers {
         return servers;
     }
 
-    public static Server getServer (String hostName) {
+    /*public static Server getServer (String hostName) {
         for (Server server : servers) {
             if (server.getHostName().equals(hostName)) {
                 return server;
@@ -65,5 +65,5 @@ public class StardewValleyServers {
             }
         }
         return null;
-    }
+    }*/
 }

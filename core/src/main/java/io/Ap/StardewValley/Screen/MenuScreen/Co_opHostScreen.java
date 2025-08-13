@@ -16,9 +16,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Model.App;
-import io.Ap.StardewValley.Model.Player.Player;
-import io.Ap.StardewValley.Server.Client;
-import io.Ap.StardewValley.Server.Server;
+import io.Ap.StardewValley.Model.User;
+import io.Ap.StardewValley.Server.TcpUdpServer;
 import io.Ap.StardewValley.StardewValley;
 
 import java.util.ArrayList;
@@ -30,23 +29,18 @@ public class Co_opHostScreen implements Screen {
 
     private final TextButton StartButton, backButton;
     private final Image backgroundImage;
-    private final ArrayList<String> players;
+    private final ArrayList<User> players;
     private final CheckBox visibilityCheckbox;
-    private final Server server;
     private final Window window = new Window("", StardewValley.getSkin());
 
     private final Array<Animation<TextureRegion>> butterflyAnimations;
 
+    private float stateTime = 0;
+
+    private final TcpUdpServer tcpUdpServer;
+
     public Co_opHostScreen(String hostName) {
         players = new ArrayList<>();
-        server = new Server(hostName , true);
-        try{
-            server.addClient(new Client(server.getIPv4Address(),
-                    server.getUdpPort(), App.getCurrentUser().getId(), App.getCurrentUser().getUsername()));
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
         butterflyAnimations = new Array<>();
         Skin skin = StardewValley.getSkin();
         visibilityCheckbox = new CheckBox("   Public" , skin);
@@ -65,7 +59,9 @@ public class Co_opHostScreen implements Screen {
             System.arraycopy(tmp[0], 4 * i, frames, 0, 4);
             butterflyAnimations.add(new Animation<>(0.13f, frames));
         }
-        players.add("Player1: " + App.getCurrentUser().getUsername());
+        players.add(App.getCurrentUser());
+        tcpUdpServer = new TcpUdpServer();
+        tcpUdpServer.start();
     }
 
     @Override
@@ -138,7 +134,11 @@ public class Co_opHostScreen implements Screen {
         ScreenUtils.clear(0, 0, 0, 1);
         stage.act(delta);
         stage.draw();
-        refreshList();
+        stateTime += delta;
+        if (stateTime >= 2) {
+            stateTime = 0;
+            tcpUdpServer.sendServer(App.getCurrentUser().getUsername());
+        }
     }
 
     @Override
@@ -166,28 +166,23 @@ public class Co_opHostScreen implements Screen {
 
     }
 
-    private void refreshList () {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.F5)) {
-            updatePlayers();
-        }
-    }
+    private void updatePlayers() {
 
-    private void updatePlayers () {
-        window.clear();
-        for (Client client : server.getClients()) {
-            Label titleLabel = new Label("Players: " + server.getHostName(), StardewValley.getSkin(), "Bold");
-            titleLabel.setAlignment(Align.center);
-            window.getTitleTable().clear();
-            window.getTitleTable().add(titleLabel).expandX().center().padTop(5).padBottom(10);
+        Label titleLabel = new Label("Players", StardewValley.getSkin(), "Bold");
+        titleLabel.setAlignment(Align.center);
+        window.getTitleTable().clear();
+        window.getTitleTable().add(titleLabel).expandX().center().padTop(5).padBottom(10);
 
-            window.setMovable(false);
-            window.setResizable(false);
-            window.setSize(900, 600);
-            window.setPosition(
-                    (stage.getWidth() - window.getWidth()) / 2,
-                    (stage.getHeight() - window.getHeight()) / 2 - 200
-            );
-            window.add(new Label(client.getPlayerName(), StardewValley.getSkin()));
+        window.setMovable(false);
+        window.setResizable(false);
+        window.setSize(900, 600);
+        window.setPosition(
+                (stage.getWidth() - window.getWidth()) / 2,
+                (stage.getHeight() - window.getHeight()) / 2 - 200
+        );
+
+        for (int i = 0; i < players.size(); i++) {
+            window.add(new Label ("Player" + (i + 1) + ": " + players.get(i).getUsername(), StardewValley.getSkin()));
         }
     }
 }

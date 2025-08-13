@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Server.Client;
+import io.Ap.StardewValley.Server.LocalHostClient;
 import io.Ap.StardewValley.Server.Server;
 import io.Ap.StardewValley.Server.StardewValleyServers;
 import io.Ap.StardewValley.StardewValley;
@@ -30,11 +31,15 @@ public class Co_opJoinScreen implements Screen {
     private final Image backgroundImage;
     private final ArrayList<String> serversName;
     private final TextField ipAddress;
+    private final LocalHostClient client;
 
     private final Array<Animation<TextureRegion>> butterflyAnimations;
 
+    private float stateTime = 0f;
+
     public Co_opJoinScreen() {
         serversName = new ArrayList<>();
+        client = new LocalHostClient();
         butterflyAnimations = new Array<>();
         Skin skin = StardewValley.getSkin();
         joinButton = new TextButton("Join", skin , "Chicken");
@@ -51,9 +56,6 @@ public class Co_opJoinScreen implements Screen {
             TextureRegion[] frames = new TextureRegion[4];
             System.arraycopy(tmp[0], 4 * i, frames, 0, 4);
             butterflyAnimations.add(new Animation<>(0.13f, frames));
-        }
-        for (Server server : StardewValleyServers.getServers()) {
-            serversName.add(server.getHostName());
         }
     }
 
@@ -114,17 +116,7 @@ public class Co_opJoinScreen implements Screen {
         joinButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                for (Server server : StardewValleyServers.getServers()) {
-                    if (server.isVisibility() && server.getHostName().equals(ipAddress.getText()) ||
-                            server.getIPv4Address().equals(ipAddress.getText())) {
-                        try {
-                            server.addClient(new Client(server.getIPv4Address(), server.getUdpPort(),
-                                    App.getCurrentUser().getId(), App.getCurrentUser().getUsername()));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
+
                 StardewValley.getGame().setScreen(new Co_opScreen());
             }
         });
@@ -161,6 +153,11 @@ public class Co_opJoinScreen implements Screen {
         ScreenUtils.clear(0, 0, 0, 1);
         stage.act(delta);
         stage.draw();
+        stateTime += delta;
+        if (stateTime >= 2) {
+            stateTime = 0;
+            client.receiveLobbies();
+        }
     }
 
     @Override

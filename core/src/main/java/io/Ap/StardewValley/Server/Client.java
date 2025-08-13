@@ -5,6 +5,9 @@ import io.Ap.StardewValley.Model.Player.Player;
 
 import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Client {
     private DatagramSocket udpSocket;
@@ -23,37 +26,6 @@ public class Client {
 
     public static void main(String[] args) throws Exception {
 
-    }
-
-    public void updatePosition() throws Exception {
-        Player player = App.getGame().getCurrentPlayer();
-        int playerId = player.getId();
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.text = "id = " + playerId + " Coordinate: "
-                + player.getCoordinate().getX() + "," + player.getCoordinate().getY();;
-        byte[] data = KryoUtils.serialize(chatMessage);
-        DatagramPacket packet = new DatagramPacket(data, data.length, serverAddress, serverUdpPort);
-        udpSocket.send(packet);
-    }
-
-    public DatagramSocket getUdpSocket() {
-        return udpSocket;
-    }
-
-    public InetAddress getServerAddress() {
-        return serverAddress;
-    }
-
-    public int getServerUdpPort() {
-        return serverUdpPort;
-    }
-
-    public int getPlayerId() {
-        return playerId;
-    }
-
-    public String getPlayerName() {
-        return playerName;
     }
 }
 

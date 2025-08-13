@@ -16,7 +16,7 @@ public class CarpentersMenu extends Stage {
 
     private final Skin skin = StardewValley.getSkin();
     private ShopMenu shopMenu;
-    //    private ShopMenu buildingsMenu;
+    private BuildingShopMenu buildingsMenu;
     private FirstMenu firstMenu;
     private TextButton shopMenuButton, buildingsButton, leaveButton;
     private CarpentersShop carpentersShop = new CarpentersShop();
@@ -33,7 +33,7 @@ public class CarpentersMenu extends Stage {
         super(new ScreenViewport());
 
         makeShopButton();
-        makeToolsButton();
+        makeBuildingButton();
         makeLeaveButton();
 
         firstMenu = new FirstMenu(skin, "Carpenter's shop", shopMenuButton, buildingsButton, leaveButton);
@@ -46,6 +46,13 @@ public class CarpentersMenu extends Stage {
         shopMenu.setVisible(false);
         this.addActor(shopMenu);
 
+        buildingsMenu = new BuildingShopMenu(skin, carpentersShop, texturePath, this);
+        buildingsMenu.setPosition(900, 540);
+        buildingsMenu.setVisible(false);
+        this.addActor(buildingsMenu);
+
+        shopMenu.getProductInformation().setShopStockNeedsUpdate(true);
+        update();
 
     }
 
@@ -55,7 +62,7 @@ public class CarpentersMenu extends Stage {
         }
         if (!visible) {
             shopMenu.setVisible(false);
-//            buildingsMenu.setVisible(false);
+            buildingsMenu.setVisible(false);
             isShopMenuVisible = false;
             isBuildingsMenuVisible = false;
         }
@@ -67,6 +74,7 @@ public class CarpentersMenu extends Stage {
 
     public void update() {
         shopMenu.updateShop();
+        buildingsMenu.updateShop();
     }
 
     private void makeShopButton() {
@@ -77,22 +85,29 @@ public class CarpentersMenu extends Stage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 firstMenu.setVisible(false);
+                buildingsMenu.setVisible(false);
                 shopMenu.setVisible(true);
                 shopMenu.toFront();
                 isShopMenuVisible = true;
+                isBuildingsMenuVisible = false;
             }
         });
         this.addActor(shopMenuButton);
     }
 
-    private void makeToolsButton() {
+    private void makeBuildingButton() {
         buildingsButton = new TextButton("Construct Farm Buildings", skin);
         buildingsButton.setSize(buttonWidth, buttonHeight);
 
         buildingsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                firstMenu.setVisible(false);
+                shopMenu.setVisible(false);
+                buildingsMenu.setVisible(true);
+                buildingsMenu.toFront();
+                isBuildingsMenuVisible = true;
+                isShopMenuVisible = false;
             }
         });
         this.addActor(buildingsButton);

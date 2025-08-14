@@ -161,6 +161,7 @@ public class GameScreenController {
             App.getGame().getCurrentPlayer().getInventory().addItem(new Fruit(FruitType.Apricot));
             App.getGame().getCurrentPlayer().getInventory().addItem(new Stone(), 1000);
             App.getGame().getCurrentPlayer().getInventory().addItem(new Wood(), 1000);
+            App.getGame().getCurrentPlayer().getInventory().addItem(new Sapling(SaplingType.ApricotSapling));
             inventoryStageNeedsUpdate = true;
             cookingStageNeedsUpdate = true;
             if (visibleShop == null) {

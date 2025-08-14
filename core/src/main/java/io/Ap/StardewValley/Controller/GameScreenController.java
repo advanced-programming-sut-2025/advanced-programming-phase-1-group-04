@@ -11,6 +11,8 @@ import io.Ap.StardewValley.Model.Cooking.Food;
 import io.Ap.StardewValley.Model.Cooking.FoodType;
 import io.Ap.StardewValley.Model.Crafting.Craft;
 import io.Ap.StardewValley.Model.Crafting.CraftType;
+import io.Ap.StardewValley.Model.Item.Stone;
+import io.Ap.StardewValley.Model.Item.Wood;
 import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.BuildingType;
 import io.Ap.StardewValley.Model.Map.Coordinate;
@@ -170,10 +172,12 @@ public class GameScreenController {
             App.getGame().getCurrentPlayer().getInventory().addItem(new Food(FoodType.BakedFish));
             App.getGame().getCurrentPlayer().getInventory().addItem(new Crop(CropType.Wheat));
             App.getGame().getCurrentPlayer().getInventory().addItem(new Fruit(FruitType.Apricot));
+            App.getGame().getCurrentPlayer().getInventory().addItem(new Stone(), 1000);
+            App.getGame().getCurrentPlayer().getInventory().addItem(new Wood(), 1000);
             inventoryStageNeedsUpdate = true;
             cookingStageNeedsUpdate = true;
             if (visibleShop == null) {
-                visibleShop = ShopType.TheStarDropSaloon;
+                visibleShop = ShopType.CarpentersShop;
             } else {
                 visibleShop = null;
             }
@@ -512,7 +516,7 @@ public class GameScreenController {
         }
     }
 
-    private boolean isShopBesideMe(BuildingType buildingType) {
+    public static boolean isShopBesideMe(BuildingType buildingType) {
         Tile[][] fullMap = App.getGame().getMap().getFullMap();
 
         int x = App.getGame().getCurrentPlayer().getCoordinate().getX();

@@ -1,4 +1,4 @@
-package io.Ap.StardewValley.Screen.ShopScreen;
+package io.Ap.StardewValley.Screen.ShopScreen.CarpentersScreen;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -8,19 +8,26 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import io.Ap.StardewValley.Controller.GameScreenController;
+import io.Ap.StardewValley.Model.Shop.CarpentersShop.CarpenterBuildings;
+import io.Ap.StardewValley.Model.Shop.CarpentersShop.CarpentersShop;
+import io.Ap.StardewValley.Model.Shop.MarniesRanch.MarniesRanch;
 import io.Ap.StardewValley.Model.Shop.ProductData;
 import io.Ap.StardewValley.Model.Shop.Shop;
+import io.Ap.StardewValley.Screen.ShopScreen.ProductInformation;
+import io.Ap.StardewValley.Screen.ShopScreen.SellerDescription;
+import io.Ap.StardewValley.Screen.ShopScreen.SellerPicture;
+import io.Ap.StardewValley.Screen.ShopScreen.ShopStock;
 
-public class ShopMenu extends Table {
+public class BuildingShopMenu extends Table {
     private SellerPicture sellerPicture;
     private SellerDescription sellerDescription;
     private ShopStock shopStock;
     private ProductInformation productInformation;
-    private Shop shop;
+    private CarpentersShop shop;
     private ImageButton closeButton;
 
 
-    public ShopMenu(Skin skin, Shop shop, String texturePath, Stage stage) {
+    public BuildingShopMenu(Skin skin, CarpentersShop shop, String texturePath, Stage stage) {
         super(skin);
         this.shop = shop;
 
@@ -47,7 +54,7 @@ public class ShopMenu extends Table {
         left.add(sellerDescription).size(330, 380).row();
 
 
-        shopStock = new ShopStock(skin, shop.getProductData(), shop.getType());
+        shopStock = new ShopStock(skin, shop.getBuildingData(), shop.getType());
         middle.add(shopStock).size(600, 700);
 
         productInformation = new ProductInformation(skin, new ProductData("", 0, 0, ""), shop, stage);
@@ -66,16 +73,12 @@ public class ShopMenu extends Table {
 
     public void updateShop() {
         if (productInformation.shopStockNeedsUpdate()) {
-            shopStock.update(shop.getProductData()); //todo: shop list
+            shopStock.update(shop.getBuildingData());
             productInformation.setShopStockNeedsUpdate(false);
         }
         if (shopStock.productDataNeedsUpdate()) {
             productInformation.update(shopStock.getSelectedProductData());
             shopStock.setProductDataNeedsUpdate(false);
         }
-    }
-
-    public ProductInformation getProductInformation() {
-        return productInformation;
     }
 }

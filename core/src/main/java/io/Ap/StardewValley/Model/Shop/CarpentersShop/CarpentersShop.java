@@ -131,7 +131,7 @@ public class CarpentersShop implements Shop {
             return new Result(true, number + " wood added to inventory.");
         }
         if (animalName == null) {
-            return new Result(false, "use build command for buildings!");
+            return new Result(true, "use build command for buildings!");
         }
         for (CarpenterBuildings s : buildings.keySet()) {
             if (productName.equalsIgnoreCase(s.getName())) {
@@ -184,4 +184,12 @@ public class CarpentersShop implements Shop {
         return productData;
     }
 
+
+    public ArrayList<ProductData> getBuildingData() {
+        ArrayList<ProductData> productData = new ArrayList<>();
+        for (CarpenterBuildings s : buildings.keySet()) {
+            productData.add(new ProductData(s.getName(), s.getCost(), buildings.get(s), s.getDescription()));
+        }
+        return productData;
+    }
 }

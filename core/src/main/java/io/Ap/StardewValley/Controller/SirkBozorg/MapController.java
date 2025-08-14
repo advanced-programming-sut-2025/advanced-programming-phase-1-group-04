@@ -1,6 +1,7 @@
 package io.Ap.StardewValley.Controller.SirkBozorg;
 
 import io.Ap.StardewValley.Controller.GameMenuController;
+import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.*;
 import io.Ap.StardewValley.Model.Player.Player;
@@ -486,5 +487,38 @@ public class MapController {
             }
         }
         return false;
+    }
+
+
+    //added by aynaz:
+    public static Result buildFarmBuildingThroughScreen (String name, String stringX, String stringY) {
+        int x, y;
+        try {
+            x = Integer.parseInt(stringX);
+            y = Integer.parseInt(stringY);
+        } catch (Exception e) {
+            return new Result (false, "enter number!");
+        }
+        Coordinate coordinate = new Coordinate(x, y);
+        BuildingType type = getBuildingType(name);
+        Result result = App.getGame().getShop(ShopType.CarpentersShop).buy(name, 1, "SOS");
+        // Map error:
+        if (!GameScreenController.isShopBesideMe(BuildingType.CarpentersShop)) {
+            return new Result(false, "you must be in Carpenter's Shop to be able to build an farm building!");
+        } else if ((x < 0 || x >= 90) || (y < 0 || y >= 120)) {
+            return new Result(false, "Mashti x,y bein (0,0) - (89, 119)");
+        } else if (!App.getGame().getCurrentPlayer().isMyFarm(coordinate)) {
+            return new Result(false, "You can only build farm buildings on your own farm!");
+        } else if (type == null) {
+            return new Result(false, "Building name is invalid!");
+        } else if (!hasThisBuildingType(type) && !canBuild(coordinate, type)) {
+            return new Result(false, "You can't build this building here!");
+        }
+        // Shop error:
+        else if (!result.isSuccessful()) {
+            return result;
+        }
+        App.getGame().getMap().build(coordinate, type);
+        return result;
     }
 }

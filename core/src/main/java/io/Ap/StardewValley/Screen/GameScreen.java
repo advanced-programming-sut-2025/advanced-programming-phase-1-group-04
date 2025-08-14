@@ -277,9 +277,9 @@ public class GameScreen implements Screen, InputProcessor {
         controllerTable.add(new Label("Energy: " + player.getEnergy() + "    ", skin));
         controllerTable.add(new Label("Max Energy: " + player.getMaxEnergy() + "    ", skin));
         //controllerTable.add(new Label("Season: " + time.getSeason() + "    ", skin));
-        controllerTable.add(new Label("Weather: " + time.getWeather() + "    ", skin));
+        //controllerTable.add(new Label("Weather: " + time.getWeather() + "    ", skin));
         //controllerTable.row();
-        controllerTable.add(new Label("TileInfo: " + App.getGame().getTile(cor).toString() + "    ", skin));
+        //controllerTable.add(new Label("TileInfo: " + App.getGame().getTile(cor).toString() + "    ", skin));
     }
 
     public void updateCamera() {

@@ -236,6 +236,7 @@ public class GameMap {
 
         for (int i = coordinate.getX(); i < type.getL() + coordinate.getX(); i++) {
             for (int j = coordinate.getY(); j < type.getW() + coordinate.getY(); j++) {
+                fullMap[i][j].setItem(null);
                 fullMap[i][j].setType(TileType.Building);
                 fullMap[i][j].setBuildingType(type);
             }

@@ -17,6 +17,9 @@ public class KeyManager {
     // animal:
     private int animalList = Input.Keys.P;
 
+    // miniGame:
+    private int miniGame = Input.Keys.G;
+
     //inventory:
     private int openInventory = Input.Keys.I;
 
@@ -133,6 +136,14 @@ public class KeyManager {
 
     public void setAnimalList(int animalList) {
         this.animalList = animalList;
+    }
+
+    public int getMiniGame() {
+        return miniGame;
+    }
+
+    public void setMiniGame(int miniGame) {
+        this.miniGame = miniGame;
     }
 }
 

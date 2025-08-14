@@ -27,6 +27,7 @@ import io.Ap.StardewValley.Screen.ItemScreen.ItemTextureBank;
 import io.Ap.StardewValley.Screen.MapScreen.DynamicMapLayerRender;
 import io.Ap.StardewValley.Screen.MapScreen.SeasonTextureManager;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
+import io.Ap.StardewValley.Screen.MiniGameScreen.MiniGameWindow;
 import io.Ap.StardewValley.Screen.ShopScreen.BlackSmithScreen.BlackSmithMenu;
 import io.Ap.StardewValley.Screen.ShopScreen.CarpentersScreen.CarpentersMenu;
 import io.Ap.StardewValley.Screen.ShopScreen.FishShopScreen.FishShopMenu;
@@ -54,6 +55,7 @@ public class GameScreen implements Screen, InputProcessor {
     // Animal:
     //private MyAnimalWindow animalListWindow;
     private AnimalRender cat = new AnimalRender();
+    private MiniGameWindow miniGameWindow;
 
     // Time:
     private Image nightOverlay;
@@ -191,9 +193,13 @@ public class GameScreen implements Screen, InputProcessor {
         stackBar.addActor(inventoryStack);
 
         // add to stage:
+        // animal:
         //animalListWindow = new MyAnimalWindow(StardewValley.getSkin());
         //stage.addActor(animalListWindow);
         //animalListWindow.setVisible(false);
+        miniGameWindow = new MiniGameWindow(StardewValley.getSkin());
+        stage.addActor(miniGameWindow);
+        miniGameWindow.setVisible(false);
 
         // weather layers:
         setWeatherLayerToStage(App.getGame().getCurrentTime().getWeather());
@@ -622,5 +628,9 @@ public class GameScreen implements Screen, InputProcessor {
             return false;
         }
         return true;
+    }
+
+    public MiniGameWindow getMiniGameWindow() {
+        return miniGameWindow;
     }
 }

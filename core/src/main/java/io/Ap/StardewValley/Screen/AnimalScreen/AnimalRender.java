@@ -23,7 +23,6 @@ public class AnimalRender {
     public AnimalRender() {
         this.catSheet = new Texture(Gdx.files.internal("animal/cat3.png"));
 
-        // تقسیم شیت
         TextureRegion[][] tmp = TextureRegion.split(catSheet, 32, 32);
         Array<TextureRegion> frames = new Array<>();
         for (int i = 0; i < tmp[0].length; i++) {

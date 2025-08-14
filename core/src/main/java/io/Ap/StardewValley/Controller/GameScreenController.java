@@ -32,6 +32,7 @@ import io.Ap.StardewValley.Model.Tool.ToolType;
 import io.Ap.StardewValley.Screen.GameScreen;
 import io.Ap.StardewValley.Screen.InventoryScreen.MapTab;
 import io.Ap.StardewValley.Screen.MapScreen.RegionTransition;
+import io.Ap.StardewValley.Screen.MiniGameScreen.MiniGameWindow;
 import io.Ap.StardewValley.Screen.PlayerScreen.DirectionType;
 import io.Ap.StardewValley.Screen.PlayerScreen.PlayerRender;
 import io.Ap.StardewValley.Screen.PlayerScreen.StateType;
@@ -43,7 +44,7 @@ public class GameScreenController {
     // animal:
 //    private static boolean isAnimalListVisible = false;
 //    private static boolean animalListNeedsUpdate = false;
-
+    private static boolean isMiniGameVisible = false;
 
     //inventory:
     private static boolean isInventoryStageVisible = false;
@@ -134,11 +135,17 @@ public class GameScreenController {
         updateToolAction(Gdx.graphics.getDeltaTime());
         updateFoodAction(Gdx.graphics.getDeltaTime());
 
+        // animal:
 //        view.getAnimalListWindow().setVisible(isAnimalListVisible);
 //        if (animalListNeedsUpdate) {
 //            view.getAnimalListWindow().update();
 //            animalListNeedsUpdate = false;
 //        }
+
+        // miniGame:
+        view.getMiniGameWindow().setVisible(isMiniGameVisible);
+        //if (isMiniGameVisible)
+            //view.getMiniGameWindow().update();
 
         //shops:
         updateShops();
@@ -209,7 +216,7 @@ public class GameScreenController {
         }
 
         // animal:
-//        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getAnimalList())) { // کلید مخصوص
+//        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getAnimalList())) {
 //            isAnimalListVisible = !isAnimalListVisible;
 //            if (isAnimalListVisible) {
 //                animalListNeedsUpdate = true;
@@ -220,6 +227,15 @@ public class GameScreenController {
 //                visibleShop = null;
 //            }
 //        }
+
+        // miniGame:
+        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getMiniGame())) {
+            isMiniGameVisible = true;
+            isInventoryStageVisible = false;
+            isCookingStageVisible = false;
+            isShippingBinVisible = false;
+            visibleShop = null;
+        }
 
         //inventory:
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getOpenInventory())){
@@ -561,5 +577,9 @@ public class GameScreenController {
     public void startFoodAction() {
         isFoodActionInProgress = true;
         foodActionStartTime = 0f;
+    }
+
+    public static void setIsMiniGameVisible(boolean isMiniGameVisible) {
+        GameScreenController.isMiniGameVisible = isMiniGameVisible;
     }
 }

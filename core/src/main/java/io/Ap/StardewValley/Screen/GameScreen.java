@@ -19,6 +19,7 @@ import io.Ap.StardewValley.Model.Player.Player;
 import io.Ap.StardewValley.Model.Result;
 import io.Ap.StardewValley.Model.Time.DateAndTime;
 import io.Ap.StardewValley.Model.Time.Weather;
+import io.Ap.StardewValley.Screen.AnimalScreen.MyAnimalWindow;
 import io.Ap.StardewValley.Screen.CookingScreen.CookingStage;
 import io.Ap.StardewValley.Screen.InventoryScreen.InventoryBar;
 import io.Ap.StardewValley.Screen.InventoryScreen.InventoryStage;
@@ -49,6 +50,9 @@ public class GameScreen implements Screen, InputProcessor {
     private static Image fullMap;
         // dynamic
     private final DynamicMapLayerRender dynamicMapLayerRender = new DynamicMapLayerRender();
+
+    // Animal:
+    private MyAnimalWindow animalListWindow;
 
 
     // Time:
@@ -187,6 +191,10 @@ public class GameScreen implements Screen, InputProcessor {
         stackBar.addActor(inventoryStack);
 
         // add to stage:
+        animalListWindow = new MyAnimalWindow(StardewValley.getSkin());
+        stage.addActor(animalListWindow);
+        animalListWindow.setVisible(false);
+
         // weather layers:
         setWeatherLayerToStage(App.getGame().getCurrentTime().getWeather());
         stage.addActor(nightOverlay);
@@ -610,5 +618,9 @@ public class GameScreen implements Screen, InputProcessor {
             return false;
         }
         return true;
+    }
+
+    public MyAnimalWindow getAnimalListWindow() {
+        return animalListWindow;
     }
 }

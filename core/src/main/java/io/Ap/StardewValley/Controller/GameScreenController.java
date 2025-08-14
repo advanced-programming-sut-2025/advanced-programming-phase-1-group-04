@@ -2,8 +2,10 @@ package io.Ap.StardewValley.Controller;
 
 import com.badlogic.gdx.Gdx;
 import io.Ap.StardewValley.Controller.SirkBozorg.*;
+import io.Ap.StardewValley.Model.Animals.Animal;
 import io.Ap.StardewValley.Model.Animals.AnimalProduct;
 import io.Ap.StardewValley.Model.Animals.AnimalProductType;
+import io.Ap.StardewValley.Model.Animals.AnimalType;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Cooking.Food;
 import io.Ap.StardewValley.Model.Cooking.FoodType;
@@ -35,6 +37,11 @@ import io.Ap.StardewValley.Screen.PlayerScreen.StateType;
 public class GameScreenController {
     private final PlayerRender playerRender = new PlayerRender();
     private GameScreen view;
+
+    // animal:
+    private static boolean isAnimalListVisible = false;
+    private static boolean animalListNeedsUpdate = false;
+
 
     //inventory:
     private static boolean isInventoryStageVisible = false;
@@ -125,6 +132,12 @@ public class GameScreenController {
         updateToolAction(Gdx.graphics.getDeltaTime());
         updateFoodAction(Gdx.graphics.getDeltaTime());
 
+        view.getAnimalListWindow().setVisible(isAnimalListVisible);
+        if (animalListNeedsUpdate) {
+            view.getAnimalListWindow().update();
+            animalListNeedsUpdate = false;
+        }
+
         //shops:
         updateShops();
 
@@ -169,6 +182,11 @@ public class GameScreenController {
         }
 
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getNafisehCheat())){
+           Player player = App.getGame().getCurrentPlayer();
+           player.addAnimal(new Animal(AnimalType.Pig, "nafiseh"));
+           player.addAnimal(new Animal(AnimalType.Goat, "goat"));
+           player.addAnimal(new Animal(AnimalType.Dinosaur, "kir"));
+           player.addAnimal(new Animal(AnimalType.Sheep, "sheep"));
             //App.getGame().getCurrentPlayer().setEnergy(-1);
             //App.getGame().getCurrentTime().setHour(23);
             //App.getGame().getCurrentTime().setMinute(59);
@@ -184,6 +202,19 @@ public class GameScreenController {
 //            App.getGame().getMap().getFullMap()
 //                    [App.getGame().getCurrentPlayer().getCoordinate().getX() + 1][App.getGame().getCurrentPlayer().getCoordinate().getY() + 1]
 //                    .setItem(new Crop(CropType.Potato));
+        }
+
+        // animal:
+        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getAnimalList())) { // کلید مخصوص
+            isAnimalListVisible = !isAnimalListVisible;
+            if (isAnimalListVisible) {
+                animalListNeedsUpdate = true;
+                // بقیه UI ها رو ببند
+                isInventoryStageVisible = false;
+                isCookingStageVisible = false;
+                isShippingBinVisible = false;
+                visibleShop = null;
+            }
         }
 
         //inventory:

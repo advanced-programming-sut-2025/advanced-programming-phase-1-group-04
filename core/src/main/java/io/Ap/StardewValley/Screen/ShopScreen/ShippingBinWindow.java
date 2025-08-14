@@ -27,7 +27,6 @@ public class ShippingBinWindow extends Window {
     private final List<ImageTextButton> inventoryButtons;
     private ImageTextButton selectedButton;
     private Table leftPart;
-
     private ScrollPane scrollPane;
     private Map<ImageTextButton, String> buttonToItemName = new HashMap<>();
 

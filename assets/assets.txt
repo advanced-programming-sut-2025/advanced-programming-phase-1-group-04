@@ -1,3 +1,4 @@
+animal/cat3.png
 etc/FullMap.png
 etc/avatar/0.png
 etc/avatar/1.png

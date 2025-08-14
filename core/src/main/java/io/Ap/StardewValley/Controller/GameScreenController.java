@@ -41,8 +41,8 @@ public class GameScreenController {
     private GameScreen view;
 
     // animal:
-    private static boolean isAnimalListVisible = false;
-    private static boolean animalListNeedsUpdate = false;
+//    private static boolean isAnimalListVisible = false;
+//    private static boolean animalListNeedsUpdate = false;
 
 
     //inventory:
@@ -134,11 +134,11 @@ public class GameScreenController {
         updateToolAction(Gdx.graphics.getDeltaTime());
         updateFoodAction(Gdx.graphics.getDeltaTime());
 
-        view.getAnimalListWindow().setVisible(isAnimalListVisible);
-        if (animalListNeedsUpdate) {
-            view.getAnimalListWindow().update();
-            animalListNeedsUpdate = false;
-        }
+//        view.getAnimalListWindow().setVisible(isAnimalListVisible);
+//        if (animalListNeedsUpdate) {
+//            view.getAnimalListWindow().update();
+//            animalListNeedsUpdate = false;
+//        }
 
         //shops:
         updateShops();
@@ -209,17 +209,17 @@ public class GameScreenController {
         }
 
         // animal:
-        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getAnimalList())) { // کلید مخصوص
-            isAnimalListVisible = !isAnimalListVisible;
-            if (isAnimalListVisible) {
-                animalListNeedsUpdate = true;
-                // بقیه UI ها رو ببند
-                isInventoryStageVisible = false;
-                isCookingStageVisible = false;
-                isShippingBinVisible = false;
-                visibleShop = null;
-            }
-        }
+//        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getAnimalList())) { // کلید مخصوص
+//            isAnimalListVisible = !isAnimalListVisible;
+//            if (isAnimalListVisible) {
+//                animalListNeedsUpdate = true;
+//                // بقیه UI ها رو ببند
+//                isInventoryStageVisible = false;
+//                isCookingStageVisible = false;
+//                isShippingBinVisible = false;
+//                visibleShop = null;
+//            }
+//        }
 
         //inventory:
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getOpenInventory())){

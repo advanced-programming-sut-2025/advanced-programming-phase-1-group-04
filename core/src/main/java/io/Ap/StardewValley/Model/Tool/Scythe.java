@@ -41,7 +41,7 @@ public class Scythe implements Tool {
                 return new Result(true, "coal added to inventory.");
             }
             else if (tree.hasFruit()) {
-                if (!player.addItemToInventory(new Fruit(tree.getFruitType(), qualityConst()), 1)) {
+                if (!player.addItemToInventory(new Fruit(tree.getFruitType(), qualityConst()), 5)) {
                     return new Result(false, "you can't add this fruit to your inventory!");
                 }
                 if (!tree.isPurposelyPlanted()) {

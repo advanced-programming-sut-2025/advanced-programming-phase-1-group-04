@@ -1,5 +1,6 @@
 package io.Ap.StardewValley.Screen.MenuScreen;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.Ap.StardewValley.Controller.GameMenuController;
 import io.Ap.StardewValley.Screen.GameScreen;
 import io.Ap.StardewValley.StardewValley;
 
@@ -122,7 +124,9 @@ public class GameMenuScreen implements Screen {
         loadButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //StardewValley.getGame().setScreen(new HelpScreen());
+                //if (GameMenuController.loadGame().isSuccessful())
+                    //StardewValley.getGame().setScreen(new GameScreen());
+
             }
         });
 

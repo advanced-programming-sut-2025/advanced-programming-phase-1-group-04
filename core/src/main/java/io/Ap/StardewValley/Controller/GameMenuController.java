@@ -103,8 +103,8 @@ public class GameMenuController {
 
         App.getGame().setMap(new GameMap(farmSelections));
         App.getGame().getMap().setFulMap();
-        App.getGame().setNPCs();
-        App.getGame().setFriends();
+        //App.getGame().setNPCs();
+        //App.getGame().setFriends();
 
         NightController.randomForagingPlants();
         NightController.randomForagingMinerals();
@@ -218,68 +218,6 @@ public class GameMenuController {
         return new Result(true, App.getGame().getCurrentPlayer().toString());
     }
 
-    public static Tile getTileByDirection (String direction) {
-        direction = direction.toLowerCase();
-        Coordinate coordinate = new Coordinate(App.getGame().getCurrentPlayer().getCoordinate().getX(),
-                App.getGame().getCurrentPlayer().getCoordinate().getY());
-        int x = coordinate.getX();
-        int y = coordinate.getY();
-        // Phase 1:
-        int maxX = 240;
-        int maxY = 290;
-
-        switch (direction) {
-            case "n":
-                if (x > 0) {
-                    coordinate.setX(x - 1);
-                } else {return null;}
-                break;
-            case "s":
-                if (x < maxX) {
-                    coordinate.setX(x + 1);
-                } else {return null;}
-                break;
-            case "e":
-                if (y < maxY) {
-                    coordinate.setY(y + 1);
-                } else {return null;}
-                break;
-            case "w":
-                if (y > 0) {
-                    coordinate.setY(y - 1);
-                } else {return null;}
-                break;
-            case "ne":
-                if (x > 0 && y < maxY) {
-                    coordinate.setX(x - 1);
-                    coordinate.setY(y + 1);
-                } else {return null;}
-                break;
-            case "nw":
-                if (x > 0 && y > 0) {
-                    coordinate.setX(x - 1);
-                    coordinate.setY(y - 1);
-                } else {return null;}
-                break;
-            case "se":
-                if (x < maxX && y < maxY) {
-                    coordinate.setX(x + 1);
-                    coordinate.setY(y + 1);
-                } else {return null;}
-                break;
-            case "sw":
-                if (x < maxX && y > 0) {
-                    coordinate.setX(x + 1);
-                    coordinate.setY(y - 1);
-                } else {return null;}
-                break;
-            default:
-                return null;
-        }
-
-        return App.getGame().getTile(coordinate);
-    }
-
     public static Coordinate getCoordinateByDirection (String direction) {
         direction = direction.toLowerCase();
         Coordinate coordinate = new Coordinate(App.getGame().getCurrentPlayer().getCoordinate().getX(),
@@ -364,7 +302,7 @@ public class GameMenuController {
             Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Item.class, new ItemAdapter())
                 .registerTypeAdapter(Shop.class, new ShopAdapter())
-                .setPrettyPrinting()
+                //.setPrettyPrinting()
                 .create();
             gson.toJson(App.getGame(), writer);
         } catch (IOException e) {
@@ -535,6 +473,68 @@ public class GameMenuController {
             builder.append("\t").append(counter).append("- ").append(notification).append("\n");
         }
         System.out.println(builder.toString());
+    }
+
+    public static Tile getTileByDirection (String direction) {
+        direction = direction.toLowerCase();
+        Coordinate coordinate = new Coordinate(App.getGame().getCurrentPlayer().getCoordinate().getX(),
+                App.getGame().getCurrentPlayer().getCoordinate().getY());
+        int x = coordinate.getX();
+        int y = coordinate.getY();
+        // Phase 1:
+        int maxX = 240;
+        int maxY = 290;
+
+        switch (direction) {
+            case "n":
+                if (x > 0) {
+                    coordinate.setX(x - 1);
+                } else {return null;}
+                break;
+            case "s":
+                if (x < maxX) {
+                    coordinate.setX(x + 1);
+                } else {return null;}
+                break;
+            case "e":
+                if (y < maxY) {
+                    coordinate.setY(y + 1);
+                } else {return null;}
+                break;
+            case "w":
+                if (y > 0) {
+                    coordinate.setY(y - 1);
+                } else {return null;}
+                break;
+            case "ne":
+                if (x > 0 && y < maxY) {
+                    coordinate.setX(x - 1);
+                    coordinate.setY(y + 1);
+                } else {return null;}
+                break;
+            case "nw":
+                if (x > 0 && y > 0) {
+                    coordinate.setX(x - 1);
+                    coordinate.setY(y - 1);
+                } else {return null;}
+                break;
+            case "se":
+                if (x < maxX && y < maxY) {
+                    coordinate.setX(x + 1);
+                    coordinate.setY(y + 1);
+                } else {return null;}
+                break;
+            case "sw":
+                if (x < maxX && y > 0) {
+                    coordinate.setX(x + 1);
+                    coordinate.setY(y - 1);
+                } else {return null;}
+                break;
+            default:
+                return null;
+        }
+
+        return App.getGame().getTile(coordinate);
     }
 
     // Phase 2:

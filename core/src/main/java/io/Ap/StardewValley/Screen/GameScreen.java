@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.Ap.StardewValley.Controller.GameMenuController;
 import io.Ap.StardewValley.Controller.GameScreenController;
 import io.Ap.StardewValley.Model.App;
 import io.Ap.StardewValley.Model.Map.Coordinate;
@@ -27,6 +28,8 @@ import io.Ap.StardewValley.Screen.ItemScreen.ItemTextureBank;
 import io.Ap.StardewValley.Screen.MapScreen.DynamicMapLayerRender;
 import io.Ap.StardewValley.Screen.MapScreen.SeasonTextureManager;
 import io.Ap.StardewValley.Screen.MapScreen.TiledMapRendererHelper;
+import io.Ap.StardewValley.Screen.MenuScreen.MainMenuScreen;
+import io.Ap.StardewValley.Screen.MenuScreen.SignUpMenuScreen;
 import io.Ap.StardewValley.Screen.MiniGameScreen.MiniGameWindow;
 import io.Ap.StardewValley.Screen.ShopScreen.BlackSmithScreen.BlackSmithMenu;
 import io.Ap.StardewValley.Screen.ShopScreen.CarpentersScreen.CarpentersMenu;
@@ -326,9 +329,7 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     public void showPauseDialog() {
-        Skin skin = StardewValley.getSkin();
-        Table table = new Table();
-        Dialog pauseDialog = new Dialog("Pause", skin) {
+        Dialog pauseDialog = new Dialog("Pause", StardewValley.getSkin()) {
             @Override
             protected void result(Object object) {
                 if (object instanceof String) {
@@ -336,7 +337,13 @@ public class GameScreen implements Screen, InputProcessor {
                         case "resume":
                             paused = false;
                             break;
+                        case "save":
+                            GameMenuController.exitGame();
+                            //dispose();
+                            StardewValley.getGame().setScreen(new MainMenuScreen());
+                            break;
                         case "exit":
+                            dispose();
                             Gdx.app.exit();
                             break;
                     }
@@ -344,15 +351,22 @@ public class GameScreen implements Screen, InputProcessor {
             }
         };
 
-        pauseDialog.getContentTable().add(table).expand().fill();
+        Table buttonTable = pauseDialog.getButtonTable();
+        buttonTable.defaults().pad(0);
 
-        pauseDialog.button("resume", "resume").row();
-        pauseDialog.button("exit", "exit").row();
+        buttonTable.pad(100);
+
+        buttonTable.defaults().space(10);
+
+        pauseDialog.button("Resume", "resume").row();
+        pauseDialog.button("Save", "save").row();
+        pauseDialog.button("Exit", "exit");
 
         pauseDialog.setMovable(false);
         pauseDialog.setModal(true);
         pauseDialog.show(stage);
     }
+
 
     public void showNightOverlay(Runnable onFinished) {
         Stack overlay = new Stack();

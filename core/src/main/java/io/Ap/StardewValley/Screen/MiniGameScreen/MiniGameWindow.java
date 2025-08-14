@@ -152,19 +152,18 @@ public class MiniGameWindow extends Window {
                             break;
                         case Sinker:
                             x += dirX ? vx : -vx;
-                            y -= 6;
+                            y -= 4;
                             break;
                         case Floater:
                             x += dirX ? vx : -vx;
-                            y += 6;
+                            y += 4;
                             break;
                         case Dart:
-                            x += dirX ? 6 : -6;
-                            y += dirY ? 6 : -6;
+                            x += dirX ? 5 : -5;
+                            y += dirY ? 5 : -5;
                             break;
                     }
 
-                    // برخورد با دیوار
                     if (x < minPoolWidth) { x = minPoolWidth; dirX = true; }
                     if (x + fish.getWidth() > maxPoolWidth) { x = maxPoolWidth - fish.getWidth(); dirX = false; }
                     if (y < minPoolHeight) { y = minPoolHeight; dirY = true; }
@@ -172,7 +171,6 @@ public class MiniGameWindow extends Window {
 
                     fish.setPosition(x, y);
 
-                    // بررسی نوار سبز
                     boolean inGreen = x + fish.getWidth()/2 >= greenBar.getX() &&
                             x + fish.getWidth()/2 <= greenBar.getX() + greenBar.getWidth();
                     if (!inGreen) {

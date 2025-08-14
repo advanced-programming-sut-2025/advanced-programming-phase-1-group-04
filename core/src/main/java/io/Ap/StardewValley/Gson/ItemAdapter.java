@@ -5,6 +5,7 @@ import io.Ap.StardewValley.Model.Animals.Fish;
 import io.Ap.StardewValley.Model.Cooking.Food;
 import io.Ap.StardewValley.Model.Cooking.Ingredient;
 import io.Ap.StardewValley.Model.Crafting.Craft;
+import io.Ap.StardewValley.Model.Item.Coin;
 import io.Ap.StardewValley.Model.Item.Item;
 import io.Ap.StardewValley.Model.Item.Stone;
 import io.Ap.StardewValley.Model.Item.Wood;
@@ -58,8 +59,12 @@ public class ItemAdapter implements JsonSerializer<Item>, JsonDeserializer<Item>
 
             case "Fish":
                 return context.deserialize(jsonObject.get("data"), Fish.class);
-            case "AnimalProduce":
+            case "AnimalProduct":
                 return context.deserialize(jsonObject.get("data"), AnimalProduct.class);
+
+            // خدا پارسا را لعنت کند
+            case "Coin":
+                return context.deserialize(jsonObject.get("data"), Coin.class);
 
             case "Ingredient":
                 return context.deserialize(jsonObject.get("data"), Ingredient.class);

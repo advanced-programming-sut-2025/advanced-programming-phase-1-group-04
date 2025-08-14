@@ -12,6 +12,7 @@ import java.io.IOException;
 import io.Ap.StardewValley.Gson.ItemAdapter;
 
 public class GameMap {
+    public final int[] farmSelections;
     private final Region[][] region = new Region[3][3];
     private transient Tile[][] fullMap;
 
@@ -22,6 +23,7 @@ public class GameMap {
     private final int[] colOffsets = new int[3];
 
     public GameMap(int[] farmSelection) {
+        this.farmSelections = farmSelection;
         // Phase 1:
 //        region[0][0] = loadRegionJson("Farming"  + farmSelection[0]);
 //        region[0][1] = loadRegionJson("Path1");

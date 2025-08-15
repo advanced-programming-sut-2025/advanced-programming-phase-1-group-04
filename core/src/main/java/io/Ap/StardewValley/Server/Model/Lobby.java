@@ -1,10 +1,12 @@
 package io.Ap.StardewValley.Server.Model;
 
+import io.Ap.StardewValley.Common.Model.App;
 import io.Ap.StardewValley.Common.Model.Game;
 import io.Ap.StardewValley.Common.Model.Player.Player;
 import io.Ap.StardewValley.Common.Model.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Lobby {
     private User host;
@@ -123,4 +125,44 @@ public class Lobby {
     }
 
 
+    public LobbyData getLobbyData () {
+
+        System.out.println("tkh1");
+        HashMap<String, Object> hostInfo = new HashMap<>();
+        System.out.println("tkh2");
+        hostInfo.put("hairColor", hostPlayer.getHairColor());
+        System.out.println("tkhh1");
+        hostInfo.put("pantColor", hostPlayer.getPantColor());
+        System.out.println("tkhh1");
+        hostInfo.put("pantIndex", "" + hostPlayer.getPantIndex());
+        System.out.println("tkhh1");
+        hostInfo.put("shirtIndex", "" + hostPlayer.getShirtIndex());
+        System.out.println("tkhh1");
+        hostInfo.put("hairIndex", "" + hostPlayer.getHairIndex());
+        System.out.println("tkhh1");
+        hostInfo.put("id", "" + hostPlayer.getId());
+        System.out.println("tkhh1");
+        hostInfo.put("farm", "1");
+        System.out.println("tkh3");
+
+        ArrayList<HashMap<String, Object>> playerInfo = new ArrayList<>();
+        System.out.println("tkh4");
+        for (int i = 1; i < players.size(); i++) {
+            System.out.println("tkh5");
+            HashMap<String, Object> info = new HashMap<>();
+            System.out.println("tkh6");
+            info.put("hairColor", players.get(i).getHairColor());
+            info.put("pantColor", players.get(i).getPantColor());
+            info.put("pantIndex", "" + players.get(i).getPantIndex());
+            info.put("shirtIndex", "" + players.get(i).getShirtIndex());
+            info.put("hairIndex", "" + players.get(i).getHairIndex());
+            info.put("id", "" + players.get(i).getId());
+            info.put("farm", "" + (i + 1));
+            System.out.println("tkh7");
+            playerInfo.add(info);
+            System.out.println("tkh8");
+        }
+        System.out.println("tkh9");
+        return new LobbyData(players.size(), hostInfo, playerInfo, farmSelections);
+    }
 }

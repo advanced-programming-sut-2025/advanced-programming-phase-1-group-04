@@ -9,10 +9,21 @@ public class LobbyData {
     private HashMap<String, Object> hostInfo;
     private ArrayList<HashMap<String, Object>> playerInfo;
 
-    public LobbyData(int numberOfPlayers, HashMap<String, Object> hostInfo, ArrayList<HashMap<String, Object>> playerInfo) {
+    public int[] getFarmSelections() {
+        return farmSelections;
+    }
+
+    public void setFarmSelections(int[] farmSelections) {
+        this.farmSelections = farmSelections;
+    }
+
+    private int[] farmSelections = new int[4];
+
+    public LobbyData(int numberOfPlayers, HashMap<String, Object> hostInfo, ArrayList<HashMap<String, Object>> playerInfo, int[] farmSelections) {
         this.numberOfPlayers = numberOfPlayers;
         this.hostInfo = hostInfo;
         this.playerInfo = playerInfo;
+        this.farmSelections = farmSelections;
     }
 
     public int getNumberOfPlayers() {

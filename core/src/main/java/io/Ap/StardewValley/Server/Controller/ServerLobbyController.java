@@ -154,6 +154,7 @@ public class ServerLobbyController {
 
         if (!lobby.getPlayers().contains(player)) {
             lobby.getPlayers().add(player);
+            lobby.setHostPlayer(player);
         } else {
             return new Result(false, "you already are here!");
         }
@@ -254,14 +255,16 @@ public class ServerLobbyController {
     public static Result startGame (Message command) {
         Lobby lobby = findLobby(command.getFromBody("name"));
         System.out.println("shash1");
-        String lobbyJason = JSONUtils.toJson(lobby);
+        if (lobby == null) return new Result(false, "invalid lobby!");
         System.out.println("shash2");
-        ServerApp.getUpdateBody().put("startGame", lobbyJason);
+        String lobbyJason = JSONUtils.toJson(lobby.getLobbyData());
         System.out.println("shash3");
-        ServerApp.setUpdateThread(new UpdateThread());
+        ServerApp.getUpdateBody().put("startGame", lobbyJason);
         System.out.println("shash4");
-        ServerApp.startUpdateThread();
+        ServerApp.setUpdateThread(new UpdateThread());
         System.out.println("shash5");
+        ServerApp.startUpdateThread();
+        System.out.println("shash6");
         return new Result(true, "game created successfully");
     }
 

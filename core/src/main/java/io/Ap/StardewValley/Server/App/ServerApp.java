@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ServerApp {
-    public static final int TIMEOUT_MILLIS = 5000;
+    public static final int TIMEOUT_MILLIS = 10000;
     private static final ArrayList<ClientConnectionThread> connections = new ArrayList<>();
     private static boolean exitFlag = false;
     private static ListenerThread listenerThread;
@@ -13,6 +13,8 @@ public class ServerApp {
     //TODO update stuff
     private static HashMap<String, Object> updateBody = new HashMap<>();
     private static UpdateThread updateThread;
+
+//    private static ArrayList<String> onlineUsernames = new ArrayList<>();
 
 
     public static boolean isEnded() {
@@ -24,7 +26,6 @@ public class ServerApp {
     }
 
     public static List<ClientConnectionThread> getConnections() {
-//        return List.copyOf(ServerApp.connections);
         return connections;
     }
 
@@ -47,13 +48,25 @@ public class ServerApp {
     public static void removeClientConnection(ClientConnectionThread clientConnectionThread) {
         if (clientConnectionThread != null) {
             connections.remove(clientConnectionThread);
+
+//            onlineUsernames.remove(clientConnectionThread);
             clientConnectionThread.end();
+//            updateBody.put("onlineUsers", getOnlineUsersString());
         }
     }
 
     public static void addClientConnection(ClientConnectionThread clientConnectionThread) {
         if (clientConnectionThread != null && !connections.contains(clientConnectionThread)) {
             connections.add(clientConnectionThread);
+
+//            HashMap<String, Object> body = new HashMap<>();
+//            body.put("controller", "LobbyController");
+//            body.put("request", "getUsername");
+//            Message message = clientConnectionThread.sendAndWaitForResponse(new Message(body, Message.Type.command), TIMEOUT_MILLIS);
+//            String username = message.getResult().message();
+//            onlineUsernames.put(clientConnectionThread, username);
+//
+//            updateBody.put("onlineUsers", getOnlineUsersString());
         }
     }
 
@@ -80,4 +93,12 @@ public class ServerApp {
     public static void endGame() {
         updateThread.end();
     }
+
+//    private static String getOnlineUsersString() {
+//        String result = "Online Users:\n\n";
+//        for (String u : onlineUsernames.values()) {
+//            result = result + u +"\n";
+//        }
+//        return result;
+//    }
 }

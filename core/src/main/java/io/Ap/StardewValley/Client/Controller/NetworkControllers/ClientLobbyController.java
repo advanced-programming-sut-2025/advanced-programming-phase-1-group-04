@@ -8,6 +8,27 @@ import io.Ap.StardewValley.Common.Model.Result;
 import java.util.HashMap;
 
 public class ClientLobbyController {
+
+    public static Message handleCommand (Message command) {
+        String request;
+        Result result = null;
+
+        if ((request = command.getFromBody("request")) == null) {
+            return null;
+        } else {
+            if (request.equalsIgnoreCase("getUsername")) {
+                result = getUsername();
+            }
+        }
+        if (result == null) result = new Result(false, "abbas");
+
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("message", result.message());
+        body.put("success", result.isSuccessful());
+
+        return new Message(body, Message.Type.response);
+    }
+
     public static Result makeLobby (String name, String password, boolean isVisible, boolean isPrivate) {
         HashMap<String, Object> body = new HashMap<>();
         body.put("controller", "LobbyController");
@@ -116,5 +137,9 @@ public class ClientLobbyController {
 
     public static Message receiveAnswer (Message message) {
         return ClientApp.getServerConnectionThread().sendAndWaitForResponse(message, ClientApp.TIMEOUT_MILLIS);
+    }
+
+    public static Result getUsername() {
+        return new Result(true, App.getCurrentUser().getUsername());
     }
 }

@@ -1,33 +1,37 @@
 package io.Ap.StardewValley.Client.Controller.NetworkControllers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import io.Ap.StardewValley.Client.App.ClientApp;
 import io.Ap.StardewValley.Client.Controller.GameMenuController;
 import io.Ap.StardewValley.Client.Screen.GameScreen;
+import io.Ap.StardewValley.Client.Screen.MenuScreen.OnlineUsersScreen;
 import io.Ap.StardewValley.Common.JSONUtils;
 import io.Ap.StardewValley.Common.Message;
 import io.Ap.StardewValley.Common.Model.App;
 import io.Ap.StardewValley.Common.Model.Game;
+import io.Ap.StardewValley.Common.Model.Map.Coordinate;
 import io.Ap.StardewValley.Common.Model.Player.Player;
 import io.Ap.StardewValley.Server.Model.LobbyData;
 import io.Ap.StardewValley.StardewValley;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UpdateController {
+    public static Label onlineUsersLabel = new Label("Online Users:", StardewValley.getSkin());
 
     public static void startGame(Message message) {
         try {
-            System.out.println("s2");
+
             Player currentPlayer = null;
             Player mainPlayer;
-            ArrayList<Player> players = new ArrayList<>();            System.out.println("s4");
+            ArrayList<Player> players = new ArrayList<>();
             String jsonLobby = message.getFromBody("startGame");
             System.out.println("JSON Received: " + jsonLobby);
 
-
             LobbyData lobbyData = JSONUtils.lobbyDataFromJson(message.getFromBody("startGame"));
-
 
             System.out.println("s5");
             if (lobbyData == null) return;
@@ -86,6 +90,22 @@ public class UpdateController {
         int farm = Integer.parseInt((String) info.get("farm"));
 
         return new Player(hairColor, pantColor, pantIndex, shirtIndex, hairIndex, id, farm);
+    }
+
+//    public static void updateOnlineUsers(Message message) {
+//        String onlineUsersList = message.getFromBody("onlineUsers");
+//        onlineUsersLabel.setText(onlineUsersList);
+//    }
+
+    public static void updatePlayer(Coordinate coordinate) {
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("x", "" + coordinate.getX());
+        body.put("y", "" + coordinate.getY());
+        body.put("id", "" + App.getCurrentUser().getId());
+        body.put("energy", "" + App.getGame().getCurrentPlayer().getEnergy());
+        body.put("count", "" + App.getGame().getCurrentPlayer().getCount());
+
+        ClientApp.getServerConnectionThread().sendMessage(new Message(body, Message.Type.update));
     }
 
 }

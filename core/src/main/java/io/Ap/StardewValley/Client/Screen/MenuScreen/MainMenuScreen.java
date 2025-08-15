@@ -136,6 +136,12 @@ public class MainMenuScreen implements Screen {
         float scaleButton = 1.3f;
         button.setSize(button.getWidth() * scaleButton,button.getHeight() * scaleButton);
 
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                StardewValley.getGame().setScreen(new OnlineUsersScreen());
+            }
+        });
         float scaleAvatar = 1.4f;
         Texture avatarTexture = new Texture(Gdx.files.internal(App.getCurrentUser().getAvatarPath()));
         avatarTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);

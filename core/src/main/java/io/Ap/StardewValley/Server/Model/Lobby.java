@@ -1,8 +1,8 @@
 package io.Ap.StardewValley.Server.Model;
 
-import io.Ap.StardewValley.Model.Game;
-import io.Ap.StardewValley.Model.Player.Player;
-import io.Ap.StardewValley.Model.User;
+import io.Ap.StardewValley.Common.Model.Game;
+import io.Ap.StardewValley.Common.Model.Player.Player;
+import io.Ap.StardewValley.Common.Model.User;
 
 import java.util.ArrayList;
 

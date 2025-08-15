@@ -1,10 +1,10 @@
 package io.Ap.StardewValley.Server.Controller;
 
 import io.Ap.StardewValley.Common.Message;
-import io.Ap.StardewValley.Model.App;
-import io.Ap.StardewValley.Model.Player.Player;
-import io.Ap.StardewValley.Model.Result;
-import io.Ap.StardewValley.Model.User;
+import io.Ap.StardewValley.Common.Model.App;
+import io.Ap.StardewValley.Common.Model.Player.Player;
+import io.Ap.StardewValley.Common.Model.Result;
+import io.Ap.StardewValley.Common.Model.User;
 import io.Ap.StardewValley.Server.Model.Lobby;
 
 import java.util.ArrayList;

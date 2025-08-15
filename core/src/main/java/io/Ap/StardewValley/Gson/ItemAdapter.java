@@ -1,18 +1,18 @@
 package io.Ap.StardewValley.Gson;
 
-import io.Ap.StardewValley.Model.Animals.AnimalProduct;
-import io.Ap.StardewValley.Model.Animals.Fish;
-import io.Ap.StardewValley.Model.Cooking.Food;
-import io.Ap.StardewValley.Model.Cooking.Ingredient;
-import io.Ap.StardewValley.Model.Crafting.Craft;
-import io.Ap.StardewValley.Model.Item.Coin;
-import io.Ap.StardewValley.Model.Item.Item;
-import io.Ap.StardewValley.Model.Item.Stone;
-import io.Ap.StardewValley.Model.Item.Wood;
-import io.Ap.StardewValley.Model.Plants.*;
-import io.Ap.StardewValley.Model.Player.GiftItem;
+import io.Ap.StardewValley.Common.Model.Animals.AnimalProduct;
+import io.Ap.StardewValley.Common.Model.Animals.Fish;
+import io.Ap.StardewValley.Common.Model.Cooking.Food;
+import io.Ap.StardewValley.Common.Model.Cooking.Ingredient;
+import io.Ap.StardewValley.Common.Model.Crafting.Craft;
+import io.Ap.StardewValley.Common.Model.Item.Coin;
+import io.Ap.StardewValley.Common.Model.Item.Item;
+import io.Ap.StardewValley.Common.Model.Item.Stone;
+import io.Ap.StardewValley.Common.Model.Item.Wood;
+import io.Ap.StardewValley.Common.Model.Plants.*;
+import io.Ap.StardewValley.Common.Model.Tool.*;
+import io.Ap.StardewValley.Common.Model.Player.GiftItem;
 import com.google.gson.*;
-import io.Ap.StardewValley.Model.Tool.*;
 
 import java.lang.reflect.Type;
 

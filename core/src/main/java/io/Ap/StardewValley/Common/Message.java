@@ -1,7 +1,7 @@
 package io.Ap.StardewValley.Common;
 
 
-import io.Ap.StardewValley.Model.Result;
+import io.Ap.StardewValley.Common.Model.Result;
 
 import java.util.HashMap;
 

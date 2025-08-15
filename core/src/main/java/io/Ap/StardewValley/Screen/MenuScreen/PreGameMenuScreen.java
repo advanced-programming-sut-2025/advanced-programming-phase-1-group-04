@@ -10,10 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.Ap.StardewValley.Client.Controller.ClientLobbyController;
 import io.Ap.StardewValley.Controller.GameMenuController;
 import io.Ap.StardewValley.Controller.ProfileMenuController;
 import io.Ap.StardewValley.Model.App;
+import io.Ap.StardewValley.Model.Result;
 import io.Ap.StardewValley.Screen.GameScreen;
+import io.Ap.StardewValley.Screen.MenuScreen.CoOpMenus.CoOpHostScreen;
+import io.Ap.StardewValley.Screen.MenuScreen.CoOpMenus.CoOpJoinScreen;
+import io.Ap.StardewValley.Screen.MenuScreen.CoOpMenus.HostLobbyScreen;
+import io.Ap.StardewValley.Screen.MenuScreen.CoOpMenus.LobbyScreen;
 import io.Ap.StardewValley.StardewValley;
 
 import java.io.IOException;
@@ -39,10 +45,16 @@ public class PreGameMenuScreen implements Screen {
     private final Image bodyImage, handImage;
     private Stack characterStack;
 
-    public PreGameMenuScreen() {
+    private final boolean isHost;
+    private final String lobbyName;
+
+    public PreGameMenuScreen(boolean isHost, String lobbyName) {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         skin = StardewValley.getSkin();
+
+        this.isHost = isHost;
+        this.lobbyName = lobbyName;
 
         backgroundImage = new Image(new Texture(Gdx.files.internal("etc/menu/background_start.png")));
         characterBackground = new Image(new Texture(Gdx.files.internal("etc/menu/daybg.png")));
@@ -210,15 +222,34 @@ public class PreGameMenuScreen implements Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                StardewValley.getGame().setScreen(new GameMenuScreen());
+                if (!isHost && (lobbyName == null)) {
+                    StardewValley.getGame().setScreen(new GameMenuScreen());
+                }
+
             }
         });
 
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameMenuController.newGameOffline(hairColor, pantColor, pantIndex / 12, shirtIndex, hairIndex, farmId);
-                StardewValley.getGame().setScreen(new GameScreen(GameMenuController.farmSelections));
+                if (!isHost && (lobbyName == null)) {
+                    GameMenuController.newGameOffline(hairColor, pantColor, pantIndex / 12, shirtIndex, hairIndex, farmId);
+                    StardewValley.getGame().setScreen(new GameScreen(GameMenuController.farmSelections));
+                }
+                else if (isHost && (lobbyName != null)) {
+                    //TODO show error
+                    Result result = ClientLobbyController.setHostPlayer(lobbyName, hairColor, pantColor, pantIndex / 12, shirtIndex, hairIndex, farmId);
+                    if (result.isSuccessful()) {
+                        StardewValley.getGame().setScreen(new HostLobbyScreen(lobbyName));
+                    }
+                }
+                else if (!isHost && (lobbyName != null)) {
+                    //TODO show error
+                    Result result = ClientLobbyController.addPlayer(lobbyName, hairColor, pantColor, pantIndex / 12, shirtIndex, hairIndex, farmId);
+                    if (result.isSuccessful()) {
+                        StardewValley.getGame().setScreen(new LobbyScreen(lobbyName));
+                    }
+                }
             }
         });
 

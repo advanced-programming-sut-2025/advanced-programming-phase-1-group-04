@@ -38,9 +38,9 @@ public class Game {
 
     private int tradeAmount;
 
-    public Game(ArrayList<Player> players, Player currentPlayer) {
+    public Game(ArrayList<Player> players, Player currentPlayer, Player mainPlayer) {
         this.players = players;
-        this.mainPlayer = currentPlayer;
+        this.mainPlayer = mainPlayer;
         this.currentPlayer = currentPlayer;
 
         this.tomorrowWeather = Weather.Sunny;

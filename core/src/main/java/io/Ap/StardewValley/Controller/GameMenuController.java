@@ -80,7 +80,7 @@ public class GameMenuController {
             players.add(new Player("Black", "Black", 0, 0, 0, user3.getId(), 4));
         }
 
-        App.setGame(new Game(players, currentPlayer));
+        App.setGame(new Game(players, currentPlayer, currentPlayer));
         return new Result(true, "Game started successfully. Now you should choose your map:");
     }
 
@@ -545,7 +545,7 @@ public class GameMenuController {
 
         GameMenuController.farmSelections[0] = farmIdSelect;
 
-        App.setGame(new Game(players, currentPlayer));
+        App.setGame(new Game(players, currentPlayer, currentPlayer));
         loadNewGame();
     }
 }

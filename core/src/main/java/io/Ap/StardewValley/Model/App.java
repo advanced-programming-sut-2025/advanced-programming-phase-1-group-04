@@ -5,18 +5,22 @@ import io.Ap.StardewValley.Model.Command.Menu;
 import com.google.gson.Gson;
 import io.Ap.StardewValley.Screen.MenuScreen.MainMenuScreen;
 import io.Ap.StardewValley.Screen.MenuScreen.StartMenuScreen;
+import io.Ap.StardewValley.Server.Model.Lobby;
 import io.Ap.StardewValley.StardewValley;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class App {
     private static Menu currentMenu;
     private static User currentUser;
     private static Game game = null;
     private static final KeyManager keyManager = new KeyManager();
+
+    private static ArrayList<Lobby> lobbies = new ArrayList<>();
 
     public static Game getGame() {
         return game;
@@ -117,5 +121,18 @@ public class App {
             case "White" -> Color.WHITE;
             default -> Color.WHITE;
         };
+    }
+
+    public static ArrayList<Lobby> getLobbies() {
+        return lobbies;
+    }
+
+    public static Lobby getLobbyByName (String name) {
+        for (Lobby l : lobbies) {
+            if (name.equalsIgnoreCase(l.getName())) {
+                return l;
+            }
+        }
+        return null;
     }
 }

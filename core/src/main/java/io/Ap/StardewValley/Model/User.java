@@ -1,6 +1,7 @@
 package io.Ap.StardewValley.Model;
 
 import io.Ap.StardewValley.Model.Command.SecurityQuestion;
+import io.Ap.StardewValley.Server.Model.Lobby;
 
 public class User {
     private final int id;
@@ -18,6 +19,7 @@ public class User {
 
     private String avatarPath;
 
+    private Lobby currentLobby;
 
     public User(String username, String password, String nickname, String email, String gender, String avatarPath) {
         this.id = App.getNumberOfUsers() + 1;
@@ -27,6 +29,7 @@ public class User {
         this.email = email;
         this.gender = gender;
         this.avatarPath = avatarPath;
+        this.currentLobby = null;
     }
 
     public SecurityQuestion getQuestion() {
@@ -111,6 +114,14 @@ public class User {
 
     public String getAvatarPath() {
         return avatarPath;
+    }
+
+    public Lobby getCurrentLobby() {
+        return currentLobby;
+    }
+
+    public void setCurrentLobby(Lobby lobby) {
+        this.currentLobby = lobby;
     }
 
     @Override

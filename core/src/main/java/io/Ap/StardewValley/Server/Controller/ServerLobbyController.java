@@ -53,8 +53,6 @@ public class ServerLobbyController {
         return new Message(body, Message.Type.response);
     }
 
-
-
     public static Result getLobbyList () {
         ArrayList<Lobby> expiredLobbies = new ArrayList<>();
 
@@ -65,7 +63,7 @@ public class ServerLobbyController {
                 expiredLobbies.add(lobby);
                 continue;
             }
-            if (lobby.isVisible() && !lobby.isExpired() && (lobby.getPlayers().size() < 4)){
+            if (lobby.isVisible() && !lobby.isExpired() && (lobby.getPlayers().size() < 4) && (!lobby.getPlayers().isEmpty())){
                 result = result + "+name: " + lobby.getName() + ", host: " + lobby.getHost().getNickname() +
                         ", size: " + lobby.getPlayers().size() + "\n";
                 i++;
@@ -254,17 +252,12 @@ public class ServerLobbyController {
 
     public static Result startGame (Message command) {
         Lobby lobby = findLobby(command.getFromBody("name"));
-        System.out.println("shash1");
         if (lobby == null) return new Result(false, "invalid lobby!");
-        System.out.println("shash2");
+        if (lobby.getPlayers().size() < 2) return new Result(false, "wait for someone to join!");
         String lobbyJason = JSONUtils.toJson(lobby.getLobbyData());
-        System.out.println("shash3");
         ServerApp.getUpdateBody().put("startGame", lobbyJason);
-        System.out.println("shash4");
         ServerApp.setUpdateThread(new UpdateThread());
-        System.out.println("shash5");
         ServerApp.startUpdateThread();
-        System.out.println("shash6");
         return new Result(true, "game created successfully");
     }
 

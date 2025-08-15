@@ -386,7 +386,7 @@ public class GameScreenController {
                         startFoodAction();
                     }
                 }
-            }catch (Exception e) {}
+            } catch (Exception e) {}
 
         }
 

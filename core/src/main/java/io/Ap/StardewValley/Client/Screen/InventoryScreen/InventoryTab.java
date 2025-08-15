@@ -33,7 +33,7 @@ public class InventoryTab extends Window {
         super("", skin);
         this.skin = skin;
         this.inventoryButtons = new ArrayList<>();
-        label1 = new Label(App.getCurrentUser().getNickname() , skin);
+        label1 = new Label(App.getGame().getCurrentPlayer().getUsername() , skin);
         label2 = new Label("count: " + App.getGame().getCurrentPlayer().getCount(), skin);
 
         this.setSize(1050, 650);

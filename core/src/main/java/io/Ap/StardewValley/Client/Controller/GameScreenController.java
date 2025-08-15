@@ -1,6 +1,7 @@
 package io.Ap.StardewValley.Client.Controller;
 
 import com.badlogic.gdx.Gdx;
+import io.Ap.StardewValley.Client.Controller.NetworkControllers.UpdateController;
 import io.Ap.StardewValley.Client.Controller.SirkBozorg.*;
 import io.Ap.StardewValley.Common.Model.Plants.*;
 import io.Ap.StardewValley.Common.Model.Animals.AnimalProduct;
@@ -160,6 +161,10 @@ public class GameScreenController {
             shippingBinNeedsUpdate = false;
         }
 
+
+        if (((int) App.getGame().getCurrentTime().getAccumulatedTime() % 10) == App.getGame().getCurrentPlayer().getFarm() * 2) {
+            UpdateController.updatePlayer();
+        }
     }
 
     private void handleInputKey(){

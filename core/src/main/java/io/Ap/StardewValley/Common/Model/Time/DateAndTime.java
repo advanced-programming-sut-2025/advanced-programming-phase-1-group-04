@@ -83,4 +83,8 @@ public class DateAndTime {
     public int getMinute() {
         return minute;
     }
+
+    public float getAccumulatedTime() {
+        return accumulatedTime;
+    }
 }

@@ -334,6 +334,10 @@ public class Player {
         return count;
     }
 
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     public void addCount(int count) {
         addPartnerCount(count);
         this.count += count;
@@ -626,5 +630,18 @@ public class Player {
 
     public float getYLibGdx() {
         return yLibGdx;
+    }
+
+    public void setFarmingLevel (int level) {
+        myAbility.put(Skill.Farming, level);
+    }
+    public void setFishingLevel (int level) {
+        myAbility.put(Skill.Fishing, level);
+    }
+    public void setForagingLevel (int level) {
+        myAbility.put(Skill.Foraging, level);
+    }
+    public void setMiningLevel (int level) {
+        myAbility.put(Skill.Mining, level);
     }
 }

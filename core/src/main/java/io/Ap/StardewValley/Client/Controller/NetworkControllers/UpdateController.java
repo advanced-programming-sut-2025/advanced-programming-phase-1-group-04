@@ -12,6 +12,7 @@ import io.Ap.StardewValley.Common.Model.App;
 import io.Ap.StardewValley.Common.Model.Game;
 import io.Ap.StardewValley.Common.Model.Map.Coordinate;
 import io.Ap.StardewValley.Common.Model.Player.Player;
+import io.Ap.StardewValley.Common.Model.Player.Skill;
 import io.Ap.StardewValley.Server.Model.LobbyData;
 import io.Ap.StardewValley.StardewValley;
 
@@ -97,13 +98,18 @@ public class UpdateController {
 //        onlineUsersLabel.setText(onlineUsersList);
 //    }
 
-    public static void updatePlayer(Coordinate coordinate) {
+    public static void updatePlayer() {
         HashMap<String, Object> body = new HashMap<>();
-        body.put("x", "" + coordinate.getX());
-        body.put("y", "" + coordinate.getY());
+        body.put("updatePlayer", "hmmm");
+        body.put("x", "" + App.getGame().getCurrentPlayer().getCoordinate().getX());
+        body.put("y", "" + App.getGame().getCurrentPlayer().getCoordinate().getY());
         body.put("id", "" + App.getCurrentUser().getId());
         body.put("energy", "" + App.getGame().getCurrentPlayer().getEnergy());
         body.put("count", "" + App.getGame().getCurrentPlayer().getCount());
+        body.put("farming", "" + App.getGame().getCurrentPlayer().getAbilityLevel(Skill.Farming));
+        body.put("foraging", "" + App.getGame().getCurrentPlayer().getAbilityLevel(Skill.Foraging));
+        body.put("fishing", "" + App.getGame().getCurrentPlayer().getAbilityLevel(Skill.Fishing));
+        body.put("mining", "" + App.getGame().getCurrentPlayer().getAbilityLevel(Skill.Mining));
 
         ClientApp.getServerConnectionThread().sendMessage(new Message(body, Message.Type.update));
     }

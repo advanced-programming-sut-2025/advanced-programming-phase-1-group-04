@@ -155,7 +155,7 @@ public class CoOpHostScreen implements Screen {
         contentTable.add(isPrivate).left().padBottom(30);
         contentTable.add(privacyCheckbox).right().padBottom(30).row();
         contentTable.add(lobbyPassword).left();
-        contentTable.add(password).right().padRight(20);
+        contentTable.add(password).right().padLeft(20);
 
         window.setMovable(false);
         window.setResizable(false);

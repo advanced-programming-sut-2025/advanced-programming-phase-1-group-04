@@ -230,6 +230,9 @@ public class GameMap {
         return region[c.getX()][c.getY()];
     }
 
+    public int[] getFarmSelections() {
+        return farmSelections;
+    }
 
     public void build(Coordinate coordinate, BuildingType type) {
         fullMap[coordinate.getX()][coordinate.getY()].setBuildingOrigin(true);

@@ -13,7 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.Ap.StardewValley.Client.Controller.GameMenuController;
+import io.Ap.StardewValley.Client.Screen.GameScreen;
 import io.Ap.StardewValley.Client.Screen.MenuScreen.CoOpMenus.CoOpScreen;
+import io.Ap.StardewValley.Common.Model.Result;
 import io.Ap.StardewValley.StardewValley;
 
 public class GameMenuScreen implements Screen {
@@ -122,9 +125,11 @@ public class GameMenuScreen implements Screen {
         loadButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //if (GameMenuController.loadGame().isSuccessful())
-                    //StardewValley.getGame().setScreen(new GameScreen());
-
+                Result result = GameMenuController.loadGame();
+                if (result.isSuccessful())
+                    StardewValley.getGame().setScreen(new GameScreen());
+                else
+                    System.out.println(result.message());
             }
         });
 

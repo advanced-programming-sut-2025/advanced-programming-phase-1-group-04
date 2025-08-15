@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import io.Ap.StardewValley.Common.Model.App;
 import io.Ap.StardewValley.Common.Model.Map.Coordinate;
+import io.Ap.StardewValley.Common.Model.Player.Player;
 import io.Ap.StardewValley.Common.Model.Tool.*;
 import io.Ap.StardewValley.StardewValley;
 
@@ -15,6 +16,10 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class PlayerRender {
+    private TextureRegion[][] hairSheet;
+    private TextureRegion[][] shirtSheet;
+    private TextureRegion[][] pantSheet;
+
     private float stateTime = 0f;
     private final Texture shadow = new Texture("etc/shadow.png");
 
@@ -36,7 +41,7 @@ public class PlayerRender {
         int hairIndex = App.getGame().getCurrentPlayer().getHairIndex();
 
         // HairStyle
-        TextureRegion[][] hairSheet = TextureRegion.split(new Texture("player/clothes/hairstyles.png"), 16, 32);
+        hairSheet = TextureRegion.split(new Texture("player/clothes/hairstyles.png"), 16, 32);
         hairFrames.put(DirectionType.Down, hairSheet[(hairIndex / 8) * 3][hairIndex % 8]);
         hairFrames.put(DirectionType.Up, hairSheet[(hairIndex / 8) * 3 + 2][hairIndex % 8]);
         hairFrames.put(DirectionType.Right, hairSheet[(hairIndex / 8) * 3 + 1][hairIndex % 8]);
@@ -45,7 +50,7 @@ public class PlayerRender {
         hairFrames.put(DirectionType.Left, leftHair);
 
         // Shirt
-        TextureRegion[][] shirtSheet = TextureRegion.split(new Texture("player/clothes/shirts.png"), 8, 8);
+        shirtSheet = TextureRegion.split(new Texture("player/clothes/shirts.png"), 8, 8);
         shirtFrames.put(DirectionType.Down, shirtSheet[(shirtIndex / 18) * 4][shirtIndex % 16]);
         shirtFrames.put(DirectionType.Right, shirtSheet[(shirtIndex / 18) * 4 + 1][shirtIndex % 16]);
         shirtFrames.put(DirectionType.Left, shirtSheet[(shirtIndex / 18) * 4 + 2][shirtIndex % 16]);
@@ -58,7 +63,8 @@ public class PlayerRender {
         this.hand01Animations = new BankPlayerAnimationFrames(hand01Sheet);
         TextureRegion[][] hand02Sheet = TextureRegion.split(new Texture("player/hand_02.png"), 16, 32);
         this.hand02Animations = new BankPlayerAnimationFrames(hand02Sheet);
-        TextureRegion[][] pantSheet = TextureRegion.split(new Texture("player/pants/pant_" + pantIndex + ".png"), 16, 32);
+
+        pantSheet = TextureRegion.split(new Texture("player/pants/pant_" + pantIndex + ".png"), 16, 32);
         this.pantAnimations = new BankPlayerAnimationFrames(pantSheet);
 
         // make head:
@@ -212,6 +218,7 @@ public class PlayerRender {
         batch.draw(hairFrame, x + hairOffset.getX() * scale, y + (hairOffset.getY() + longHair) * scale, hairFrame.getRegionWidth() * scale, hairFrame.getRegionHeight() * scale);
         batch.setColor(Color.WHITE);
 
+        renderOtherPlayers();
 
         if (toolFrame != null && direction != DirectionType.Up && direction != DirectionType.Down && (state == StateType.ToolHoe || state == StateType.ToolAxe || state == StateType.ToolPickaxe || state == StateType.ToolWateringCan)) {
             batch.draw(toolFrame,
@@ -235,4 +242,72 @@ public class PlayerRender {
             );
         }
     }
+
+    public void renderOtherPlayers() {
+        SpriteBatch batch = StardewValley.getBatch();
+        float scale = App.getGame().getPlayerScale();
+
+        for (Player other : App.getGame().getPlayers()) {
+            // TODO:  COLORS:
+            if (other.equals(App.getGame().getCurrentPlayer())) continue;
+            if (!isInTheSameRegion(other.getCoordinate(), App.getGame().getCurrentPlayer().getCoordinate())) continue;
+
+            DirectionType direction = other.getDirection();
+
+            TextureRegion bodyFrame = bodyAnimations.getIdleFrame(direction);
+            TextureRegion pantFrame = pantAnimations.getIdleFrame(direction);
+            TextureRegion hairFrame = hairFrames.get(direction);
+            TextureRegion shirtFrame = shirtFrames.get(direction);
+
+            Coordinate hairOffset = OffsetManager.getOffset(OffsetType.Hair, StateType.Idle, direction, 0);
+            Coordinate shirtOffset = OffsetManager.getOffset(OffsetType.Shirt, StateType.Idle, direction, 0);
+
+            int longHair = (other.getHairIndex() < 16) ? 0 : 1;
+
+            float x = other.getXLibGdx();
+            float y = other.getYLibGdx();
+
+            batch.draw(shadow, x + (bodyFrame.getRegionWidth() * scale - 12 * scale) / 2f,
+                    y - (shadow.getHeight() * scale) * 0.25f,
+                    shadow.getWidth() * scale, shadow.getHeight() * scale);
+
+            batch.draw(bodyFrame, x, y, bodyFrame.getRegionWidth() * scale, bodyFrame.getRegionHeight() * scale);
+
+            batch.draw(shirtFrame, x + shirtOffset.getX() * scale, y + shirtOffset.getY() * scale,
+                    shirtFrame.getRegionWidth() * scale, shirtFrame.getRegionHeight() * scale);
+
+            batch.setColor(App.getColor(other.getPantColor()));
+            batch.draw(pantFrame, x, y, pantFrame.getRegionWidth() * scale, pantFrame.getRegionHeight() * scale);
+            batch.setColor(Color.WHITE);
+
+            batch.setColor(App.getColor(other.getHairColor()));
+            batch.draw(hairFrame, x + hairOffset.getX() * scale, y + (hairOffset.getY() + longHair) * scale,
+                    hairFrame.getRegionWidth() * scale, hairFrame.getRegionHeight() * scale);
+            batch.setColor(Color.WHITE);
+        }
+    }
+
+    private TextureRegion getHairFrameFor(Player p, DirectionType direction) {
+        int hairIndex = p.getHairIndex();
+
+        TextureRegion frame;
+        switch (direction) {
+            case Down -> frame = hairSheet[(hairIndex / 8) * 3][hairIndex % 8];
+            case Up -> frame = hairSheet[(hairIndex / 8) * 3 + 2][hairIndex % 8];
+            case Right -> frame = hairSheet[(hairIndex / 8) * 3 + 1][hairIndex % 8];
+            case Left -> {
+                frame = new TextureRegion(hairSheet[(hairIndex / 8) * 3 + 1][hairIndex % 8]);
+                frame.flip(true, false);
+            }
+            default -> throw new IllegalStateException();
+        }
+        return frame;
+    }
+
+    public boolean isInTheSameRegion(Coordinate cor1, Coordinate cor2) {
+        Coordinate region1 = App.getGame().getMap().getCurrentRegionCoordinate(cor1);
+        Coordinate region2 = App.getGame().getMap().getCurrentRegionCoordinate(cor2);
+        return region1.getX() == region2.getX() && region1.getY() == region2.getY();
+    }
+
 }

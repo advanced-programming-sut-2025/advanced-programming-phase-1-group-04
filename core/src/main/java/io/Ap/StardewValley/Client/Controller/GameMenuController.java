@@ -296,7 +296,7 @@ public class GameMenuController {
     }
 
     private static void saveGame(String name) {
-        File fileName = new File("games/" + name + ".json");
+        File fileName = new File("data/games/" + name + ".json");
 
         try (FileWriter writer = new FileWriter(fileName)) {
             Gson gson = new GsonBuilder()
@@ -311,7 +311,7 @@ public class GameMenuController {
     }
 
     private static Game getGameById(int id) {
-        File folder = new File("games");
+        File folder = new File("data/games");
         if (!folder.exists() || !folder.isDirectory()) {
             System.out.println("Games folder not found!");
             return null;
@@ -350,7 +350,7 @@ public class GameMenuController {
     }
 
     private static boolean hasSavedGame(int id) {
-        File folder = new File("games");
+        File folder = new File("data/games");
         if (!folder.exists() || !folder.isDirectory()) {
             System.out.println("Games folder not found!");
             return false;
@@ -380,7 +380,7 @@ public class GameMenuController {
     }
 
     private static void deleteGame(int playerId) {
-        File gamesFolder = new File("games");
+        File gamesFolder = new File("data/games");
         if (!gamesFolder.exists() || !gamesFolder.isDirectory()) {
             return;
         }

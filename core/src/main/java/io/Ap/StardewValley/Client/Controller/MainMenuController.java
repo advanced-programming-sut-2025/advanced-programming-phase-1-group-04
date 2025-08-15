@@ -38,7 +38,7 @@ public class MainMenuController {
     //added by aynaz:
     public static void handleStayLogin() {
         App.setCurrentUser(null);
-        try (FileWriter writer = new FileWriter("users/loggedIn.json")) {
+        try (FileWriter writer = new FileWriter("data/users/loggedIn.json")) {
             writer.write("null");
         } catch (IOException e) {
             e.printStackTrace();

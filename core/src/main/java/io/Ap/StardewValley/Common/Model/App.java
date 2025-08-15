@@ -39,7 +39,7 @@ public class App {
     }
 
     public static void loadApp() throws FileNotFoundException {
-        File file = new File("users/loggedIn.json");
+        File file = new File("data/users/loggedIn.json");
 
         FileReader reader = new FileReader(file);
         Gson gson = new Gson();
@@ -54,7 +54,7 @@ public class App {
     }
 
     public static void loadAppScreen() throws FileNotFoundException {
-        File file = new File("users/loggedIn.json");
+        File file = new File("data/users/loggedIn.json");
 
         FileReader reader = new FileReader(file);
         Gson gson = new Gson();
@@ -80,7 +80,7 @@ public class App {
 
     public static User getUserByUsername (String username) {
         if (username == null) return null;
-        File file = new File("users/" + username + ".json");
+        File file = new File("data/users/" + username + ".json");
 
         if (!file.exists()) return null;
 
@@ -94,7 +94,7 @@ public class App {
     }
 
     public static int getNumberOfUsers() {
-        File folder = new File("users");
+        File folder = new File("data/users");
         File[] files = folder.listFiles();
         int length = (files != null) ? files.length - 1: 0;
         return length;

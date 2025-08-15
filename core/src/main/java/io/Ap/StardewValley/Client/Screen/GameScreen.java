@@ -49,7 +49,7 @@ public class GameScreen implements Screen, InputProcessor {
         // static
     private final TiledMapRendererHelper[][] mapRenderers = new TiledMapRendererHelper[3][3];
     private TiledMapRendererHelper currentMap;
-    private final int[] farmSelections = new int[4];
+    private final int[] farmSelections;
     private static Image fullMap;
         // dynamic
     private final DynamicMapLayerRender dynamicMapLayerRender = new DynamicMapLayerRender();
@@ -100,7 +100,13 @@ public class GameScreen implements Screen, InputProcessor {
     Result currentResult = null;
 
     public GameScreen(int[] farmSelections) {
+        this.farmSelections = new int[4];
         System.arraycopy(farmSelections, 0, this.farmSelections, 0, 4);
+        controller.setViews(this);
+    }
+
+    public GameScreen() {
+        this.farmSelections = App.getGame().getMap().farmSelections;
         controller.setViews(this);
     }
 

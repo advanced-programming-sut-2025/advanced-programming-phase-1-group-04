@@ -96,23 +96,22 @@ public class Player {
         this.id = id;
         this.farm = farm;
         // Phase 1:
-//        switch (farm) {
-//            case 1:
-//                this.houseCoordinate = new Coordinate(4, 31);
-//                break;
-//            case 2:
-//                this.houseCoordinate = new Coordinate(4, 31 + 80);
-//                break;
-//            case 3:
-//                this.houseCoordinate = new Coordinate(4 + 60, 31);
-//                break;
-//            case 4:
-//                this.houseCoordinate = new Coordinate(4 + 60, 31 + 80);
-//                break;
-//            default:
-//                throw new IllegalArgumentException("Invalid player farm");
-//        }
-        this.houseCoordinate = new Coordinate(15, 65);
+        switch (farm) {
+            case 1:
+                this.houseCoordinate = new Coordinate(15, 65);
+                break;
+            case 2:
+                this.houseCoordinate = new Coordinate(15, 65 + 210);
+                break;
+            case 3:
+                this.houseCoordinate = new Coordinate(15 + 175, 65 + 210);
+                break;
+            case 4:
+                this.houseCoordinate = new Coordinate(15 + 175, 65);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid player farm");
+        }
 
         this.coordinate = new Coordinate(houseCoordinate.getX(), houseCoordinate.getY());
         setLibGdxPositionFromCoordinate();
@@ -233,7 +232,7 @@ public class Player {
 
     public String getUsername() {
         // TODO: وقت شد درستش کن نره همه رو بگرده هر دفعه:/
-        File usersFolder = new File("users");
+        File usersFolder = new File("data/users");
         File[] userFiles = usersFolder.listFiles((dir, name) -> name.endsWith(".json"));
 
         if (userFiles != null) {

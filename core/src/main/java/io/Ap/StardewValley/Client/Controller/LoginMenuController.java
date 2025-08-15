@@ -56,7 +56,7 @@ public class LoginMenuController {
 
         User user = new User(username, getHashPassword(password), nickName, email, gender, "etc/avatar/1.png");
         Gson gson = new Gson();
-        FileWriter writer = new FileWriter("users/" + username + ".json");
+        FileWriter writer = new FileWriter("data/users/" + username + ".json");
         gson.toJson(user, writer);
         writer.close();
         return new Result(true,"Benazam.\nNow pick a security question:\n" + SecurityQuestion.getQuestions());
@@ -76,7 +76,7 @@ public class LoginMenuController {
         user.setAnswer(answer);
 
         Gson gson = new Gson();
-        FileWriter writer = new FileWriter("users/" + username + ".json");
+        FileWriter writer = new FileWriter("data/users/" + username + ".json");
         gson.toJson(user, writer);
         writer.close();
         return new Result(true, "User registered successfully.");
@@ -91,7 +91,7 @@ public class LoginMenuController {
         }
 
         Gson gson = new Gson();
-        FileWriter writer = new FileWriter("users/loggedIn.json");
+        FileWriter writer = new FileWriter("data/users/loggedIn.json");
         if (loggedIn == null) gson.toJson(null, writer);
         else gson.toJson(user, writer);
         writer.close();
@@ -140,7 +140,7 @@ public class LoginMenuController {
         App.setCurrentUser(user);
 
         Gson gson = new Gson();
-        FileWriter writer = new FileWriter("users/" + username + ".json");
+        FileWriter writer = new FileWriter("data/users/" + username + ".json");
         gson.toJson(user, writer);
         writer.close();
 
@@ -252,7 +252,7 @@ public class LoginMenuController {
 
         User user = new User(username, getHashPassword(password), nickName, email, gender, "etc/avatar/1.png");
         Gson gson = new Gson();
-        FileWriter writer = new FileWriter("users/" + username + ".json");
+        FileWriter writer = new FileWriter("data/users/" + username + ".json");
         gson.toJson(user, writer);
         writer.close();
         try {
@@ -278,7 +278,7 @@ public class LoginMenuController {
         user.setAnswer(answer);
 
         Gson gson = new Gson();
-        FileWriter writer = new FileWriter("users/" + username + ".json");
+        FileWriter writer = new FileWriter("data/users/" + username + ".json");
         gson.toJson(user, writer);
         writer.close();
         return new Result(true, "User registered successfully.");
@@ -331,7 +331,7 @@ public class LoginMenuController {
         App.setCurrentUser(user);
 
         Gson gson = new Gson();
-        FileWriter writer = new FileWriter("users/" + username + ".json");
+        FileWriter writer = new FileWriter("data/users/" + username + ".json");
         gson.toJson(user, writer);
         writer.close();
 
@@ -349,7 +349,7 @@ public class LoginMenuController {
         }
 
         Gson gson = new Gson();
-        FileWriter writer = new FileWriter("users/loggedIn.json");
+        FileWriter writer = new FileWriter("data/users/loggedIn.json");
         if (!loggedIn) gson.toJson(null, writer);
         else gson.toJson(user, writer);
         writer.close();

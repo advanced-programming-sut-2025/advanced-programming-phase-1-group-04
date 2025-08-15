@@ -30,8 +30,8 @@ public class ProfileMenuController {
         App.getCurrentUser().setUsername(username);
 
         Gson gson = new Gson();
-        File oldFile = new File("users/" + oldUsername + ".json");
-        File newFile = new File("users/" + username + ".json");
+        File oldFile = new File("data/users/" + oldUsername + ".json");
+        File newFile = new File("data/users/" + username + ".json");
         FileWriter writer = new FileWriter(oldFile);
 
         gson.toJson(App.getCurrentUser(), writer);
@@ -113,14 +113,14 @@ public class ProfileMenuController {
 
     private static void updateCurrentUser () throws IOException {
         Gson gson = new Gson();
-        FileWriter writer = new FileWriter("users/" + App.getCurrentUser().getUsername() + ".json");
+        FileWriter writer = new FileWriter("data/users/" + App.getCurrentUser().getUsername() + ".json");
         gson.toJson(App.getCurrentUser(), writer);
         writer.close();
     }
 
     private static void updateLoggedIn() throws IOException {
         // TODO: aynaz daste khodeto mibose
-        File file = new File("users/loggedIn.json");
+        File file = new File("data/users/loggedIn.json");
 
         try (FileReader reader = new FileReader(file)) {
             Gson gson = new Gson();
@@ -173,8 +173,8 @@ public class ProfileMenuController {
         App.getCurrentUser().setUsername(username);
 
         Gson gson = new Gson();
-        File oldFile = new File("users/" + oldUsername + ".json");
-        File newFile = new File("users/" + username + ".json");
+        File oldFile = new File("data/users/" + oldUsername + ".json");
+        File newFile = new File("data/users/" + username + ".json");
         FileWriter writer = new FileWriter(oldFile);
 
         gson.toJson(App.getCurrentUser(), writer);

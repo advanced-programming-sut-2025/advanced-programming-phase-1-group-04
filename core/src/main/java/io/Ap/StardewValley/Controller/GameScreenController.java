@@ -179,6 +179,8 @@ public class GameScreenController {
             App.getGame().getCurrentPlayer().getInventory().addItem(new Food(FoodType.BakedFish));
             App.getGame().getCurrentPlayer().getInventory().addItem(new Crop(CropType.Wheat));
             App.getGame().getCurrentPlayer().getInventory().addItem(new Fruit(FruitType.Apricot));
+            App.getGame().getCurrentPlayer().getInventory().addItem(new ForagingMineral(ForagingMineralType.Coal), 100);
+            App.getGame().getCurrentPlayer().getInventory().addItem(new ForagingMineral(ForagingMineralType.Copper), 100);
             App.getGame().getCurrentPlayer().getInventory().addItem(new Stone(), 1000);
             App.getGame().getCurrentPlayer().getInventory().addItem(new Wood(), 1000);
             inventoryStageNeedsUpdate = true;

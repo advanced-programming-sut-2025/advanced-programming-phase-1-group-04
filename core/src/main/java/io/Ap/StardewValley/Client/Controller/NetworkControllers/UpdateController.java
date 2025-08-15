@@ -1,5 +1,6 @@
 package io.Ap.StardewValley.Client.Controller.NetworkControllers;
 
+import com.badlogic.gdx.Gdx;
 import io.Ap.StardewValley.Client.Controller.GameMenuController;
 import io.Ap.StardewValley.Client.Screen.GameScreen;
 import io.Ap.StardewValley.Common.JSONUtils;
@@ -66,7 +67,9 @@ public class UpdateController {
             System.arraycopy(lobbyData.getFarmSelections(), 0, GameMenuController.farmSelections, 0, 4);
             GameMenuController.loadNewGame();
             System.out.println("s20");
-            StardewValley.getGame().setScreen(new GameScreen(GameMenuController.farmSelections));
+            Gdx.app.postRunnable(() -> {
+                StardewValley.getGame().setScreen(new GameScreen(GameMenuController.farmSelections));
+            });
             System.out.println("s21");
         } catch (Exception e) {
             System.out.println("s3");

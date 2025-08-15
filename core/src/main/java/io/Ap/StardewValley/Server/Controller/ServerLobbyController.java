@@ -147,9 +147,9 @@ public class ServerLobbyController {
         }
 
         int size = lobby.getPlayers().size();
-        if (size >= 4) return new Result(false, "no more capacity!");
+        if (size >= 3) return new Result(false, "no more capacity!");
 
-        Player player = new Player(hairColor, pantColor, pantIndex, shirtIndex, hairIndex, id, size);
+        Player player = new Player(hairColor, pantColor, pantIndex, shirtIndex, hairIndex, id, size + 1);
         lobby.setFarmSelections(size, farmIdSelect);
 
         if (!lobby.getPlayers().contains(player)) {

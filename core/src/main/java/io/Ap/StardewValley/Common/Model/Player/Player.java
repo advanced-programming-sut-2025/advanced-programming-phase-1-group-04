@@ -27,6 +27,7 @@ import java.util.*;
 import java.util.Map;
 
 public class Player {
+    private String username;
     private float xLibGdx;
     private float yLibGdx;
 
@@ -126,6 +127,27 @@ public class Player {
         inventory.addItem(new WateringCan(ToolLevel.Starter), 1);
         inventory.addItem(new Scythe(), 1);
         inventory.addItem(new MilkPail(), 1);
+
+        setUsername();
+    }
+
+    public void setUsername() {
+        File usersFolder = new File("data/users");
+        File[] userFiles = usersFolder.listFiles((dir, name) -> name.endsWith(".json"));
+
+        if (userFiles != null) {
+            Gson gson = new Gson();
+            for (File userFile : userFiles) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(userFile))) {
+                    User user = gson.fromJson(reader, User.class);
+                    if (user != null && user.getId() == this.id)
+                        this.username = user.getUsername();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new RuntimeException("ridi");
+                }
+            }
+        }
     }
 
     public void setLibGdxPositionFromCoordinate() {
@@ -234,23 +256,7 @@ public class Player {
     }
 
     public String getUsername() {
-        // TODO: وقت شد درستش کن نره همه رو بگرده هر دفعه:/
-        File usersFolder = new File("data/users");
-        File[] userFiles = usersFolder.listFiles((dir, name) -> name.endsWith(".json"));
-
-        if (userFiles != null) {
-            Gson gson = new Gson();
-            for (File userFile : userFiles) {
-                try (BufferedReader reader = new BufferedReader(new FileReader(userFile))) {
-                    User user = gson.fromJson(reader, User.class);
-                    if (user.getId() == this.id)
-                        return user.getUsername();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return null;
+        return username;
     }
 
     public List<Animal> getMyAnimals() {

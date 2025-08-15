@@ -131,6 +131,11 @@ public class Player {
         setUsername();
     }
 
+    public void setLibGdxPositionFromCoordinate() {
+        this.xLibGdx = 1042;
+        this.yLibGdx = 798;
+    }
+
     public void setUsername() {
         File usersFolder = new File("data/users");
         File[] userFiles = usersFolder.listFiles((dir, name) -> name.endsWith(".json"));
@@ -149,16 +154,6 @@ public class Player {
             }
         }
     }
-
-    public void setLibGdxPositionFromCoordinate() {
-        final int tileSize = 16;
-        int mapHeightInTiles = 65;
-
-        this.xLibGdx = this.coordinate.getY() * tileSize;
-        this.yLibGdx = (mapHeightInTiles - 1 - this.coordinate.getX()) * tileSize;
-    }
-
-
 
     public int getAbilityLevel (Skill skill) {
         return Math.min(4, Math.max(0, (this.myAbility.get(skill) - 50) / 100));

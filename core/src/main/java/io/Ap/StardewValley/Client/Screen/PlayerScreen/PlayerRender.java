@@ -248,16 +248,19 @@ public class PlayerRender {
         float scale = App.getGame().getPlayerScale();
 
         for (Player other : App.getGame().getPlayers()) {
-            // TODO:  COLORS:
-            if (other.equals(App.getGame().getCurrentPlayer())) continue;
+            if (other.getId() == App.getGame().getCurrentPlayer().getId()) continue;
             if (!isInTheSameRegion(other.getCoordinate(), App.getGame().getCurrentPlayer().getCoordinate())) continue;
 
             DirectionType direction = other.getDirection();
 
             TextureRegion bodyFrame = bodyAnimations.getIdleFrame(direction);
+            TextureRegion handFrame = hand01Animations.getIdleFrame(direction);
+
+            // TODO: یتیمه شلوار خودشو نشون میده
             TextureRegion pantFrame = pantAnimations.getIdleFrame(direction);
-            TextureRegion hairFrame = hairFrames.get(direction);
-            TextureRegion shirtFrame = shirtFrames.get(direction);
+
+            TextureRegion hairFrame = getHairFrameFor(other, direction);
+            TextureRegion shirtFrame = getShirtFrameFor(other, direction);
 
             Coordinate hairOffset = OffsetManager.getOffset(OffsetType.Hair, StateType.Idle, direction, 0);
             Coordinate shirtOffset = OffsetManager.getOffset(OffsetType.Shirt, StateType.Idle, direction, 0);
@@ -284,6 +287,9 @@ public class PlayerRender {
             batch.draw(hairFrame, x + hairOffset.getX() * scale, y + (hairOffset.getY() + longHair) * scale,
                     hairFrame.getRegionWidth() * scale, hairFrame.getRegionHeight() * scale);
             batch.setColor(Color.WHITE);
+
+            batch.draw(handFrame, x, y, handFrame.getRegionWidth() * scale, handFrame.getRegionHeight() * scale);
+
         }
     }
 
@@ -299,6 +305,20 @@ public class PlayerRender {
                 frame = new TextureRegion(hairSheet[(hairIndex / 8) * 3 + 1][hairIndex % 8]);
                 frame.flip(true, false);
             }
+            default -> throw new IllegalStateException();
+        }
+        return frame;
+    }
+
+    private TextureRegion getShirtFrameFor(Player p, DirectionType direction) {
+        int shirtIndex = p.getShirtIndex();
+
+        TextureRegion frame;
+        switch (direction) {
+            case Down -> frame = shirtSheet[(shirtIndex / 18) * 4][shirtIndex % 16];
+            case Right -> frame = shirtSheet[(shirtIndex / 18) * 4 + 1][shirtIndex % 16];
+            case Left -> frame = shirtSheet[(shirtIndex / 18) * 4 + 2][shirtIndex % 16];
+            case Up -> frame = shirtSheet[(shirtIndex / 18) * 4 + 3][shirtIndex % 16];
             default -> throw new IllegalStateException();
         }
         return frame;

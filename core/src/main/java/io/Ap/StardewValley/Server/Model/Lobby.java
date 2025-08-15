@@ -113,6 +113,7 @@ public class Lobby {
     }
 
     public void setFarmSelections(int index, int selection) {
+        System.out.println("bbbb");
         farmSelections[index] = selection;
     }
 

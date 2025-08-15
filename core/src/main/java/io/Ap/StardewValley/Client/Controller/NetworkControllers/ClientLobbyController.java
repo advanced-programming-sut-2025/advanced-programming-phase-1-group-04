@@ -65,7 +65,7 @@ public class ClientLobbyController {
         return receiveAnswer(new Message(body, Message.Type.command)).getResult();
     }
 
-    public static Result addPlayer (String lobbyName, String hairColor, String pantColor, int pantIndex, int shirtIndex, int hairIndex, int farmIdSelect) {
+    public static Result addPlayer (String lobbyName, String hairColor, String pantColor, int pantIndex , int shirtIndex, int hairIndex, int farmIdSelect) {
         HashMap<String, Object> body = new HashMap<>();
         body.put("controller", "LobbyController");
         body.put("request", "addPlayer");

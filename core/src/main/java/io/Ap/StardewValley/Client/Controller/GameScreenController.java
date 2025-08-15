@@ -162,7 +162,7 @@ public class GameScreenController {
         }
 
 
-        if ((((int) App.getGame().getCurrentTime().getAccumulatedTime()) % 10) == App.getGame().getCurrentPlayer().getFarm() * 2) {
+        if (( App.getGame().getCurrentTime().getMinute() % 10) == App.getGame().getCurrentPlayer().getFarm() * 2) {
             UpdateController.updatePlayer();
         }
     }

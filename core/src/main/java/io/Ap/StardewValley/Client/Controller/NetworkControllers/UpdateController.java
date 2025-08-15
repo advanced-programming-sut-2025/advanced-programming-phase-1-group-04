@@ -58,14 +58,15 @@ public class UpdateController {
                     players.add(getPlayer(info));
                 }
             }
-            System.out.println("s17");
+
+
             if (currentPlayer == null) return;
-            System.out.println("s18");
+
             App.setGame(new Game(players, currentPlayer, mainPlayer));
-            System.out.println("s19");
+            System.arraycopy(lobbyData.getFarmSelections(), 0, GameMenuController.farmSelections, 0, 4);
             GameMenuController.loadNewGame();
             System.out.println("s20");
-//            StardewValley.getGame().setScreen(new GameScreen(GameMenuController.farmSelections));
+            StardewValley.getGame().setScreen(new GameScreen(GameMenuController.farmSelections));
             System.out.println("s21");
         } catch (Exception e) {
             System.out.println("s3");

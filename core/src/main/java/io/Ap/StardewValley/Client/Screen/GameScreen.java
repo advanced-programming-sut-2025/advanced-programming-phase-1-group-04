@@ -292,9 +292,9 @@ public class GameScreen implements Screen, InputProcessor {
         //controllerTable.add(new Label("Weather: " + time.getWeather() + "    ", skin));
         controllerTable.row();
 //        controllerTable.add(new Label("TileInfo: " + App.getGame().getTile(cor).toString() + "    ", skin));
-        for (Player p : App.getGame().getPlayers()) {
+        for (Player p : App.getGame().getPlayers())
             controllerTable.add(new Label("Player: (" + p.getCoordinate().getX() + ", " + p.getCoordinate().getY() + ")    " ,skin));
-        }
+
     }
 
     public void updateCamera() {

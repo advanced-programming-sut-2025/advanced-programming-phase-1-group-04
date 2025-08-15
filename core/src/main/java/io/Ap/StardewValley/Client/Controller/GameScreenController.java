@@ -160,13 +160,6 @@ public class GameScreenController {
             view.getShippingBin().update();
             shippingBinNeedsUpdate = false;
         }
-
-
-        if (( App.getGame().getCurrentTime().getMinute() % 5) < App.getGame().getCurrentPlayer().getFarm()) {
-            System.out.println(App.getGame().getCurrentTime().getMinute());
-            UpdateController.updatePlayer();
-            System.out.println(App.getGame().getCurrentTime().getMinute());
-        }
     }
 
     private void handleInputKey(){

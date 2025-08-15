@@ -1,5 +1,8 @@
 package io.Ap.StardewValley.Common.Model.Time;
 
+import io.Ap.StardewValley.Client.Controller.NetworkControllers.UpdateController;
+import io.Ap.StardewValley.Common.Model.App;
+
 public class DateAndTime {
     private int hour; // (9-24):00
     private int minute;
@@ -20,6 +23,10 @@ public class DateAndTime {
 
         while (accumulatedTime >= 1f) {
             minute += 1;
+            if (( App.getGame().getCurrentTime().getMinute() % 5) < App.getGame().getCurrentPlayer().getFarm()) {
+                System.out.println(App.getGame().getCurrentTime().getMinute());
+                UpdateController.updatePlayer();
+            }
             accumulatedTime -= 1f;
 
             if (minute >= 60) {

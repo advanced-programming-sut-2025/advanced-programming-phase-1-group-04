@@ -1,10 +1,13 @@
 package io.Ap.StardewValley.Server.Controller;
 
+import io.Ap.StardewValley.Common.JSONUtils;
 import io.Ap.StardewValley.Common.Message;
 import io.Ap.StardewValley.Common.Model.App;
 import io.Ap.StardewValley.Common.Model.Player.Player;
 import io.Ap.StardewValley.Common.Model.Result;
 import io.Ap.StardewValley.Common.Model.User;
+import io.Ap.StardewValley.Server.App.ServerApp;
+import io.Ap.StardewValley.Server.App.UpdateThread;
 import io.Ap.StardewValley.Server.Model.Lobby;
 
 import java.util.ArrayList;
@@ -37,6 +40,8 @@ public class ServerLobbyController {
                 result = leaveLobby(command);
             } else if (request.equalsIgnoreCase("hostLeaveLobby")) {
                 result = hostLeaveLobby(command);
+            } else if (request.equalsIgnoreCase("startGame")) {
+                result = startGame(command);
             }
         }
         if (result == null) return null;
@@ -244,6 +249,20 @@ public class ServerLobbyController {
         }
 
         return new Result(true, result);
+    }
+
+    public static Result startGame (Message command) {
+        Lobby lobby = findLobby(command.getFromBody("name"));
+        System.out.println("shash1");
+        String lobbyJason = JSONUtils.toJson(lobby);
+        System.out.println("shash2");
+        ServerApp.getUpdateBody().put("startGame", lobbyJason);
+        System.out.println("shash3");
+        ServerApp.setUpdateThread(new UpdateThread());
+        System.out.println("shash4");
+        ServerApp.startUpdateThread();
+        System.out.println("shash5");
+        return new Result(true, "game created successfully");
     }
 
     private static Lobby findLobby (String name) {

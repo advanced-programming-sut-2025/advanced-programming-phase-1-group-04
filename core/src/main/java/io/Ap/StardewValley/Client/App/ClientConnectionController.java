@@ -1,9 +1,8 @@
 package io.Ap.StardewValley.Client.App;
 
+import io.Ap.StardewValley.Client.Controller.NetworkControllers.UpdateController;
 import io.Ap.StardewValley.Common.Message;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class ClientConnectionController {
     public static Message handleCommand(Message message) {
@@ -16,8 +15,13 @@ public class ClientConnectionController {
         return null; //TODO
     }
 
-    public static Message handleUpdate () {
-        return null; //TODO
+    public static void handleUpdate (Message message) {
+        System.out.println("s1");
+        if (message.getFromBody("startGame") != null) {
+            System.out.println("s");
+            UpdateController.startGame(message);
+            return;
+        }
     }
 
 }

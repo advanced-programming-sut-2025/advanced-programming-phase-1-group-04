@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import io.Ap.StardewValley.Client.Controller.SirkBozorg.ClientLobbyController;
+import io.Ap.StardewValley.Client.Controller.NetworkControllers.ClientLobbyController;
 import io.Ap.StardewValley.Common.Model.Result;
 import io.Ap.StardewValley.Client.Screen.MenuScreen.animationActor;
 import io.Ap.StardewValley.StardewValley;
@@ -119,7 +119,7 @@ public class HostLobbyScreen implements Screen {
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                StardewValley.getGame().setScreen(new PreGameMenuScreen(true, false));
+                Result result = ClientLobbyController.startGame(lobbyName);
             }
         });
 

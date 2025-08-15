@@ -1,4 +1,4 @@
-package io.Ap.StardewValley.Client.Controller.SirkBozorg;
+package io.Ap.StardewValley.Client.Controller.NetworkControllers;
 
 import io.Ap.StardewValley.Client.App.ClientApp;
 import io.Ap.StardewValley.Common.Message;
@@ -102,6 +102,14 @@ public class ClientLobbyController {
         HashMap<String, Object> body = new HashMap<>();
         body.put("controller", "LobbyController");
         body.put("request", "hostLeaveLobby");
+        body.put("name", lobbyName);
+        return receiveAnswer(new Message(body, Message.Type.command)).getResult();
+    }
+
+    public static Result startGame (String lobbyName) {
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("controller", "LobbyController");
+        body.put("request", "startGame");
         body.put("name", lobbyName);
         return receiveAnswer(new Message(body, Message.Type.command)).getResult();
     }

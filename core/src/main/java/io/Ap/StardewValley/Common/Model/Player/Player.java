@@ -30,22 +30,22 @@ public class Player {
     private float xLibGdx;
     private float yLibGdx;
 
-    private final String hairColor, pantColor;
-    private final int pantIndex, shirtIndex, hairIndex;
+    private String hairColor, pantColor;
+    private int pantIndex, shirtIndex, hairIndex;
 
     private DirectionType direction;
     private StateType state;
 
-    private final int id;
-    private final int farm; // Farm id 1-4
+    private int id;
+    private int farm; // Farm id 1-4
 
     private Coordinate coordinate;
-    private final Coordinate houseCoordinate;
+    private Coordinate houseCoordinate;
 
-    private final ShippingBin shippingBin = new ShippingBin();
+    private ShippingBin shippingBin = new ShippingBin();
 
-    private final List<Animal> myAnimals = new ArrayList<>();
-    private final List<FarmBuilding> myFarmBuildings = new ArrayList<>();
+    private List<Animal> myAnimals = new ArrayList<>();
+    private List<FarmBuilding> myFarmBuildings = new ArrayList<>();
 
     private int maxEnergy = 200;
     private int energy = 200;
@@ -82,6 +82,9 @@ public class Player {
     private int partnerID = -1;
     private ArrayList<Trade> sentTrades = new ArrayList<>();
     private ArrayList<Trade> receivedTrades = new ArrayList<>();
+
+
+    public Player() {} //needed for jason
 
     public Player(String hairColor, String pantColor, int pantIndex, int shirtIndex, int hairIndex, int id, int farm) {
         this.hairColor = hairColor;

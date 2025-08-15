@@ -12,6 +12,9 @@ public class Gift {
     private int giftID;
     private int isAccepted;
 
+    public Gift() {
+    }//needed for json
+
     public Gift (ArrayList<Item> gift, String sender, int count, int giftID) {
         this.gift = gift;
         this.count = count;

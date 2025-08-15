@@ -4,12 +4,12 @@ import io.Ap.StardewValley.Common.Model.Command.SecurityQuestion;
 import io.Ap.StardewValley.Server.Model.Lobby;
 
 public class User {
-    private final int id;
+    private int id;
     private String username;
     private String password;
     private String nickname;
     private String email;
-    private final String gender;
+    private String gender;
 
     private SecurityQuestion question;
     private String answer;
@@ -20,6 +20,8 @@ public class User {
     private String avatarPath;
 
     private Lobby currentLobby;
+
+    public User() {} //needed for jason
 
     public User(String username, String password, String nickname, String email, String gender, String avatarPath) {
         this.id = App.getNumberOfUsers() + 1;

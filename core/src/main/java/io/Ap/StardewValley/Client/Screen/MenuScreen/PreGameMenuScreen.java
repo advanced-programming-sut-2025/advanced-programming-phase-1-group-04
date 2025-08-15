@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import io.Ap.StardewValley.Client.Controller.SirkBozorg.ClientLobbyController;
+import io.Ap.StardewValley.Client.Controller.NetworkControllers.ClientLobbyController;
 import io.Ap.StardewValley.Client.Controller.GameMenuController;
 import io.Ap.StardewValley.Common.Model.App;
 import io.Ap.StardewValley.Common.Model.Result;

@@ -38,6 +38,10 @@ public class Message {
         return new Result(success, message);
     }
 
+    public HashMap<String, Object> getBody() {
+        return body;
+    }
+
     public enum Type {
         command,
         response,

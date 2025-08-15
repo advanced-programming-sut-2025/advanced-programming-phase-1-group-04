@@ -4,6 +4,7 @@ package io.Ap.StardewValley.Common.Model.Map;
 public class FarmBuilding {
     private final FarmBuildingType type;
 
+    public FarmBuilding() {type = FarmBuildingType.Barn;} //needed for json
     public FarmBuilding (FarmBuildingType type) {
         this.type = type;
     }

@@ -21,6 +21,9 @@ public class Pickaxe implements Tool {
     private ToolLevel level;
     int price;
 
+    public Pickaxe() {
+    }//needed for json
+
     public Pickaxe (ToolLevel level) {
         this.level = level;
     }

@@ -4,8 +4,8 @@ package io.Ap.StardewValley.Common.Model.Animals;
 import io.Ap.StardewValley.Common.Model.Map.Coordinate;
 
 public class Animal {
-    private final AnimalType type;
-    private final String name;
+    private AnimalType type;
+    private String name;
 
     private int friendship = 0;
     private boolean isPetted = false;
@@ -14,6 +14,8 @@ public class Animal {
     private Coordinate coordinate = null; // null or outside coordinate
 
     private AnimalProduct product = null;
+
+    public Animal() {} //needed for json
 
     public Animal(AnimalType type, String name) {
         this.type = type;

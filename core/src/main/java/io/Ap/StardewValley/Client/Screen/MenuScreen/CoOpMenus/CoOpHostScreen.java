@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import io.Ap.StardewValley.Client.Controller.SirkBozorg.ClientLobbyController;
+import io.Ap.StardewValley.Client.Controller.NetworkControllers.ClientLobbyController;
 import io.Ap.StardewValley.Common.Model.Result;
 import io.Ap.StardewValley.Client.Screen.MenuScreen.PreGameMenuScreen;
 import io.Ap.StardewValley.Client.Screen.MenuScreen.animationActor;

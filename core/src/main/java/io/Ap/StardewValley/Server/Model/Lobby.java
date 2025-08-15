@@ -16,10 +16,11 @@ public class Lobby {
     private boolean isVisible;
     private boolean isPrivate;
     private String password;
-    private final long time;
-    private Game game;
+    private long time;
     private int[] farmSelections = new int[4];
 
+
+    public Lobby () {} //needed for jason
 
     public Lobby(User host, String name, int ID, boolean isVisible, boolean isPrivate, String password) {
         this.host = host;
@@ -89,14 +90,6 @@ public class Lobby {
         return time;
     }
 
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
     public Player getHostPlayer() {
         return hostPlayer;
     }
@@ -128,4 +121,6 @@ public class Lobby {
     public void setHost(User host) {
         this.host = host;
     }
+
+
 }

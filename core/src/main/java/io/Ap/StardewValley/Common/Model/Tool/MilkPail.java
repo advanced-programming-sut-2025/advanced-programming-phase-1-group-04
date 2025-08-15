@@ -11,6 +11,10 @@ import io.Ap.StardewValley.Common.Model.Time.Weather;
 
 public class MilkPail implements Tool{
     ToolType type = ToolType.MilkPail;
+
+    public MilkPail() {
+    } //needed for json
+
     @Override
     public Result upgrade() {
         return new Result(false, "milk pail can't get upgraded!");

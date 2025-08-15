@@ -17,6 +17,8 @@ public class Axe implements Tool{
     private ToolLevel level;
     int price;
 
+    public Axe () {} //needed for json
+
     public Axe (ToolLevel level) {
         this.level = level;
         price = 0;

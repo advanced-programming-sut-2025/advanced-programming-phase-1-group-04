@@ -27,6 +27,7 @@ import java.util.*;
 import java.util.Map;
 
 public class Player {
+    private String username;
     private float xLibGdx;
     private float yLibGdx;
 
@@ -84,46 +85,41 @@ public class Player {
     private ArrayList<Trade> receivedTrades = new ArrayList<>();
 
 
+    public Player() {} //needed for jason
+
     public Player(String hairColor, String pantColor, int pantIndex, int shirtIndex, int hairIndex, int id, int farm) {
-        System.out.println("z1");
         this.hairColor = hairColor;
         this.pantColor = pantColor;
         this.pantIndex = pantIndex;
         this.shirtIndex = shirtIndex;
         this.hairIndex = hairIndex;
-        System.out.println("z2");
+
         this.direction = DirectionType.Down;
         this.state = StateType.Idle;
 
-        System.out.println("z3");
         this.id = id;
         this.farm = farm;
-        System.out.println("z4");
-
-        this.houseCoordinate = new Coordinate(15, 65);
-        System.out.println("z5");
         // Phase 1:
-//        switch (farm) {
-//            case 1:
-//                this.houseCoordinate = new Coordinate(15, 65);
-//                break;
-//            case 2:
-//                this.houseCoordinate = new Coordinate(15, 65 + 210);
-//                break;
-//            case 3:
-//                this.houseCoordinate = new Coordinate(15 + 175, 65 + 210);
-//                break;
-//            case 4:
-//                this.houseCoordinate = new Coordinate(15 + 175, 65);
-//                break;
-//            default:
-//                throw new IllegalArgumentException("Invalid player farm");
-//        }
+        switch (farm) {
+            case 1:
+                this.houseCoordinate = new Coordinate(15, 65);
+                break;
+            case 2:
+                this.houseCoordinate = new Coordinate(15, 65 + 210);
+                break;
+            case 3:
+                this.houseCoordinate = new Coordinate(15 + 175, 65 + 210);
+                break;
+            case 4:
+                this.houseCoordinate = new Coordinate(15 + 175, 65);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid player farm");
+        }
 
-        System.out.println("z6");
         this.coordinate = new Coordinate(houseCoordinate.getX(), houseCoordinate.getY());
         setLibGdxPositionFromCoordinate();
-        System.out.println("z7");
+
 
         inventory.addItem(new Hoe(ToolLevel.Starter), 1);
         inventory.addItem(new Pickaxe(ToolLevel.Starter), 1);
@@ -131,7 +127,27 @@ public class Player {
         inventory.addItem(new WateringCan(ToolLevel.Starter), 1);
         inventory.addItem(new Scythe(), 1);
         inventory.addItem(new MilkPail(), 1);
-        System.out.println("z8");
+
+        setUsername();
+    }
+
+    public void setUsername() {
+        File usersFolder = new File("data/users");
+        File[] userFiles = usersFolder.listFiles((dir, name) -> name.endsWith(".json"));
+
+        if (userFiles != null) {
+            Gson gson = new Gson();
+            for (File userFile : userFiles) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(userFile))) {
+                    User user = gson.fromJson(reader, User.class);
+                    if (user != null && user.getId() == this.id)
+                        this.username = user.getUsername();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new RuntimeException("ridi");
+                }
+            }
+        }
     }
 
     public void setLibGdxPositionFromCoordinate() {
@@ -240,23 +256,7 @@ public class Player {
     }
 
     public String getUsername() {
-        // TODO: وقت شد درستش کن نره همه رو بگرده هر دفعه:/
-        File usersFolder = new File("data/users");
-        File[] userFiles = usersFolder.listFiles((dir, name) -> name.endsWith(".json"));
-
-        if (userFiles != null) {
-            Gson gson = new Gson();
-            for (File userFile : userFiles) {
-                try (BufferedReader reader = new BufferedReader(new FileReader(userFile))) {
-                    User user = gson.fromJson(reader, User.class);
-                    if (user.getId() == this.id)
-                        return user.getUsername();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return null;
+        return username;
     }
 
     public List<Animal> getMyAnimals() {

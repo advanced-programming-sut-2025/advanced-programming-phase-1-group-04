@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.Ap.StardewValley.Client.Controller.GameMenuController;
 import io.Ap.StardewValley.Client.Controller.GameScreenController;
+import io.Ap.StardewValley.Client.Screen.MultiplayerScreen.ScoreboardWindow;
 import io.Ap.StardewValley.Common.Model.App;
 import io.Ap.StardewValley.Common.Model.Map.Coordinate;
 import io.Ap.StardewValley.Common.Model.Player.Player;
@@ -58,6 +59,9 @@ public class GameScreen implements Screen, InputProcessor {
     //private MyAnimalWindow animalListWindow;
     private AnimalRender cat = new AnimalRender();
     private MiniGameWindow miniGameWindow;
+
+    // Multiplayer:
+    private ScoreboardWindow scoreboardWindow;
 
     // Time:
     private Image nightOverlay;
@@ -209,6 +213,10 @@ public class GameScreen implements Screen, InputProcessor {
         stage.addActor(miniGameWindow);
         miniGameWindow.setVisible(false);
 
+        scoreboardWindow = new ScoreboardWindow(StardewValley.getSkin());
+        stage.addActor(scoreboardWindow);
+        scoreboardWindow.setVisible(false);
+
         // weather layers:
         setWeatherLayerToStage(App.getGame().getCurrentTime().getWeather());
         stage.addActor(nightOverlay);
@@ -236,8 +244,6 @@ public class GameScreen implements Screen, InputProcessor {
             currentMap.renderDynamicBelowLayer(camera);
             batch.begin();
             dynamicMapLayerRender.renderGround();
-            //dynamicMapLayerRender.renderItem();
-            //dynamicMapLayerRender.renderBuildings();
             if (cr.getX() == 0 && cr.getY() == 0) {
                 cat.update(delta);
                 cat.render(batch);
@@ -651,5 +657,9 @@ public class GameScreen implements Screen, InputProcessor {
 
     public MiniGameWindow getMiniGameWindow() {
         return miniGameWindow;
+    }
+
+    public ScoreboardWindow getScoreboardWindow() {
+        return scoreboardWindow;
     }
 }

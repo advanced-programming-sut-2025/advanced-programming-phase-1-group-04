@@ -498,6 +498,14 @@ public class Player {
         // if isn't available returns -1
     }
 
+    public int getTotalSkills() {
+        int totalSkills = 0;
+        for (Skill skill: Skill.values())
+            totalSkills += getAbilityLevel(skill);
+
+        return totalSkills / Skill.values().length;
+    }
+
     public Inventory getRefrigerator() {
         return refrigerator;
     }

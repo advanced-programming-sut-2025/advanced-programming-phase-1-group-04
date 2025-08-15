@@ -40,6 +40,9 @@ public class GameScreenController {
 //    private static boolean animalListNeedsUpdate = false;
     private static boolean isMiniGameVisible = false;
 
+    // multiplayer:
+    private static boolean isScoreboardVisible = false;
+
     //inventory:
     private static boolean isInventoryStageVisible = false;
     private static boolean inventoryStageNeedsUpdate = false;
@@ -67,7 +70,10 @@ public class GameScreenController {
     private float foodActionDuration = 1.44f;
     boolean callFoodUse = false;
 
-
+    private boolean isAnotherVisible() {
+        return isMiniGameVisible || isScoreboardVisible ||
+                isInventoryStageVisible || isCookingStageVisible || isShippingBinVisible;
+    }
     public void setViews(GameScreen view) {
         this.view = view;
     }
@@ -138,8 +144,10 @@ public class GameScreenController {
 
         // miniGame:
         view.getMiniGameWindow().setVisible(isMiniGameVisible);
-        //if (isMiniGameVisible)
-            //view.getMiniGameWindow().update();
+
+        // multiplayer:
+        view.getScoreboardWindow().setVisible(isScoreboardVisible);
+
 
         //shops:
         updateShops();
@@ -235,6 +243,16 @@ public class GameScreenController {
             visibleShop = null;
         }
 
+        // multiplayer:
+        if (Gdx.input.isKeyJustPressed(App.getKeyManager().getScoreboard())) {
+            isScoreboardVisible = !isScoreboardVisible;
+            isMiniGameVisible = false;
+            isInventoryStageVisible = false;
+            isCookingStageVisible = false;
+            isShippingBinVisible = false;
+            visibleShop = null;
+        }
+
         //inventory:
         if (Gdx.input.isKeyJustPressed(App.getKeyManager().getOpenInventory())){
             isInventoryStageVisible = !isInventoryStageVisible;
@@ -275,7 +293,8 @@ public class GameScreenController {
         // handle energy:
         Player player = App.getGame().getCurrentPlayer();
         if (player.getEnergy() > 0) {
-            handlePlayerInputKey();
+            if (!isAnotherVisible())
+                handlePlayerInputKey();
         } else {
             player.setState(StateType.Faint);
             player.setDirection(DirectionType.Down);

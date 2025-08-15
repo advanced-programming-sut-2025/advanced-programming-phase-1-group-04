@@ -31,12 +31,18 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameMenuController {
     public static final int[] farmSelections = new int[4];
     private static final boolean[] deleteGame = new boolean[4];
+
+    private static final String URLSqlite = "jdbc:sqlite:data/games.db";
 
     public static Result newGame(String username1, String username2, String username3) {
         if (hasSavedGame(App.getCurrentUser().getId())) {
@@ -130,6 +136,50 @@ public class GameMenuController {
         return new Result(true, "Game successfully loaded.");
     }
 
+    public static Result loadGameFromDB(String name) {
+        // TODO:
+        String sql = "SELECT json FROM games WHERE name = ?";
+
+        try (Connection conn = DriverManager.getConnection(URLSqlite);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, name);
+            var rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                String json = rs.getString("json");
+
+                Gson gson = new GsonBuilder()
+                        .registerTypeAdapter(Item.class, new ItemAdapter())
+                        .registerTypeAdapter(Shop.class, new ShopAdapter())
+                        .create();
+
+                Game game = gson.fromJson(json, Game.class);
+                if (game == null) {
+                    return new Result(false, "Failed to parse saved game.");
+                }
+
+                App.setGame(game);
+
+                Player player = getPlayer(App.getCurrentUser().getId());
+                if (player == null) {
+                    return new Result(false, "Sorry, something went wrong(database)");
+                }
+                App.getGame().setMainPlayer(player);
+                App.getGame().getMap().setFulMap();
+
+                return new Result(true, "Game successfully loaded from database.");
+            } else {
+                return new Result(false, "No saved game found with this name(database)");
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return new Result(false, "Database error occurred.");
+        }
+    }
+
+
     public static Result exitGame() {
         if (App.getGame() == null) {
             return new Result(false, "You should be in a game!");
@@ -143,6 +193,7 @@ public class GameMenuController {
         if (!name.isEmpty()) name.deleteCharAt(name.length() - 1);
 
         saveGame(name.toString());
+        saveGameToDB(name.toString());
 
         App.setGame(null);
         App.setCurrentMenu(Menu.MainMenu);
@@ -172,6 +223,143 @@ public class GameMenuController {
         }
     }
 
+    private static void saveGame(String name) {
+        File fileName = new File("data/games/" + name + ".json");
+
+        try (FileWriter writer = new FileWriter(fileName)) {
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Item.class, new ItemAdapter())
+                    .registerTypeAdapter(Shop.class, new ShopAdapter())
+                    //.setPrettyPrinting()
+                    .create();
+            gson.toJson(App.getGame(), writer);
+        } catch (IOException e) {
+            System.err.println("Error saving game: " + e.getMessage());
+        }
+    }
+
+    public static void saveGameToDB(String name) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Item.class, new ItemAdapter())
+                .registerTypeAdapter(Shop.class, new ShopAdapter())
+                .create();
+
+        String json = gson.toJson(App.getGame());
+
+        String sql = "INSERT OR REPLACE INTO games(name, json) VALUES(?, ?)";
+
+        try (Connection conn = DriverManager.getConnection(URLSqlite);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, name);
+            pstmt.setString(2, json);
+            pstmt.executeUpdate();
+
+            System.out.println("Game saved to database successfully.");
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private static Game getGameById(int id) {
+        File folder = new File("data/games");
+        if (!folder.exists() || !folder.isDirectory()) {
+            System.out.println("Games folder not found!");
+            return null;
+        }
+
+        File[] files = folder.listFiles((dir, name) -> name.endsWith(".json"));
+        if (files == null) return null;
+
+        for (File file : files) {
+            String fileName = file.getName();
+            String baseName = fileName.substring(0, fileName.length() - 5); // delete json
+            String[] ids = baseName.split("_");
+
+            for (String sId : ids) {
+                try {
+                    int fileId = Integer.parseInt(sId);
+                    if (fileId == id) {
+                        Gson gson = new GsonBuilder()
+                                .registerTypeAdapter(Item.class, new ItemAdapter())
+                                .registerTypeAdapter(Shop.class, new ShopAdapter())
+                                .create();
+                        try (FileReader reader = new FileReader(file)) {
+                            return gson.fromJson(reader, Game.class);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("اکهی");
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private static boolean hasSavedGame(int id) {
+        File folder = new File("data/games");
+        if (!folder.exists() || !folder.isDirectory()) {
+            System.out.println("Games folder not found!");
+            return false;
+        }
+
+        File[] files = folder.listFiles((dir, name) -> name.endsWith(".json"));
+        if (files == null) return false;
+
+        for (File file : files) {
+            String fileName = file.getName();
+            String baseName = fileName.substring(0, fileName.length() - 5); // delete json
+            String[] ids = baseName.split("_");
+
+            for (String sId : ids) {
+                try {
+                    int fileId = Integer.parseInt(sId);
+                    if (fileId == id) {
+                        return true;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("اکهی");
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static void deleteGame(int playerId) {
+        File gamesFolder = new File("data/games");
+        if (!gamesFolder.exists() || !gamesFolder.isDirectory()) {
+            return;
+        }
+
+        File[] files = gamesFolder.listFiles();
+        if (files == null) return;
+
+        for (File file : files) {
+            String filename = file.getName(); //format: id1_id2_id3.json
+            String nameWithoutExtension = filename.contains(".") ? filename.substring(0, filename.lastIndexOf('.')) : filename;
+            String[] ids = nameWithoutExtension.split("_");
+
+            for (String idStr : ids) {
+                try {
+                    int id = Integer.parseInt(idStr);
+                    if (id == playerId) {
+                        file.delete();
+                        return;
+                    }
+                } catch (NumberFormatException ignored) {
+                    System.out.println("اکهی پسر");
+                }
+            }
+        }
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     public static Result nextTurn() {
         // BUG: وقتی نفر اخر انرژیش صفر شه  هیچ موقع نمیره ساعت بعدی.....
         // BUG: نکست ترن زد و شب شد باید بره نفر بعدی که نمیره
@@ -293,118 +481,6 @@ public class GameMenuController {
                 return null;
         }
         return coordinate;
-    }
-
-    private static void saveGame(String name) {
-        File fileName = new File("data/games/" + name + ".json");
-
-        try (FileWriter writer = new FileWriter(fileName)) {
-            Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Item.class, new ItemAdapter())
-                .registerTypeAdapter(Shop.class, new ShopAdapter())
-                //.setPrettyPrinting()
-                .create();
-            gson.toJson(App.getGame(), writer);
-        } catch (IOException e) {
-            System.err.println("Error saving game: " + e.getMessage());
-        }
-    }
-
-    private static Game getGameById(int id) {
-        File folder = new File("data/games");
-        if (!folder.exists() || !folder.isDirectory()) {
-            System.out.println("Games folder not found!");
-            return null;
-        }
-
-        File[] files = folder.listFiles((dir, name) -> name.endsWith(".json"));
-        if (files == null) return null;
-
-        for (File file : files) {
-            String fileName = file.getName();
-            String baseName = fileName.substring(0, fileName.length() - 5); // delete json
-            String[] ids = baseName.split("_");
-
-            for (String sId : ids) {
-                try {
-                    int fileId = Integer.parseInt(sId);
-                    if (fileId == id) {
-                        Gson gson = new GsonBuilder()
-                            .registerTypeAdapter(Item.class, new ItemAdapter())
-                            .registerTypeAdapter(Shop.class, new ShopAdapter())
-                            .create();
-                        try (FileReader reader = new FileReader(file)) {
-                            return gson.fromJson(reader, Game.class);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            return null;
-                        }
-                    }
-                } catch (NumberFormatException e) {
-                   System.out.println("اکهی");
-                }
-            }
-        }
-
-        return null;
-    }
-
-    private static boolean hasSavedGame(int id) {
-        File folder = new File("data/games");
-        if (!folder.exists() || !folder.isDirectory()) {
-            System.out.println("Games folder not found!");
-            return false;
-        }
-
-        File[] files = folder.listFiles((dir, name) -> name.endsWith(".json"));
-        if (files == null) return false;
-
-        for (File file : files) {
-            String fileName = file.getName();
-            String baseName = fileName.substring(0, fileName.length() - 5); // delete json
-            String[] ids = baseName.split("_");
-
-            for (String sId : ids) {
-                try {
-                    int fileId = Integer.parseInt(sId);
-                    if (fileId == id) {
-                        return true;
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("اکهی");
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private static void deleteGame(int playerId) {
-        File gamesFolder = new File("data/games");
-        if (!gamesFolder.exists() || !gamesFolder.isDirectory()) {
-            return;
-        }
-
-        File[] files = gamesFolder.listFiles();
-        if (files == null) return;
-
-        for (File file : files) {
-            String filename = file.getName(); //format: id1_id2_id3.json
-            String nameWithoutExtension = filename.contains(".") ? filename.substring(0, filename.lastIndexOf('.')) : filename;
-            String[] ids = nameWithoutExtension.split("_");
-
-            for (String idStr : ids) {
-                try {
-                    int id = Integer.parseInt(idStr);
-                    if (id == playerId) {
-                        file.delete();
-                        return;
-                    }
-                } catch (NumberFormatException ignored) {
-                    System.out.println("اکهی پسر");
-                }
-            }
-        }
     }
 
     public static Player getPlayer(int id) {

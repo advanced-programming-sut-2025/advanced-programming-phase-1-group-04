@@ -20,6 +20,8 @@ public class KeyManager {
     // miniGame:
     private int miniGame = Input.Keys.G;
 
+    // multiplayer:
+    private int scoreboard = Input.Keys.M;
     //inventory:
     private int openInventory = Input.Keys.I;
 
@@ -144,6 +146,14 @@ public class KeyManager {
 
     public void setMiniGame(int miniGame) {
         this.miniGame = miniGame;
+    }
+
+    public int getScoreboard() {
+        return scoreboard;
+    }
+
+    public void setScoreboard(int scoreboard) {
+        this.scoreboard = scoreboard;
     }
 }
 

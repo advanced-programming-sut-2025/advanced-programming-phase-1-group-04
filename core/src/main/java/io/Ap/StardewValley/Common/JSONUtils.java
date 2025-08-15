@@ -2,6 +2,7 @@ package io.Ap.StardewValley.Common;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.Ap.StardewValley.Server.Model.Lobby;
 
 public class JSONUtils {
     private static final GsonBuilder gsonBuilder = new GsonBuilder();
@@ -18,5 +19,13 @@ public class JSONUtils {
 
     public synchronized static Message fromJson(String json) {
         return gson.fromJson(json, Message.class);
+    }
+
+    public synchronized static String toJson(Lobby lobby) {
+        return gson.toJson(lobby);
+    }
+
+    public synchronized static Lobby lobbyFromJson(String json) {
+        return gson.fromJson(json, Lobby.class);
     }
 }

@@ -3,6 +3,8 @@ package io.Ap.StardewValley.Server.App;
 import io.Ap.StardewValley.Common.Message;
 import io.Ap.StardewValley.Server.Controller.ServerLobbyController;
 
+import java.util.HashMap;
+
 public class ServerConnectionController {
     public static Message handleCommand(Message message) {
         String controllerName;
@@ -18,7 +20,11 @@ public class ServerConnectionController {
         return null; //TODO
     }
 
-    public static Message handleUpdate () {
-        return null; //TODO
+    public static void handleUpdate (Message command) {
+        synchronized (ServerApp.getUpdateBody()) {
+            HashMap<String, Object> news = command.getBody();
+            for (String key : news.keySet())
+                ServerApp.getUpdateBody().put(key, news.get(key));
+        }
     }
 }

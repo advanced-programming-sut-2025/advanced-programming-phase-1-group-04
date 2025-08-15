@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ShippingBin {
+
+    public ShippingBin() {}//needed for json
     private final HashMap<Item, Integer> items = new HashMap<>();
 
     public void add(Item item, int count) {

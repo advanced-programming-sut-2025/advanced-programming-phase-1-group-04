@@ -15,6 +15,9 @@ public class Friend {
     private boolean giftedToday;
     private boolean huggedToday;
 
+    public Friend() {
+    }//needed for json
+
     public Friend(int friendId) {
         this.friendId = friendId;
         this.xp = 0;

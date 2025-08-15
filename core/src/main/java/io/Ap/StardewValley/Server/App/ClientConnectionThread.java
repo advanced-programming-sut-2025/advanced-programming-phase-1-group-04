@@ -20,15 +20,16 @@ public class ClientConnectionThread extends ConnectionThread {
         }
         if (message.getType() == Message.Type.update) {
             //TODO
-            return true;
+            ServerConnectionController.handleUpdate(message);
+//            return true;
         }
         return false;
     }
 
     @Override
     public void run() {
+        ServerApp.addClientConnection(this);
         super.run();
-
         ServerApp.removeClientConnection(this);
     }
 }

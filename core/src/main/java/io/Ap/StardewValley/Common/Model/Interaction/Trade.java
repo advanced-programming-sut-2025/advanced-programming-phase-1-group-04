@@ -13,6 +13,9 @@ public class Trade {
     private int id;
     private int isAccepted;
 
+    public Trade() {
+    }//needed for json
+
     public Trade(String type, int senderID, Item item, int amount, int price, Item targetItem, int targetItemAmount, int id) {
         this.type = type;
         this.senderID = senderID;

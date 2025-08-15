@@ -15,6 +15,9 @@ import io.Ap.StardewValley.Common.Model.Time.Weather;
 public class Scythe implements Tool {
     ToolType type = ToolType.Scythe;
 
+    public Scythe() {
+    }//needed for json
+
     @Override
     public Result upgrade() {
         return new Result(false, "scythe can't get upgraded");

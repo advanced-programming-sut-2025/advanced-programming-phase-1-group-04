@@ -8,8 +8,10 @@ public class Inventory {
 
     private HashMap<String, ItemStack> items = new HashMap<>();
 
-    private int capacity;
-    private int trashCanLevel;
+    private int capacity = 30;
+    private int trashCanLevel = 1;
+
+    public Inventory() {} //needed for json
 
     public Inventory(int capacity, int trashCanLevel) {
         this.capacity = capacity;

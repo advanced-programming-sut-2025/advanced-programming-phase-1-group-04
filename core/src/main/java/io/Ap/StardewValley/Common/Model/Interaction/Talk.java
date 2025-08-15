@@ -5,6 +5,9 @@ public class Talk {
     private int receiverId;
     private String message;
 
+    public Talk() {
+    } //needed for json
+
     public Talk(int senderId, int receiverId, String message) {
         this.senderId = senderId;
         this.receiverId = receiverId;

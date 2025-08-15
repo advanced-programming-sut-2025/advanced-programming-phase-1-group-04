@@ -16,12 +16,10 @@ public class ServerConnectionThread extends ConnectionThread {
     protected boolean handleMessage(Message message) {
         if (message.getType() == Message.Type.command) {
             sendMessage(ClientConnectionController.handleCommand(message));
-            //TODO
             return true;
         }
         if (message.getType() == Message.Type.update) {
-//            sendMessage(ClientConnectionController.handleUpdate());
-            //TODO
+            ClientConnectionController.handleUpdate(message);
             return true;
         }
         return false;

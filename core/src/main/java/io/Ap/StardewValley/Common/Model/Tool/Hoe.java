@@ -14,6 +14,8 @@ public class Hoe implements Tool{
     private ToolLevel level;
     int price;
 
+    public Hoe () {} //needed for json
+
     public Hoe (ToolLevel level) {
         this.level = level;
     }

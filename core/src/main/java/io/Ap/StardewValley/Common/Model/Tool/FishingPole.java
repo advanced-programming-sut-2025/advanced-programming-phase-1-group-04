@@ -13,6 +13,8 @@ public class FishingPole implements Tool{
     ToolType type = ToolType.FishingPole;
     private FishingPoleType level;
 
+    public FishingPole() {} //needed for json
+
     public FishingPole (FishingPoleType type) {
         this.level = type;
     }

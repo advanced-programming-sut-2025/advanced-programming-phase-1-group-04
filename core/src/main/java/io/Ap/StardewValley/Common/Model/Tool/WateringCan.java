@@ -16,6 +16,9 @@ public class WateringCan implements Tool{
     private int waterAmount;
     int price;
 
+    public WateringCan() {
+    }//needed for json
+
     public WateringCan (ToolLevel level) {
         this.level = level;
         if(level == ToolLevel.Starter) {

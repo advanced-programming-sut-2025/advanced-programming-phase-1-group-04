@@ -12,6 +12,9 @@ import io.Ap.StardewValley.Common.Model.Time.Weather;
 public class Shear implements Tool {
     ToolType type = ToolType.Shear;
 
+    public Shear() {
+    }//needed for json
+
     @Override
     public Result upgrade() {
         return new Result(false, "shear can't get upgraded!");

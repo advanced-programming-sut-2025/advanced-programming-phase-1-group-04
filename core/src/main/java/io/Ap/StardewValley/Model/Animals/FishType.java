@@ -1,6 +1,9 @@
 package io.Ap.StardewValley.Model.Animals;
 
+import com.badlogic.gdx.math.MathUtils;
 import io.Ap.StardewValley.Model.Time.Season;
+
+import java.util.Random;
 
 public enum FishType {
     Salmon("Salmon", 75 , Season.Fall, false),

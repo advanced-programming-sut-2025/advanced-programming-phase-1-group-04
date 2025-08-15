@@ -58,7 +58,7 @@ public class NightController {
         randomForagingPlants();
         randomForagingMinerals();
         //randomStoneWood();
-        crowControl();
+        //crowControl();
     }
 
     // Randoms:

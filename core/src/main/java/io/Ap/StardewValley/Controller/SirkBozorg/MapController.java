@@ -155,7 +155,7 @@ public class MapController {
         player.getInventory().removeItem("stone", 500);
         player.addCount(-1000);
         // TODO: Phase 1
-        int x = 4,y =5;
+        int x = 7,y =27;
         switch (player.getFarm()) {
             case 2:
                 y = 5 + 80;

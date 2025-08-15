@@ -332,6 +332,10 @@
 	"inventory": {
 		"background": "inventorywindow",
 		"titleFont": "Bold"
+	},
+	"MiniGame": {
+		"background": "miniGame3",
+		"titleFont": "Bold"
 	}
 }
 }

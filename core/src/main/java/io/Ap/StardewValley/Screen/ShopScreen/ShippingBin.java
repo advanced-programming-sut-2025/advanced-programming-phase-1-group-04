@@ -15,7 +15,7 @@ import io.Ap.StardewValley.Screen.CookingScreen.CookingTab;
 import io.Ap.StardewValley.Screen.CookingScreen.RefrigeratorTab;
 import io.Ap.StardewValley.StardewValley;
 
-public class ShippingBin extends Stage{
+public class ShippingBin extends Stage {
     private final Skin skin = StardewValley.getSkin();
     private final Window shippingBinWindow = new ShippingBinWindow(skin, this);
 

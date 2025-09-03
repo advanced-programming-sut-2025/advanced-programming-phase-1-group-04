@@ -23,10 +23,6 @@ public class DateAndTime {
 
         while (accumulatedTime >= 1f) {
             minute += 1;
-            if (( App.getGame().getCurrentTime().getMinute() % 5) < App.getGame().getCurrentPlayer().getFarm()) {
-                System.out.println(App.getGame().getCurrentTime().getMinute());
-                UpdateController.updatePlayer();
-            }
             accumulatedTime -= 1f;
 
             if (minute >= 60) {

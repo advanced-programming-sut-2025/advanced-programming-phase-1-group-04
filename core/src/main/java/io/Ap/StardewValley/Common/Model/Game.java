@@ -175,7 +175,7 @@ public class Game {
 
     // TODO: CONSTANTS:
     public int getPlayerSpeed() {
-        return 8;
+        return 2;
     }
 
     public float getPlayerScale() {
